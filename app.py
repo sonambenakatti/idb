@@ -44,7 +44,7 @@ APP = flask.Flask(__name__)
 def index():
     """ Displays the index page accessible at '/'
     """
-    return flask.render_template('index.html')
+    return flask.render_template('home.html')
 
 
 if __name__ == '__main__':
