@@ -33,7 +33,7 @@ class CoffeeShop:
         return self.__id
 
     @id.setter
-    def name(self, i) :
+    def id(self, i) :
         self.__id = i
 
     @property
@@ -42,7 +42,10 @@ class CoffeeShop:
 
     @location.setter
     def location(self, l) :
-        self.__location = l
+        address = ""
+        for string in l :
+            address += string
+        self.__location = address
 
     @property
     def price(self) :

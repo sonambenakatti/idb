@@ -111,14 +111,16 @@ def coffee_shop_results(response):
 
     for obj in response["businesses"] :
         print (obj, "next \n\n")
+        address = obj["location"]["display_address"]
         coffeeshop =  CoffeeShop(obj["name"],
         obj["id"],
-        obj["location"],
+        address,
         obj["price"],
         obj["rating"],
         obj["image_url"])
+        coffeeshop.location = address
         list_shops.append(coffeeshop)
-    print("********************COFFEE RES***** %s %s %s"%(list_shops[0], list_shops[1], list_shops[2]) )
+    #print("********************COFFEE RES***** %s %s %s"%(list_shops[0], list_shops[1], list_shops[2]) )
     return list_shops
 
 
@@ -129,7 +131,6 @@ def query_api(term, location):
         location (str): The location of the business to query.
     """
     response = search(API_KEY, term, location)
-
     businesses = response.get('businesses')
     pprint.pprint(response, indent=2)
     if not businesses:
@@ -151,6 +152,7 @@ def start():
 
     try:
         coffee_shops = query_api(input_values.term, input_values.location)
+        print(coffee_shops[0].name)
         return coffee_shops
     except HTTPError as error:
         sys.exit(
