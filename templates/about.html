@@ -1,56 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Business Casual - Start Bootstrap Theme</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/static/css/business-casual.min.css" rel="stylesheet">
-
-  </head>
-  {% extends "index.html" %}
-
-  {% block content%}
-  <body>
-
-    <section class="page-section about-heading">
-      <div class="container">
-        <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="/static/img/about.jpg" alt="">
-        <div class="about-heading-content">
-          <div class="row">
-            <div class="col-xl-9 col-lg-10 mx-auto">
-              <div class="bg-faded rounded p-5">
-                <h2 class="section-heading mb-4">
-                  <span class="section-heading-upper">Strong Coffee, Strong Roots</span>
-                  <span class="section-heading-lower">About Our Cafe</span>
-                </h2>
-                <p>Founded in 1987 by the Hernandez brothers, our establishment has been serving up rich coffee sourced from artisan farmers in various regions of South and Central America. We are dedicated to travelling the world, finding the best coffee, and bringing back to you here in our cafe.</p>
-                <p class="mb-0">We guarantee that you will fall in <em>lust</em> with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.</p>
-              </div>
+    
+    <head>
+        
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <meta name="description" content="">
+                    <meta name="author" content="">
+                        
+                        <title>Coffee With A View</title>
+                        
+                        <!-- Bootstrap core CSS -->
+                        <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+                            
+                            <!-- Custom fonts for this template -->
+                            <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+                                <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+                                    
+                                    <!-- Custom styles for this template -->
+                                    <link href="/static/css/business-casual.css" rel="stylesheet">
+                                        
+                                        </head>
+    {% extends "index.html" %}
+    
+    {% block content%}
+    <body>
+        
+        <section class="page-section cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <div class="cta-inner text-center rounded">
+                            <h2 class="section-heading mb-4">
+                                <!--                 <span class="section-heading-upper">Our Promise</span>
+                                 -->                <span class="section-heading-lower">ESPRESSO YOSELF</span>
+                            </h2>
+                            <p class="mb-0">On vacation, or just need to get away from the bustle of daily life? Our goal is to allow you to grab a warm coffee, find a beautiful view, and have some stunning visuals. With the help of Google Maps, Yelp, and social media we've used the power of location so that you can find a sip and a relaxing spot wherever you are. We know stepping away to take time for yourself can be hard, but with this site we hope you find your happy place.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  {% endblock %}
-
-
-
-
-  </body>
-
-
+        </section>
+        
+        
+        <!-- About Amrutha -->
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="intro">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/intro.jpg" alt="Amrutha">
+                        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">Whatever Amrutha's specialty is</span>
+                                <span class="section-heading-lower">Amrutha</span>
+                            </h2>
+                            <p class="mb-3">Amrutha likes reading and long walks on the beach.</p>
+                            <p class="mb-3">
+                            <b>Commits:</b> {{amrutha_commits}} <br>
+                            <b>Issues:</b> {{amrutha_issues}} <br>
+                            <b>Unit Tests:</b> 0
+                            </p>
+                        </div>
+                        </div>
+            </div>
+        </section>
+        
+        <!-- About Jaemin -->
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="intro">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/intro.jpg" alt="Jaemin">
+                        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">Whatever Jaemin's specialty is</span>
+                                <span class="section-heading-lower">Jaemin</span>
+                            </h2>
+                            <p class="mb-3">Jaemin is interested in VR, web apps, and mobile apps. In his free time he likes to play guitar and piano, and draw (you can follow him at @godrawjae). His favorite coffee is an americano with sweetener.</p>
+                            <p class="mb-3">
+                            <b>Commits:</b> {{jaemin_commits}} <br>
+                            <b>Issues:</b> {{jaemin_issues}} <br>
+                            <b>Unit Tests:</b> 0
+                            </p>
+                        </div>
+                        </div>
+            </div>
+        </section>
+        
+        <!-- About Jenni -->
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="intro">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/intro.jpg" alt="Jenni">
+                        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">Whatever Jenni's specialty is</span>
+                                <span class="section-heading-lower">Jenni</span>
+                            </h2>
+                            <p class="mb-3">Amrutha likes reading and long walks on the beach.</p>
+                            <p class="mb-3">
+                            <b>Commits:</b> {{jenni_commits}} <br>
+                            <b>Issues:</b> {{jenni_issues}} <br>
+                            <b>Unit Tests:</b> 0
+                            </p>
+                        </div>
+                        </div>
+            </div>
+        </section>
+        
+        <!-- About Ruchi -->
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="intro">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/intro.jpg" alt="Ruchi">
+                        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">Whatever Ruchi's specialty is</span>
+                                <span class="section-heading-lower">Ruchi</span>
+                            </h2>
+                            <p class="mb-3">Ruchi is a fellow coffee enthusiast and guilty Starbucks fanatic. Her go to coffee drink is plain coffee with a little vanilla and a splash of coconut milk. In her spare time she likes to try new foods, do yoga, and binge watch TV shows. She's excited to get out in the real world and start off her career as a software engineer!
+                            </p>
+                            <p class="mb-3">
+                            <b>Commits:</b> {{ruchi_commits}} <br>
+                            <b>Issues:</b> {{ruchi_issues}} <br>
+                            <b>Unit Tests:</b> 0
+                            </p>
+                        </div>
+                        </div>
+            </div>
+        </section>
+        
+        <!-- About Sonam -->
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="intro">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/intro.jpg" alt="Sonam">
+                        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">Whatever Sonam's specialty is</span>
+                                <span class="section-heading-lower">Sonam</span>
+                            </h2>
+                            <p class="mb-3">Sonam likes all types of coffee, although her go-to is an iced coffee with one pump of vanilla syrup. In her free time, she loves to eat and attempt to convince herself that running is fun. She's interested in web applications and hopes one day she can make an impact as a software engineer!</p>
+                            <p class="mb-3">
+                            <b>Commits:</b> {{sonam_commits}} <br>
+                            <b>Issues:</b> {{sonam_issues}} <br>
+                            <b>Unit Tests:</b> 0
+                            </p>
+                        </div>
+                        </div>
+            </div>
+        </section>
+        
+        <section class="page-section cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <div class="cta-inner text-center rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-lower">ABOUT</span>
+                            </h2>
+                            <h3 class="mb-4">STATISTICS</h3>
+                            
+                            <p class="mb-4">
+                            Commits: {{total_commits}} <br>
+                            Issues: {{issues}} <br>
+                            Unit Tests: 0
+                            </p>
+                            
+                            <h3 class="mb-4">DATA SOURCES</h3>
+                            
+                            <p class="mb-4">
+                            <a href="https://www.yelp.com/developers/documentation/v3">Yelp</a><br>
+                            Description of how this was scraped<br>
+                            <a href="https://developers.google.com/maps/">Google Maps</a><br>
+                            Description of how this was scraped<br>
+                            <a href="">Whatever social media we use goes here</a><br>
+                            Description of how this was scraped
+                            </p>
+                            
+                            <h3 class="mb-4">TOOLS</h3>
+                            
+                            <p class="mb-4">
+                            Github<br>
+                            Bootstrap<br>
+                            Flask<br>
+                            Python<br>
+                            Amazon Web Services<br>
+                            Postman<br>
+                            Namecheap<br>
+                            GitBook<br>
+                            PyGithub<br>
+                            </p>
+                            
+                            <h3 class="mb-4"><a href="https://github.com/sonambenakatti/idb">GITHUB</a></h3>
+                            
+                            <h3 class="mb-4"><a href="">GITBOOK</a></h3>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        
+        
+        {% endblock %}
+        
+        
+        
+        
+    </body>
+    
+    
 </html>
+

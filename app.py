@@ -12,6 +12,7 @@ import sys
 import urllib
 
 import yelp
+#import github
 
 # Create the application.
 APP = flask.Flask(__name__)
@@ -46,6 +47,10 @@ def sceniclocations():
 def coffeeshops():
     yelp.start()
     return flask.render_template('coffeeshops.html')
+
+@APP.route('/templates/about.html')
+def about():
+    return flask.render_template('about.html')
 
 if __name__ == '__main__':
     #APP.debug=True
