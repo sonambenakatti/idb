@@ -12,7 +12,7 @@ import pprint
 import requests
 import sys
 import urllib
-import coffeeshop
+from coffeeshop import CoffeeShop
 
 # This client code can run on Python 2.x or 3.x.  Your imports can be
 # simpler if you only need one of those.
@@ -111,14 +111,14 @@ def coffee_shop_results(response):
 
     for obj in response["businesses"] :
         print (obj, "next \n\n")
-        #coffeeshop =  CoffeeShop()
-        #coffeeshop.name(obj["name"])
-        #coffeeshop.id(obj["id"])
-        #coffeeshop.location(obj["location"])
-        #coffeeshop.price(obj["price"])
-        #coffeeshop.review(obj["review"])
-        #coffeeshop.review(obj["imageUrl"])
-        #print("********************COFFEE RES*****"+coffeeshop)
+        coffeeshop =  CoffeeShop(obj["name"],
+        obj["id"],
+        obj["location"],
+        obj["price"],
+        obj["rating"],
+        obj["image_url"])
+        list_shops.append(coffeeshop)
+    print("********************COFFEE RES***** %s %s %s"%(list_shops[0], list_shops[1], list_shops[2]) )
 
 
 

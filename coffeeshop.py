@@ -14,12 +14,15 @@ class CoffeeShop:
         self.__id = queryId
         self.__location = l
         self.__price = p
-        self.__review = r
+        self.__rating = r
         self.__imageUrl = imgurl
+
+    def __str__(self):
+         return str(self.__name)
 
     @property
     def name(self) :
-        return self.__name
+        return str(self.__name)
 
     @name.setter
     def name(self, n) :
@@ -50,12 +53,12 @@ class CoffeeShop:
         self.__price = p
 
     @property
-    def review(self) :
-        return self.__review
+    def rating(self) :
+        return self.__rating
 
-    @review.setter
-    def review(self, r) :
-        self.__review = r
+    @rating.setter
+    def rating(self, r) :
+        self.__rating = r
 
     @property
     def imageUrl(self) :
