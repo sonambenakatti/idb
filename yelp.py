@@ -107,6 +107,19 @@ def coffee_shop_results(response):
     coffeeshop in JSOM object
     return the list of coffee shops
     '''
+    list_shops = []
+
+    for obj in response["businesses"] :
+        print (obj, "next \n\n")
+        #coffeeshop =  CoffeeShop()
+        #coffeeshop.name(obj["name"])
+        #coffeeshop.id(obj["id"])
+        #coffeeshop.location(obj["location"])
+        #coffeeshop.price(obj["price"])
+        #coffeeshop.review(obj["review"])
+        #coffeeshop.review(obj["imageUrl"])
+        #print("********************COFFEE RES*****"+coffeeshop)
+
 
 
 def query_api(term, location):
@@ -122,17 +135,8 @@ def query_api(term, location):
     if not businesses:
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
-    '''
-    business_id = businesses[0]['id']
+    coffee_shop_results(response)
 
-    print(u'{0} businesses found, querying business info ' \
-        'for the top result "{1}" ...'.format(
-            len(businesses), business_id))
-    response = get_business(API_KEY, business_id)
-
-    print(u'Result for business "{0}" found:'.format(business_id))
-    pprint.pprint(response, indent=2)
-    '''
 def start():
     parser = argparse.ArgumentParser()
 
