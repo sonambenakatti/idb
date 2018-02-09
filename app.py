@@ -35,7 +35,7 @@ def sceniclocations():
 	location2 = json1["results"][1]["formatted_address"]
 	photor2 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][1]['photos'][0]['photo_reference']+ '&key=AIzaSyD_XJoBX5jhOnTthWnFc1gzJYQ3sumP-pk'
 
-	
+
 	name3 = json1["results"][2]["name"]
 	location3 = json1["results"][2]["formatted_address"]
 	photor3 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][2]['photos'][0]['photo_reference']+ '&key=AIzaSyD_XJoBX5jhOnTthWnFc1gzJYQ3sumP-pk'
@@ -44,8 +44,10 @@ def sceniclocations():
 
 @APP.route('/templates/coffeeshops.html')
 def coffeeshops():
-    yelp.start()
-    return flask.render_template('coffeeshops.html')
+    coffee_shops = yelp.start()
+    return flask.render_template('coffeeshops.html', name1 = coffee_shops[0].name, location1 = coffee_shops[0].location, price1 = coffee_shops[0].price, rating1 = coffee_shops[0].rating, photo1 = coffee_shops[0].imageUrl,
+    name2 = coffee_shops[1].name, location2 = coffee_shops[1].location, price2 = coffee_shops[1].price, rating2 = coffee_shops[1].rating, photo2 = coffee_shops[1].imageUrl,
+    name3 = coffee_shops[2].name, location3 = coffee_shops[2].location, price3 = coffee_shops[2].price, rating3 = coffee_shops[2].rating, photo3 = coffee_shops[2].imageUrl)
 
 if __name__ == '__main__':
     #APP.debug=True

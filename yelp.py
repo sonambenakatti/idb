@@ -119,7 +119,7 @@ def coffee_shop_results(response):
         obj["image_url"])
         list_shops.append(coffeeshop)
     print("********************COFFEE RES***** %s %s %s"%(list_shops[0], list_shops[1], list_shops[2]) )
-
+    return list_shops
 
 
 def query_api(term, location):
@@ -135,7 +135,8 @@ def query_api(term, location):
     if not businesses:
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
-    coffee_shop_results(response)
+    coffee_shops = coffee_shop_results(response)
+    return coffee_shops
 
 def start():
     parser = argparse.ArgumentParser()
@@ -149,7 +150,8 @@ def start():
     input_values = parser.parse_args()
 
     try:
-        query_api(input_values.term, input_values.location)
+        coffee_shops = query_api(input_values.term, input_values.location)
+        return coffee_shops
     except HTTPError as error:
         sys.exit(
             'Encountered HTTP error {0} on {1}:\n {2}\nAbort program.'.format(
