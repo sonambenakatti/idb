@@ -1,6 +1,10 @@
  <!DOCTYPE html>
 <html lang="en">
-
+<http> 
+    <headers> 
+        <frame-options policy="SAMEORIGIN"/> 
+    </headers> 
+</http>
   <head>
 
     <meta charset="utf-8">
@@ -36,7 +40,18 @@
             </div>
           </div>
           <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src={{photo}} alt="">
+         
+          <iframe 
+              width="450"
+              height="250"
+              frameborder="0" style="border:0" 
+              src= {{src_for_map}}
+              allowfullscreen>
+            </iframe>
           <div class="product-item-description d-flex mr-auto">
+            <div>
+             
+            </div>
             <div class="bg-faded p-5 rounded">
               <p class="mb-0">Address: {{address}}</br>
                 
