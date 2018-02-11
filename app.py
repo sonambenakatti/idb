@@ -42,15 +42,14 @@ def sceniclocations() :
 	return flask.render_template('products.html', name1=name1, location1=location1, photo1=photor1, name2=name2, location2=location2, photo2=photor2, name3=name3, location3=location3, photo3=photor3)
 
 @APP.route('/templates/snapshots.html')
-def snapshots() :
+def snapshots():
     snapshots.main()
     return flask.render_template('snapshots.html')
 
 @APP.route('/templates/<coffeeId>')
 def coffeeshop(coffeeId) :
     coffee_shop = yelp.get_business(coffeeId)
-
-    return flask.render_template('instance1.html')
+    return flask.render_template('coffeeshop.html')
 
 @APP.route('/templates/coffeeshops.html')
 def coffeeshops() :
