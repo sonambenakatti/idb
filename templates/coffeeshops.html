@@ -2,21 +2,23 @@
 <html lang="en">
 {% extends "index.html" %}
 {% block content%}
-<h1> test </h1>
 <body>
     <section class="page-section">
       <div class="container">
         <div class="row">
+
           <div class="col-xs-4 bg-faded p-5 d-flex mr-auto rounded" style="max-width: 300px">
             <p class="mb-0">{{name1}}</br><img src={{photo1}}  style="max-width: 200px" /></br>{{location1}}</br>Price: {{price1}}</br>Rating: {{rating1}}</p>
-
           </div>
+
           <div class="col-xs-4 bg-faded p-5 d-flex mr-auto rounded" style="max-width: 300px">
             <p class="mb-0">{{name2}}</br><img src={{photo2}}  style="max-width: 200px" /></br>{{location2}}</br>Price: {{price2}}</br>Rating: {{rating2}}</p>
           </div>
+
           <div class="col-xs-4 bg-faded p-5 d-flex mr-auto rounded" style="max-width: 300px" >
             <p class="mb-0">{{name3}}</br><img src={{photo3}}  style="max-width: 200px" /></br>{{location3}}</br>Price: {{price3}}</br>Rating: {{rating3}}</p>
           </div>
+
         </div>
       </div>
     </section>

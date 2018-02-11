@@ -66,7 +66,7 @@ def request(host, path, api_key, url_params=None):
         'Authorization': 'Bearer %s' % api_key,
     }
 
-    print(u'Querying {0} ...'.format(url))
+    #print(u'Querying {0} ...'.format(url))
 
     response = requests.request('GET', url, headers=headers, params=url_params)
 
@@ -110,7 +110,7 @@ def coffee_shop_results(response):
     list_shops = []
 
     for obj in response["businesses"] :
-        print (obj, "next \n\n")
+        #print (obj, "next \n\n")
         address = obj["location"]["display_address"]
         coffeeshop =  CoffeeShop(obj["name"],
         obj["id"],
@@ -132,7 +132,7 @@ def query_api(term, location):
     """
     response = search(API_KEY, term, location)
     businesses = response.get('businesses')
-    pprint.pprint(response, indent=2)
+    #pprint.pprint(response, indent=2)
     if not businesses:
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
@@ -152,7 +152,7 @@ def start():
 
     try:
         coffee_shops = query_api(input_values.term, input_values.location)
-        print(coffee_shops[0].name)
+        #print(coffee_shops[0].name)
         return coffee_shops
     except HTTPError as error:
         sys.exit(

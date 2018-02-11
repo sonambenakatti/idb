@@ -41,6 +41,9 @@ def sceniclocations():
 	photor3 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][2]['photos'][0]['photo_reference']+ '&key=AIzaSyD_XJoBX5jhOnTthWnFc1gzJYQ3sumP-pk'
 	return flask.render_template('products.html', name1=name1, location1=location1, photo1=photor1, name2=name2, location2=location2, photo2=photor2, name3=name3, location3=location3, photo3=photor3)
 
+@APP.route('templates/coffeeshop.html')
+def coffeeshop() :
+    return flask.render_template('coffeeshop.html')
 
 @APP.route('/templates/coffeeshops.html')
 def coffeeshops():
