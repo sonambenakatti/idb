@@ -49,7 +49,7 @@ def snapshots():
 @APP.route('/templates/<coffeeId>')
 def coffeeshop(coffeeId) :
     coffee_shop = yelp.get_business(coffeeId)
-    return flask.render_template('coffeeshop.html')
+    return flask.render_template('instance1.html', location = coffee_shop.location, name = coffee_shop.name, phone = coffee_shop.phone, price = coffee_shop.price, rating = coffee_shop.rating)
 
 @APP.route('/templates/coffeeshops.html')
 def coffeeshops() :
