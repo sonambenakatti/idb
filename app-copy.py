@@ -11,7 +11,7 @@ APP = flask.Flask(__name__)
 def index():
  
     """return flask.render_template('home.html')"""
-    return flask.render_template('instance1.html')
+    return flask.render_template('store.html')
 
 
 if __name__ == '__main__':
