@@ -30,18 +30,28 @@
     <section class="page-section">
       <div class="container">
         <div class="row">
-          <div class="col-xs-4 bg-faded p-5 d-flex mr-auto rounded" style="max-width: 300px">
-            <p class="mb-0">{{name1}}</br><img src={{photo1}}  style="max-width: 200px" /></br>{{location1}}</p>
+        <ul class="img-list">
+          <li class="col">
+           
+            <img src={{photo1}} style="width: 300px; height: 300px;" alt="Photo 1">
+            <span class="picText""><span>{{name1}}</br>{{rating1}}</span></span>
+            <a  href="/scenic/{{placeID1}}" placeID={{placeID1}}>CLICK</a>
 
-          </div>
-          <div class="col-xs-4 bg-faded p-5 d-flex mr-auto rounded" style="max-width: 300px">
-            <p class="mb-0">{{name2}}</br><img src={{photo2}}  style="max-width: 200px" /></br>{{location2}}</p>
-          </div>
+          </li>
+          <li class="col">
+            <img src={{photo2}}  style="width: 300px; height: 300px;" alt="Photo 1">
+            <span class="picText""><span>{{name2}}</br>{{rating2}}</span></span>
+            <a  href="/scenic/{{placeID2}}" placeID={{placeID2}}>CLICK</a>
+
+          </li>
           <div class="col-xs-4 bg-faded p-5 d-flex mr-auto rounded" style="max-width: 300px" >
-            <p class="mb-0">{{name3}}</br><img src={{photo3}}  style="max-width: 200px" /></br>{{location3}}</p>
+            <p class="mb-0">{{name3}}</br><img src={{photo3}}  style="max-width: 200px" /></br>{{rating3}}</p>
+            <a  href="/scenic/{{placeID3}}" placeID={{placeID3}}>CLICK</a>
           </div>
-        </div>
+        </ul>
       </div>
+      </div>
+
     </section>
 
     <section class="page-section">
@@ -65,26 +75,7 @@
       </div>
     </section>
 
-    <section class="page-section">
-      <div class="container">
-        <div class="product-item">
-          <div class="product-item-title d-flex">
-            <div class="bg-faded p-5 d-flex ml-auto rounded">
-              <h2 class="section-heading mb-0">
-                <span class="section-heading-upper">From Around the World</span>
-                <span class="section-heading-lower">Bulk Speciality Blends</span>
-              </h2>
-            </div>
-          </div>
-          <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/static/img/products-03.jpg" alt="">
-          <div class="product-item-description d-flex mr-auto">
-            <div class="bg-faded p-5 rounded">
-              <p class="mb-0">Travelling the world for the very best quality coffee is something take pride in. When you visit us, you'll always find new blends from around the world, mainly from regions in Central and South America. We sell our blends in smaller to large bulk quantities. Please visit us in person for more details.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+   
     {% endblock %}
 
   </body>
