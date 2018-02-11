@@ -90,16 +90,28 @@ def search(api_key, term, location):
     return request(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
 
 
-def get_business(api_key, business_id):
+def get_business(business_id):
     """Query the Business API by a business ID.
     Args:
         business_id (str): The ID of the business to query.
     Returns:
         dict: The JSON response from the request.
     """
-    business_path = BUSINESS_PATH + business_id
+    global API_KEY
 
-    return request(API_HOST, business_path, api_key)
+    business_path = BUSINESS_PATH + business_id
+    response =  request(API_HOST, business_path, API_KEY)
+
+    address = response["location"]["display_address"]
+    coffeeshop =  CoffeeShop(response["name"],
+    response["id"],
+    address,
+    response["price"],
+    response["rating"],
+    response["image_url"],
+    response["display_phone"])
+    coffeeshop.location = address
+    return coffeeshop
 
 def coffee_shop_results(response):
     '''
@@ -117,7 +129,8 @@ def coffee_shop_results(response):
         address,
         obj["price"],
         obj["rating"],
-        obj["image_url"])
+        obj["image_url"],
+        "n/a")
         coffeeshop.location = address
         list_shops.append(coffeeshop)
     #print("********************COFFEE RES***** %s %s %s"%(list_shops[0], list_shops[1], list_shops[2]) )
