@@ -11,20 +11,11 @@ jenni = [0] * 3
 ruchi = [0] * 3
 jaemin = [0] * 3
 
-<<<<<<< HEAD
-=======
-calculated = False
-
->>>>>>> origin/master
 repo = g.get_user("sonambenakatti").get_repo("idb")
 open_issues = repo.open_issues_count # Number of open issues
 
 # Get number of commits for each user
 def user_commits():
-<<<<<<< HEAD
-=======
-    global calculated
->>>>>>> origin/master
     for contributor in repo.get_stats_contributors():
         name = contributor.author.name
         total = contributor.total
@@ -61,7 +52,3 @@ def total_commits() -> int:
     for commit in repo.get_commits():
         total_commits += 1
     return total_commits
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
