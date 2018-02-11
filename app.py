@@ -10,7 +10,6 @@ import pprint
 import requests
 import sys
 import urllib
-
 import yelp
 import snapshots
 import githubstats
