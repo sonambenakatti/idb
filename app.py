@@ -12,8 +12,8 @@ import sys
 import urllib
 
 import yelp
-import snapshots
-#import github
+#import snapshots
+import githubstats
 
 # Create the application.
 APP = flask.Flask(__name__)
@@ -37,7 +37,6 @@ def sceniclocations():
 	location2 = json1["results"][1]["formatted_address"]
 	photor2 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][1]['photos'][0]['photo_reference']+ '&key=AIzaSyD_XJoBX5jhOnTthWnFc1gzJYQ3sumP-pk'
 
-
 	name3 = json1["results"][2]["name"]
 	location3 = json1["results"][2]["formatted_address"]
 	photor3 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][2]['photos'][0]['photo_reference']+ '&key=AIzaSyD_XJoBX5jhOnTthWnFc1gzJYQ3sumP-pk'
@@ -55,7 +54,12 @@ def coffeeshops():
 
 @APP.route('/templates/about.html')
 def about():
-    return flask.render_template('about.html')
+    githubstats.user_commits()
+    githubstats.user_issues()
+    total_commits = githubstats.total_commits()
+    return flask.render_template('about.html', total_commits = total_commits, issues = githubstats.open_issues, amrutha_commits = githubstats.amrutha[0], sonam_commits = githubstats.sonam[0],
+                                 jenni_commits = githubstats.jenni[0], ruchi_commits = githubstats.ruchi[0], jaemin_commits = githubstats.jaemin[0], amrutha_issues = githubstats.amrutha[1],
+                                 sonam_issues = githubstats.sonam[1], jenni_issues = githubstats.jenni[1], ruchi_issues = githubstats.ruchi[1], jaemin_issues = githubstats.jaemin[1])
 
 if __name__ == '__main__':
     #APP.debug=True
