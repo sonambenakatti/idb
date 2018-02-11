@@ -250,6 +250,10 @@ p{
 .model-links span{
 	display: inline-block;
 	padding: 30px;
+	font-size:1rem;
+	font-weight:800;
+	font-family:Raleway;
+	text-decoration-color: : white;
 }
 
 
