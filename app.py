@@ -47,7 +47,7 @@ def snapshots():
     snapshots.main()
     return flask.render_template('snapshots.html')
 
-@APP.route('templates/coffeeshop.html')
+@APP.route('/templates/coffeeshop.html')
 def coffeeshop() :
     return flask.render_template('coffeeshop.html')
 
