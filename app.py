@@ -48,10 +48,16 @@ def snapshots():
     snapshots.main()
     return flask.render_template('snapshots.html')
 
+@APP.route('templates/coffeeshop.html')
+def coffeeshop() :
+    return flask.render_template('coffeeshop.html')
+
 @APP.route('/templates/coffeeshops.html')
 def coffeeshops():
-    yelp.start()
-    return flask.render_template('coffeeshops.html')
+    coffee_shops = yelp.start()
+    return flask.render_template('coffeeshops.html', name1 = coffee_shops[0].name, location1 = coffee_shops[0].location, price1 = coffee_shops[0].price, rating1 = coffee_shops[0].rating, photo1 = coffee_shops[0].imageUrl,
+    name2 = coffee_shops[1].name, location2 = coffee_shops[1].location, price2 = coffee_shops[1].price, rating2 = coffee_shops[1].rating, photo2 = coffee_shops[1].imageUrl,
+    name3 = coffee_shops[2].name, location3 = coffee_shops[2].location, price3 = coffee_shops[2].price, rating3 = coffee_shops[2].rating, photo3 = coffee_shops[2].imageUrl)
 
 @APP.route('/templates/about.html')
 def about():
