@@ -12,7 +12,7 @@ import pprint
 import requests
 import sys
 import urllib
-import coffeeshop
+from coffeeshop import CoffeeShop
 
 # This client code can run on Python 2.x or 3.x.  Your imports can be
 # simpler if you only need one of those.
@@ -66,7 +66,7 @@ def request(host, path, api_key, url_params=None):
         'Authorization': 'Bearer %s' % api_key,
     }
 
-    print(u'Querying {0} ...'.format(url))
+    #print(u'Querying {0} ...'.format(url))
 
     response = requests.request('GET', url, headers=headers, params=url_params)
 
@@ -90,16 +90,28 @@ def search(api_key, term, location):
     return request(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
 
 
-def get_business(api_key, business_id):
+def get_business(business_id):
     """Query the Business API by a business ID.
     Args:
         business_id (str): The ID of the business to query.
     Returns:
         dict: The JSON response from the request.
     """
-    business_path = BUSINESS_PATH + business_id
+    global API_KEY
 
-    return request(API_HOST, business_path, api_key)
+    business_path = BUSINESS_PATH + business_id
+    response =  request(API_HOST, business_path, API_KEY)
+
+    address = response["location"]["display_address"]
+    coffeeshop =  CoffeeShop(response["name"],
+    response["id"],
+    address,
+    response["price"],
+    response["rating"],
+    response["image_url"],
+    response["display_phone"])
+    coffeeshop.location = address
+    return coffeeshop
 
 def coffee_shop_results(response):
     '''
@@ -110,16 +122,19 @@ def coffee_shop_results(response):
     list_shops = []
 
     for obj in response["businesses"] :
-        print (obj, "next \n\n")
-        #coffeeshop =  CoffeeShop()
-        #coffeeshop.name(obj["name"])
-        #coffeeshop.id(obj["id"])
-        #coffeeshop.location(obj["location"])
-        #coffeeshop.price(obj["price"])
-        #coffeeshop.review(obj["review"])
-        #coffeeshop.review(obj["imageUrl"])
-        #print("********************COFFEE RES*****"+coffeeshop)
-
+        #print (obj, "next \n\n")
+        address = obj["location"]["display_address"]
+        coffeeshop =  CoffeeShop(obj["name"],
+        obj["id"],
+        address,
+        obj["price"],
+        obj["rating"],
+        obj["image_url"],
+        "n/a")
+        coffeeshop.location = address
+        list_shops.append(coffeeshop)
+    #print("********************COFFEE RES***** %s %s %s"%(list_shops[0], list_shops[1], list_shops[2]) )
+    return list_shops
 
 
 def query_api(term, location):
@@ -129,13 +144,13 @@ def query_api(term, location):
         location (str): The location of the business to query.
     """
     response = search(API_KEY, term, location)
-
     businesses = response.get('businesses')
-    pprint.pprint(response, indent=2)
+    #pprint.pprint(response, indent=2)
     if not businesses:
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
-    coffee_shop_results(response)
+    coffee_shops = coffee_shop_results(response)
+    return coffee_shops
 
 def start():
     parser = argparse.ArgumentParser()
@@ -149,7 +164,9 @@ def start():
     input_values = parser.parse_args()
 
     try:
-        query_api(input_values.term, input_values.location)
+        coffee_shops = query_api(input_values.term, input_values.location)
+        #print(coffee_shops[0].name)
+        return coffee_shops
     except HTTPError as error:
         sys.exit(
             'Encountered HTTP error {0} on {1}:\n {2}\nAbort program.'.format(
