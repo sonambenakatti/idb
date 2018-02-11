@@ -11,12 +11,15 @@ jenni = [0] * 3
 ruchi = [0] * 3
 jaemin = [0] * 3
 
+calculated = False
+
 repo = g.get_user("sonambenakatti").get_repo("idb")
 open_issues = repo.open_issues_count # Number of open issues
 
 # Get number of commits for each user
 def user_commits():
-    for contributor in repo.get_stats_contributors():
+    stats = repo.get_stats_contributors()
+    for contributor in stats:
         name = contributor.author.name
         total = contributor.total
         if name == "Amrutha Sreedharane":
@@ -29,7 +32,6 @@ def user_commits():
             ruchi[0] = total
         elif name == "Jaemin":
             jaemin[0] = total
-
 
 # Get number of issues for each user
 def user_issues():
@@ -52,3 +54,4 @@ def total_commits() -> int:
     for commit in repo.get_commits():
         total_commits += 1
     return total_commits
+
