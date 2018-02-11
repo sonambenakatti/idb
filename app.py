@@ -77,10 +77,11 @@ def scenicdetails(placeID):
 	name = json1['result']['name']
 
 	address = json1["result"]["formatted_address"]
+	rating= json1["result"]["rating"]
 	photo = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['result']['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 	src_for_map = "https://www.google.com/maps/embed/place?key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U&origin=place_id:" + placeID + "&output=embed"
 
-	return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo, src_for_map=src_for_map)
+	return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo, src_for_map=src_for_map, rating=rating)
 
 
 
