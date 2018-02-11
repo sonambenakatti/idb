@@ -12,20 +12,20 @@ import sys
 import urllib
 
 import yelp
-#import snapshots
+import snapshots
 import githubstats
 
 # Create the application.
 APP = flask.Flask(__name__)
 
 @APP.route('/')
-def index():
+def index() :
     """ Displays the index page accessible at
     """
     return flask.render_template('home.html')
 
 @APP.route('/scenic')
-def sceniclocations():
+def sceniclocations() :
 	r1 = requests.get('https://maps.googleapis.com/maps/api/place/textsearch/json?type=park&location=30.267153,-97.7430608&radius=10000&key=AIzaSyD_XJoBX5jhOnTthWnFc1gzJYQ3sumP-pk')
 	json1 = r1.json()
 	print(json1)
@@ -43,23 +43,25 @@ def sceniclocations():
 	return flask.render_template('products.html', name1=name1, location1=location1, photo1=photor1, name2=name2, location2=location2, photo2=photor2, name3=name3, location3=location3, photo3=photor3)
 
 @APP.route('/templates/snapshots.html')
-def snapshots():
+def snapshots() :
     snapshots.main()
     return flask.render_template('snapshots.html')
 
-@APP.route('/templates/coffeeshop.html')
-def coffeeshop() :
-    return flask.render_template('coffeeshop.html')
+@APP.route('/templates/<coffeeId>')
+def coffeeshop(coffeeId) :
+    coffee_shop = yelp.get_business(coffeeId)
+    
+    return flask.render_template('instance1.html')
 
 @APP.route('/templates/coffeeshops.html')
-def coffeeshops():
+def coffeeshops() :
     coffee_shops = yelp.start()
-    return flask.render_template('coffeeshops.html', name1 = coffee_shops[0].name, location1 = coffee_shops[0].location, price1 = coffee_shops[0].price, rating1 = coffee_shops[0].rating, photo1 = coffee_shops[0].imageUrl,
-    name2 = coffee_shops[1].name, location2 = coffee_shops[1].location, price2 = coffee_shops[1].price, rating2 = coffee_shops[1].rating, photo2 = coffee_shops[1].imageUrl,
-    name3 = coffee_shops[2].name, location3 = coffee_shops[2].location, price3 = coffee_shops[2].price, rating3 = coffee_shops[2].rating, photo3 = coffee_shops[2].imageUrl)
+    return flask.render_template('coffeeshops.html', coffeeId1 = coffee_shops[0].id, name1 = coffee_shops[0].name, location1 = coffee_shops[0].location, price1 = coffee_shops[0].price, rating1 = coffee_shops[0].rating, photo1 = coffee_shops[0].imageUrl,
+    name2 = coffee_shops[1].name, coffeeId2 = coffee_shops[1].id, location2 = coffee_shops[1].location, price2 = coffee_shops[1].price, rating2 = coffee_shops[1].rating, photo2 = coffee_shops[1].imageUrl,
+    name3 = coffee_shops[2].name, coffeeId3 = coffee_shops[2].id, location3 = coffee_shops[2].location, price3 = coffee_shops[2].price, rating3 = coffee_shops[2].rating, photo3 = coffee_shops[2].imageUrl)
 
 @APP.route('/templates/about.html')
-def about():
+def about() :
     githubstats.user_commits()
     githubstats.user_issues()
     total_commits = githubstats.total_commits()

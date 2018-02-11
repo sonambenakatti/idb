@@ -9,13 +9,15 @@ import urllib
 
 class CoffeeShop:
 
-    def __init__(self, n, queryId, l, p, r, imgurl) :
+    def __init__(self, n, queryId, l, p, r, imgurl, ph) :
         self.__name = n
         self.__id = queryId
         self.__location = l
         self.__price = p
         self.__rating = r
         self.__imageUrl = imgurl
+        self.__phone = ph
+        self.__hours = []
 
     def __str__(self):
          return str(self.__name)
@@ -70,3 +72,11 @@ class CoffeeShop:
     @imageUrl.setter
     def imageUrl(self, img) :
         self.__imageUrl = img
+
+    @property
+    def phone(self) :
+        return self.__phone
+
+    @phone.setter
+    def phone(self, ph) :
+        self.__phone = ph
