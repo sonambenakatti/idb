@@ -11,11 +11,14 @@ jenni = [0] * 3
 ruchi = [0] * 3
 jaemin = [0] * 3
 
+calculated = False
+
 repo = g.get_user("sonambenakatti").get_repo("idb")
 open_issues = repo.open_issues_count # Number of open issues
 
 # Get number of commits for each user
 def user_commits():
+    global calculated
     for contributor in repo.get_stats_contributors():
         name = contributor.author.name
         total = contributor.total
