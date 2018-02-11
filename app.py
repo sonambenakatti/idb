@@ -12,7 +12,7 @@ import sys
 import urllib
 
 import yelp
-#import snapshots
+import snapshots
 import githubstats
 
 # Create the application.
