@@ -15,6 +15,8 @@ import yelp
 import snapshots
 #import github
 
+sys.dont_write_bytecode = True
+
 # Create the application.
 APP = flask.Flask(__name__)
 
