@@ -65,7 +65,7 @@ def parse_info(photo_item, photo_id, photo_secret) -> Photo :
     for t in tags :
         if t['raw'][0] is "#" :
             all_tags = all_tags + t['raw']
-    photo = Photo(num_favs, name, username, lat, lon, title, url, tags, photo_id, photo_secret)
+    photo = Photo(num_favs, name, username, lat, lon, title, url, all_tags, photo_id, photo_secret)
     return photo
 
 def create_url(item) -> str :
