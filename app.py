@@ -131,7 +131,7 @@ def scenicdetails(placeID):
 	return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo, src_for_map=src_for_map, rating=rating, review1name=review1name, review1text=review1text, review1rating=review1rating, review2name=review2name, review2text=review2text, review2rating=review2rating)
 
 
-@APP.route('/templates/snapshotsmain.html')
+@APP.route('/snapshots')
 def snapshotsmain():
     img_list = snapshots.start()
     photo1 = img_list[0]
@@ -143,12 +143,12 @@ def snapshotsmain():
                                  username1 = photo1.username, username2 = photo2.username, username3 = photo3.username,
                                  url1 = photo1.imageUrl, url2 = photo2.imageUrl, url3 = photo3.imageUrl)
 
-@APP.route('/templates/<coffeeId>')
+@APP.route('/shops/<coffeeId>')
 def coffeeshop(coffeeId) :
     coffee_shop = yelp.get_business(coffeeId)
     return flask.render_template('instance1.html', location = coffee_shop.location, name = coffee_shop.name, phone = coffee_shop.phone, price = coffee_shop.price, rating = coffee_shop.rating)
 
-@APP.route('/templates/coffeeshops.html')
+@APP.route('/shops')
 def coffeeshops() :
     coffee_shops = yelp.start()
     return flask.render_template('coffeeshops.html', coffeeId1 = coffee_shops[0].id, name1 = coffee_shops[0].name, location1 = coffee_shops[0].location, price1 = coffee_shops[0].price, rating1 = coffee_shops[0].rating, photo1 = coffee_shops[0].imageUrl,
@@ -156,7 +156,7 @@ def coffeeshops() :
     name3 = coffee_shops[2].name, coffeeId3 = coffee_shops[2].id, location3 = coffee_shops[2].location, price3 = coffee_shops[2].price, rating3 = coffee_shops[2].rating, photo3 = coffee_shops[2].imageUrl)
 
 
-@APP.route('/templates/about.html')
+@APP.route('/about')
 def about():
     # Will change this when a database is used
     if(githubstats.calculated == False):
