@@ -32,7 +32,7 @@
         <div class="row">
         <ul class="img-list">
           <li class="col">
-            <a  href= >
+          <a  href= "/snapshots/{{id1}}/{{secret1}}" url_for('.snapshotsinstance', id="{{id1}}", secret="{{secret1}}")>
             <img src={{url1}} style="width: 300px; height: 300px;" alt="Photo 1">
             <span class="picText" ><span>{{title1}}</br>Author: {{name1}}</br>
             Username: {{username1}}</span></span>
@@ -40,7 +40,7 @@
 
           </li>
           <li class="col">
-           <a  href=>
+           <a  href= "url_for('snapshotsinstance', id={{id2}}, secret={{secret2}})">
              <img src={{url2}} style="width: 300px; height: 300px;" alt="Photo 1">
              <span class="picText" ><span>{{title2}}</br>Author: {{name2}}</br>
              Username: {{username2}}</span></span>
@@ -48,7 +48,7 @@
 
           </li>
           <li class="col">
-             <a  href=>
+            <a  href= "url_for('snapshotsinstance', id={{id3}}, secret={{secret3}})">
             <img src={{url3}}  style="width: 300px; height: 300px;" alt="Photo 3">
             <span class="picText" ><span>{{title3}}</br>Author: {{name3}}</br>
             Username: {{username3}}</span></span>

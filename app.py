@@ -76,7 +76,7 @@ def sceniclocations() :
 
 	#photor1 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][0]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 
-	
+
 		#location2 = json1["results"][1]["formatted_address"]
 
 	#photor2 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][1]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
@@ -95,7 +95,7 @@ def get_loc_from_id(id):
 
 @APP.route('/scenic/<placeID>')
 def scenicdetails(placeID):
-	
+
 	r1 = requests.get('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeID + '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U')
 	json1 = r1.json()
 	print(json1)
@@ -111,7 +111,7 @@ def scenicdetails(placeID):
 	review2name = json1["result"]["reviews"][1]['author_name']
 	review2text = json1["result"]["reviews"][1]['text']
 	review2rating=json1["result"]["reviews"][1]['rating']
-	
+
 	"""
 	scl = get_loc_from_id(placeID)s
 	name = scl.name
@@ -135,13 +135,26 @@ def scenicdetails(placeID):
 def snapshotsmain():
     img_list = snapshots.start()
     photo1 = img_list[0]
+    print("Photo1 secret in main: " + photo1.secret)
     photo2 = img_list[1]
     photo3 = img_list[2]
     return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
                                  title1 = photo1.title, title2 = photo2.title, title3 = photo3.title,
                                  num_favs1 = photo1.num_favorites, num_favs2 = photo2.num_favorites, num_favs3 = photo3.num_favorites,
                                  username1 = photo1.username, username2 = photo2.username, username3 = photo3.username,
-                                 url1 = photo1.imageUrl, url2 = photo2.imageUrl, url3 = photo3.imageUrl)
+                                 url1 = photo1.imageUrl, url2 = photo2.imageUrl, url3 = photo3.imageUrl,
+                                 id1 = photo1.id, id2 = photo2.id, id3 = photo3.id,
+                                 secret1 =  photo1.secret, secret2 = photo2.secret, secret3 = photo3.secret)
+
+@APP.route('/snapshots/<id>/<secret>')
+def snapshotsinstance(id, secret):
+    print('photo id = ' + str(id))
+    print('photo secret instance = ' + str(secret))
+    photo_item = snapshots.get_info(id, secret)
+    photo = snapshots.parse_info(photo_item, id, secret)
+    return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
+                                title = photo.title, tags = photo.tags, id = photo.id, secret = photo.secret, url = photo.imageUrl)
+
 
 @APP.route('/shops/<coffeeId>')
 def coffeeshop(coffeeId) :

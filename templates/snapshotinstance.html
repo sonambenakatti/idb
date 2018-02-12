@@ -20,7 +20,7 @@
 		<!-- Custom styles for this template -->
 		<link href="/static/css/business-casual.min.css" rel="stylesheet">
 	</head>
-  
+
 	{% extends "index.html" %}
 	{% block content%}
 
@@ -33,18 +33,18 @@
 	          <div class="product-item-title d-flex">
 	            <div class="bg-faded p-5 d-flex ml-auto rounded">
 	              <h2 class="section-heading mb-0">
-	                <span class="section-heading-upper">Perfect Pic:</span>
-	                <span class="section-heading-lower">{{name}}</span>
+	                <span class="section-heading-upper">{{url}}</span>
+	                <span class="section-heading-lower">{{title}}</span>
 	              </h2>
 	            </div>
 	          </div>
 	          <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/static/img/products-01.jpg" alt="">
 	          <div class="product-item-description d-flex mr-auto">
 	            <div class="bg-faded p-5 rounded">
-	              <p class="mb-0">Date Posted:</p>
-	              <p class="mb-0">Tags:</p>
-	              <p class="mb-0">Where:</p>
-	              <p class="mb-0">Likes:</p>
+	              <p class="mb-0">Photographer name: {{name}}</p>
+	              <p class="mb-0">Photographer username: {{username}}</p>
+	              <p class="mb-0">Tags:{{tags}}</p>
+	              <p class="mb-0">Faves:{{num_faves}}</p>
 	            </div>
 	          </div>
 	        </div>
@@ -52,8 +52,8 @@
 	    </section>
 
 	   	<div class="model-links">
-	        <p><a href="coffeeshops.html">COFFEE SHOP STATS</a></p>
-	        <p><a href="products.html">SCENIC LOCATIONS</a></p>
+	        <span><a href="coffeeshops.html">COFFEE SHOP STATS</a></span>
+	        <span><a href="products.html">SCENIC LOCATIONS</a></span>
 		</div>
 
 	<body>
@@ -67,7 +67,7 @@
 
 	<script>
 		$(document).ready(function(){
-			
+
 		});
 	</script>
 
