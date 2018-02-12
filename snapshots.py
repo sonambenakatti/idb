@@ -2,7 +2,7 @@ import flask
 import json
 import flickrapi
 import sys
-import photo
+from photo import Photo
 
 """
 secrets used in request
@@ -21,7 +21,7 @@ LONGITUDE = '97.7431'
 RADIUS = '30'
 TAGS = 'bennucoffee'
 
-photo_urls = []
+photos = []
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='json')
 
 def search_photos() :
@@ -44,6 +44,8 @@ def parse_search(parsed_dict) :
                 name = owner.get('realname')
                 username = owner.get('username')
                 title = photo_info['title'].get('_content')
+                photo = Photo(num_favorites, name, username, lat, lon, title, url)
+                photos.append(photo)
 
 def create_url(item) -> str :
     url = 'https://farm' + str(item['farm']) + '.staticflickr.com/' \
@@ -67,7 +69,8 @@ def count_favorites(photo_id) :
 
 def main() -> list :
     search_photos()
-    return photo_urls
+    print(photos)
+    return photos
 
 if __name__ == '__main__':
     main()
