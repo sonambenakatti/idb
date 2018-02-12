@@ -19,6 +19,9 @@ open_issues = repo.open_issues_count # Number of open issues
 # Get number of commits for each user
 def user_commits():
     stats = repo.get_stats_contributors()
+    while(stats == None):
+        stats = repo.get_stats_contributors()
+    
     for contributor in stats:
         name = contributor.author.name
         total = contributor.total
