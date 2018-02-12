@@ -51,7 +51,6 @@ def user_issues():
 # Get the total number of commits for the repository
 def total_commits() -> int:
     total_commits = 0
-    for commit in repo.get_commits():
-        total_commits += 1
+    total_commits = amrutha[0] + sonam[0] + jenni[0] + ruchi[0] + jaemin[0]
     return total_commits
 
