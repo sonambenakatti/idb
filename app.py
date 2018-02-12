@@ -158,15 +158,11 @@ def coffeeshops() :
 
 @APP.route('/about')
 def about():
-    # Will change this when a database is used
-    if(githubstats.calculated == False):
-        githubstats.user_commits()
-        githubstats.user_issues()
-        githubstats.calculated = True
-    total_commits = githubstats.total_commits()
-    return flask.render_template('about.html', total_commits = total_commits, issues = githubstats.open_issues, amrutha_commits = githubstats.amrutha[0], sonam_commits = githubstats.sonam[0],
-                                 jenni_commits = githubstats.jenni[0], ruchi_commits = githubstats.ruchi[0], jaemin_commits = githubstats.jaemin[0], amrutha_issues = githubstats.amrutha[1],
-                                 sonam_issues = githubstats.sonam[1], jenni_issues = githubstats.jenni[1], ruchi_issues = githubstats.ruchi[1], jaemin_issues = githubstats.jaemin[1])
+    commits = githubstats.user_commits()
+    issues = githubstats.user_issues()
+    return flask.render_template('about.html', total_commits = commits["total"], issues = githubstats.open_issues + issues["total"], amrutha_commits = commits["amrutha"], sonam_commits = commits["sonam"],
+                                 jenni_commits = commits["jenni"], ruchi_commits = commits["ruchi"], jaemin_commits = commits["jaemin"], amrutha_issues = issues["amrutha"],
+                                 sonam_issues = issues["sonam"], jenni_issues = issues["jenni"], ruchi_issues = issues["ruchi"], jaemin_issues = issues["jaemin"])
 
 if __name__ == '__main__':
     #APP.debug=True
