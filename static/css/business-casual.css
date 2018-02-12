@@ -19,6 +19,10 @@ p {
   line-height: 1.75;
 }
 
+a:hover, a:visited, a:link, a:active {
+  text-decoration : none; color : #000; 
+}
+
 .text-faded {
   color: rgba(255, 255, 255, 0.3);
 }

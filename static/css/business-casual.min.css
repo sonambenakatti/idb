@@ -299,13 +299,16 @@ p{
 
 }
 
-.model-links span{
+.model-links p{
 	display: inline-block;
 	padding: 30px;
 	font-size:1rem;
 	font-weight:800;
 	font-family:Raleway;
-	text-decoration-color: : white;
+}
+
+.model-links p a{
+	color: rgba(255,255,255,.4)
 }
 
 
@@ -330,4 +333,3 @@ p{
 
 
 
->>>>>>> b1a411529fd20d2f4b45541ec2d3de4b6b77f20f
