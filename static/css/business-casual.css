@@ -190,7 +190,15 @@ p {
     margin-top: -3rem;
     max-width: 10vw;
   }
+  .product-item .product-item-moved {
+    position: relative;
+    z-index: 10
+    margin-top: -3rem;
+    max-width: 60vw;
 }
+
+
+
 
 .list-hours {
   font-size: 0.9rem;
