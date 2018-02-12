@@ -19,7 +19,7 @@ Radius in KM
 LATITUDE = '30.2672'
 LONGITUDE = '97.7431'
 RADIUS = '30'
-TAGS = 'bennucoffee'
+TAGS = 'zilkerpark'
 
 photos = []
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='json')
@@ -37,9 +37,13 @@ def parse_search(parsed_dict) :
                 num_favorites = count_favorites(item['id'])
                 photo_info = get_info(item['id'], item['secret'])
                 date_taken = photo_info['dates'].get('taken')
-                location = photo_info['location']
-                lat = location.get('latitude')
-                lon = location.get('longitude')
+                location = ''
+                lat = ''
+                lon = ''
+                if 'location' in photo_info :
+                    location = photo_info['location']
+                    lat = location.get('latitude')
+                    lon = location.get('longitude')
                 owner = photo_info['owner']
                 name = owner.get('realname')
                 username = owner.get('username')
@@ -67,10 +71,7 @@ def count_favorites(photo_id) :
         count = count + 1
     return count
 
-def main() -> list :
+def start() -> list :
     search_photos()
     print(photos)
     return photos
-
-if __name__ == '__main__':
-    main()

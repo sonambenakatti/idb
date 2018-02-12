@@ -84,17 +84,17 @@ def scenicdetails(placeID):
 	return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo, src_for_map=src_for_map, rating=rating)
 
 
-@APP.route('/templates/snapshots.html')
-def snapshots():
-    img_list = snapshots.main()
+@APP.route('/templates/snapshotsmain.html')
+def snapshotsmain():
+    img_list = snapshots.start()
     photo1 = img_list[0]
     photo2 = img_list[1]
     photo3 = img_list[2]
-    return flask.render_template('snapshots.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
+    return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
                                  title1 = photo1.title, title2 = photo2.title, title3 = photo3.title,
                                  num_favs1 = photo1.num_favorites, num_favs2 = photo2.num_favorites, num_favs3 = photo3.num_favorites,
-                                 username1 = photo1.usernmae, username2 = photo2.username, username3 = photo3.username,
-                                 url1 = photo1.imgurl, url2 = photo2.imgurl, url3 = photo3.imgurl)
+                                 username1 = photo1.username, username2 = photo2.username, username3 = photo3.username,
+                                 url1 = photo1.imageUrl, url2 = photo2.imageUrl, url3 = photo3.imageUrl)
 
 @APP.route('/templates/<coffeeId>')
 def coffeeshop(coffeeId) :
