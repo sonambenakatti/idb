@@ -3,6 +3,7 @@
 from __future__ import print_function
 
 import flask
+from flask import Flask, jsonify
 
 import argparse
 import json
@@ -17,7 +18,18 @@ import githubstats
 # Create the application.
 APP = flask.Flask(__name__)
 
-json1 = ""
+
+@APP.route('/api/v1.0/coffeeshops', methods=['GET'])
+def get_coffeeshops():
+    """
+    Get call for coffee shops.
+    Return a JSON Object with coffeeshops
+    """
+    coffee_shops = yelp.start()
+    coffee_shops_json = []
+    for i in range(0, 3) :
+        coffee_shops_json.append(coffee_shops[i].jsonify())
+    return jsonify({'coffeeshops': coffee_shops_json})
 
 @APP.route('/')
 def index() :
