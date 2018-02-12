@@ -9,7 +9,7 @@ ul.img-list {
 ul.img-list li {
   display: inline-block;
   margin: 20px;
-  height: 200px;
+  height: 300px;
   width: 300px;
   position: relative;
   margin-bottom: 70px;
@@ -28,7 +28,7 @@ span.picText {
   color: white;
   cursor: pointer;
   display: table;
-  height: 200px;
+  height: 300px;
   width: 300px;
   position: absolute;
   top: 0;
