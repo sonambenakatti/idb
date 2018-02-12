@@ -18,18 +18,33 @@ import githubstats
 # Create the application.
 APP = flask.Flask(__name__)
 
-
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])
 def get_coffeeshops():
     """
     Get call for coffee shops.
     Return a JSON Object with coffeeshops
+
     """
     coffee_shops = yelp.start()
     coffee_shops_json = []
     for i in range(0, 3) :
         coffee_shops_json.append(coffee_shops[i].jsonify())
     return jsonify({'coffeeshops': coffee_shops_json})
+
+
+@APP.route('/api/v1.0/sceniclocations', methods=['GET'])
+def get_sceniclocations() :
+    """
+    Implement RESTful API here
+    """
+
+
+@APP.route('/api/v1.0/snapshots', methods=['GET'])
+def get_snapshots() :
+    """
+    Implement RESTful API here
+    """
+
 
 @APP.route('/')
 def index() :
