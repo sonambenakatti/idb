@@ -13,6 +13,8 @@ import urllib
 import yelp
 import snapshots
 import githubstats
+import places
+
 
 # Create the application.
 APP = flask.Flask(__name__)
@@ -27,50 +29,46 @@ def index() :
 
 @APP.route('/scenic')
 def sceniclocations() :
-	r1 = requests.get('https://maps.googleapis.com/maps/api/place/textsearch/json?type=park&location=30.267153,-97.7430608&radius=10000&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U')
-	json1 = r1.json()
+	scenic_locations = places.get_places()
+	name1=scenic_locations[0].name
+	placeID1=scenic_locations[0].placeID
+	rating1=scenic_locations[0].rating
+	photor1=scenic_locations[0].photo
+
+	name2=scenic_locations[1].name
+	placeID2=scenic_locations[1].placeID
+	rating2=scenic_locations[1].rating
+	photor2=scenic_locations[1].photo
+
+	name3=scenic_locations[2].name
+	placeID3=scenic_locations[2].placeID
+	rating3=scenic_locations[2].rating
+	photor3=scenic_locations[2].photo
+
+	#r1 = requests.get('https://maps.googleapis.com/maps/api/place/textsearch/json?type=park&location=30.267153,-97.7430608&radius=10000&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U')
+
+	#photor1 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][0]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
+
 	
-	print(json1)
-	try:
-		rating1 =  json1["results"][0]["rating"]
-
-	except:
-		rating1 = 0
-
-	try:
-		rating2 =  json1["results"][1]["rating"]
-	except:
-		rating2 = 0
-
-	try:
-		rating3 =  json1["results"][2]["rating"]
-	except:
-
-		rating3 = 0
-
-	name1 = json1["results"][0]["name"]
-		#location1 = json1["results"][0]["formatted_address"]
-		#location1 = json1["results"][0]["formatted_address"]
-
-	photor1 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][0]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
-
-	name2 = json1["results"][1]["name"]
 		#location2 = json1["results"][1]["formatted_address"]
 
-	photor2 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][1]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
-
-	name3 = json1["results"][2]["name"]
-	#location3 = json1["results"][2]["formatted_address"]
-	placeID1 = json1["results"][0]["place_id"]
-	placeID2 = json1["results"][1]["place_id"]
-	placeID3 = json1["results"][2]["place_id"]
+	#photor2 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][1]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 
 
-	photor3 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][2]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
+	#photor3 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][2]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 	return flask.render_template('products.html', name1=name1, placeID1= placeID1, rating1=rating1, photo1=photor1, name2=name2, placeID2=placeID2, rating2=rating2, photo2=photor2, name3=name3, placeID3=placeID3, rating3=rating3, photo3=photor3)
+
+def get_loc_from_id(id):
+	n = 0
+	while n <=2:
+		if list_locs[n].placeID == id:
+			return list_locs[n]
+		n += 1
+	return -1
 
 @APP.route('/scenic/<placeID>')
 def scenicdetails(placeID):
+	
 	r1 = requests.get('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeID + '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U')
 	json1 = r1.json()
 	print(json1)
@@ -80,8 +78,30 @@ def scenicdetails(placeID):
 	rating= json1["result"]["rating"]
 	photo = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['result']['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 	src_for_map = "https://www.google.com/maps/embed/place?key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U&origin=place_id:" + placeID + "&output=embed"
+	review1name = json1["result"]["reviews"][0]['author_name']
+	review1text = json1["result"]["reviews"][0]['text']
+	review1rating=json1["result"]["reviews"][0]['rating']
+	review2name = json1["result"]["reviews"][1]['author_name']
+	review2text = json1["result"]["reviews"][1]['text']
+	review2rating=json1["result"]["reviews"][1]['rating']
+	
+	"""
+	scl = get_loc_from_id(placeID)s
+	name = scl.name
 
-	return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo, src_for_map=src_for_map, rating=rating)
+	address = scl.address
+	rating= scl.rating
+	photo= scl.photo
+
+	review1name = scl.reviews[0]['name']
+	review1text = scl.reviews[0]['name']
+	review1rating=scl.reviews[0]['name']
+	review2name = scl.reviews[1]['name']
+	review2text = scl.reviews[1]['name']
+	review2rating=scl.reviews[1]['name']
+	"""
+
+	return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo, src_for_map=src_for_map, rating=rating, review1name=review1name, review1text=review1text, review1rating=review1rating, review2name=review2name, review2text=review2text, review2rating=review2rating)
 
 
 @APP.route('/templates/snapshots.html')

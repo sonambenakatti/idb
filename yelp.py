@@ -27,7 +27,6 @@ except ImportError:
     from urllib import quote
     from urllib import urlencode
 
-
 # Yelp Fusion no longer uses OAuth as of December 7, 2017.
 # You no longer need to provide Client ID to fetch Data
 # It now uses private keys to authenticate requests (API Key)
