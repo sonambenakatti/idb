@@ -102,7 +102,11 @@ def scenicdetails(placeID):
 	name = json1['result']['name']
 
 	address = json1["result"]["formatted_address"]
-	rating= json1["result"]["rating"]
+	rating = ""
+	try:
+		rating= json1["result"]["rating"]
+	except:
+		rating = "No ratings for this view yet!"
 	photo = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['result']['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 	src_for_map = "https://www.google.com/maps/embed/place?key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U&origin=place_id:" + placeID + "&output=embed"
 	review1name = json1["result"]["reviews"][0]['author_name']
