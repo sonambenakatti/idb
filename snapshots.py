@@ -114,6 +114,8 @@ def count_favorites(photo_id) :
     return count
 
 def start() -> list :
+    global photos
+    photos = []
     search_photos_scenic()
     search_photos_coffee()
     return photos

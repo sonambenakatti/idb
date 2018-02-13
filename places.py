@@ -17,9 +17,11 @@ import GooglePlaces
 list_locs = []
 
 def get_places():
+	global list_locs
+	list_locs = []
 	r1 = requests.get('https://maps.googleapis.com/maps/api/place/textsearch/json?location=30.267153,-97.7430608&radius=10000&type=park&keyword=natural_feature&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U')
 	json1 = r1.json()
-	
+
 	print(json1)
 
 	#location3 = json1["results"][2]["formatted_address"]
@@ -42,7 +44,7 @@ def list_of_locs(placeID):
 	except:
 		rating = 0
 
-	
+
 	name = json1['result']['name']
 
 	address = json1["result"]["formatted_address"]
@@ -54,9 +56,3 @@ def list_of_locs(placeID):
 	scl = ScenicLocations(name, placeID, photo, rating, reviews, address)
 
 	list_locs.append(scl)
-
-
-
-
-
-

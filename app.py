@@ -29,7 +29,8 @@ def get_coffeeshops():
     """
     coffee_shops = yelp.start()
     coffee_shops_json = []
-    for i in range(0, 3) :
+    length = len(coffee_shops)
+    for i in range(0, length) :
         coffee_shops_json.append(coffee_shops[i].jsonify())
     return jsonify({'coffeeshops': coffee_shops_json})
 
@@ -41,7 +42,8 @@ def get_sceniclocations() :
     """
     places_json = []
     scenic_locations = places.get_places()
-    for i in range(0,3) :
+    length = len(scenic_locations)
+    for i in range(0, length) :
         place_dict = {}
         place_dict["name"] = scenic_locations[i].name
         place_dict["place"] = scenic_locations[i].placeID
