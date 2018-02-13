@@ -135,7 +135,6 @@ def scenicdetails(placeID):
 def snapshotsmain():
     img_list = snapshots.start()
     photo1 = img_list[0]
-    print("Photo1 secret in main: " + photo1.secret)
     photo2 = img_list[1]
     photo3 = img_list[2]
     return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
@@ -148,8 +147,6 @@ def snapshotsmain():
 
 @APP.route('/snapshots/<id>/<secret>')
 def snapshotsinstance(id, secret):
-    print('photo id = ' + str(id))
-    print('photo secret instance = ' + str(secret))
     photo_item = snapshots.get_info(id, secret)
     photo = snapshots.parse_info(photo_item, id, secret)
     return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
