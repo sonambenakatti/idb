@@ -110,20 +110,12 @@ def sceniclocations() :
 	#photor3 = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['results'][2]['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 	return flask.render_template('products.html', name1=name1, placeID1= placeID1, rating1=rating1, photo1=photor1, name2=name2, placeID2=placeID2, rating2=rating2, photo2=photor2, name3=name3, placeID3=placeID3, rating3=rating3, photo3=photor3)
 
-def get_loc_from_id(id):
-	n = 0
-	while n <=2:
-		if list_locs[n].placeID == id:
-			return list_locs[n]
-		n += 1
-	return -1
 
 @APP.route('/scenic/<placeID>')
 def scenicdetails(placeID):
 
 	r1 = requests.get('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeID + '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U')
 	json1 = r1.json()
-	print(json1)
 	name = json1['result']['name']
 
 	address = json1["result"]["formatted_address"]
