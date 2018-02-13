@@ -327,11 +327,31 @@ p{
 	padding: 10px;
 	text-align: left;
 	font-weight: 500;
-	font-family: Raleway
+	font-family: Raleway;
+	background-color: rgba(255,255,255,.4)
 }
 
+.dropdown-menu li:hover {
+	font-weight: bold;
+}
 
+.dropdown-menu a{
+	text-decoration: none;
+	color: white;
+}
 
+.dropdown .btn {
+	background-color: rgba(255,255,255,.4);
+	border: none;
+}
+
+.dropdown .btn:active {
+	background-color: rgba(255,255,255,.4);
+	border: none;
+	text-decoration: none;
+	outline: none !impotant; 
+	box-shadow: none;
+}
 
 
 

@@ -27,7 +27,7 @@
 <!--location dropdown-->
 <div class="container">
 <div class="dropdown">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose City
+  <button id="city-btn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" onclick="myFunction()">Choose City
   <span class="caret"></span></button>
   <ul class="dropdown-menu">
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
@@ -72,6 +72,24 @@
 
 
 </body>
+
+
+<script>
+$(document).ready(function(){
+  $(".dropdown").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".dropdown-menu li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<script>
+function myFunction() {
+    document.getElementById("city-btn").style.background-color = "rgba(255,255,255,.4)";
+}
+</script>
+
 {% endblock %}
 
 </html>
