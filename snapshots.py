@@ -79,10 +79,7 @@ def parse_info(photo_item, photo_id, photo_secret) -> Photo :
     tags  = photo_item['tags'].get('tag')
     all_tags = ''
     for t in tags :
-        if t['raw'][0] is "#" :
-            all_tags = all_tags + t['raw']
-    if all_tags is '' :
-        all_tags = 'none'
+        all_tags = all_tags + '#' + t['raw'] + ' \n'
     photo = Photo(num_favs, name, username, lat, lon, title, url, all_tags, photo_id, photo_secret)
     return photo
 
@@ -120,3 +117,5 @@ def start() -> list :
     search_photos_scenic()
     search_photos_coffee()
     return photos
+
+start()
