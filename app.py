@@ -39,6 +39,16 @@ def get_sceniclocations() :
     """
     Implement RESTful API here
     """
+    places_json = []
+    scenic_locations = places.get_places()
+    for i in range(0,3) :
+        place_dict = {}
+        place_dict["name"] = scenic_locations[i].name
+        place_dict["place"] = scenic_locations[i].placeID
+        place_dict["rating"] = scenic_locations[i].rating
+        place_dict["photo"] = scenic_locations[i].photo
+        places_json.append(place_dict)
+    return jsonify({'scenic_locations': places_json})
 
 
 @APP.route('/api/v1.0/snapshots', methods=['GET'])
