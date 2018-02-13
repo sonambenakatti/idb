@@ -56,6 +56,19 @@ def get_snapshots() :
     """
     Implement RESTful API here
     """
+    snapshots_json = []
+    img_list = snapshots.start()
+    length = len(img_list)
+    for i in range(0, length) :
+        snapshot_dict = {}
+        snapshot_dict["name"] = img_list[i].name
+        snapshot_dict["title"] = img_list[i].title
+        snapshot_dict["num_favorites"] = img_list[i].num_favorites
+        snapshot_dict["username"] = img_list[i].username
+        snapshot_dict["imageUrl"] = img_list[i].imageUrl
+        snapshots_json.append(snapshot_dict)
+    return jsonify({'snapshots': snapshots_json})
+
 
 
 @APP.route('/')
