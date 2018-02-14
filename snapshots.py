@@ -79,7 +79,10 @@ def parse_info(photo_item, photo_id, photo_secret) -> Photo :
     tags  = photo_item['tags'].get('tag')
     all_tags = ''
     for t in tags :
-        all_tags = all_tags + '#' + t['raw'] + ' \n'
+        if t['raw'][0] is '#' :
+            all_tags = all_tags + t['raw'] + ' \n'
+        else :
+            all_tags = all_tags + '#' + t['raw'] + ' \n'
     photo = Photo(num_favs, name, username, lat, lon, title, url, all_tags, photo_id, photo_secret)
     return photo
 
@@ -97,7 +100,11 @@ returns the basic info for this picture in a dictionary
 """
 def get_info(photo_id, photo_secret) -> dict :
    global api_key
-   raw_json = flickr.photos.getInfo(api_key=api_key, photo_id=photo_id, secret=photo_secret)
+   try :
+       raw_json = flickr.photos.getInfo(api_key=api_key, photo_id=photo_id, secret=photo_secret)
+   except flickrapi.exceptions.FlickrError as e :
+       print(e)
+       rasie e 
    parsed_dict = json.loads(raw_json.decode('utf-8'))
    photo_info = parsed_dict['photo']
    return photo_info
