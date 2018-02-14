@@ -33,6 +33,7 @@ def get_places():
 def list_of_locs(placeID):
 	r1 = requests.get('https://maps.googleapis.com/maps/api/place/details/json?placeid=' + placeID + '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U')
 	json1 = r1.json()
+
 	try:
 		rating =  json1["result"]["rating"]
 
@@ -43,7 +44,6 @@ def list_of_locs(placeID):
 	name = json1['result']['name']
 
 	address = json1["result"]["formatted_address"]
-	rating= json1["result"]["rating"]
 	photo = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['result']['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
 	#src_for_map = "https://www.google.com/maps/embed/place?key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U&origin=place_id:" + placeID + "&output=embed"
 	reviews = json1["result"]["reviews"]
