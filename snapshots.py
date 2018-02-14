@@ -104,7 +104,6 @@ def get_info(photo_id, photo_secret) -> dict :
        raw_json = flickr.photos.getInfo(api_key=api_key, photo_id=photo_id, secret=photo_secret)
    except flickrapi.exceptions.FlickrError as e :
        print(e)
-       rasie e 
    parsed_dict = json.loads(raw_json.decode('utf-8'))
    photo_info = parsed_dict['photo']
    return photo_info
