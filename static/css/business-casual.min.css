@@ -345,13 +345,6 @@ p{
 	border: none;
 }
 
-.dropdown .btn:active {
-	background-color: rgba(255,255,255,.4);
-	border: none;
-	text-decoration: none;
-	outline: none !impotant; 
-	box-shadow: none;
-}
 
 
 
