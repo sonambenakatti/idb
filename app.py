@@ -177,7 +177,7 @@ def snapshotsinstance(id, secret):
 @APP.route('/shops/<coffeeId>')
 def coffeeshop(coffeeId) :
     coffee_shop = yelp.get_business(coffeeId)
-    return flask.render_template('instance1.html', location = coffee_shop.location, name = coffee_shop.name, phone = coffee_shop.phone, price = coffee_shop.price, rating = coffee_shop.rating)
+    return flask.render_template('instance1.html', location = coffee_shop.location, name = coffee_shop.name, phone = coffee_shop.phone, price = coffee_shop.price, rating = coffee_shop.rating, photo = coffee_shop.imageUrl)
 
 @APP.route('/shops')
 def coffeeshops() :
