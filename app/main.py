@@ -43,6 +43,7 @@ def get_sceniclocations() :
     """
     Implement RESTful API here
     """
+    places_json=[]
     place_dict = {}
     place_dict["name"] = 'Doug Sahm Hill Summit'
     place_dict["address"] = 'Doug Sahm Hill Path, Austin, TX 78704'
