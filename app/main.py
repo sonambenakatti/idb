@@ -37,6 +37,35 @@ shop_3_rating = "4.5"
 shop_3_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/hK35KSh9IxFMjvvg4tCmsQ/o.jpg"
 shop_3_phone = "512-524-0583"
 
+
+@APP.route('/api/v1.0/sceniclocations', methods=['GET'])
+def get_sceniclocations() :
+    """
+    Implement RESTful API here
+    """
+    place_dict = {}
+    place_dict["name"] = 'Doug Sahm Hill Summit'
+    place_dict["address"] = 'Doug Sahm Hill Path, Austin, TX 78704'
+    place_dict["rating"] = '4.8'
+    place_dict["photo"] = "https://photos.smugmug.com/Galleries/All/i-hbc4Wbr/4/5477538c/L/DJI_0021-cware-L.jpg"
+    places_json.append(place_dict)
+
+    place_dict = {}
+    place_dict["name"] = 'Scenic Overlook'
+    place_dict["address"] = '809, 1069 N Capital of Texas Hwy, Austin, TX 78746'
+    place_dict["rating"] = '4.6'
+    place_dict["photo"] = "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/scenic-overlook-of-austin-mark-weaver.jpg"
+    places_json.append(place_dict)
+
+    place_dict = {}
+    place_dict["name"] = 'Lou Neff Point'
+    place_dict["address"] = 'Ann and Roy Butler Hike and Bike Trail, Austin, TX 78746'
+    place_dict["rating"] = '4.7'
+    place_dict["photo"] = "https://s3.amazonaws.com/gs-waymarking-images/897c10a2-3419-4794-b4c3-fc9403decb45_d.jpg"
+    places_json.append(place_dict)
+
+    return jsonify({'scenic_locations': places_json})
+
 @APP.route('/shops')
 def coffeeshops() :
     return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = shop_1_name, location1 = shop_1_location, price1 = shop_1_price, rating1 = shop_1_rating, photo1 = shop_1_photo,
