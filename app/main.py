@@ -67,6 +67,42 @@ def get_sceniclocations() :
 
     return jsonify({'scenic_locations': places_json})
 
+@APP.route('/api/v1.0/coffeeshops', methods=['GET'])
+def get_coffeeshops() :
+    
+    shops_json=[]
+
+    shop_dict = {}
+    shop_dict["name"] = "Summer Moon Coffee Bar"
+    shop_dict["location"] = "11005 Burnet Rd Ste 112 Austin, TX 78758"
+    shop_dict["price"] = "$"
+    shop_dict["rating"] = "4.5"
+    shop_dict["photo"] = "https://s3-media3.fl.yelpcdn.com/bphoto/WQPD9JYeDyVju0inUEID7w/o.jpg"
+    shop_dict["phone"] = "737-300-1265"
+
+    shops_json.append(shop_dict)
+
+    shop_dict = {}
+    shop_dict["name"] = "Houndstooth Coffee"
+    shop_dict["location"] = "11005 Burnet Rd Ste 112 Austin, TX 78758"
+    shop_dict["price"] = "$$"
+    shop_dict["rating"] = "4.5"
+    shop_dict["photo"] = "https://s3-media3.fl.yelpcdn.com/bphoto/ITv825S32-REV1bISyfk5A/o.jpg"
+    shop_dict["phone"] = "512-394-6051"
+    shops_json.append(shop_dict)
+
+    shop_dict = {}
+    shop_dict["name"] = "Vintage Heart Coffee"
+    shop_dict["location"] = "1405 E 7th St Austin, TX 78702"
+    shop_dict["price"] = "$"
+    shop_dict["rating"] = "4.5"
+    shop_dict["photo"] = "https://s3-media3.fl.yelpcdn.com/bphoto/hK35KSh9IxFMjvvg4tCmsQ/o.jpg"
+    shop_dict["phone"] = "512-524-0583"
+    shops_json.append(shop_dict)
+
+    return jsonify({'coffeeshops': shops_json})
+
+
 @APP.route('/shops')
 def coffeeshops() :
     return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = shop_1_name, location1 = shop_1_location, price1 = shop_1_price, rating1 = shop_1_rating, photo1 = shop_1_photo,
