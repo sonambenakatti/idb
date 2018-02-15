@@ -111,12 +111,15 @@ def get_coffeeshops() :
 
     return jsonify({'coffeeshops': shops_json})
 
-APP.route('/api/v1.0/snapshots', methods=['GET'])
+@APP.route('/api/v1.0/snapshots', methods=['GET'])
 def get_snapshots() :
     """
     Implement RESTful API here
     """
     snapshots_json = []
+    global photo1
+    global photo2
+    global photo3
     img_list = []
     img_list.append(photo1)
     img_list.append(photo2)
@@ -129,7 +132,9 @@ def get_snapshots() :
         snapshot_dict["num_favorites"] = img_list[i].num_favorites
         snapshot_dict["username"] = img_list[i].username
         snapshot_dict["imageUrl"] = img_list[i].imageUrl
+        snapshot_dict["tags"] = img_list[i].tags
         snapshots_json.append(snapshot_dict)
+
     return jsonify({'snapshots': snapshots_json})
 
 @APP.route('/shops')
@@ -284,6 +289,9 @@ def scenicdetails(placeID):
 
 @APP.route('/snapshots')
 def snapshotsmain():
+    global photo1
+    global photo2
+    global photo3
     return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
                                  title1 = photo1.title, title2 = photo2.title, title3 = photo3.title,
                                  num_favs1 = photo1.num_favorites, num_favs2 = photo2.num_favorites, num_favs3 = photo3.num_favorites,
@@ -294,6 +302,9 @@ def snapshotsmain():
 
 @APP.route('/snapshots/<id>/<secret>')
 def snapshotsinstance(id, secret):
+    global photo1
+    global photo2
+    global photo3
     if id is '1' :
         photo = photo1
     elif id is '2' :
