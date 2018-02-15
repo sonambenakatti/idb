@@ -37,6 +37,15 @@ shop_3_rating = "4.5"
 shop_3_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/hK35KSh9IxFMjvvg4tCmsQ/o.jpg"
 shop_3_phone = "512-524-0583"
 
+photo1 = Photo('3', 'J Dimas', ' josecdimas', '0', '0', 'WINTER SUNNY DAY IN AUSTIN',
+'https://farm5.staticflickr.com/4657/40162172101_a30055288c.jpg', '#Austin #Austin, TX #ATX #Zilker Park #winter #dried grass', '1', '1')
+photo2 = Photo('5', 'Don Mason', '-Dons', '0', '0', 'A great start to the day', 'https://farm5.staticflickr.com/4605/25036430577_0f11597674.jpg',
+'#Austin #Camera #Houndstooth - Frost #Texas #United States \
+#coffee #coffee houses #latte art #TX #USA #Nikon #Nikon F3T #cappuccino', '2', '1')
+photo3 = Photo('0', 'unknown', 'ClevrCat', '0', '0', 'YESSS. POST-WORKOUT AND HAIRCUT COFFEE. HOUNDSTOOTH HAS THE CUTEST CUPS TOO. \
+#ATX #CAFFEINE #COFFEE #HOUNDSTOOTH #AUSTIN @HOUNDSTOOTHCOFFEE' , 'https://farm9.staticflickr.com/8515/29772433785_43acb1720a.jpg',
+'#IFTTT #Instagram #Yesss. #Post-workout #haircut #coffee. #Houndstooth #has #cutest #cups #too. #Atx #caffeine #austin #@houndstoothcoffee', '3', '1')
+
 
 @APP.route('/api/v1.0/sceniclocations', methods=['GET'])
 def get_sceniclocations() :
@@ -69,7 +78,7 @@ def get_sceniclocations() :
 
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])
 def get_coffeeshops() :
-    
+
     shops_json=[]
 
     shop_dict = {}
@@ -102,6 +111,26 @@ def get_coffeeshops() :
 
     return jsonify({'coffeeshops': shops_json})
 
+APP.route('/api/v1.0/snapshots', methods=['GET'])
+def get_snapshots() :
+    """
+    Implement RESTful API here
+    """
+    snapshots_json = []
+    img_list = []
+    img_list.append(photo1)
+    img_list.append(photo2)
+    img_list.append(photo3)
+    length = len(img_list)
+    for i in range(0, length) :
+        snapshot_dict = {}
+        snapshot_dict["name"] = img_list[i].name
+        snapshot_dict["title"] = img_list[i].title
+        snapshot_dict["num_favorites"] = img_list[i].num_favorites
+        snapshot_dict["username"] = img_list[i].username
+        snapshot_dict["imageUrl"] = img_list[i].imageUrl
+        snapshots_json.append(snapshot_dict)
+    return jsonify({'snapshots': snapshots_json})
 
 @APP.route('/shops')
 def coffeeshops() :
@@ -117,6 +146,7 @@ def coffeeshop(coffeeId) :
         return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
     if coffeeId is "3":
         return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
+
 @APP.route('/scenic')
 def sceniclocations() :
     """
@@ -183,7 +213,7 @@ def scenicdetails(placeID):
         rating = "No ratings for this view yet!"
     photo = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + json1['result']['photos'][0]['photo_reference']+ '&key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U'
     src_for_map = "https://www.google.com/maps/embed/place?key=AIzaSyBlOaCDL8ePD3nignTrJN1oViXj_rDx_1U&origin=place_id:" + placeID + "&output=embed"
-    
+
     try:
         review1name = json1["result"]["reviews"][0]['author_name']
         review1text = json1["result"]["reviews"][0]['text']
@@ -198,8 +228,8 @@ def scenicdetails(placeID):
         review2name = ""
         review2text = ""
         review2rating=""
-    
-    
+
+
 
     scl = get_loc_from_id(placeID)s
     name = scl.name
@@ -254,14 +284,6 @@ def scenicdetails(placeID):
 
 @APP.route('/snapshots')
 def snapshotsmain():
-    photo1 = Photo('3', 'J Dimas', ' josecdimas', '0', '0', 'WINTER SUNNY DAY IN AUSTIN',
-    'https://farm5.staticflickr.com/4657/40162172101_a30055288c.jpg', '#Austin #Austin, TX #ATX #Zilker Park #winter #dried grass', '1', '1')
-    photo2 = Photo('5', 'Don Mason', '-Dons', '0', '0', 'A great start to the day', 'https://farm5.staticflickr.com/4605/25036430577_0f11597674.jpg',
-    '#Austin #Camera #Houndstooth - Frost #Texas #United States \
-    #coffee #coffee houses #latte art #TX #USA #Nikon #Nikon F3T #cappuccino', '2', '1')
-    photo3 = Photo('0', 'unknown', 'ClevrCat', '0', '0', 'YESSS. POST-WORKOUT AND HAIRCUT COFFEE. HOUNDSTOOTH HAS THE CUTEST CUPS TOO. \
-    #ATX #CAFFEINE #COFFEE #HOUNDSTOOTH #AUSTIN @HOUNDSTOOTHCOFFEE' , 'https://farm9.staticflickr.com/8515/29772433785_43acb1720a.jpg',
-    '#IFTTT #Instagram #Yesss. #Post-workout #haircut #coffee. #Houndstooth #has #cutest #cups #too. #Atx #caffeine #austin #@houndstoothcoffee', '3', '1')
     return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
                                  title1 = photo1.title, title2 = photo2.title, title3 = photo3.title,
                                  num_favs1 = photo1.num_favorites, num_favs2 = photo2.num_favorites, num_favs3 = photo3.num_favorites,
@@ -273,16 +295,11 @@ def snapshotsmain():
 @APP.route('/snapshots/<id>/<secret>')
 def snapshotsinstance(id, secret):
     if id is '1' :
-        photo = Photo('3', 'J Dimas', ' josecdimas', '0', '0', 'WINTER SUNNY DAY IN AUSTIN',
-        'https://farm5.staticflickr.com/4657/40162172101_a30055288c.jpg', '#Austin #Austin, TX #ATX #Zilker Park #winter #dried grass', '1', '1')
+        photo = photo1
     elif id is '2' :
-        photo = Photo('5', 'Don Mason', '-Dons', '0', '0', 'A great start to the day', 'https://farm5.staticflickr.com/4605/25036430577_0f11597674.jpg',
-        '#Austin #Camera #Houndstooth - Frost #Texas #United States \
-        #coffee #coffee houses #latte art #TX #USA #Nikon #Nikon F3T #cappuccino', '2', '2')
+        photo = photo2
     else :
-        photo = Photo('0', 'unknown', 'ClevrCat', '0', '0', 'YESSS. POST-WORKOUT AND HAIRCUT COFFEE. HOUNDSTOOTH HAS THE CUTEST CUPS TOO. \
-        #ATX #CAFFEINE #COFFEE #HOUNDSTOOTH #AUSTIN @HOUNDSTOOTHCOFFEE' , 'https://farm9.staticflickr.com/8515/29772433785_43acb1720a.jpg',
-        '#IFTTT #Instagram #Yesss. #Post-workout #haircut #coffee. #Houndstooth #has #cutest #cups #too. #Atx #caffeine #austin #@houndstoothcoffee', '3', '3')
+        photo = photo3
     return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
                                 title = photo.title, tags = photo.tags, id = photo.id, secret = photo.secret, url = photo.imageUrl)
 
