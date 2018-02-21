@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(161);
+	var _registerServiceWorker = __webpack_require__(162);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19776,6 +19776,61 @@
 /* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Navbar = __webpack_require__(161);
+
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var App = function (_Component) {
+	  _inherits(App, _Component);
+
+	  function App() {
+	    _classCallCheck(this, App);
+
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	  }
+
+	  _createClass(App, [{
+	    key: 'render',
+	    value: function render() {
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'Hello',
+	        _react2.default.createElement(_Navbar2.default, null)
+	      );
+	    }
+	  }]);
+
+	  return App;
+	}(_react.Component);
+
+	exports.default = App;
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -19796,33 +19851,118 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var App = function (_Component) {
-	  _inherits(App, _Component);
+	var Navbar = function (_Component) {
+	  _inherits(Navbar, _Component);
 
-	  function App() {
-	    _classCallCheck(this, App);
+	  function Navbar() {
+	    _classCallCheck(this, Navbar);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).apply(this, arguments));
 	  }
 
-	  _createClass(App, [{
+	  _createClass(Navbar, [{
 	    key: "render",
 	    value: function render() {
+
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "App" },
-	        "Test react stuff"
+	        null,
+	        _react2.default.createElement(
+	          "h1",
+	          { className: "site-heading text-center text-white d-none d-lg-block" },
+	          _react2.default.createElement(
+	            "span",
+	            { className: "site-heading-lower" },
+	            "Coffee With A View"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "nav",
+	          { className: "navbar navbar-expand-lg navbar-dark py-lg-4", id: "mainNav" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "a",
+	              { className: "navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none", href: "#" },
+	              "ESPRESSO YOSELF"
+	            ),
+	            _react2.default.createElement(
+	              "button",
+	              { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#navbarResponsive", "aria-controls": "navbarResponsive", "aria-expanded": "false", "aria-label": "Toggle navigation" },
+	              _react2.default.createElement("span", { className: "navbar-toggler-icon" })
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "collapse navbar-collapse", id: "navbarResponsive" },
+	              _react2.default.createElement(
+	                "ul",
+	                { className: "navbar-nav mx-auto" },
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "nav-item active px-lg-4" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { className: "nav-link text-uppercase text-expanded", href: "/" },
+	                    "Home",
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "sr-only" },
+	                      "(current)"
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "nav-item px-lg-4" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { id: "shops", className: "nav-link text-uppercase text-expanded", href: "/shops" },
+	                    "Coffee Shops"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "nav-item px-lg-4" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { id: "scenicloc", className: "nav-link text-uppercase text-expanded", href: "/scenic" },
+	                    "Scenic Locations"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "nav-item px-lg-4" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { className: "nav-link text-uppercase text-expanded", href: "/snapshots" },
+	                    "Snapshots"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "nav-item px-lg-4" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { className: "nav-link text-uppercase text-expanded", href: "/about" },
+	                    "about"
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        )
 	      );
 	    }
 	  }]);
 
-	  return App;
+	  return Navbar;
 	}(_react.Component);
 
-	exports.default = App;
+	exports.default = Navbar;
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
