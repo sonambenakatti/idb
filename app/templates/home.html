@@ -19,13 +19,12 @@
     <!-- Custom styles for this template -->
     <link href="/static/css/business-casual.min.css" rel="stylesheet">
   </head>
-  
+
   {% extends "index.html" %}
   {% block content%}
 
 
-  <div>
-    <p></p>
+  <div id="root">
   </div>
 
 
@@ -37,13 +36,13 @@
       <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
-    
+
     <div class="carousel-inner">
 
       <div class="carousel-item active">
         <p><a href="/shops"><img class="d-block w-100" src="/static/img/coffee1.jpg" alt="First slide"></a></p>
         <div class="carousel-caption d-none d-md-block">
-          <h3>Coffee Shops</h3>
+          <h3>Coffee Shop</h3>
           <p>Browse through local coffee shops.</p>
         </div>
       </div>
@@ -83,13 +82,14 @@
   <!-- Bootstrap core JavaScript -->
   <script src="/static/vendor/jquery/jquery.min.js"></script>
   <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="/static/bundle.js"></script>
 
   <!--carousel javascript-->
   <script>
     $(document).ready(function(){
       // Activate Carousel
       $("#carouselExampleIndicators").carousel();
-      
+
         // Enable Carousel Indicators
         $(".carousel-item-active").click(function(){
           $("#carouselExampleIndicators").carousel(0);
@@ -100,7 +100,7 @@
       $(".carousel-item3").click(function(){
         $("#carouselExampleIndicators").carousel(2);
       });
-      
+
       // Enable Carousel Controls
       $(".carousel-control-prev").click(function(){
         $("#carouselExampleIndicatorsl").carousel("prev");
@@ -108,9 +108,11 @@
       $(".carousel-control-next").click(function(){
         $("#carouselExampleIndicators").carousel("next");
       });
-      
+
     });
   </script>
+
+
 
 
 </html>
