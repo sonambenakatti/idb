@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(162);
+	var _registerServiceWorker = __webpack_require__(163);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19792,6 +19792,10 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
+	var _Home = __webpack_require__(162);
+
+	var _Home2 = _interopRequireDefault(_Home);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19816,8 +19820,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Hello',
-	        _react2.default.createElement(_Navbar2.default, null)
+	        _react2.default.createElement(_Navbar2.default, null),
+	        _react2.default.createElement(_Home2.default, null)
 	      );
 	    }
 	  }]);
@@ -19963,6 +19967,166 @@
 
 /***/ }),
 /* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Home = function (_Component) {
+	  _inherits(Home, _Component);
+
+	  function Home() {
+	    _classCallCheck(this, Home);
+
+	    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	  }
+
+	  _createClass(Home, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { id: "carouselExampleIndicators", className: "carousel slide", "data-ride": "carousel" },
+	        _react2.default.createElement(
+	          "ol",
+	          { className: "carousel-indicators" },
+	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 0, className: "active" }),
+	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 1 }),
+	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 2 })
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "carousel-inner" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "carousel-item active" },
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { href: "/shops" },
+	                _react2.default.createElement("img", { className: "d-block w-100", src: "/static/img/coffee1.jpg", alt: "First slide" })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "carousel-caption d-none d-md-block" },
+	              _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Coffee Shop"
+	              ),
+	              _react2.default.createElement(
+	                "p",
+	                null,
+	                "Browse through local coffee shops."
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "carousel-item" },
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { href: "/scenic" },
+	                _react2.default.createElement("img", { className: "d-block w-100", src: "/static/img/coffee2.jpg", alt: "Second slide" })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "carousel-caption d-none d-md-block" },
+	              _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Scenic Views"
+	              ),
+	              _react2.default.createElement(
+	                "p",
+	                null,
+	                "Click through stunning locations."
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "carousel-item" },
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { href: "/snapshots" },
+	                _react2.default.createElement("img", { className: "d-block w-100", src: "/static/img/coffee3.jpg", alt: "Third slide" })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "carousel-caption d-none d-md-block" },
+	              _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Snapshots"
+	              ),
+	              _react2.default.createElement(
+	                "p",
+	                null,
+	                "Find crystal clear snaps of your two favorite things."
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "a",
+	          { className: "carousel-control-prev", href: "#carouselExampleIndicators", role: "button", "data-slide": "prev" },
+	          _react2.default.createElement("span", { className: "carousel-control-prev-icon", "aria-hidden": "true" }),
+	          _react2.default.createElement(
+	            "span",
+	            { className: "sr-only" },
+	            "Previous"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "a",
+	          { className: "carousel-control-next", href: "#carouselExampleIndicators", role: "button", "data-slide": "next" },
+	          _react2.default.createElement("span", { className: "carousel-control-next-icon", "aria-hidden": "true" }),
+	          _react2.default.createElement(
+	            "span",
+	            { className: "sr-only" },
+	            "Next"
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Home;
+	}(_react.Component);
+
+	exports.default = Home;
+
+/***/ }),
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
