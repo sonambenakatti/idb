@@ -16,6 +16,11 @@ APP = flask.Flask(__name__)
 def home():
     return flask.render_template('home.html')
 
+
+@APP.route('/<path:path>')
+def catch_all (path):
+    return flask.render_template('home.html')
+
 shop_1_name = "Summer Moon Coffee Bar"
 shop_1_location = "11005 Burnet Rd Ste 112 Austin, TX 78758"
 shop_1_price = "$"
@@ -316,13 +321,14 @@ def snapshotsinstance(id, secret):
 
 
 
-@APP.route('/about')
-def about():
-    commits = githubstats.user_commits()
-    issues = githubstats.user_issues()
-    return flask.render_template('about.html', total_commits = commits["total"], issues = githubstats.open_issues + issues["total"], amrutha_commits = commits["amrutha"], sonam_commits = commits["sonam"],
-                                 jenni_commits = commits["jenni"], ruchi_commits = commits["ruchi"], jaemin_commits = commits["jaemin"], amrutha_issues = issues["amrutha"],
-                                 sonam_issues = issues["sonam"], jenni_issues = issues["jenni"], ruchi_issues = issues["ruchi"], jaemin_issues = issues["jaemin"])
+# @APP.route('/about')
+# def about():
+#     # commits = githubstats.user_commits()
+#     # issues = githubstats.user_issues()
+#     # return flask.render_template('about.html', total_commits = commits["total"], issues = githubstats.open_issues + issues["total"], amrutha_commits = commits["amrutha"], sonam_commits = commits["sonam"],
+#     #                              jenni_commits = commits["jenni"], ruchi_commits = commits["ruchi"], jaemin_commits = commits["jaemin"], amrutha_issues = issues["amrutha"],
+#     #                              sonam_issues = issues["sonam"], jenni_issues = issues["jenni"], ruchi_issues = issues["ruchi"], jaemin_issues = issues["jaemin"])
+#     return flask.render_template('index.html')
 
 
 
