@@ -24647,7 +24647,7 @@
 /* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -24677,16 +24677,537 @@
 	  }
 
 	  _createClass(About, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        null,
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'HELLO IS THIS WORKING'
-	        )
+	          "section",
+	          { className: "page-section cta" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "row" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-xl-9 mx-auto" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "cta-inner text-center rounded" },
+	                  _react2.default.createElement(
+	                    "h2",
+	                    { className: "section-heading mb-4" },
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-lower" },
+	                      "ESPRESSO YOSELF"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "p",
+	                    { className: "mb-0" },
+	                    "On vacation, or just need to get away from the bustle of daily life? Our goal is to allow you to grab a warm coffee, find a beautiful view, and have some stunning visuals. With the help of Google Maps, Yelp, and social media we've used the power of location so that you can find a sip and a relaxing spot wherever you are. We know stepping away to take time for yourself can be hard, but with this site we hope you find your happy place."
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section clearfix" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "intro" },
+	              _react2.default.createElement("img", { className: "intro-img img-fluid mb-3 mb-lg-0 rounded", src: "/static/img/amrutha.jpg", alt: "Amrutha" }),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "intro-text left-0 text-center bg-faded p-5 rounded" },
+	                _react2.default.createElement(
+	                  "h2",
+	                  { className: "section-heading mb-4" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-lower" },
+	                    "Amrutha"
+	                  ),
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-upper" },
+	                    "Focus: Scenic Locations"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  "Amrutha's coffee of choice is a soy vanilla latte. In her spare time, she likes playing with her dogs, eating, and planning events. Her software interests include web development, security, and mobile applications."
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Commits:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Issues:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Unit Tests:"
+	                  ),
+	                  " 0"
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section clearfix" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "intro" },
+	              _react2.default.createElement("img", { className: "intro-img img-fluid mb-3 mb-lg-0 rounded", src: "/static/img/jaemin.jpg", alt: "Jaemin" }),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "intro-text left-0 text-center bg-faded p-5 rounded" },
+	                _react2.default.createElement(
+	                  "h2",
+	                  { className: "section-heading mb-4" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-lower" },
+	                    "Jaemin"
+	                  ),
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-upper" },
+	                    "Focus: Coffee Shops"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  "Jaemin is interested in VR, web apps, and mobile apps. In his free time he likes to play guitar and piano, and draw (you can follow him at @godrawjae). His favorite coffee is an americano with sweetener."
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Commits:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Issues:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Unit Tests:"
+	                  ),
+	                  " 0"
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section clearfix" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "intro" },
+	              _react2.default.createElement("img", { className: "intro-img img-fluid mb-3 mb-lg-0 rounded", src: "/static/img/jenni.jpg", alt: "Jenni" }),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "intro-text left-0 text-center bg-faded p-5 rounded" },
+	                _react2.default.createElement(
+	                  "h2",
+	                  { className: "section-heading mb-4" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-lower" },
+	                    "Jenni"
+	                  ),
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-upper" },
+	                    "Focus: Snapshots"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  "Jenni enjoys reading, trying new food, and watching youtubers. She's into web development and her coffee of choice is cold brew."
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Commits:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Issues:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Unit Tests:"
+	                  ),
+	                  " 0"
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section clearfix" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "intro" },
+	              _react2.default.createElement("img", { className: "intro-img img-fluid mb-3 mb-lg-0 rounded", src: "/static/img/ruchi.jpg", alt: "Ruchi" }),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "intro-text left-0 text-center bg-faded p-5 rounded" },
+	                _react2.default.createElement(
+	                  "h2",
+	                  { className: "section-heading mb-4" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-lower" },
+	                    "Ruchi"
+	                  ),
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-upper" },
+	                    "Focus: Home, AWS"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  "Ruchi is a fellow coffee enthusiast and guilty Starbucks fanatic. Her go to coffee drink is plain coffee with a little vanilla and a splash of coconut milk. In her spare time she likes to try new foods, do yoga, and binge watch TV shows. She's excited to get out in the real world and start off her career as a software engineer!"
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Commits:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Issues:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Unit Tests:"
+	                  ),
+	                  " 0"
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section clearfix" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "intro" },
+	              _react2.default.createElement("img", { className: "intro-img img-fluid mb-3 mb-lg-0 rounded", src: "/static/img/sonam.jpg", alt: "Sonam" }),
+	              _react2.default.createElement(
+	                "div",
+	                { className: "intro-text left-0 text-center bg-faded p-5 rounded" },
+	                _react2.default.createElement(
+	                  "h2",
+	                  { className: "section-heading mb-4" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-lower" },
+	                    "Sonam"
+	                  ),
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "section-heading-upper" },
+	                    "Focus: About"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  "Sonam likes all types of coffee, although her go-to is an iced coffee with one pump of vanilla syrup. In her free time, she loves to eat and attempt to convince herself that running is fun. She hopes one day she can make an impact as a software engineer."
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-3" },
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Commits:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Issues:"
+	                  ),
+	                  " 0 ",
+	                  _react2.default.createElement("br", null),
+	                  _react2.default.createElement(
+	                    "b",
+	                    null,
+	                    "Unit Tests:"
+	                  ),
+	                  " 0"
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section cta" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "row" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "col-xl-9 mx-auto" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "text-center rounded" },
+	                  _react2.default.createElement(
+	                    "h2",
+	                    { className: "section-heading mb-4" },
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-lower" },
+	                      "ABOUT"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "h3",
+	                    { className: "mb-4" },
+	                    "STATISTICS"
+	                  ),
+	                  _react2.default.createElement(
+	                    "p",
+	                    { className: "mb-4" },
+	                    "Commits: ",
+	                    '{',
+	                    '{',
+	                    "total_commits",
+	                    '}',
+	                    '}',
+	                    " ",
+	                    _react2.default.createElement("br", null),
+	                    "Issues: ",
+	                    '{',
+	                    '{',
+	                    "issues",
+	                    '}',
+	                    '}',
+	                    " ",
+	                    _react2.default.createElement("br", null),
+	                    "Unit Tests: 0"
+	                  ),
+	                  _react2.default.createElement(
+	                    "h3",
+	                    { className: "mb-4" },
+	                    "DATA SOURCES"
+	                  ),
+	                  _react2.default.createElement(
+	                    "p",
+	                    { className: "mb-4" },
+	                    _react2.default.createElement(
+	                      "a",
+	                      { href: "https://www.yelp.com/developers/documentation/v3" },
+	                      _react2.default.createElement(
+	                        "b",
+	                        null,
+	                        "Yelp"
+	                      )
+	                    ),
+	                    _react2.default.createElement("br", null),
+	                    "We created a python script that gets data via Yelp Fusions api. Yelp Fusion returns JSON objects which we then parse and store in the python script.",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "a",
+	                      { href: "https://developers.google.com/places/" },
+	                      _react2.default.createElement(
+	                        "b",
+	                        null,
+	                        "Google Places"
+	                      )
+	                    ),
+	                    _react2.default.createElement("br", null),
+	                    "We used the Google Places API to run a places search, a place details search, and a place photos search.",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "a",
+	                      { href: "https://www.flickr.com/services/api/" },
+	                      _react2.default.createElement(
+	                        "b",
+	                        null,
+	                        "Flickr"
+	                      )
+	                    ),
+	                    _react2.default.createElement("br", null),
+	                    "We scraped data from the Flickr API using flickrapi, a third party Python interface to make requests. We used photos search, get info, and get favorites to populate our snapshots model."
+	                  ),
+	                  _react2.default.createElement(
+	                    "h3",
+	                    { className: "mb-4" },
+	                    "TOOLS"
+	                  ),
+	                  _react2.default.createElement(
+	                    "p",
+	                    { className: "mb-4" },
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Github:"
+	                    ),
+	                    " for code storage and collaboration",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Bootstrap:"
+	                    ),
+	                    " to beautify our UI",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Flask:"
+	                    ),
+	                    " for our backend framework ",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Amazon Web Services:"
+	                    ),
+	                    " to host our website",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Postman:"
+	                    ),
+	                    " to help test our REST API endpoints",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Namecheap:"
+	                    ),
+	                    " to obtain a free domain name",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "GitBook:"
+	                    ),
+	                    " holds our REST API",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "PyGithub:"
+	                    ),
+	                    " to easily scrape data from the Github API",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "flickrapi:"
+	                    ),
+	                    " to easily scrape data from the Flickr API",
+	                    _react2.default.createElement("br", null)
+	                  ),
+	                  _react2.default.createElement(
+	                    "h3",
+	                    { className: "mb-4" },
+	                    _react2.default.createElement(
+	                      "a",
+	                      { href: "https://github.com/sonambenakatti/idb" },
+	                      "GITHUB"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "h3",
+	                    { className: "mb-4" },
+	                    _react2.default.createElement(
+	                      "a",
+	                      { href: "https://sonambenakatti.gitbooks.io/espresso-yoself/content/" },
+	                      "GITBOOK"
+	                    )
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        '{',
+	        "% endblock %",
+	        '}'
 	      );
 	    }
 	  }]);
