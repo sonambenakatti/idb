@@ -142,20 +142,20 @@ def get_snapshots() :
 
     return jsonify({'snapshots': snapshots_json})
 
-@APP.route('/shops')
-def coffeeshops() :
-    return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = shop_1_name, location1 = shop_1_location, price1 = shop_1_price, rating1 = shop_1_rating, photo1 = shop_1_photo,
-                                 name2 = shop_2_name, coffeeId2 = "2", location2 = shop_2_location, price2 = shop_2_price, rating2 = shop_2_rating, photo2 = shop_2_photo,
-                                 name3 = shop_3_name, coffeeId3 = "3", location3 = shop_3_location, price3 = shop_3_price, rating3 = shop_3_rating, photo3 = shop_3_photo)
-
-@APP.route('/shops/<coffeeId>')
-def coffeeshop(coffeeId) :
-    if coffeeId is "1":
-        return flask.render_template('instance1.html', location = shop_1_location, name = shop_1_name, phone = shop_1_phone, price = shop_1_price, rating = shop_1_rating, photo = shop_1_photo)
-    if coffeeId is "2":
-        return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
-    if coffeeId is "3":
-        return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
+# @APP.route('/shops')
+# def coffeeshops() :
+#     return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = shop_1_name, location1 = shop_1_location, price1 = shop_1_price, rating1 = shop_1_rating, photo1 = shop_1_photo,
+#                                  name2 = shop_2_name, coffeeId2 = "2", location2 = shop_2_location, price2 = shop_2_price, rating2 = shop_2_rating, photo2 = shop_2_photo,
+#                                  name3 = shop_3_name, coffeeId3 = "3", location3 = shop_3_location, price3 = shop_3_price, rating3 = shop_3_rating, photo3 = shop_3_photo)
+#
+# @APP.route('/shops/<coffeeId>')
+# def coffeeshop(coffeeId) :
+#     if coffeeId is "1":
+#         return flask.render_template('instance1.html', location = shop_1_location, name = shop_1_name, phone = shop_1_phone, price = shop_1_price, rating = shop_1_rating, photo = shop_1_photo)
+#     if coffeeId is "2":
+#         return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
+#     if coffeeId is "3":
+#         return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
 
 @APP.route('/scenic')
 def sceniclocations() :

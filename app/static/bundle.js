@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(211);
+	var _registerServiceWorker = __webpack_require__(212);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19802,6 +19802,10 @@
 
 	var _About2 = _interopRequireDefault(_About);
 
+	var _CoffeeShops = __webpack_require__(211);
+
+	var _CoffeeShops2 = _interopRequireDefault(_CoffeeShops);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19834,6 +19838,7 @@
 	            _reactRouterDom.Switch,
 	            null,
 	            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default })
 	          )
 	        )
@@ -25219,6 +25224,173 @@
 
 /***/ }),
 /* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CoffeeShops = function (_Component) {
+	  _inherits(CoffeeShops, _Component);
+
+	  function CoffeeShops() {
+	    _classCallCheck(this, CoffeeShops);
+
+	    return _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).apply(this, arguments));
+	  }
+
+	  _createClass(CoffeeShops, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { "class": "CoffeeShops" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "container" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "dropdown" },
+	            _react2.default.createElement(
+	              "button",
+	              { id: "city-btn", className: "btn btn-primary dropdown-toggle", type: "button", "data-toggle": "dropdown", onclick: "myFunction()" },
+	              "Choose City",
+	              _react2.default.createElement("span", { className: "caret" })
+	            ),
+	            _react2.default.createElement(
+	              "ul",
+	              { className: "dropdown-menu" },
+	              _react2.default.createElement("input", { className: "form-control", id: "myInput", type: "text", placeholder: "Search.." }),
+	              _react2.default.createElement(
+	                "li",
+	                null,
+	                _react2.default.createElement(
+	                  "a",
+	                  { href: "#" },
+	                  "Austin, TX"
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "row" },
+	              _react2.default.createElement(
+	                "ul",
+	                { className: "img-list" },
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "col" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "/shops/{{coffeeId1}}" },
+	                    _react2.default.createElement("img", { src: "", style: { width: 300, height: 300 }, alt: "Photo1" }),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "picText" },
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        " name ",
+	                        _react2.default.createElement("br", null),
+	                        _react2.default.createElement("br", null),
+	                        "location",
+	                        _react2.default.createElement("br", null),
+	                        "Price:",
+	                        _react2.default.createElement("br", null),
+	                        "Rating:"
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "col" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "/shops/{{coffeeId2}}" },
+	                    _react2.default.createElement("img", { src: "", style: { width: 300, height: 300 }, alt: "Photo2" }),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "picText" },
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        " name ",
+	                        _react2.default.createElement("br", null),
+	                        _react2.default.createElement("br", null),
+	                        "location",
+	                        _react2.default.createElement("br", null),
+	                        "Price:",
+	                        _react2.default.createElement("br", null),
+	                        "Rating:"
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "col" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "/shops/{{coffeeId3}}" },
+	                    _react2.default.createElement("img", { src: "", style: { width: 300, height: 300 }, alt: "Photo3" }),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "picText" },
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        " name ",
+	                        _react2.default.createElement("br", null),
+	                        _react2.default.createElement("br", null),
+	                        "location",
+	                        _react2.default.createElement("br", null),
+	                        "Price:",
+	                        _react2.default.createElement("br", null),
+	                        "Rating:"
+	                      )
+	                    )
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return CoffeeShops;
+	}(_react.Component);
+
+	exports.default = CoffeeShops;
+
+/***/ }),
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
