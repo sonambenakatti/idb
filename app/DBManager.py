@@ -49,7 +49,7 @@ coffee_shops = Table('Shops', metadata,
 
 )
 
-coffee_shops = Table('Scenic', metadata,
+scenic_views = Table('Scenic', metadata,
   Column('scenic_id', Integer, primary_key=True),
   Column('scenic_name', String(100)),
   Column('scenic_address', String(100)),
@@ -62,7 +62,7 @@ coffee_shops = Table('Scenic', metadata,
 
 )
 
-coffee_shops = Table('Snapshots', metadata,
+snapshots = Table('Snapshots', metadata,
   Column('snap_id', Integer, primary_key=True),
   Column('snap_name', String(100)),
   Column('snap_photographer', String(100)),
@@ -79,6 +79,8 @@ engine = create_engine(uri)
 metadata.create_all(engine)
 
 # models
+
+
 
 if __name__ == "__main__":
     print("Making the database")

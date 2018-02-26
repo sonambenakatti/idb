@@ -156,7 +156,7 @@ def coffeeshop(coffeeId) :
         return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
     if coffeeId is "3":
         return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
-
+'''
 @APP.route('/scenic')
 def sceniclocations() :
     """
@@ -206,7 +206,7 @@ def sceniclocations() :
     #photor3=scenic_locations[2].photo
 
     return flask.render_template('products.html', name1=name1, placeID1= placeID1, rating1=rating1, name2=name2, placeID2=placeID2, rating2=rating2, name3=name3, placeID3=placeID3, rating3=rating3)
-
+'''
 
 @APP.route('/scenic/<placeID>')
 def scenicdetails(placeID):
