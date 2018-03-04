@@ -24680,7 +24680,8 @@
 	    var _this = _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).call(this, props));
 
 	    _this.state = {
-	      commits: { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 }
+	      commits: { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 },
+	      issues: { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 }
 	    };
 	    return _this;
 	  }
@@ -24688,14 +24689,12 @@
 	  _createClass(About, [{
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
-	      this.loadData();
+	      this.loadCommits();
+	      this.loadIssues();
 	    }
-
-	    // MUST CHANGE API URL
-
 	  }, {
-	    key: "loadData",
-	    value: function loadData() {
+	    key: "loadCommits",
+	    value: function loadCommits() {
 	      var _this2 = this;
 
 	      fetch('https://api.github.com/repos/sonambenakatti/idb/stats/contributors').then(function (response) {
@@ -24714,12 +24713,30 @@
 	      });
 	    }
 	  }, {
+	    key: "loadIssues",
+	    value: function loadIssues() {
+	      var _this3 = this;
+
+	      fetch('https://api.github.com/repos/sonambenakatti/idb/issues').then(function (response) {
+	        return response.json();
+	      }).then(function (data) {
+	        var actualIssues = { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 };
+	        var total = 0;
+	        for (var i = 0; i < data.length; i++) {
+	          actualIssues[data[i].user.login] += 1;
+	          total += 1;
+	        }
+	        actualIssues["total"] = total;
+	        _this3.setState({ issues: actualIssues });
+	      }).catch(function (err) {
+	        return console.error(_this3.props.url, err.toString());
+	      });
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      var commits = this.state.commits;
-	      // let val = obj.response.user;
-
-	      console.log(commits);
+	      var issues = this.state.issues;
 
 	      return _react2.default.createElement(
 	        "div",
@@ -24807,7 +24824,9 @@
 	                    null,
 	                    "Issues:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  issues['AmruthaSreedharane'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -24869,7 +24888,9 @@
 	                    null,
 	                    "Issues:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  issues['GohJazn'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -24931,7 +24952,9 @@
 	                    null,
 	                    "Issues:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  issues['jenniferrethi'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -24993,7 +25016,9 @@
 	                    null,
 	                    "Issues:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  issues['ruchi-shekar'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -25055,7 +25080,9 @@
 	                    null,
 	                    "Issues:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  issues['sonambenakatti'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -25105,11 +25132,7 @@
 	                    " ",
 	                    _react2.default.createElement("br", null),
 	                    "Issues: ",
-	                    '{',
-	                    '{',
-	                    "issues",
-	                    '}',
-	                    '}',
+	                    issues['total'],
 	                    " ",
 	                    _react2.default.createElement("br", null),
 	                    "Unit Tests: 0"
