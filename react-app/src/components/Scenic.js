@@ -5,7 +5,7 @@ class Scenic extends Component {
 render() {
   return (
       <div>
- 
+
         {/*location dropdown*/}
         <div className="container">
           <div className="dropdown">
@@ -48,12 +48,9 @@ render() {
             </div>
           </div>
         </section>
-        {'{'}% endblock %{'}'}
       </div>
     );
   }
-});
-}
 }
 
 export default Scenic;

@@ -16,6 +16,14 @@ APP = flask.Flask(__name__)
 def home():
     return flask.render_template('home.html')
 
+@APP.route('/api/v1.0/about', methods=['GET'])
+def get_about():
+    about_json = {}
+    commits = githubstats.user_commits()
+    issues = githubstats.user_issues()
+    about_json["commits"] = commits
+    about_json["issues"] = issues
+    return jsonify({'about': about_json})
 
 @APP.route('/<path:path>')
 def catch_all (path):
@@ -318,18 +326,6 @@ def snapshotsinstance(id, secret):
         photo = photo3
     return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
                                 title = photo.title, tags = photo.tags, id = photo.id, secret = photo.secret, url = photo.imageUrl)
-
-
-
-# @APP.route('/about')
-# def about():
-#     # commits = githubstats.user_commits()
-#     # issues = githubstats.user_issues()
-#     # return flask.render_template('about.html', total_commits = commits["total"], issues = githubstats.open_issues + issues["total"], amrutha_commits = commits["amrutha"], sonam_commits = commits["sonam"],
-#     #                              jenni_commits = commits["jenni"], ruchi_commits = commits["ruchi"], jaemin_commits = commits["jaemin"], amrutha_issues = issues["amrutha"],
-#     #                              sonam_issues = issues["sonam"], jenni_issues = issues["jenni"], ruchi_issues = issues["ruchi"], jaemin_issues = issues["jaemin"])
-#     return flask.render_template('index.html')
-
 
 
 if __name__ == '__main__':

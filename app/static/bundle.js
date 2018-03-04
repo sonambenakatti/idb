@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(211);
+	var _registerServiceWorker = __webpack_require__(212);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19802,6 +19802,10 @@
 
 	var _About2 = _interopRequireDefault(_About);
 
+	var _Scenic = __webpack_require__(211);
+
+	var _Scenic2 = _interopRequireDefault(_Scenic);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24670,15 +24674,53 @@
 	var About = function (_Component) {
 	  _inherits(About, _Component);
 
-	  function About() {
+	  function About(props) {
 	    _classCallCheck(this, About);
 
-	    return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).call(this, props));
+
+	    _this.state = {
+	      commits: { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 }
+	    };
+	    return _this;
 	  }
 
 	  _createClass(About, [{
+	    key: "componentDidMount",
+	    value: function componentDidMount() {
+	      this.loadData();
+	    }
+
+	    // MUST CHANGE API URL
+
+	  }, {
+	    key: "loadData",
+	    value: function loadData() {
+	      var _this2 = this;
+
+	      fetch('https://api.github.com/repos/sonambenakatti/idb/stats/contributors').then(function (response) {
+	        return response.json();
+	      }).then(function (data) {
+	        var actualCommits = {};
+	        var total = 0;
+	        for (var i = 0; i < data.length; i++) {
+	          actualCommits[data[i].author.login] = data[i].total;
+	          total += data[i].total;
+	        }
+	        actualCommits["total"] = total;
+	        _this2.setState({ commits: actualCommits });
+	      }).catch(function (err) {
+	        return console.error(_this2.props.url, err.toString());
+	      });
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
+	      var commits = this.state.commits;
+	      // let val = obj.response.user;
+
+	      console.log(commits);
+
 	      return _react2.default.createElement(
 	        "div",
 	        null,
@@ -24756,7 +24798,9 @@
 	                    null,
 	                    "Commits:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  commits['AmruthaSreedharane'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -24816,7 +24860,9 @@
 	                    null,
 	                    "Commits:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  commits['GohJazn'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -24876,7 +24922,9 @@
 	                    null,
 	                    "Commits:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  commits['jenniferrethi'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -24936,7 +24984,9 @@
 	                    null,
 	                    "Commits:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  commits['ruchi-shekar'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -24996,7 +25046,9 @@
 	                    null,
 	                    "Commits:"
 	                  ),
-	                  " 0 ",
+	                  " ",
+	                  commits['sonambenakatti'],
+	                  " ",
 	                  _react2.default.createElement("br", null),
 	                  _react2.default.createElement(
 	                    "b",
@@ -25049,11 +25101,7 @@
 	                    "p",
 	                    { className: "mb-4" },
 	                    "Commits: ",
-	                    '{',
-	                    '{',
-	                    "total_commits",
-	                    '}',
-	                    '}',
+	                    commits['total'],
 	                    " ",
 	                    _react2.default.createElement("br", null),
 	                    "Issues: ",
@@ -25219,6 +25267,185 @@
 
 /***/ }),
 /* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Scenic = function (_Component) {
+	  _inherits(Scenic, _Component);
+
+	  function Scenic() {
+	    _classCallCheck(this, Scenic);
+
+	    return _possibleConstructorReturn(this, (Scenic.__proto__ || Object.getPrototypeOf(Scenic)).apply(this, arguments));
+	  }
+
+	  _createClass(Scenic, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "div",
+	          { className: "container" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "dropdown" },
+	            _react2.default.createElement(
+	              "button",
+	              { className: "btn btn-primary dropdown-toggle", type: "button", "data-toggle": "dropdown" },
+	              "Choose City",
+	              _react2.default.createElement("span", { className: "caret" })
+	            ),
+	            _react2.default.createElement(
+	              "ul",
+	              { className: "dropdown-menu" },
+	              _react2.default.createElement("input", { className: "form-control", id: "myInput", type: "text", placeholder: "Search.." }),
+	              _react2.default.createElement(
+	                "li",
+	                null,
+	                _react2.default.createElement(
+	                  "a",
+	                  { href: "#" },
+	                  "Austin, TX"
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "section",
+	          { className: "page-section" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "row" },
+	              _react2.default.createElement(
+	                "ul",
+	                { className: "img-list" },
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "col" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "/scenic/{{placeID1}}", placeid: "{{placeID1}}" },
+	                    _react2.default.createElement("img", { src: "https://photos.smugmug.com/Galleries/All/i-hbc4Wbr/4/5477538c/L/DJI_0021-cware-L.jpg", style: { width: 300, height: 300 }, alt: "Photo 1" }),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "picText" },
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        '{',
+	                        '{',
+	                        "name1",
+	                        '}',
+	                        '}',
+	                        _react2.default.createElement("br", null),
+	                        "Rating: ",
+	                        '{',
+	                        '{',
+	                        "rating1",
+	                        '}',
+	                        '}'
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "col" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "/scenic/{{placeID2}}", placeid: "{{placeID2}}" },
+	                    _react2.default.createElement("img", { src: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/scenic-overlook-of-austin-mark-weaver.jpg", style: { width: 300, height: 300 }, alt: "Photo 2" }),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "picText" },
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        '{',
+	                        '{',
+	                        "name2",
+	                        '}',
+	                        '}',
+	                        _react2.default.createElement("br", null),
+	                        "Rating: ",
+	                        '{',
+	                        '{',
+	                        "rating2",
+	                        '}',
+	                        '}'
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  { className: "col" },
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "/scenic/{{placeID3}}", placeid: "{{placeID3}}" },
+	                    _react2.default.createElement("img", { src: "https://s3.amazonaws.com/gs-waymarking-images/897c10a2-3419-4794-b4c3-fc9403decb45_d.jpg", style: { width: 300, height: 300 }, alt: "Photo 3" }),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "picText" },
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        '{',
+	                        '{',
+	                        "name3",
+	                        '}',
+	                        '}',
+	                        _react2.default.createElement("br", null),
+	                        "Rating: ",
+	                        '{',
+	                        '{',
+	                        "rating3",
+	                        '}',
+	                        '}'
+	                      )
+	                    )
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Scenic;
+	}(_react.Component);
+
+	exports.default = Scenic;
+
+/***/ }),
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
