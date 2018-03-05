@@ -46,6 +46,7 @@ coffee_shops = Table('Shops', metadata,
   Column('shop_picture', LargeBinary(length=(2**32)-1)),
   Column('shop_latitude', String(100)),
   Column('shop_longitude', String(100)),
+  Column('shop_yelp_id', String(100))
 
 )
 
@@ -72,6 +73,9 @@ snapshots = Table('Snapshots', metadata,
   Column('snap_picture', LargeBinary(length=(2**32)-1)),
   Column('snap_latitude', String(100)),
   Column('snap_longitude', String(100)),
+  Column('shop_loc_id', Integer, ForeignKey("Shops.shop_id")),
+  Column('scenic_loc_id', Integer, ForeignKey("Scenic.scenic_id"))
+  
 )
 
 
@@ -79,6 +83,95 @@ engine = create_engine(uri)
 metadata.create_all(engine)
 
 # models
+class Shops(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    address = db.Column(db.String(100))
+    contact = db.Column(db.String(100))
+    price = db.Column(db.String(100))
+    hours = db.Column(db.String(100))
+    rating = db.Column(db.String(100))
+    picture = db.Column(db.LargeBinary(length=(2**32)-1))
+    latitude = db.Column(db.String(100))
+    longitude = db.Column(db.String(100))
+    yelp_id = db.Column(db.String(100))
+
+
+
+    #events = db.relationship('Event', secondary='character_event', backref=db.backref('characters'), lazy='dynamic')
+    #series = db.relationship('ComicSeries', secondary='character_comicseries', backref=db.backref('characters'),
+                            # lazy='dynamic')
+
+    def __init__(self, id, name, address, contact, price, hours, rating, picture, latitude, longitude):
+        assert name != ""
+        self.id = id
+        self.name = name
+        self.address = address
+        self.contact = contact
+        self.price = price
+        self.hours = hours
+        self.rating = rating
+        self.picture = picture
+        self.latitude = latitude
+        self.longitude = longitude
+
+
+
+class Scenic(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    address = db.Column(db.String(100))
+    rating = db.Column(db.String(100))
+    review1 = db.Column(db.String(100))
+    review2 = db.Column(db.String(100))
+    picture = db.Column(db.LargeBinary(length=(2**32)-1))
+    latitude = db.Column(db.String(100))
+    longitude = db.Column(db.String(100))
+
+    #series = db.relationship('ComicSeries', secondary='event_comicseries', backref=db.backref('events'), lazy='dynamic')
+
+    def __init__(self, id, name, address, rating, review1, review2, picture, latitude, longitude):
+        self.id = id
+        self.name = name
+        self.address = address
+        self.rating = rating
+        self.review1 = review1
+        self.review2 = review2
+        self.picture = picture
+        self.latitude = latitude
+        self.longitude = longitude
+
+
+class Snapshots(db.Model):
+   
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    photographer = db.Column(db.String(100))
+    username = db.Column(db.String(100))
+    tags = db.Column(db.String(100))
+    favs = db.Column(db.String(100))
+    picture = db.Column(db.LargeBinary(length=(2**32)-1))
+    latitude = db.Column(db.String(100))
+    longitude = db.Column(db.String(100))
+
+    #characters = db.relationship('Character', secondary='character_actor', backref=db.backref('actors'), lazy='dynamic')
+    #tvshows = db.relationship('TvShow', secondary='actor_tvshow', backref=db.backref('actors'), lazy='dynamic')
+
+    def __init__(self, id, name, photographer, username, tags, favs, picture, latitude, longitude):
+        self.id = id
+        self.name = name
+        self.photographer = photographer
+        self.username = username
+        self.tags = tags
+        self.favs = favs
+        self.picture = picture
+        self.latitude = latitude
+        self.longitude = longitude
+
+
+
 
 
 
