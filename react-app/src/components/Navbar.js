@@ -29,7 +29,7 @@ class Navbar extends Component {
                   <a id="shops" className="nav-link text-uppercase text-expanded" href="/shops">Coffee Shops</a>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a id="scenicloc" className="nav-link text-uppercase text-expanded" href="/scenic">Scenic Locations</a>
+                  <a id="scenicloc" className="nav-link text-uppercase text-expanded" href="/locations">Scenic Locations</a>
                 </li>
                 <li className="nav-item px-lg-4">
                   <a className="nav-link text-uppercase text-expanded" href="/snapshots">Snapshots</a>

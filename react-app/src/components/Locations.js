@@ -40,7 +40,7 @@ render() {
           );
       })
   }
-  
+
   return (
       <div>
         <section className="page-section">

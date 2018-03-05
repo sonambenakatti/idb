@@ -6,22 +6,47 @@ class Location extends Component {
 
   constructor (props) {
       super(props);
-      console.log(this.props.location.state);
       this.state = {
-        // location: this.props.location.selectedLocation,
+        address: this.props.location.state.selectedLocation.address,
+        name: this.props.location.state.selectedLocation.name,
+        photo: this.props.location.state.selectedLocation.photo,
+        rating: this.props.location.state.selectedLocation.rating,
       };
-      // console.log(this.state.location);
+      console.log(this.state);
   };
 
-  componentDidMount() {
-  }
+  // componentDidMount() {
+  //
+  // }
 
   render() {
-    return (
-      <p>test test test</p>
-      );
-  }
 
+    return (
+      <div className="content">
+        <div className="col-sm-5 instance-details">
+          <div className="product-item">
+            <div className="product-item-title">
+              <div className="bg-faded p-5 d-flex ml-auto rounded">
+                <h2 className="section-heading mb-0">
+                  <span className="section-heading-upper">Scenic Location:</span>
+                  <span className="section-heading-lower">{this.state.name}</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div className="product-item-description mr-auto">
+            <div className="bg-faded p-5 rounded">
+              <p className="mb-0">Address: {this.state.address}</p>
+              <p className="mb-0">Rating: {this.state.rating}</p>
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-5 instance-pic">
+          <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.photo} alt={this.state.name} style={{width: 500, height: 500, marginTop: 50}} />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Location;

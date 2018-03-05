@@ -92,7 +92,7 @@ def get_sceniclocations() :
     place_dict["photo"] = "https://s3.amazonaws.com/gs-waymarking-images/897c10a2-3419-4794-b4c3-fc9403decb45_d.jpg"
     places_json.append(place_dict)
 
-    return jsonify({'scenic_locations': places_json})
+    return jsonify({'sceniclocations': places_json})
 
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])
 def get_coffeeshops() :
