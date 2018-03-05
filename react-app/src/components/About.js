@@ -2,7 +2,60 @@ import React, { Component } from 'react';
 
 class About extends Component {
 
+constructor(props) {
+  super(props)
+
+  this.state = {
+    commits: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
+    issues: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
+  };
+}
+
+componentDidMount() {
+  this.loadCommits();
+  this.loadIssues();
+}
+
+loadCommits() {
+  fetch('https://api.github.com/repos/sonambenakatti/idb/stats/contributors')
+  			.then(response => response.json())
+  			.then(data => {
+          let actualCommits = {};
+          let total = 0;
+          for (let i = 0; i < data.length; i++) {
+            actualCommits[data[i].author.login] = data[i].total;
+            total += data[i].total;
+          }
+          actualCommits["total"] = total;
+          this.setState(
+            {commits: actualCommits}
+          );
+        })
+  			.catch(err => console.error(this.props.url, err.toString()));
+}
+
+loadIssues() {
+  fetch('https://api.github.com/repos/sonambenakatti/idb/issues')
+  			.then(response => response.json())
+  			.then(data => {
+          let actualIssues = {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0};
+          let total = 0;
+          for (let i = 0; i < data.length; i++) {
+            actualIssues[data[i].user.login] += 1;
+            total += 1;
+          }
+          actualIssues["total"] = total;
+          this.setState(
+            {issues: actualIssues}
+          );
+        })
+  			.catch(err => console.error(this.props.url, err.toString()));
+}
+
 render() {
+  let commits  = this.state.commits;
+  let issues = this.state.issues;
+
   return (
     <div>
       <section className="page-section cta">
@@ -31,8 +84,8 @@ render() {
               </h2>
               <p className="mb-3">Amrutha's coffee of choice is a soy vanilla latte. In her spare time, she likes playing with her dogs, eating, and planning events. Her software interests include web development, security, and mobile applications.</p>
               <p className="mb-3">
-                <b>Commits:</b> 0 <br />
-                <b>Issues:</b> 0 <br />
+                <b>Commits:</b> {commits['AmruthaSreedharane']} <br />
+                <b>Issues:</b> {issues['AmruthaSreedharane']} <br />
                 <b>Unit Tests:</b> 0
               </p>
             </div>
@@ -51,8 +104,8 @@ render() {
               </h2>
               <p className="mb-3">Jaemin is interested in VR, web apps, and mobile apps. In his free time he likes to play guitar and piano, and draw (you can follow him at @godrawjae). His favorite coffee is an americano with sweetener.</p>
               <p className="mb-3">
-                <b>Commits:</b> 0 <br />
-                <b>Issues:</b> 0 <br />
+                <b>Commits:</b> {commits['GohJazn']} <br />
+                <b>Issues:</b> {issues['GohJazn']} <br />
                 <b>Unit Tests:</b> 0
               </p>
             </div>
@@ -71,8 +124,8 @@ render() {
               </h2>
               <p className="mb-3">Jenni enjoys reading, trying new food, and watching youtubers. She's into web development and her coffee of choice is cold brew.</p>
               <p className="mb-3">
-                <b>Commits:</b> 0 <br />
-                <b>Issues:</b> 0 <br />
+                <b>Commits:</b> {commits['jenniferrethi']} <br />
+                <b>Issues:</b> {issues['jenniferrethi']} <br />
                 <b>Unit Tests:</b> 0
               </p>
             </div>
@@ -92,8 +145,8 @@ render() {
               <p className="mb-3">Ruchi is a fellow coffee enthusiast and guilty Starbucks fanatic. Her go to coffee drink is plain coffee with a little vanilla and a splash of coconut milk. In her spare time she likes to try new foods, do yoga, and binge watch TV shows. She's excited to get out in the real world and start off her career as a software engineer!
               </p>
               <p className="mb-3">
-                <b>Commits:</b> 0 <br />
-                <b>Issues:</b> 0 <br />
+                <b>Commits:</b> {commits['ruchi-shekar']} <br />
+                <b>Issues:</b> {issues['ruchi-shekar']} <br />
                 <b>Unit Tests:</b> 0
               </p>
             </div>
@@ -112,8 +165,8 @@ render() {
               </h2>
               <p className="mb-3">Sonam likes all types of coffee, although her go-to is an iced coffee with one pump of vanilla syrup. In her free time, she loves to eat and attempt to convince herself that running is fun. She hopes one day she can make an impact as a software engineer.</p>
               <p className="mb-3">
-                <b>Commits:</b> 0 <br />
-                <b>Issues:</b> 0 <br />
+                <b>Commits:</b> {commits['sonambenakatti']} <br />
+                <b>Issues:</b> {issues['sonambenakatti']} <br />
                 <b>Unit Tests:</b> 0
               </p>
             </div>
@@ -130,8 +183,8 @@ render() {
                 </h2>
                 <h3 className="mb-4">STATISTICS</h3>
                 <p className="mb-4">
-                  Commits: {'{'}{'{'}total_commits{'}'}{'}'} <br />
-                  Issues: {'{'}{'{'}issues{'}'}{'}'} <br />
+                  Commits: {commits['total']} <br />
+                  Issues: {issues['total']} <br />
                   Unit Tests: 0
                 </p>
                 <h3 className="mb-4">DATA SOURCES</h3>

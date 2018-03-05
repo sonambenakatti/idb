@@ -48,7 +48,6 @@ render() {
             </div>
           </div>
         </section>
-        {'{'}% endblock %{'}'}
       </div>
     );
   }
