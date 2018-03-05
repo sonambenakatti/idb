@@ -313,32 +313,32 @@ def scenicdetails(placeID):
 
     return flask.render_template('scenicdetails.html', name=name, address=address, photo=photo,  rating=rating, review1name=review1name, review1text=review1text, review1rating=review1rating, review2name=review2name, review2text=review2text, review2rating=review2rating)
 
-@APP.route('/snapshots')
-def snapshotsmain():
-    global photo1
-    global photo2
-    global photo3
-    return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
-                                 title1 = photo1.title, title2 = photo2.title, title3 = photo3.title,
-                                 num_favs1 = photo1.num_favorites, num_favs2 = photo2.num_favorites, num_favs3 = photo3.num_favorites,
-                                 username1 = photo1.username, username2 = photo2.username, username3 = photo3.username,
-                                 url1 = photo1.imageUrl, url2 = photo2.imageUrl, url3 = photo3.imageUrl,
-                                 id1 = photo1.id, id2 = photo2.id, id3 = photo3.id,
-                                 secret1 =  photo1.secret, secret2 = photo2.secret, secret3 = photo3.secret)
-
-@APP.route('/snapshots/<id>/<secret>')
-def snapshotsinstance(id, secret):
-    global photo1
-    global photo2
-    global photo3
-    if id is '1' :
-        photo = photo1
-    elif id is '2' :
-        photo = photo2
-    else :
-        photo = photo3
-    return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
-                                title = photo.title, tags = photo.tags, id = photo.id, secret = photo.secret, url = photo.imageUrl)
+# @APP.route('/snapshots')
+# def snapshotsmain():
+#     global photo1
+#     global photo2
+#     global photo3
+#     return flask.render_template('snapshotsmain.html', name1 = photo1.name, name2 = photo2.name, name3 = photo3.name,
+#                                  title1 = photo1.title, title2 = photo2.title, title3 = photo3.title,
+#                                  num_favs1 = photo1.num_favorites, num_favs2 = photo2.num_favorites, num_favs3 = photo3.num_favorites,
+#                                  username1 = photo1.username, username2 = photo2.username, username3 = photo3.username,
+#                                  url1 = photo1.imageUrl, url2 = photo2.imageUrl, url3 = photo3.imageUrl,
+#                                  id1 = photo1.id, id2 = photo2.id, id3 = photo3.id,
+#                                  secret1 =  photo1.secret, secret2 = photo2.secret, secret3 = photo3.secret)
+#
+# @APP.route('/snapshots/<id>/<secret>')
+# def snapshotsinstance(id, secret):
+#     global photo1
+#     global photo2
+#     global photo3
+#     if id is '1' :
+#         photo = photo1
+#     elif id is '2' :
+#         photo = photo2
+#     else :
+#         photo = photo3
+#     return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
+#                                 title = photo.title, tags = photo.tags, id = photo.id, secret = photo.secret, url = photo.imageUrl)
 
 
 if __name__ == '__main__':
