@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(213);
+	var _registerServiceWorker = __webpack_require__(214);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19810,6 +19810,10 @@
 
 	var _Scenic2 = _interopRequireDefault(_Scenic);
 
+	var _SnapshotsMain = __webpack_require__(213);
+
+	var _SnapshotsMain2 = _interopRequireDefault(_SnapshotsMain);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19843,7 +19847,8 @@
 	            null,
 	            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2.default }),
-	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default })
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2.default })
 	          )
 	        )
 	      );
@@ -25623,6 +25628,151 @@
 
 /***/ }),
 /* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SnapshotsMain = function (_Component) {
+	  _inherits(SnapshotsMain, _Component);
+
+	  function SnapshotsMain() {
+	    _classCallCheck(this, SnapshotsMain);
+
+	    var _this = _possibleConstructorReturn(this, (SnapshotsMain.__proto__ || Object.getPrototypeOf(SnapshotsMain)).call(this));
+
+	    _this.state = {
+	      photos: []
+	    };
+	    return _this;
+	  }
+
+	  _createClass(SnapshotsMain, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      fetch('/api/v1.0/snapshots').then(function (results) {
+	        console.log(results);
+	        return results.json();
+	      }).then(function (data) {
+	        console.log(data);
+	        console.log(data.snapshots);
+	        var snapshots = data.snapshots.map(function (snapshot) {
+	          return _react2.default.createElement(
+	            'div',
+	            { key: snapshot.name, className: 'col' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'a',
+	                { href: '/snapshots/photoId' },
+	                _react2.default.createElement('img', { src: snapshot.imageUrl, style: { width: 300, height: 300 }, alt: 'Photo1' }),
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'picText' },
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    ' name ',
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('br', null),
+	                    'location',
+	                    _react2.default.createElement('br', null),
+	                    'Price:',
+	                    _react2.default.createElement('br', null),
+	                    'Rating:'
+	                  )
+	                )
+	              )
+	            )
+	          );
+	        });
+	        _this2.setState({ photos: snapshots });
+	        console.log("state", _this2.state.photos);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.log(this.state.photos);
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'Snapshots' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dropdown' },
+	            _react2.default.createElement(
+	              'button',
+	              { id: 'city-btn', className: 'btn btn-primary dropdown-toggle', type: 'button', 'data-toggle': 'dropdown', onclick: 'myFunction()' },
+	              'Choose City',
+	              _react2.default.createElement('span', { className: 'caret' })
+	            ),
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'dropdown-menu' },
+	              _react2.default.createElement('input', { className: 'form-control', id: 'myInput', type: 'text', placeholder: 'Search..' }),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  'a',
+	                  { href: '#' },
+	                  'Austin, TX'
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'section',
+	          { className: 'page-section' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'container' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row' },
+	              _react2.default.createElement(
+	                'ul',
+	                { className: 'img-list' },
+	                this.state.photos
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SnapshotsMain;
+	}(_react.Component);
+
+	exports.default = SnapshotsMain;
+
+/***/ }),
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
