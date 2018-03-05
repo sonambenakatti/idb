@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(212);
+	var _registerServiceWorker = __webpack_require__(213);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19806,6 +19806,10 @@
 
 	var _CoffeeShops2 = _interopRequireDefault(_CoffeeShops);
 
+	var _Scenic = __webpack_require__(212);
+
+	var _Scenic2 = _interopRequireDefault(_Scenic);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25226,7 +25230,7 @@
 /* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25252,15 +25256,164 @@
 	  function CoffeeShops() {
 	    _classCallCheck(this, CoffeeShops);
 
-	    return _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).call(this));
+
+	    _this.state = {
+	      coffeeshops: []
+	    };
+	    return _this;
 	  }
 
 	  _createClass(CoffeeShops, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      fetch('/api/v1.0/coffeeshops').then(function (results) {
+	        console.log(results);
+	        return results.json();
+	      }).then(function (data) {
+	        console.log(data);
+	        console.log(data.coffeeshops);
+	        var shops = data.coffeeshops.map(function (shop) {
+	          return (
+	            //TODO need to chage these references "shop.name" and other to json to the correct ones once using real db
+	            _react2.default.createElement(
+	              'div',
+	              { key: shop.name, className: 'col' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  'a',
+	                  { href: '/shops/coffeeidFIXTHIS' },
+	                  _react2.default.createElement('img', { src: shop.photo, style: { width: 300, height: 300 }, alt: 'Photo1' }),
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'picText' },
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      ' name ',
+	                      _react2.default.createElement('br', null),
+	                      _react2.default.createElement('br', null),
+	                      'location',
+	                      _react2.default.createElement('br', null),
+	                      'Price:',
+	                      _react2.default.createElement('br', null),
+	                      'Rating:'
+	                    )
+	                  )
+	                )
+	              )
+	            )
+	          );
+	        });
+	        _this2.setState({ coffeeshops: shops });
+	        console.log("state", _this2.state.coffeeshops);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.log(this.state.coffeeshops);
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'CoffeeShops' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'dropdown' },
+	            _react2.default.createElement(
+	              'button',
+	              { id: 'city-btn', className: 'btn btn-primary dropdown-toggle', type: 'button', 'data-toggle': 'dropdown', onclick: 'myFunction()' },
+	              'Choose City',
+	              _react2.default.createElement('span', { className: 'caret' })
+	            ),
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'dropdown-menu' },
+	              _react2.default.createElement('input', { className: 'form-control', id: 'myInput', type: 'text', placeholder: 'Search..' }),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  'a',
+	                  { href: '#' },
+	                  'Austin, TX'
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'section',
+	          { className: 'page-section' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'container' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row' },
+	              _react2.default.createElement(
+	                'ul',
+	                { className: 'img-list' },
+	                this.state.coffeeshops
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return CoffeeShops;
+	}(_react.Component);
+
+	exports.default = CoffeeShops;
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Scenic = function (_Component) {
+	  _inherits(Scenic, _Component);
+
+	  function Scenic() {
+	    _classCallCheck(this, Scenic);
+
+	    return _possibleConstructorReturn(this, (Scenic.__proto__ || Object.getPrototypeOf(Scenic)).apply(this, arguments));
+	  }
+
+	  _createClass(Scenic, [{
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { "class": "CoffeeShops" },
+	        null,
 	        _react2.default.createElement(
 	          "div",
 	          { className: "container" },
@@ -25269,7 +25422,7 @@
 	            { className: "dropdown" },
 	            _react2.default.createElement(
 	              "button",
-	              { id: "city-btn", className: "btn btn-primary dropdown-toggle", type: "button", "data-toggle": "dropdown", onclick: "myFunction()" },
+	              { className: "btn btn-primary dropdown-toggle", type: "button", "data-toggle": "dropdown" },
 	              "Choose City",
 	              _react2.default.createElement("span", { className: "caret" })
 	            ),
@@ -25306,22 +25459,26 @@
 	                  { className: "col" },
 	                  _react2.default.createElement(
 	                    "a",
-	                    { href: "/shops/{{coffeeId1}}" },
-	                    _react2.default.createElement("img", { src: "", style: { width: 300, height: 300 }, alt: "Photo1" }),
+	                    { href: "/scenic/{{placeID1}}", placeid: "{{placeID1}}" },
+	                    _react2.default.createElement("img", { src: "https://photos.smugmug.com/Galleries/All/i-hbc4Wbr/4/5477538c/L/DJI_0021-cware-L.jpg", style: { width: 300, height: 300 }, alt: "Photo 1" }),
 	                    _react2.default.createElement(
 	                      "span",
 	                      { className: "picText" },
 	                      _react2.default.createElement(
 	                        "span",
 	                        null,
-	                        " name ",
+	                        '{',
+	                        '{',
+	                        "name1",
+	                        '}',
+	                        '}',
 	                        _react2.default.createElement("br", null),
-	                        _react2.default.createElement("br", null),
-	                        "location",
-	                        _react2.default.createElement("br", null),
-	                        "Price:",
-	                        _react2.default.createElement("br", null),
-	                        "Rating:"
+	                        "Rating: ",
+	                        '{',
+	                        '{',
+	                        "rating1",
+	                        '}',
+	                        '}'
 	                      )
 	                    )
 	                  )
@@ -25331,22 +25488,26 @@
 	                  { className: "col" },
 	                  _react2.default.createElement(
 	                    "a",
-	                    { href: "/shops/{{coffeeId2}}" },
-	                    _react2.default.createElement("img", { src: "", style: { width: 300, height: 300 }, alt: "Photo2" }),
+	                    { href: "/scenic/{{placeID2}}", placeid: "{{placeID2}}" },
+	                    _react2.default.createElement("img", { src: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/scenic-overlook-of-austin-mark-weaver.jpg", style: { width: 300, height: 300 }, alt: "Photo 2" }),
 	                    _react2.default.createElement(
 	                      "span",
 	                      { className: "picText" },
 	                      _react2.default.createElement(
 	                        "span",
 	                        null,
-	                        " name ",
+	                        '{',
+	                        '{',
+	                        "name2",
+	                        '}',
+	                        '}',
 	                        _react2.default.createElement("br", null),
-	                        _react2.default.createElement("br", null),
-	                        "location",
-	                        _react2.default.createElement("br", null),
-	                        "Price:",
-	                        _react2.default.createElement("br", null),
-	                        "Rating:"
+	                        "Rating: ",
+	                        '{',
+	                        '{',
+	                        "rating2",
+	                        '}',
+	                        '}'
 	                      )
 	                    )
 	                  )
@@ -25356,22 +25517,26 @@
 	                  { className: "col" },
 	                  _react2.default.createElement(
 	                    "a",
-	                    { href: "/shops/{{coffeeId3}}" },
-	                    _react2.default.createElement("img", { src: "", style: { width: 300, height: 300 }, alt: "Photo3" }),
+	                    { href: "/scenic/{{placeID3}}", placeid: "{{placeID3}}" },
+	                    _react2.default.createElement("img", { src: "https://s3.amazonaws.com/gs-waymarking-images/897c10a2-3419-4794-b4c3-fc9403decb45_d.jpg", style: { width: 300, height: 300 }, alt: "Photo 3" }),
 	                    _react2.default.createElement(
 	                      "span",
 	                      { className: "picText" },
 	                      _react2.default.createElement(
 	                        "span",
 	                        null,
-	                        " name ",
+	                        '{',
+	                        '{',
+	                        "name3",
+	                        '}',
+	                        '}',
 	                        _react2.default.createElement("br", null),
-	                        _react2.default.createElement("br", null),
-	                        "location",
-	                        _react2.default.createElement("br", null),
-	                        "Price:",
-	                        _react2.default.createElement("br", null),
-	                        "Rating:"
+	                        "Rating: ",
+	                        '{',
+	                        '{',
+	                        "rating3",
+	                        '}',
+	                        '}'
 	                      )
 	                    )
 	                  )
@@ -25379,18 +25544,21 @@
 	              )
 	            )
 	          )
-	        )
+	        ),
+	        '{',
+	        "% endblock %",
+	        '}'
 	      );
 	    }
 	  }]);
 
-	  return CoffeeShops;
+	  return Scenic;
 	}(_react.Component);
 
-	exports.default = CoffeeShops;
+	exports.default = Scenic;
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';

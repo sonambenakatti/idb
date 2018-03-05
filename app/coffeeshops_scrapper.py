@@ -17,6 +17,8 @@ from sqlalchemy import *
 import pymysql
 from coffeeshop import CoffeeShop
 
+pymysql.install_as_MySQLdb()
+
 # This client code can run on Python 2.x or 3.x.  Your imports can be
 # simpler if you only need one of those.
 try:
@@ -86,11 +88,11 @@ def get_business(business_id, coffeeshop):
 
     business_path = BUSINESS_PATH + business_id
     response =  request(API_HOST, business_path, API_KEY)
-    pprint.pprint(response, indent=2)
+    #pprint.pprint(response, indent=2)
     coffeeshop.location = response["location"]["display_address"]
-    coffeeshops.latitude = response["coordinates"]["latitude"]
-    coffeeshops.longitude = response["coordinates"]["longitude"]
-    return coffeeshop
+    coffeeshop.latitude = response["coordinates"]["latitude"]
+    coffeeshop.longitude = response["coordinates"]["longitude"]
+    coffeeshop.hours = response["hours"]
 #4
 def coffee_shop_results(response):
     '''
@@ -110,7 +112,7 @@ def coffee_shop_results(response):
         obj["rating"],
         obj["image_url"],
         "n/a")
-        coffeeshop.location = address
+        #coffeeshop.location = address
         get_business(coffeeshop.id, coffeeshop)
         list_shops.append(coffeeshop)
     return list_shops
@@ -142,7 +144,7 @@ def query_api(term, location):
     """
     response = search(API_KEY, term, location)
     businesses = response.get('businesses')
-    pprint.pprint(response, indent=2)
+    #pprint.pprint(response, indent=2)
     if not businesses:
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
@@ -155,10 +157,10 @@ pwd = 'riley5143'
 host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
 db = 'beansdb'
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
-app.config['SQLALCHEMY_DATABASE_URI'] = uri
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-db.echo = False
+#app.config['SQLALCHEMY_DATABASE_URI'] = uri
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#db = SQLAlchemy(app)
+#db.echo = False
 
 #1
 def main():
@@ -174,12 +176,34 @@ def main():
 
     try:
         coffee_shops = query_api(input_values.term, input_values.location)
-        #print(coffee_shops[0].name)
+
         db = create_engine(uri)
         metadata = MetaData()
-        for shops in coffee_shops :
-            ins = metadata.tables['Shops'].insert()
-            ins.execute(name='Mary', age=30, password='secret')
+        metadata.reflect(bind=db)
+        conn = db.connect()
+        #select statement
+        select_st = select([metadata.tables['Shops']])
+        print(metadata.tables['Shops'])
+        #selecte query execute
+        res = conn.execute(select_st).fetchall()
+        print (res)
+
+        for shop in coffee_shops :
+            # ins = metadata.tables['Shops'].insert()
+            # ins.values(
+            # shop_id = shop.id,
+            # shop_name = shop.name,
+            # shop_address = shop.location,
+            # shop_contact = shop.phone,
+            # shop_price = shop.price,
+            # shop_hours = shop.hours,
+            # shop_rating = shop.rating,
+            # shop_picture = shop.imageUrl,
+            # shop_latitude = shop.latitude,
+            # shop_longitude = shop.longitude
+            # )
+            # conn.execute(ins)
+
         return coffee_shops
     except HTTPError as error:
         sys.exit(

@@ -109,7 +109,7 @@ class CoffeeShop:
 
     @longitude.setter
     def longitude(self, l) :
-        self.longitude = l
+        self.__longitude = l
 
     @property
     def latitude(self) :

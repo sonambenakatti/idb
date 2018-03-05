@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import CoffeeShops from './components/CoffeeShops'
+import Scenic from './components/Scenic';
 
 class App extends Component {
 

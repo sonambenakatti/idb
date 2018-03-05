@@ -2,7 +2,41 @@ import React, { Component } from 'react';
 
 class CoffeeShops extends Component {
 
+constructor () {
+  super();
+  this.state = {
+    coffeeshops: []
+  };
+};
+
+componentDidMount() {
+  fetch('/api/v1.0/coffeeshops').then(results =>{
+    console.log(results)
+    return results.json();
+  }).then(data=>{
+    console.log(data)
+    console.log(data.coffeeshops)
+    let shops = data.coffeeshops.map((shop) =>{
+      return(
+        //TODO need to chage these references "shop.name" and other to json to the correct ones once using real db
+        <div key={shop.name} className="col">
+          <li>
+            <a href="/shops/coffeeidFIXTHIS">
+              <img src={shop.photo} style={{width: 300, height: 300}} alt="Photo1" />
+              <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
+            </a>
+          </li>
+        </div>
+      )
+    })
+    this.setState({coffeeshops: shops});
+    console.log("state", this.state.coffeeshops);
+  })
+}
+
 render() {
+    console.log(this.state.coffeeshops);
+
     return (
       <div className = "CoffeeShops">
         {/*location dropdown*/}
@@ -20,24 +54,7 @@ render() {
           <div className="container">
             <div className="row">
               <ul className="img-list">
-                <li className="col">
-                  <a href="/shops/{{coffeeId1}}">
-                    <img src="" style={{width: 300, height: 300}} alt="Photo1" />
-                    <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
-                  </a>
-                </li>
-                <li className="col">
-                  <a href="/shops/{{coffeeId2}}">
-                    <img src="" style={{width: 300, height: 300}} alt="Photo2" />
-                    <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
-                  </a>
-                </li>
-                <li className="col">
-                  <a href="/shops/{{coffeeId3}}">
-                    <img src="" style={{width: 300, height: 300}} alt="Photo3" />
-                    <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
-                  </a>
-                </li>
+                {this.state.coffeeshops}
               </ul>
             </div>
           </div>

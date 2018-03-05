@@ -8,6 +8,11 @@ from flask import Flask, jsonify
 import githubstats
 from photo import Photo
 
+user = 'TheCoolBeans'
+pwd = 'riley5143'
+host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
+db = 'beansdb'
+uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
 # Create the application.
 APP = flask.Flask(__name__)
@@ -83,7 +88,7 @@ def get_sceniclocations() :
 
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])
 def get_coffeeshops() :
-
+    print("GETTING STUFF")
     shops_json=[]
 
     shop_dict = {}
@@ -121,6 +126,14 @@ def get_snapshots() :
     """
     Implement RESTful API here
     """
+    # db = create_engine(uri)
+    # metadata = MetaData()
+    # metadata.reflect(bind=db)
+    # conn = db.connect()
+    # #select statement
+    # select_st = select([metadata.tables['Shops']])
+    # res = conn.execute(select_st).fetchall()
+
     snapshots_json = []
     global photo1
     global photo2
@@ -156,7 +169,7 @@ def get_snapshots() :
 #         return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
 #     if coffeeId is "3":
 #         return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
-
+'''
 @APP.route('/scenic')
 def sceniclocations() :
     """
@@ -206,7 +219,7 @@ def sceniclocations() :
     #photor3=scenic_locations[2].photo
 
     return flask.render_template('products.html', name1=name1, placeID1= placeID1, rating1=rating1, name2=name2, placeID2=placeID2, rating2=rating2, name3=name3, placeID3=placeID3, rating3=rating3)
-
+'''
 
 @APP.route('/scenic/<placeID>')
 def scenicdetails(placeID):
