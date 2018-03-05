@@ -17,7 +17,7 @@ class CoffeeShop:
         self.__rating = r
         self.__imageUrl = imgurl
         self.__phone = ph
-        self.__hours = []
+        self.__hours = ""
 
     # def jsonify(self)  :
     #     json_dict = {}
@@ -99,7 +99,7 @@ class CoffeeShop:
 
     @hours.setter
     def hours(self, h) :
-        self.__hours = h
+        self.__hours = str(h)
 
 
 

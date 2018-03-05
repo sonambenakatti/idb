@@ -180,30 +180,27 @@ def main():
         db = create_engine(uri)
         metadata = MetaData()
         metadata.reflect(bind=db)
-        conn = db.connect()
-        #select statement
-        select_st = select([metadata.tables['Shops']])
+
         print(metadata.tables['Shops'])
         #selecte query execute
         #res = conn.execute(select_st).fetchall()
         #print (res)
 
         for shop in coffee_shops :
-            ins = metadata.tables['Shops'].insert()
-            ins.values(
-            shop_yelp_id = shop.id,
-            shop_name = shop.name,
-            shop_address = shop.location,
-            shop_contact = shop.phone,
-            shop_price = shop.price,
-            shop_hours = shop.hours,
-            shop_rating = shop.rating,
-            shop_picture = shop.imageUrl,
-            shop_latitude = shop.latitude,
-            shop_longitude = shop.longitude
+            ins = insert(metadata.tables['Shops']).values(
+            shop_name = bytes(shop.name, 'utf8'),
+            shop_address = bytes(shop.location, 'utf8'),
+            shop_contact = bytes(shop.phone, 'utf8'),
+            shop_price = bytes(shop.price, 'utf8'),
+            shop_hours = bytes(shop.hours, 'utf8'),
+            shop_rating = bytes(shop.rating, 'utf8'),
+            shop_picture = bytes(shop.imageUrl, 'utf8'),
+            shop_latitude = bytes(shop.latitude, 'utf8'),
+            shop_longitude = bytes(shop.longitude, 'utf8'),
+            shop_yelp_id = bytes(shop.id, 'utf8')
             )
-        conn.execute(ins)
-
+            conn = db.connect()
+            conn.execute(ins)
         return coffee_shops
     except HTTPError as error:
         sys.exit(
