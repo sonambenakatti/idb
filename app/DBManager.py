@@ -60,6 +60,8 @@ scenic_views = Table('Scenic', metadata,
   Column('scenic_picture', LargeBinary(length=(2**32)-1)),
   Column('scenic_latitude', String(100)),
   Column('scenic_longitude', String(100)),
+  Column('scenic_place_id', String(100))
+
 
 )
 
@@ -74,7 +76,8 @@ snapshots = Table('Snapshots', metadata,
   Column('snap_latitude', String(100)),
   Column('snap_longitude', String(100)),
   Column('shop_loc_id', Integer, ForeignKey("Shops.shop_id")),
-  Column('scenic_loc_id', Integer, ForeignKey("Scenic.scenic_id"))
+  Column('scenic_loc_id', Integer, ForeignKey("Scenic.scenic_id")),
+  Column('snap_photo_id', String(100))
   
 )
 
@@ -103,7 +106,7 @@ class Shops(db.Model):
     #series = db.relationship('ComicSeries', secondary='character_comicseries', backref=db.backref('characters'),
                             # lazy='dynamic')
 
-    def __init__(self, id, name, address, contact, price, hours, rating, picture, latitude, longitude):
+    def __init__(self, id, name, address, contact, price, hours, rating, picture, latitude, longitude, yelp_id):
         assert name != ""
         self.id = id
         self.name = name
@@ -115,6 +118,7 @@ class Shops(db.Model):
         self.picture = picture
         self.latitude = latitude
         self.longitude = longitude
+        self.yelp_id = yelp_id
 
 
 
@@ -129,10 +133,11 @@ class Scenic(db.Model):
     picture = db.Column(db.LargeBinary(length=(2**32)-1))
     latitude = db.Column(db.String(100))
     longitude = db.Column(db.String(100))
+    place_id = db.Column(db.String(100))
 
     #series = db.relationship('ComicSeries', secondary='event_comicseries', backref=db.backref('events'), lazy='dynamic')
 
-    def __init__(self, id, name, address, rating, review1, review2, picture, latitude, longitude):
+    def __init__(self, id, name, address, rating, review1, review2, picture, latitude, longitude, place_id):
         self.id = id
         self.name = name
         self.address = address
@@ -142,6 +147,7 @@ class Scenic(db.Model):
         self.picture = picture
         self.latitude = latitude
         self.longitude = longitude
+        self.place_id = place_id
 
 
 class Snapshots(db.Model):
@@ -155,11 +161,13 @@ class Snapshots(db.Model):
     picture = db.Column(db.LargeBinary(length=(2**32)-1))
     latitude = db.Column(db.String(100))
     longitude = db.Column(db.String(100))
-
+    shop_loc_id = db.Column(db.Integer)
+    scenic_loc_id = db.Column(db.Integer)
+    photo_id = db.Column(db.String(100))
     #characters = db.relationship('Character', secondary='character_actor', backref=db.backref('actors'), lazy='dynamic')
     #tvshows = db.relationship('TvShow', secondary='actor_tvshow', backref=db.backref('actors'), lazy='dynamic')
 
-    def __init__(self, id, name, photographer, username, tags, favs, picture, latitude, longitude):
+    def __init__(self, id, name, photographer, username, tags, favs, picture, latitude, longitude, shop_loc_id, scenic_loc_id, photo_id):
         self.id = id
         self.name = name
         self.photographer = photographer
@@ -169,6 +177,9 @@ class Snapshots(db.Model):
         self.picture = picture
         self.latitude = latitude
         self.longitude = longitude
+        self.shop_loc_id = shop_loc_id
+        self.scenic_loc_id = scenic_loc_id
+        self.photo_id = photo_id
 
 
 
