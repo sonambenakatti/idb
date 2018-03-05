@@ -46,7 +46,6 @@ coffee_shops = Table('Shops', metadata,
   Column('shop_picture', LargeBinary(length=(2**32)-1)),
   Column('shop_latitude', String(100)),
   Column('shop_longitude', String(100)),
-
 )
 
 scenic_views = Table('Scenic', metadata,
@@ -59,7 +58,6 @@ scenic_views = Table('Scenic', metadata,
   Column('scenic_picture', LargeBinary(length=(2**32)-1)),
   Column('scenic_latitude', String(100)),
   Column('scenic_longitude', String(100)),
-
 )
 
 snapshots = Table('Snapshots', metadata,

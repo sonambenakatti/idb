@@ -185,24 +185,24 @@ def main():
         select_st = select([metadata.tables['Shops']])
         print(metadata.tables['Shops'])
         #selecte query execute
-        res = conn.execute(select_st).fetchall()
-        print (res)
+        #res = conn.execute(select_st).fetchall()
+        #print (res)
 
         for shop in coffee_shops :
-            # ins = metadata.tables['Shops'].insert()
-            # ins.values(
-            # shop_id = shop.id,
-            # shop_name = shop.name,
-            # shop_address = shop.location,
-            # shop_contact = shop.phone,
-            # shop_price = shop.price,
-            # shop_hours = shop.hours,
-            # shop_rating = shop.rating,
-            # shop_picture = shop.imageUrl,
-            # shop_latitude = shop.latitude,
-            # shop_longitude = shop.longitude
-            # )
-            # conn.execute(ins)
+            ins = metadata.tables['Shops'].insert()
+            ins.values(
+            shop_yelp_id = shop.id,
+            shop_name = shop.name,
+            shop_address = shop.location,
+            shop_contact = shop.phone,
+            shop_price = shop.price,
+            shop_hours = shop.hours,
+            shop_rating = shop.rating,
+            shop_picture = shop.imageUrl,
+            shop_latitude = shop.latitude,
+            shop_longitude = shop.longitude
+            )
+        conn.execute(ins)
 
         return coffee_shops
     except HTTPError as error:
