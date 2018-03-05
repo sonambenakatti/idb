@@ -8,6 +8,11 @@ from flask import Flask, jsonify
 import githubstats
 from photo import Photo
 
+user = 'TheCoolBeans'
+pwd = 'riley5143'
+host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
+db = 'beansdb'
+uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
 # Create the application.
 APP = flask.Flask(__name__)
@@ -16,6 +21,14 @@ APP = flask.Flask(__name__)
 def home():
     return flask.render_template('home.html')
 
+@APP.route('/api/v1.0/about', methods=['GET'])
+def get_about():
+    about_json = {}
+    commits = githubstats.user_commits()
+    issues = githubstats.user_issues()
+    about_json["commits"] = commits
+    about_json["issues"] = issues
+    return jsonify({'about': about_json})
 
 @APP.route('/<path:path>')
 def catch_all (path):
@@ -83,7 +96,7 @@ def get_sceniclocations() :
 
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])
 def get_coffeeshops() :
-
+    print("GETTING STUFF")
     shops_json=[]
 
     shop_dict = {}
@@ -121,6 +134,14 @@ def get_snapshots() :
     """
     Implement RESTful API here
     """
+    # db = create_engine(uri)
+    # metadata = MetaData()
+    # metadata.reflect(bind=db)
+    # conn = db.connect()
+    # #select statement
+    # select_st = select([metadata.tables['Shops']])
+    # res = conn.execute(select_st).fetchall()
+
     snapshots_json = []
     global photo1
     global photo2
@@ -142,20 +163,20 @@ def get_snapshots() :
 
     return jsonify({'snapshots': snapshots_json})
 
-@APP.route('/shops')
-def coffeeshops() :
-    return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = shop_1_name, location1 = shop_1_location, price1 = shop_1_price, rating1 = shop_1_rating, photo1 = shop_1_photo,
-                                 name2 = shop_2_name, coffeeId2 = "2", location2 = shop_2_location, price2 = shop_2_price, rating2 = shop_2_rating, photo2 = shop_2_photo,
-                                 name3 = shop_3_name, coffeeId3 = "3", location3 = shop_3_location, price3 = shop_3_price, rating3 = shop_3_rating, photo3 = shop_3_photo)
-
-@APP.route('/shops/<coffeeId>')
-def coffeeshop(coffeeId) :
-    if coffeeId is "1":
-        return flask.render_template('instance1.html', location = shop_1_location, name = shop_1_name, phone = shop_1_phone, price = shop_1_price, rating = shop_1_rating, photo = shop_1_photo)
-    if coffeeId is "2":
-        return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
-    if coffeeId is "3":
-        return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
+# @APP.route('/shops')
+# def coffeeshops() :
+#     return flask.render_template('coffeeshops.html', coffeeId1 = "1", name1 = shop_1_name, location1 = shop_1_location, price1 = shop_1_price, rating1 = shop_1_rating, photo1 = shop_1_photo,
+#                                  name2 = shop_2_name, coffeeId2 = "2", location2 = shop_2_location, price2 = shop_2_price, rating2 = shop_2_rating, photo2 = shop_2_photo,
+#                                  name3 = shop_3_name, coffeeId3 = "3", location3 = shop_3_location, price3 = shop_3_price, rating3 = shop_3_rating, photo3 = shop_3_photo)
+#
+# @APP.route('/shops/<coffeeId>')
+# def coffeeshop(coffeeId) :
+#     if coffeeId is "1":
+#         return flask.render_template('instance1.html', location = shop_1_location, name = shop_1_name, phone = shop_1_phone, price = shop_1_price, rating = shop_1_rating, photo = shop_1_photo)
+#     if coffeeId is "2":
+#         return flask.render_template('instance1.html', location = shop_2_location, name = shop_2_name, phone = shop_2_phone, price = shop_2_price, rating = shop_2_rating, photo = shop_2_photo)
+#     if coffeeId is "3":
+#         return flask.render_template('instance1.html', location = shop_3_location, name = shop_3_name, phone = shop_3_phone, price = shop_3_price, rating = shop_3_rating, photo = shop_3_photo)
 '''
 @APP.route('/scenic')
 def sceniclocations() :
@@ -318,18 +339,6 @@ def snapshotsinstance(id, secret):
         photo = photo3
     return flask.render_template('snapshotinstance.html', username = photo.username, name = photo.name, num_faves = photo.num_favorites,
                                 title = photo.title, tags = photo.tags, id = photo.id, secret = photo.secret, url = photo.imageUrl)
-
-
-
-# @APP.route('/about')
-# def about():
-#     # commits = githubstats.user_commits()
-#     # issues = githubstats.user_issues()
-#     # return flask.render_template('about.html', total_commits = commits["total"], issues = githubstats.open_issues + issues["total"], amrutha_commits = commits["amrutha"], sonam_commits = commits["sonam"],
-#     #                              jenni_commits = commits["jenni"], ruchi_commits = commits["ruchi"], jaemin_commits = commits["jaemin"], amrutha_issues = issues["amrutha"],
-#     #                              sonam_issues = issues["sonam"], jenni_issues = issues["jenni"], ruchi_issues = issues["ruchi"], jaemin_issues = issues["jaemin"])
-#     return flask.render_template('index.html')
-
 
 
 if __name__ == '__main__':
