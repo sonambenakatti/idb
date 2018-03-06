@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 import os
 
+
 pymysql.install_as_MySQLdb()
 
 # Create the Flask application and the Flask-SQLAlchemy object.
@@ -42,10 +43,10 @@ coffee_shops = Table('Shops', metadata,
   Column('shop_contact', String(100)),
   Column('shop_price', String(100)),
   Column('shop_hours', String(100)),
-  Column('shop_rating', String(100)),
+  Column('shop_rating', Float),
   Column('shop_picture', LargeBinary(length=(2**32)-1)),
-  Column('shop_latitude', String(100)),
-  Column('shop_longitude', String(100)),
+  Column('shop_latitude', Float),
+  Column('shop_longitude', Float),
   Column('shop_yelp_id', String(100))
 
 )
@@ -54,12 +55,12 @@ scenic_views = Table('Scenic', metadata,
   Column('scenic_id', Integer, primary_key=True),
   Column('scenic_name', String(100)),
   Column('scenic_address', String(100)),
-  Column('scenic_rating', String(100)),
+  Column('scenic_rating', Float),
   Column('scenic_review1', String(100)),
   Column('scenic_review2', String(100)),
   Column('scenic_picture', LargeBinary(length=(2**32)-1)),
-  Column('scenic_latitude', String(100)),
-  Column('scenic_longitude', String(100)),
+  Column('scenic_latitude', Float),
+  Column('scenic_longitude', Float),
   Column('scenic_place_id', String(100))
 
 
@@ -71,10 +72,10 @@ snapshots = Table('Snapshots', metadata,
   Column('snap_photographer', String(100)),
   Column('snap_username', String(100)),
   Column('snap_tags', String(100)),
-  Column('snap_favs', String(100)),
+  Column('snap_favs', Integer),
   Column('snap_picture', LargeBinary(length=(2**32)-1)),
-  Column('snap_latitude', String(100)),
-  Column('snap_longitude', String(100)),
+  Column('snap_latitude', Float),
+  Column('snap_longitude', Float),
   Column('shop_loc_id', Integer, ForeignKey("Shops.shop_id")),
   Column('scenic_loc_id', Integer, ForeignKey("Scenic.scenic_id")),
   Column('snap_photo_id', String(100))
@@ -94,10 +95,10 @@ class Shops(db.Model):
     contact = db.Column(db.String(100))
     price = db.Column(db.String(100))
     hours = db.Column(db.String(100))
-    rating = db.Column(db.String(100))
+    rating = db.Column(db.Float)
     picture = db.Column(db.LargeBinary(length=(2**32)-1))
-    latitude = db.Column(db.String(100))
-    longitude = db.Column(db.String(100))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
     yelp_id = db.Column(db.String(100))
 
 
@@ -127,12 +128,12 @@ class Scenic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     address = db.Column(db.String(100))
-    rating = db.Column(db.String(100))
+    rating = db.Column(db.Float)
     review1 = db.Column(db.String(100))
     review2 = db.Column(db.String(100))
     picture = db.Column(db.LargeBinary(length=(2**32)-1))
-    latitude = db.Column(db.String(100))
-    longitude = db.Column(db.String(100))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
     place_id = db.Column(db.String(100))
 
     #series = db.relationship('ComicSeries', secondary='event_comicseries', backref=db.backref('events'), lazy='dynamic')
@@ -157,10 +158,10 @@ class Snapshots(db.Model):
     photographer = db.Column(db.String(100))
     username = db.Column(db.String(100))
     tags = db.Column(db.String(100))
-    favs = db.Column(db.String(100))
+    favs = db.Column(db.Integer)
     picture = db.Column(db.LargeBinary(length=(2**32)-1))
-    latitude = db.Column(db.String(100))
-    longitude = db.Column(db.String(100))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
     shop_loc_id = db.Column(db.Integer)
     scenic_loc_id = db.Column(db.Integer)
     photo_id = db.Column(db.String(100))
@@ -188,3 +189,4 @@ class Snapshots(db.Model):
 
 if __name__ == "__main__":
     print("Making the database")
+   
