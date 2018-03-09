@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import CoffeeShops from './components/CoffeeShops';
+import CoffeeInstance from './components/CoffeeInstance';
 import Location from './components/Location';
 import Locations from './components/Locations';
 import SnapshotsMain from './components/SnapshotsMain';
@@ -20,6 +21,7 @@ render() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/shops' component={CoffeeShops} />
+          <Route path='/shop' component={CoffeeInstance} />
           <Route path='/about' component={About} />
           <Route path='/snapshots' component={SnapshotsMain} />
           <Route path='/locations' component={Locations} />

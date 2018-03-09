@@ -25383,14 +25383,18 @@
 	                    _react2.default.createElement(
 	                      'span',
 	                      null,
-	                      ' name ',
+	                      'Name ',
+	                      shop.name,
 	                      _react2.default.createElement('br', null),
 	                      _react2.default.createElement('br', null),
-	                      'location',
+	                      'Address: ',
+	                      shop.location,
 	                      _react2.default.createElement('br', null),
-	                      'Price:',
+	                      'Price: ',
+	                      shop.price,
 	                      _react2.default.createElement('br', null),
-	                      'Rating:'
+	                      'Rating: ',
+	                      shop.rating
 	                    )
 	                  )
 	                )
@@ -25501,26 +25505,24 @@
 
 	    var _this = _possibleConstructorReturn(this, (CoffeeInstance.__proto__ || Object.getPrototypeOf(CoffeeInstance)).call(this, props));
 
+	    console.log("coffeeshops[]");
+	    console.log(_this.props.location.state);
 	    _this.state = {
-	      //item: this.props.item,
-	      name: _this.props.name,
-	      photo: _this.props.photo,
-	      location: props.location,
-	      phone: props.phone,
-	      price: props.price,
-	      rating: props.rating,
-	      navigate: false,
-	      navigateTo: ""
+	      name: _this.props.location.state.selectedShop.name,
+	      photo: _this.props.location.state.selectedShop.photo,
+	      phone: _this.props.shop.location.selectedShop.phone,
+	      price: _this.props.shop.location.selectedShop.price,
+	      rating: _this.props.shop.location.selectedShop.rating
+	      //address: this.props.shop.location.selectedShop.location,
 	    };
-	    console.log(_this.state.name);
-	    console.log(_this.state.photo);
 	    return _this;
 	  }
 
 	  _createClass(CoffeeInstance, [{
 	    key: "render",
 	    value: function render() {
-
+	      console.log("name of shop:");
+	      console.log(this.state.name);
 	      return _react2.default.createElement(
 	        "div",
 	        null,
@@ -25562,45 +25564,30 @@
 	              _react2.default.createElement(
 	                "div",
 	                { className: "bg-faded p-5 rounded" },
+	                "//",
 	                _react2.default.createElement(
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Address: ",
-	                  '{',
-	                  '{',
-	                  "location",
-	                  '}',
-	                  '}'
+	                  this.state.address
 	                ),
 	                _react2.default.createElement(
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Contact: ",
-	                  '{',
-	                  '{',
-	                  "phone",
-	                  '}',
-	                  '}'
+	                  this.state.phone
 	                ),
 	                _react2.default.createElement(
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Price: ",
-	                  '{',
-	                  '{',
-	                  "price",
-	                  '}',
-	                  '}'
+	                  this.state.price
 	                ),
 	                _react2.default.createElement(
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Rating: ",
-	                  '{',
-	                  '{',
-	                  "rating",
-	                  '}',
-	                  '}'
+	                  this.state.rating
 	                )
 	              )
 	            )

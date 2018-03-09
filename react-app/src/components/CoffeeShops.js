@@ -5,7 +5,10 @@ class CoffeeShops extends Component {
 constructor () {
   super();
   this.state = {
-    coffeeshops: []
+    coffeeshops: [],
+    navigate: false,
+    navigateTo: '',
+    selectedShop: [],
   };
 };
 
@@ -21,9 +24,10 @@ componentDidMount() {
         //TODO need to chage these references "shop.name" and other to json to the correct ones once using real db
         <div key={shop.name} className="col">
           <li>
-            <a href="/shops/coffeeidFIXTHIS">
-              <img src={shop.photo} style={{width: 300, height: 300}} alt="Photo1" />
-              <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
+            <a href="/shop">
+              <img src={shop.photo} style={{width: 300, height: 300}} alt="Photo1"
+              onClick={() => this.setState({navigate: true, navigateTo: '/shop', selectedShop: shop})}/>
+              <span className="picText"><span>Name {shop.name}<br /><br />Address: {shop.location}<br />Price: {shop.price}<br />Rating: {shop.rating}</span></span>
             </a>
           </li>
         </div>
@@ -36,6 +40,11 @@ componentDidMount() {
 
 render() {
     console.log(this.state.coffeeshops);
+
+    if (this.state.navigate) {
+      console.log(this.state.selectedShop);
+      return <Redirect to={{pathname: this.state.navigateTo, state: {selectedShop: this.state.selectedShop}}} push={true} />;
+    }
 
     return (
       <div className = "CoffeeShops">
