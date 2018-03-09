@@ -7,8 +7,13 @@ constructor () {
   this.state = {
     coffeeshops: [],
     navigate: false,
+<<<<<<< Updated upstream
     navigateTo: '',
     selectedShop: [],
+=======
+    navigateTo: "/shop",
+    item: ""
+>>>>>>> Stashed changes
   };
 };
 
@@ -24,11 +29,17 @@ componentDidMount() {
         //TODO need to chage these references "shop.name" and other to json to the correct ones once using real db
         <div key={shop.name} className="col">
           <li>
+<<<<<<< Updated upstream
             <a href="/shop">
               <img src={shop.photo} style={{width: 300, height: 300}} alt="Photo1"
               onClick={() => this.setState({navigate: true, navigateTo: '/shop', selectedShop: shop})}/>
               <span className="picText"><span>Name {shop.name}<br /><br />Address: {shop.location}<br />Price: {shop.price}<br />Rating: {shop.rating}</span></span>
             </a>
+=======
+              <img src={shop.photo} style={{width: 300, height: 300}} alt="Photo1"
+              onClick={(e) => this.setState({navigate: true, item: shop} )} />
+              <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
+>>>>>>> Stashed changes
           </li>
         </div>
       )
@@ -40,6 +51,10 @@ componentDidMount() {
 
 render() {
     console.log(this.state.coffeeshops);
+    if (this.state.navigate) {
+        console.log(this.state.item);
+        return <Redirect to={{pathname: this.state.navigateTo, state: {item: item}}} push={true} />;
+    }
 
     if (this.state.navigate) {
       console.log(this.state.selectedShop);

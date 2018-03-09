@@ -4,11 +4,17 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
+<<<<<<< Updated upstream
 import CoffeeShops from './components/CoffeeShops';
 import CoffeeInstance from './components/CoffeeInstance';
 import Location from './components/Location';
 import Locations from './components/Locations';
 import SnapshotsMain from './components/SnapshotsMain';
+=======
+import CoffeeShops from './components/CoffeeShops'
+import Scenic from './components/Scenic';
+import CoffeeInstance from './components/CoffeeInstance'
+>>>>>>> Stashed changes
 
 class App extends Component {
 
@@ -21,7 +27,11 @@ render() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/shops' component={CoffeeShops} />
+<<<<<<< Updated upstream
           <Route path='/shop' component={CoffeeInstance} />
+=======
+          <Route path='/shop' component={CoffeeInstance}/>
+>>>>>>> Stashed changes
           <Route path='/about' component={About} />
           <Route path='/snapshots' component={SnapshotsMain} />
           <Route path='/locations' component={Locations} />
