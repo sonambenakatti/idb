@@ -5,7 +5,7 @@ from __future__ import print_function
 import flask
 from flask import Flask, jsonify
 
-import githubstats
+#import githubstats
 from photo import Photo
 
 user = 'TheCoolBeans'

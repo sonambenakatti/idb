@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(216);
+	var _registerServiceWorker = __webpack_require__(217);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19806,15 +19806,19 @@
 
 	var _CoffeeShops2 = _interopRequireDefault(_CoffeeShops);
 
-	var _Location = __webpack_require__(212);
+	var _CoffeeInstance = __webpack_require__(212);
+
+	var _CoffeeInstance2 = _interopRequireDefault(_CoffeeInstance);
+
+	var _Location = __webpack_require__(213);
 
 	var _Location2 = _interopRequireDefault(_Location);
 
-	var _Locations = __webpack_require__(213);
+	var _Locations = __webpack_require__(214);
 
 	var _Locations2 = _interopRequireDefault(_Locations);
 
-	var _SnapshotsMain = __webpack_require__(215);
+	var _SnapshotsMain = __webpack_require__(216);
 
 	var _SnapshotsMain2 = _interopRequireDefault(_SnapshotsMain);
 
@@ -19851,6 +19855,7 @@
 	            null,
 	            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2.default }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2.default }),
@@ -25337,7 +25342,10 @@
 	    var _this = _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).call(this));
 
 	    _this.state = {
-	      coffeeshops: []
+	      coffeeshops: [],
+	      navigate: false,
+	      navigateTo: '',
+	      selectedShop: []
 	    };
 	    return _this;
 	  }
@@ -25364,8 +25372,11 @@
 	                null,
 	                _react2.default.createElement(
 	                  'a',
-	                  { href: '/shops/coffeeidFIXTHIS' },
-	                  _react2.default.createElement('img', { src: shop.photo, style: { width: 300, height: 300 }, alt: 'Photo1' }),
+	                  { href: '/shop' },
+	                  _react2.default.createElement('img', { src: shop.photo, style: { width: 300, height: 300 }, alt: 'Photo1',
+	                    onClick: function onClick() {
+	                      return _this2.setState({ navigate: true, navigateTo: '/shop', selectedShop: shop });
+	                    } }),
 	                  _react2.default.createElement(
 	                    'span',
 	                    { className: 'picText' },
@@ -25395,6 +25406,11 @@
 	    key: 'render',
 	    value: function render() {
 	      console.log(this.state.coffeeshops);
+
+	      if (this.state.navigate) {
+	        console.log(this.state.selectedShop);
+	        return _react2.default.createElement(Redirect, { to: { pathname: this.state.navigateTo, state: { selectedShop: this.state.selectedShop } }, push: true });
+	      }
 
 	      return _react2.default.createElement(
 	        'div',
@@ -25455,6 +25471,179 @@
 
 /***/ }),
 /* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CoffeeInstance = function (_Component) {
+	  _inherits(CoffeeInstance, _Component);
+
+	  function CoffeeInstance(props) {
+	    _classCallCheck(this, CoffeeInstance);
+
+	    var _this = _possibleConstructorReturn(this, (CoffeeInstance.__proto__ || Object.getPrototypeOf(CoffeeInstance)).call(this, props));
+
+	    _this.state = {
+	      //item: this.props.item,
+	      name: _this.props.name,
+	      photo: _this.props.photo,
+	      location: props.location,
+	      phone: props.phone,
+	      price: props.price,
+	      rating: props.rating,
+	      navigate: false,
+	      navigateTo: ""
+	    };
+	    console.log(_this.state.name);
+	    console.log(_this.state.photo);
+	    return _this;
+	  }
+
+	  _createClass(CoffeeInstance, [{
+	    key: "render",
+	    value: function render() {
+
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        _react2.default.createElement(
+	          "div",
+	          { className: "content" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-sm-5 instance-details" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "product-item" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "product-item-title" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "bg-faded p-5 d-flex ml-auto rounded" },
+	                  _react2.default.createElement(
+	                    "h2",
+	                    { className: "section-heading mb-0" },
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-upper" },
+	                      "Local Shop:"
+	                    ),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-lower" },
+	                      this.state.name
+	                    )
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "product-item-description mr-auto" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "bg-faded p-5 rounded" },
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Address: ",
+	                  '{',
+	                  '{',
+	                  "location",
+	                  '}',
+	                  '}'
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Contact: ",
+	                  '{',
+	                  '{',
+	                  "phone",
+	                  '}',
+	                  '}'
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Price: ",
+	                  '{',
+	                  '{',
+	                  "price",
+	                  '}',
+	                  '}'
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Rating: ",
+	                  '{',
+	                  '{',
+	                  "rating",
+	                  '}',
+	                  '}'
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-sm-5 instance-pic" },
+	            _react2.default.createElement("img", { className: "product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0", src: this.state.photo, alt: true, style: { width: 500, height: 500, marginTop: 50 } })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "model-links" },
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "/scenic" },
+	              "LOCATIONS NEARBY "
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "/snapshots" },
+	              "MORE SNAPS"
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return CoffeeInstance;
+	}(_react.Component);
+
+	exports.default = CoffeeInstance;
+
+/***/ }),
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25575,7 +25764,7 @@
 	exports.default = Location;
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25590,7 +25779,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _lodash = __webpack_require__(214);
+	var _lodash = __webpack_require__(215);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -25703,7 +25892,7 @@
 	exports.default = Locations;
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports) {
 
 	/**
@@ -26184,7 +26373,7 @@
 
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26329,7 +26518,7 @@
 	exports.default = SnapshotsMain;
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
