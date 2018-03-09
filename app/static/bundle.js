@@ -65,11 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-<<<<<<< Updated upstream
 	var _registerServiceWorker = __webpack_require__(217);
-=======
-	var _registerServiceWorker = __webpack_require__(214);
->>>>>>> Stashed changes
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -14734,7 +14730,7 @@
 	 *
 	 * @providesModule shallowEqual
 	 * @typechecks
-	 * 
+	 *
 	 */
 
 	'use strict';
@@ -19864,14 +19860,11 @@
 	            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2.default }),
-<<<<<<< Updated upstream
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/location', component: _Location2.default })
-=======
-	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default })
->>>>>>> Stashed changes
+
 	          )
 	        )
 	      );
@@ -20697,7 +20690,7 @@
 	 * This source code is licensed under the MIT license found in the
 	 * LICENSE file in the root directory of this source tree.
 	 *
-	 * 
+	 *
 	 */
 
 	function makeEmptyFunction(arg) {
@@ -24322,7 +24315,7 @@
 	    (global.hoistNonReactStatics = factory());
 	}(this, (function () {
 	    'use strict';
-	    
+
 	    var REACT_STATICS = {
 	        childContextTypes: true,
 	        contextTypes: true,
@@ -24334,7 +24327,7 @@
 	        propTypes: true,
 	        type: true
 	    };
-	    
+
 	    var KNOWN_STATICS = {
 	        name: true,
 	        length: true,
@@ -24344,30 +24337,30 @@
 	        arguments: true,
 	        arity: true
 	    };
-	    
+
 	    var defineProperty = Object.defineProperty;
 	    var getOwnPropertyNames = Object.getOwnPropertyNames;
 	    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 	    var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 	    var getPrototypeOf = Object.getPrototypeOf;
 	    var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-	    
+
 	    return function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 	        if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-	            
+
 	            if (objectPrototype) {
 	                var inheritedComponent = getPrototypeOf(sourceComponent);
 	                if (inheritedComponent && inheritedComponent !== objectPrototype) {
 	                    hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
 	                }
 	            }
-	            
+
 	            var keys = getOwnPropertyNames(sourceComponent);
-	            
+
 	            if (getOwnPropertySymbols) {
 	                keys = keys.concat(getOwnPropertySymbols(sourceComponent));
 	            }
-	            
+
 	            for (var i = 0; i < keys.length; ++i) {
 	                var key = keys[i];
 	                if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
@@ -24377,10 +24370,10 @@
 	                    } catch (e) {}
 	                }
 	            }
-	            
+
 	            return targetComponent;
 	        }
-	        
+
 	        return targetComponent;
 	    };
 	})));
@@ -25356,13 +25349,8 @@
 	    _this.state = {
 	      coffeeshops: [],
 	      navigate: false,
-<<<<<<< Updated upstream
 	      navigateTo: '',
 	      selectedShop: []
-=======
-	      navigateTo: "/shop",
-	      item: ""
->>>>>>> Stashed changes
 	    };
 	    return _this;
 	  }
@@ -25392,7 +25380,6 @@
 	                    return _this2.setState({ navigate: true, item: shop });
 	                  } }),
 	                _react2.default.createElement(
-<<<<<<< Updated upstream
 	                  'a',
 	                  { href: '/shop' },
 	                  _react2.default.createElement('img', { src: shop.photo, style: { width: 300, height: 300 }, alt: 'Photo1',
@@ -25418,21 +25405,6 @@
 	                      'Rating: ',
 	                      shop.rating
 	                    )
-=======
-	                  "span",
-	                  { className: "picText" },
-	                  _react2.default.createElement(
-	                    "span",
-	                    null,
-	                    " name ",
-	                    _react2.default.createElement("br", null),
-	                    _react2.default.createElement("br", null),
-	                    "location",
-	                    _react2.default.createElement("br", null),
-	                    "Price:",
-	                    _react2.default.createElement("br", null),
-	                    "Rating:"
->>>>>>> Stashed changes
 	                  )
 	                )
 	              )
