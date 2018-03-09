@@ -1,5 +1,5 @@
 from __future__ import print_function
-from GooglePlaces import GooglePlaces
+
 import argparse
 import json
 import pprint
@@ -7,17 +7,24 @@ import requests
 import sys
 import urllib
 
+
 class ScenicLocations:
-	def __init__(self, name, placeID, photo, rating, reviews, address) :
+	def __init__(self, name, address, rating, review1, review2, photo, latitude, longitude, placeID) :
 		self.__name = name
-		self.__placeID = placeID
-		self.__photo = photo
-		self.__rating = rating
-		self.__reviews = reviews
 		self.__address = address
+		self.__rating = rating
+		self.__review1 = review1
+		self.__review2 = review2
+		self.__photo = photo
+		self.__latitude = latitude
+		self.__longitude = longitude
+		self.__placeID = placeID
+		
+
 
 	def __str__(self):
 		return str(self.__name)
+
 
 	@property
 	def name(self) :
@@ -28,10 +35,18 @@ class ScenicLocations:
 	    self.__name = n
 
 	@property
-	def placeId(self) :
+	def address(self) :
+	    return self.__address
+
+	@address.setter
+	def address(self, address) :
+	    self.__address = address
+
+	@property
+	def placeID(self) :
 	    return self.__placeID
 
-	@placeId.setter
+	@placeID.setter
 	def placeID(self, placeID) :
 	    self.__placeID = placeID
 
@@ -52,18 +67,43 @@ class ScenicLocations:
 	    self.__rating = rating
 
 	@property
-	def reviews(self) :
-	    return self.__reviews
+	def review1(self) :
+	    return self.__review1
 
-	@reviews.setter
-	def reviews(self, reviews) :
-	    self.__reviews = reviews
-
+	@review1.setter
+	def review1(self, reviews) :
+	    self.__review1 = review1
 
 	@property
-	def address(self) :
-	    return self.__address
+	def review2(self) :
+	    return self.__review2
 
-	@address.setter
-	def address(self, address) :
-	    self.__address = address
+	@review2.setter
+	def review2(self, reviews) :
+	    self.__review2 = review2
+
+	@property
+	def latitude(self) :
+	    return self.__latitude
+
+	@latitude.setter
+	def latitude(self, reviews) :
+	    self.__latitude = latitude
+
+	@property
+	def longitude(self) :
+	    return self.__longitude
+
+	@longitude.setter
+	def longitude(self, reviews) :
+	    self.__longitude = longitude
+
+	
+	
+
+
+
+
+
+
+
