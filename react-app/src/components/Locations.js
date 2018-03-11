@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import chunk from 'lodash.chunk';
+//import chunk from 'lodash.chunk';
 import {Redirect} from 'react-router-dom';
 
 class Locations extends Component {

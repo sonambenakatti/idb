@@ -49,7 +49,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 # Defaults for our simple example.
 DEFAULT_TERM = 'coffee'
 DEFAULT_LOCATION = 'Austin, TX'
-SEARCH_LIMIT = 10
+SEARCH_LIMIT = 12
 
 # called in #3 and #6
 def request(host, path, api_key, url_params=None):
@@ -88,11 +88,12 @@ def get_business(business_id, coffeeshop):
 
     business_path = BUSINESS_PATH + business_id
     response =  request(API_HOST, business_path, API_KEY)
-    #pprint.pprint(response, indent=2)
+    pprint.pprint(response, indent=2)
     coffeeshop.location = response["location"]["display_address"]
     coffeeshop.latitude = response["coordinates"]["latitude"]
     coffeeshop.longitude = response["coordinates"]["longitude"]
     coffeeshop.hours = response["hours"]
+    coffeeshop.phone = response["display_phone"]
 #4
 def coffee_shop_results(response):
     '''
@@ -193,10 +194,10 @@ def main():
             shop_contact = bytes(shop.phone, 'utf8'),
             shop_price = bytes(shop.price, 'utf8'),
             shop_hours = bytes(shop.hours, 'utf8'),
-            shop_rating = bytes(shop.rating, 'utf8'),
+            shop_rating = shop.rating,
             shop_picture = bytes(shop.imageUrl, 'utf8'),
-            shop_latitude = bytes(shop.latitude, 'utf8'),
-            shop_longitude = bytes(shop.longitude, 'utf8'),
+            shop_latitude = shop.latitude,
+            shop_longitude = shop.longitude,
             shop_yelp_id = bytes(shop.id, 'utf8')
             )
             conn = db.connect()
