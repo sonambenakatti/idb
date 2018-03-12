@@ -4,18 +4,38 @@ from __future__ import print_function
 
 import flask
 from flask import Flask, jsonify
-
+import sqlalchemy
+from sqlalchemy import *
+import pymysql
+import json
+import pprint
 #import githubstats
 from photo import Photo
+
+pymysql.install_as_MySQLdb()
 
 user = 'TheCoolBeans'
 pwd = 'riley5143'
 host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
 db = 'beansdb'
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
+# Database variable that is connected to database.
+engine = create_engine(uri)
+# Metadata for database.
+metadata = MetaData()
+metadata.reflect(bind=engine)
 
 # Create the application.
 APP = flask.Flask(__name__)
+
+def alchemyencoder(obj):
+    """
+    JSON encoder function for SQLAlchemy special classes.
+    Gets called on every column of the returned row
+    in the table from the database. ex. used in shops get api.
+    """
+    if isinstance(obj, bytes):
+        return obj.decode('utf8')
 
 @APP.route('/')
 def home():
@@ -33,27 +53,6 @@ def get_about():
 @APP.route('/<path:path>')
 def catch_all (path):
     return flask.render_template('home.html')
-
-shop_1_name = "Summer Moon Coffee Bar"
-shop_1_location = "11005 Burnet Rd Ste 112 Austin, TX 78758"
-shop_1_price = "$"
-shop_1_rating = "4.5"
-shop_1_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/WQPD9JYeDyVju0inUEID7w/o.jpg"
-shop_1_phone = "737-300-1265"
-
-shop_2_name = "Houndstooth Coffee"
-shop_2_location = "401 Congress Ave Ste 100C Austin, TX 78701"
-shop_2_price = "$$"
-shop_2_rating = "4.5"
-shop_2_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/ITv825S32-REV1bISyfk5A/o.jpg"
-shop_2_phone = "512-394-6051"
-
-shop_3_name = "Vintage Heart Coffee"
-shop_3_location = "1405 E 7th St Austin, TX 78702"
-shop_3_price = "$"
-shop_3_rating = "4.5"
-shop_3_photo = "https://s3-media3.fl.yelpcdn.com/bphoto/hK35KSh9IxFMjvvg4tCmsQ/o.jpg"
-shop_3_phone = "512-524-0583"
 
 photo1 = Photo('3', 'J Dimas', ' josecdimas', '0', '0', 'WINTER SUNNY DAY IN AUSTIN',
 'https://farm5.staticflickr.com/4657/40162172101_a30055288c.jpg', '#Austin #Austin, TX #ATX #Zilker Park #winter #dried grass', '1', '1')
@@ -105,40 +104,12 @@ def get_sceniclocations() :
 
     return jsonify({'sceniclocations': places_json})
 
+
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])
 def get_coffeeshops() :
-    print("GETTING STUFF")
-    shops_json=[]
-
-    shop_dict = {}
-    shop_dict["name"] = "Summer Moon Coffee Bar"
-    shop_dict["location"] = "11005 Burnet Rd Ste 112 Austin, TX 78758"
-    shop_dict["price"] = "$"
-    shop_dict["rating"] = "4.5"
-    shop_dict["photo"] = "https://s3-media3.fl.yelpcdn.com/bphoto/WQPD9JYeDyVju0inUEID7w/o.jpg"
-    shop_dict["phone"] = "737-300-1265"
-
-    shops_json.append(shop_dict)
-
-    shop_dict = {}
-    shop_dict["name"] = "Houndstooth Coffee"
-    shop_dict["location"] = "11005 Burnet Rd Ste 112 Austin, TX 78758"
-    shop_dict["price"] = "$$"
-    shop_dict["rating"] = "4.5"
-    shop_dict["photo"] = "https://s3-media3.fl.yelpcdn.com/bphoto/ITv825S32-REV1bISyfk5A/o.jpg"
-    shop_dict["phone"] = "512-394-6051"
-    shops_json.append(shop_dict)
-
-    shop_dict = {}
-    shop_dict["name"] = "Vintage Heart Coffee"
-    shop_dict["location"] = "1405 E 7th St Austin, TX 78702"
-    shop_dict["price"] = "$"
-    shop_dict["rating"] = "4.5"
-    shop_dict["photo"] = "https://s3-media3.fl.yelpcdn.com/bphoto/hK35KSh9IxFMjvvg4tCmsQ/o.jpg"
-    shop_dict["phone"] = "512-524-0583"
-    shops_json.append(shop_dict)
-
-    return jsonify({'coffeeshops': shops_json})
+    result = engine.execute('SELECT * FROM Shops').fetchall()
+    jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    return jsonRes
 
 @APP.route('/api/v1.0/snapshots', methods=['GET'])
 def get_snapshots() :

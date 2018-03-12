@@ -5,7 +5,11 @@ class CoffeeShops extends Component {
 constructor () {
   super();
   this.state = {
-    coffeeshops: []
+    coffeeshops: [],
+    navigate: false,
+    selectedShop: [],
+    navigateTo: "/shop",
+    item: ""
   };
 };
 
@@ -15,15 +19,14 @@ componentDidMount() {
     return results.json();
   }).then(data=>{
     console.log(data)
-    console.log(data.coffeeshops)
-    let shops = data.coffeeshops.map((shop) =>{
+    let shops = data.map((shop) =>{
       return(
-        //TODO need to chage these references "shop.name" and other to json to the correct ones once using real db
-        <div key={shop.name} className="col">
+        <div key={shop.shop_name} className="col">
           <li>
-            <a href="/shops/coffeeidFIXTHIS">
-              <img src={shop.photo} style={{width: 300, height: 300}} alt="Photo1" />
-              <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
+            <a href={"/shop/" + shop.shop_yelp_id}>
+              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
+              onClick={() => this.setState({navigate: true, navigateTo: '/shop/{shop.shop_yelp_id}', selectedShop: shop})}/>
+              <span className="picText"><span>Name {shop.shop_name}<br /><br />Address: {shop.shop_address}<br />Price: {shop.shop_price}<br />Rating: {shop.shop_rating}</span></span>
             </a>
           </li>
         </div>
@@ -36,6 +39,15 @@ componentDidMount() {
 
 render() {
     console.log(this.state.coffeeshops);
+    if (this.state.navigate) {
+        console.log(this.state.item);
+        return <Redirect to={{pathname: this.state.navigateTo, state: {item: item}}} push={true} />;
+    }
+
+    if (this.state.navigate) {
+      console.log(this.state.selectedShop);
+      return <Redirect to={{pathname: this.state.navigateTo, state: {selectedShop: this.state.selectedShop}}} push={true} />;
+    }
 
     return (
       <div className = "CoffeeShops">

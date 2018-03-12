@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash.chunk": "^4.2.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "supports-color": "^5.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
