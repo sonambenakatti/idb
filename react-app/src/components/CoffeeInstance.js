@@ -5,29 +5,13 @@ class CoffeeInstance extends Component {
   constructor(props) {
 
     super(props);
-    console.log("4"+this.props.shop.shop_name);
-
     this.state = {
-      shop: this.props.shop
+      shop: this.props.location.state.shop
     };
-    console.log("5");
-    console.log("state " + this.state.shop.shop_name)
-  }
-  componentDidMount() {
-    console.log("6"+this.state.shop.shop_name);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("NEXT " + nextProps.data)
-    this.setState({ shop: nextProps.data });
-  }
-
-  componentWillUpdate() {
-    console.log("Update")
-  }
 
   render() {
-      console.log("7");
       return (
       <div>
       <div className="content">

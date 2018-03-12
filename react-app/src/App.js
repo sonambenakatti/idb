@@ -17,32 +17,20 @@ class App extends Component {
 
   constructor(props) {
         super(props);
-        this.state = {
-            instanceData: {}
-        };
-        this.coffeeShopCallback = this.coffeeShopCallback.bind(this)
   }
 
-  coffeeShopCallback(shop) {
-    console.log("1"+this.state.instanceData.shop_name);
-    console.log("1 Setting State " + this.state.instanceData.shop_name)
-    this.setState({instanceData : shop}, ()=>{console.log("2.5"+this.state.instanceData.shop_name)});
-  }
 
-  componentDidUpdate() {
-    console.log("2"+this.state.instanceData.shop_name);
-  }
 
 render() {
-  console.log("3"+this.state.instanceData.shop_name);
+
   return (
     <Router>
       <div>
         <Navbar />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/shops' component={()=><CoffeeShops callbackParent={this.coffeeShopCallback}/>} />
-          <Route path='/shop/:shopID' component={()=><CoffeeInstance shop={this.state.instanceData}/>} />
+          <Route path='/shops' component={CoffeeShops} />
+          <Route path='/shop' component={CoffeeInstance} />
           <Route path='/about' component={About} />
           <Route path='/snapshots' component={SnapshotsMain} />
           <Route path='/locations' component={Locations} />

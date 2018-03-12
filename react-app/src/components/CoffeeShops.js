@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
 
 class CoffeeShops extends Component {
 
@@ -8,15 +9,10 @@ constructor (props) {
     coffeeshops: [],
     navigate: false,
     selectedShop: [],
-    navigateTo: "/shop",
+    navigateTo: "",
     item: ""
   };
 };
-
-callback(shop) {
-  console.log("CALL"+shop.shop_name + " " + shop.shop_yelp_id)
-  this.props.callbackParent(shop)
-}
 
 componentDidMount(props) {
   fetch('/api/v1.0/coffeeshops').then(results =>{
@@ -26,13 +22,11 @@ componentDidMount(props) {
     console.log(data)
     let shops = data.map((shop) =>{
       return(
-        <div key={shop.shop_name} className="col" onClick={()=>this.callback(shop)}>
-          <li>
-            <a href={"/shop/" + shop.shop_yelp_id} >
+        <div key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+          <li className="col">
               <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
               />
               <span className="picText"><span>Name {shop.shop_name}<br /><br />Address: {shop.shop_address}<br />Price: {shop.shop_price}<br />Rating: {shop.shop_rating}</span></span>
-            </a>
           </li>
         </div>
       )
@@ -43,17 +37,12 @@ componentDidMount(props) {
 
 render() {
     if (this.state.navigate) {
-        console.log(this.state.item);
-        return <Redirect to={{pathname: this.state.navigateTo, state: {item: item}}} push={true} />;
-    }
-
-    if (this.state.navigate) {
-      console.log(this.state.selectedShop);
-      return <Redirect to={{pathname: this.state.navigateTo, state: {selectedShop: this.state.selectedShop}}} push={true} />;
+      console.log("REDIRCT" + this.state.selectedShop.shop_name)
+      return <Redirect to={{pathname: this.state.navigateTo, state: {shop: this.state.selectedShop}}} push={true} />;
     }
 
     return (
-      <div className = "CoffeeShops">
+      <div>
         {/*location dropdown*/}
         <div className="container">
           <div className="dropdown">
@@ -69,7 +58,9 @@ render() {
           <div className="container">
             <div className="row">
               <ul className="img-list">
-                {this.state.coffeeshops}
+                <div className="row">
+                  {this.state.coffeeshops}
+                </div>
               </ul>
             </div>
           </div>

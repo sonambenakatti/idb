@@ -65,7 +65,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _registerServiceWorker = __webpack_require__(217);
+	var _registerServiceWorker = __webpack_require__(219);
 
 	var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
 
@@ -19806,23 +19806,23 @@
 
 	var _CoffeeShops2 = _interopRequireDefault(_CoffeeShops);
 
-	var _CoffeeInstance = __webpack_require__(212);
+	var _CoffeeInstance = __webpack_require__(213);
 
 	var _CoffeeInstance2 = _interopRequireDefault(_CoffeeInstance);
 
-	var _Location = __webpack_require__(213);
+	var _Location = __webpack_require__(214);
 
 	var _Location2 = _interopRequireDefault(_Location);
 
-	var _Locations = __webpack_require__(214);
+	var _Locations = __webpack_require__(215);
 
 	var _Locations2 = _interopRequireDefault(_Locations);
 
-	var _SnapshotsMain = __webpack_require__(215);
+	var _SnapshotsMain = __webpack_require__(217);
 
 	var _SnapshotsMain2 = _interopRequireDefault(_SnapshotsMain);
 
-	var _Scenic = __webpack_require__(216);
+	var _Scenic = __webpack_require__(218);
 
 	var _Scenic2 = _interopRequireDefault(_Scenic);
 
@@ -19840,37 +19840,13 @@
 	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-	    _this.state = {
-	      instanceData: {}
-	    };
-	    _this.coffeeShopCallback = _this.coffeeShopCallback.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	  }
 
 	  _createClass(App, [{
-	    key: 'coffeeShopCallback',
-	    value: function coffeeShopCallback(shop) {
-	      var _this2 = this;
-
-	      console.log("1" + this.state.instanceData.shop_name);
-	      console.log("1 Setting State " + this.state.instanceData.shop_name);
-	      this.setState({ instanceData: shop }, function () {
-	        console.log("2.5" + _this2.state.instanceData.shop_name);
-	      });
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      console.log("2" + this.state.instanceData.shop_name);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
 
-	      console.log("3" + this.state.instanceData.shop_name);
 	      return _react2.default.createElement(
 	        _reactRouterDom.BrowserRouter,
 	        null,
@@ -19882,12 +19858,8 @@
 	            _reactRouterDom.Switch,
 	            null,
 	            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
-	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: function component() {
-	                return _react2.default.createElement(_CoffeeShops2.default, { callbackParent: _this3.coffeeShopCallback });
-	              } }),
-	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shop/:shopID', component: function component() {
-	                return _react2.default.createElement(_CoffeeInstance2.default, { shop: _this3.state.instanceData });
-	              } }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2.default }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2.default }),
@@ -25345,7 +25317,7 @@
 /* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -25356,6 +25328,8 @@
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(212);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25377,20 +25351,14 @@
 	      coffeeshops: [],
 	      navigate: false,
 	      selectedShop: [],
-	      navigateTo: "/shop",
+	      navigateTo: "",
 	      item: ""
 	    };
 	    return _this;
 	  }
 
 	  _createClass(CoffeeShops, [{
-	    key: "callback",
-	    value: function callback(shop) {
-	      console.log("CALL" + shop.shop_name + " " + shop.shop_yelp_id);
-	      this.props.callbackParent(shop);
-	    }
-	  }, {
-	    key: "componentDidMount",
+	    key: 'componentDidMount',
 	    value: function componentDidMount(props) {
 	      var _this2 = this;
 
@@ -25401,37 +25369,33 @@
 	        console.log(data);
 	        var shops = data.map(function (shop) {
 	          return _react2.default.createElement(
-	            "div",
-	            { key: shop.shop_name, className: "col", onClick: function onClick() {
-	                return _this2.callback(shop);
+	            'div',
+	            { key: shop.shop_name, onClick: function onClick() {
+	                _this2.setState({ navigate: true, navigateTo: "/shop", selectedShop: shop });
 	              } },
 	            _react2.default.createElement(
-	              "li",
-	              null,
+	              'li',
+	              { className: 'col' },
+	              _react2.default.createElement('img', { src: shop.shop_picture, style: { width: 300, height: 300 }, alt: 'Photo1'
+	              }),
 	              _react2.default.createElement(
-	                "a",
-	                { href: "/shop/" + shop.shop_yelp_id },
-	                _react2.default.createElement("img", { src: shop.shop_picture, style: { width: 300, height: 300 }, alt: "Photo1"
-	                }),
+	                'span',
+	                { className: 'picText' },
 	                _react2.default.createElement(
-	                  "span",
-	                  { className: "picText" },
-	                  _react2.default.createElement(
-	                    "span",
-	                    null,
-	                    "Name ",
-	                    shop.shop_name,
-	                    _react2.default.createElement("br", null),
-	                    _react2.default.createElement("br", null),
-	                    "Address: ",
-	                    shop.shop_address,
-	                    _react2.default.createElement("br", null),
-	                    "Price: ",
-	                    shop.shop_price,
-	                    _react2.default.createElement("br", null),
-	                    "Rating: ",
-	                    shop.shop_rating
-	                  )
+	                  'span',
+	                  null,
+	                  'Name ',
+	                  shop.shop_name,
+	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement('br', null),
+	                  'Address: ',
+	                  shop.shop_address,
+	                  _react2.default.createElement('br', null),
+	                  'Price: ',
+	                  shop.shop_price,
+	                  _react2.default.createElement('br', null),
+	                  'Rating: ',
+	                  shop.shop_rating
 	                )
 	              )
 	            )
@@ -25441,62 +25405,61 @@
 	      });
 	    }
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      if (this.state.navigate) {
-	        console.log(this.state.item);
-	        return _react2.default.createElement(Redirect, { to: { pathname: this.state.navigateTo, state: { item: item } }, push: true });
-	      }
-
-	      if (this.state.navigate) {
-	        console.log(this.state.selectedShop);
-	        return _react2.default.createElement(Redirect, { to: { pathname: this.state.navigateTo, state: { selectedShop: this.state.selectedShop } }, push: true });
+	        console.log("REDIRCT" + this.state.selectedShop.shop_name);
+	        return _react2.default.createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: { shop: this.state.selectedShop } }, push: true });
 	      }
 
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "CoffeeShops" },
+	        'div',
+	        null,
 	        _react2.default.createElement(
-	          "div",
-	          { className: "container" },
+	          'div',
+	          { className: 'container' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "dropdown" },
+	            'div',
+	            { className: 'dropdown' },
 	            _react2.default.createElement(
-	              "button",
-	              { id: "city-btn", className: "btn btn-primary dropdown-toggle", type: "button", "data-toggle": "dropdown", onclick: "myFunction()" },
-	              "Choose City",
-	              _react2.default.createElement("span", { className: "caret" })
+	              'button',
+	              { id: 'city-btn', className: 'btn btn-primary dropdown-toggle', type: 'button', 'data-toggle': 'dropdown', onclick: 'myFunction()' },
+	              'Choose City',
+	              _react2.default.createElement('span', { className: 'caret' })
 	            ),
 	            _react2.default.createElement(
-	              "ul",
-	              { className: "dropdown-menu" },
-	              _react2.default.createElement("input", { className: "form-control", id: "myInput", type: "text", placeholder: "Search.." }),
+	              'ul',
+	              { className: 'dropdown-menu' },
+	              _react2.default.createElement('input', { className: 'form-control', id: 'myInput', type: 'text', placeholder: 'Search..' }),
 	              _react2.default.createElement(
-	                "li",
+	                'li',
 	                null,
 	                _react2.default.createElement(
-	                  "a",
-	                  { href: "#" },
-	                  "Austin, TX"
+	                  'a',
+	                  { href: '#' },
+	                  'Austin, TX'
 	                )
 	              )
 	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "section",
-	          { className: "page-section" },
+	          'section',
+	          { className: 'page-section' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "container" },
+	            'div',
+	            { className: 'container' },
 	            _react2.default.createElement(
-	              "div",
-	              { className: "row" },
+	              'div',
+	              { className: 'row' },
 	              _react2.default.createElement(
-	                "ul",
-	                { className: "img-list" },
-	                this.state.coffeeshops
+	                'ul',
+	                { className: 'img-list' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  this.state.coffeeshops
+	                )
 	              )
 	            )
 	          )
@@ -25512,6 +25475,63 @@
 
 /***/ }),
 /* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.withRouter = exports.matchPath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.MemoryRouter = undefined;
+
+	var _MemoryRouter2 = __webpack_require__(187);
+
+	var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
+
+	var _Prompt2 = __webpack_require__(196);
+
+	var _Prompt3 = _interopRequireDefault(_Prompt2);
+
+	var _Redirect2 = __webpack_require__(198);
+
+	var _Redirect3 = _interopRequireDefault(_Redirect2);
+
+	var _Route2 = __webpack_require__(191);
+
+	var _Route3 = _interopRequireDefault(_Route2);
+
+	var _Router2 = __webpack_require__(182);
+
+	var _Router3 = _interopRequireDefault(_Router2);
+
+	var _StaticRouter2 = __webpack_require__(201);
+
+	var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
+
+	var _Switch2 = __webpack_require__(203);
+
+	var _Switch3 = _interopRequireDefault(_Switch2);
+
+	var _matchPath2 = __webpack_require__(192);
+
+	var _matchPath3 = _interopRequireDefault(_matchPath2);
+
+	var _withRouter2 = __webpack_require__(206);
+
+	var _withRouter3 = _interopRequireDefault(_withRouter2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.MemoryRouter = _MemoryRouter3.default;
+	exports.Prompt = _Prompt3.default;
+	exports.Redirect = _Redirect3.default;
+	exports.Route = _Route3.default;
+	exports.Router = _Router3.default;
+	exports.StaticRouter = _StaticRouter3.default;
+	exports.Switch = _Switch3.default;
+	exports.matchPath = _matchPath3.default;
+	exports.withRouter = _withRouter3.default;
+
+/***/ }),
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25542,36 +25562,15 @@
 
 	    var _this = _possibleConstructorReturn(this, (CoffeeInstance.__proto__ || Object.getPrototypeOf(CoffeeInstance)).call(this, props));
 
-	    console.log("4" + _this.props.shop.shop_name);
-
 	    _this.state = {
-	      shop: _this.props.shop
+	      shop: _this.props.location.state.shop
 	    };
-	    console.log("5");
-	    console.log("state " + _this.state.shop.shop_name);
 	    return _this;
 	  }
 
 	  _createClass(CoffeeInstance, [{
-	    key: "componentDidMount",
-	    value: function componentDidMount() {
-	      console.log("6" + this.state.shop.shop_name);
-	    }
-	  }, {
-	    key: "componentWillReceiveProps",
-	    value: function componentWillReceiveProps(nextProps) {
-	      console.log("NEXT " + nextProps.data);
-	      this.setState({ shop: nextProps.data });
-	    }
-	  }, {
-	    key: "componentWillUpdate",
-	    value: function componentWillUpdate() {
-	      console.log("Update");
-	    }
-	  }, {
 	    key: "render",
 	    value: function render() {
-	      console.log("7");
 	      return _react2.default.createElement(
 	        "div",
 	        null,
@@ -25678,7 +25677,7 @@
 	exports.default = CoffeeInstance;
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25799,7 +25798,7 @@
 	exports.default = Location;
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25814,6 +25813,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _lodash = __webpack_require__(216);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
 	var _reactRouterDom = __webpack_require__(161);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -25823,8 +25826,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	//import chunk from 'lodash.chunk';
-
 
 	var Locations = function (_Component) {
 	  _inherits(Locations, _Component);
@@ -25904,7 +25905,7 @@
 	              _react2.default.createElement(
 	                'ul',
 	                { className: 'img-list' },
-	                chunk(locationComponents, 3).map(function (row) {
+	                (0, _lodash2.default)(locationComponents, 3).map(function (row) {
 	                  return _react2.default.createElement(
 	                    'div',
 	                    { className: 'row' },
@@ -25925,7 +25926,488 @@
 	exports.default = Locations;
 
 /***/ }),
-/* 215 */
+/* 216 */
+/***/ (function(module, exports) {
+
+	/**
+	 * lodash (Custom Build) <https://lodash.com/>
+	 * Build: `lodash modularize exports="npm" -o ./`
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
+	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 */
+
+	/** Used as references for various `Number` constants. */
+	var INFINITY = 1 / 0,
+	    MAX_SAFE_INTEGER = 9007199254740991,
+	    MAX_INTEGER = 1.7976931348623157e+308,
+	    NAN = 0 / 0;
+
+	/** `Object#toString` result references. */
+	var funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]',
+	    symbolTag = '[object Symbol]';
+
+	/** Used to match leading and trailing whitespace. */
+	var reTrim = /^\s+|\s+$/g;
+
+	/** Used to detect bad signed hexadecimal string values. */
+	var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+	/** Used to detect binary string values. */
+	var reIsBinary = /^0b[01]+$/i;
+
+	/** Used to detect octal string values. */
+	var reIsOctal = /^0o[0-7]+$/i;
+
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+	/** Built-in method references without a dependency on `root`. */
+	var freeParseInt = parseInt;
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeCeil = Math.ceil,
+	    nativeMax = Math.max;
+
+	/**
+	 * The base implementation of `_.slice` without an iteratee call guard.
+	 *
+	 * @private
+	 * @param {Array} array The array to slice.
+	 * @param {number} [start=0] The start position.
+	 * @param {number} [end=array.length] The end position.
+	 * @returns {Array} Returns the slice of `array`.
+	 */
+	function baseSlice(array, start, end) {
+	  var index = -1,
+	      length = array.length;
+
+	  if (start < 0) {
+	    start = -start > length ? 0 : (length + start);
+	  }
+	  end = end > length ? length : end;
+	  if (end < 0) {
+	    end += length;
+	  }
+	  length = start > end ? 0 : ((end - start) >>> 0);
+	  start >>>= 0;
+
+	  var result = Array(length);
+	  while (++index < length) {
+	    result[index] = array[index + start];
+	  }
+	  return result;
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return !!length &&
+	    (typeof value == 'number' || reIsUint.test(value)) &&
+	    (value > -1 && value % 1 == 0 && value < length);
+	}
+
+	/**
+	 * Checks if the given arguments are from an iteratee call.
+	 *
+	 * @private
+	 * @param {*} value The potential iteratee value argument.
+	 * @param {*} index The potential iteratee index or key argument.
+	 * @param {*} object The potential iteratee object argument.
+	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+	 *  else `false`.
+	 */
+	function isIterateeCall(value, index, object) {
+	  if (!isObject(object)) {
+	    return false;
+	  }
+	  var type = typeof index;
+	  if (type == 'number'
+	        ? (isArrayLike(object) && isIndex(index, object.length))
+	        : (type == 'string' && index in object)
+	      ) {
+	    return eq(object[index], value);
+	  }
+	  return false;
+	}
+
+	/**
+	 * Creates an array of elements split into groups the length of `size`.
+	 * If `array` can't be split evenly, the final chunk will be the remaining
+	 * elements.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.0.0
+	 * @category Array
+	 * @param {Array} array The array to process.
+	 * @param {number} [size=1] The length of each chunk
+	 * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
+	 * @returns {Array} Returns the new array of chunks.
+	 * @example
+	 *
+	 * _.chunk(['a', 'b', 'c', 'd'], 2);
+	 * // => [['a', 'b'], ['c', 'd']]
+	 *
+	 * _.chunk(['a', 'b', 'c', 'd'], 3);
+	 * // => [['a', 'b', 'c'], ['d']]
+	 */
+	function chunk(array, size, guard) {
+	  if ((guard ? isIterateeCall(array, size, guard) : size === undefined)) {
+	    size = 1;
+	  } else {
+	    size = nativeMax(toInteger(size), 0);
+	  }
+	  var length = array ? array.length : 0;
+	  if (!length || size < 1) {
+	    return [];
+	  }
+	  var index = 0,
+	      resIndex = 0,
+	      result = Array(nativeCeil(length / size));
+
+	  while (index < length) {
+	    result[resIndex++] = baseSlice(array, index, (index += size));
+	  }
+	  return result;
+	}
+
+	/**
+	 * Performs a
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * comparison between two values to determine if they are equivalent.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 * @example
+	 *
+	 * var object = { 'a': 1 };
+	 * var other = { 'a': 1 };
+	 *
+	 * _.eq(object, object);
+	 * // => true
+	 *
+	 * _.eq(object, other);
+	 * // => false
+	 *
+	 * _.eq('a', 'a');
+	 * // => true
+	 *
+	 * _.eq('a', Object('a'));
+	 * // => false
+	 *
+	 * _.eq(NaN, NaN);
+	 * // => true
+	 */
+	function eq(value, other) {
+	  return value === other || (value !== value && other !== other);
+	}
+
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(value.length) && !isFunction(value);
+	}
+
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+	  var tag = isObject(value) ? objectToString.call(value) : '';
+	  return tag == funcTag || tag == genTag;
+	}
+
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return !!value && (type == 'object' || type == 'function');
+	}
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	/**
+	 * Checks if `value` is classified as a `Symbol` primitive or object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+	 * @example
+	 *
+	 * _.isSymbol(Symbol.iterator);
+	 * // => true
+	 *
+	 * _.isSymbol('abc');
+	 * // => false
+	 */
+	function isSymbol(value) {
+	  return typeof value == 'symbol' ||
+	    (isObjectLike(value) && objectToString.call(value) == symbolTag);
+	}
+
+	/**
+	 * Converts `value` to a finite number.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.12.0
+	 * @category Lang
+	 * @param {*} value The value to convert.
+	 * @returns {number} Returns the converted number.
+	 * @example
+	 *
+	 * _.toFinite(3.2);
+	 * // => 3.2
+	 *
+	 * _.toFinite(Number.MIN_VALUE);
+	 * // => 5e-324
+	 *
+	 * _.toFinite(Infinity);
+	 * // => 1.7976931348623157e+308
+	 *
+	 * _.toFinite('3.2');
+	 * // => 3.2
+	 */
+	function toFinite(value) {
+	  if (!value) {
+	    return value === 0 ? value : 0;
+	  }
+	  value = toNumber(value);
+	  if (value === INFINITY || value === -INFINITY) {
+	    var sign = (value < 0 ? -1 : 1);
+	    return sign * MAX_INTEGER;
+	  }
+	  return value === value ? value : 0;
+	}
+
+	/**
+	 * Converts `value` to an integer.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to convert.
+	 * @returns {number} Returns the converted integer.
+	 * @example
+	 *
+	 * _.toInteger(3.2);
+	 * // => 3
+	 *
+	 * _.toInteger(Number.MIN_VALUE);
+	 * // => 0
+	 *
+	 * _.toInteger(Infinity);
+	 * // => 1.7976931348623157e+308
+	 *
+	 * _.toInteger('3.2');
+	 * // => 3
+	 */
+	function toInteger(value) {
+	  var result = toFinite(value),
+	      remainder = result % 1;
+
+	  return result === result ? (remainder ? result - remainder : result) : 0;
+	}
+
+	/**
+	 * Converts `value` to a number.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to process.
+	 * @returns {number} Returns the number.
+	 * @example
+	 *
+	 * _.toNumber(3.2);
+	 * // => 3.2
+	 *
+	 * _.toNumber(Number.MIN_VALUE);
+	 * // => 5e-324
+	 *
+	 * _.toNumber(Infinity);
+	 * // => Infinity
+	 *
+	 * _.toNumber('3.2');
+	 * // => 3.2
+	 */
+	function toNumber(value) {
+	  if (typeof value == 'number') {
+	    return value;
+	  }
+	  if (isSymbol(value)) {
+	    return NAN;
+	  }
+	  if (isObject(value)) {
+	    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+	    value = isObject(other) ? (other + '') : other;
+	  }
+	  if (typeof value != 'string') {
+	    return value === 0 ? value : +value;
+	  }
+	  value = value.replace(reTrim, '');
+	  var isBinary = reIsBinary.test(value);
+	  return (isBinary || reIsOctal.test(value))
+	    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+	    : (reIsBadHex.test(value) ? NAN : +value);
+	}
+
+	module.exports = chunk;
+
+
+/***/ }),
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26070,7 +26552,7 @@
 	exports.default = SnapshotsMain;
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26249,7 +26731,7 @@
 	exports.default = Scenic;
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';

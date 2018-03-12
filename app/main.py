@@ -50,10 +50,6 @@ def get_about():
     about_json["issues"] = issues
     return jsonify({'about': about_json})
 
-@APP.route('/shop/<coffeeId>')
-def ignore (coffeeId):
-    return print("IGNORE")
-
 @APP.route('/<path:path>')
 def catch_all (path):
     return flask.render_template('home.html')
