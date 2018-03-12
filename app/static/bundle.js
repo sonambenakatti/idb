@@ -19837,16 +19837,40 @@
 	var App = function (_Component) {
 	  _inherits(App, _Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+	    _this.state = {
+	      instanceData: {}
+	    };
+	    _this.coffeeShopCallback = _this.coffeeShopCallback.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'coffeeShopCallback',
+	    value: function coffeeShopCallback(shop) {
+	      var _this2 = this;
+
+	      console.log("1" + this.state.instanceData.shop_name);
+	      console.log("1 Setting State " + this.state.instanceData.shop_name);
+	      this.setState({ instanceData: shop }, function () {
+	        console.log("2.5" + _this2.state.instanceData.shop_name);
+	      });
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      console.log("2" + this.state.instanceData.shop_name);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
 
+	      console.log("3" + this.state.instanceData.shop_name);
 	      return _react2.default.createElement(
 	        _reactRouterDom.BrowserRouter,
 	        null,
@@ -19858,8 +19882,12 @@
 	            _reactRouterDom.Switch,
 	            null,
 	            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
-	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2.default }),
-	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2.default }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shops', component: function component() {
+	                return _react2.default.createElement(_CoffeeShops2.default, { callbackParent: _this3.coffeeShopCallback });
+	              } }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shop/:shopID', component: function component() {
+	                return _react2.default.createElement(_CoffeeInstance2.default, { shop: _this3.state.instanceData });
+	              } }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2.default }),
@@ -25340,10 +25368,10 @@
 	var CoffeeShops = function (_Component) {
 	  _inherits(CoffeeShops, _Component);
 
-	  function CoffeeShops() {
+	  function CoffeeShops(props) {
 	    _classCallCheck(this, CoffeeShops);
 
-	    var _this = _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).call(this));
+	    var _this = _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).call(this, props));
 
 	    _this.state = {
 	      coffeeshops: [],
@@ -25356,8 +25384,14 @@
 	  }
 
 	  _createClass(CoffeeShops, [{
+	    key: "callback",
+	    value: function callback(shop) {
+	      console.log("CALL" + shop.shop_name + " " + shop.shop_yelp_id);
+	      this.props.callbackParent(shop);
+	    }
+	  }, {
 	    key: "componentDidMount",
-	    value: function componentDidMount() {
+	    value: function componentDidMount(props) {
 	      var _this2 = this;
 
 	      fetch('/api/v1.0/coffeeshops').then(function (results) {
@@ -25368,17 +25402,17 @@
 	        var shops = data.map(function (shop) {
 	          return _react2.default.createElement(
 	            "div",
-	            { key: shop.shop_name, className: "col" },
+	            { key: shop.shop_name, className: "col", onClick: function onClick() {
+	                return _this2.callback(shop);
+	              } },
 	            _react2.default.createElement(
 	              "li",
 	              null,
 	              _react2.default.createElement(
 	                "a",
 	                { href: "/shop/" + shop.shop_yelp_id },
-	                _react2.default.createElement("img", { src: shop.shop_picture, style: { width: 300, height: 300 }, alt: "Photo1",
-	                  onClick: function onClick() {
-	                    return _this2.setState({ navigate: true, navigateTo: '/shop/{shop.shop_yelp_id}', selectedShop: shop });
-	                  } }),
+	                _react2.default.createElement("img", { src: shop.shop_picture, style: { width: 300, height: 300 }, alt: "Photo1"
+	                }),
 	                _react2.default.createElement(
 	                  "span",
 	                  { className: "picText" },
@@ -25404,13 +25438,11 @@
 	          );
 	        });
 	        _this2.setState({ coffeeshops: shops });
-	        console.log("state", _this2.state.coffeeshops);
 	      });
 	    }
 	  }, {
 	    key: "render",
 	    value: function render() {
-	      console.log(this.state.coffeeshops);
 	      if (this.state.navigate) {
 	        console.log(this.state.item);
 	        return _react2.default.createElement(Redirect, { to: { pathname: this.state.navigateTo, state: { item: item } }, push: true });
@@ -25510,24 +25542,36 @@
 
 	    var _this = _possibleConstructorReturn(this, (CoffeeInstance.__proto__ || Object.getPrototypeOf(CoffeeInstance)).call(this, props));
 
-	    console.log("coffeeshops[]");
-	    console.log(_this.props.location.state);
+	    console.log("4" + _this.props.shop.shop_name);
+
 	    _this.state = {
-	      name: _this.props.location.state.selectedShop.name,
-	      photo: _this.props.location.state.selectedShop.photo,
-	      phone: _this.props.shop.location.selectedShop.phone,
-	      price: _this.props.shop.location.selectedShop.price,
-	      rating: _this.props.shop.location.selectedShop.rating,
-	      address: _this.props.shop.location.selectedShop.location
+	      shop: _this.props.shop
 	    };
+	    console.log("5");
+	    console.log("state " + _this.state.shop.shop_name);
 	    return _this;
 	  }
 
 	  _createClass(CoffeeInstance, [{
+	    key: "componentDidMount",
+	    value: function componentDidMount() {
+	      console.log("6" + this.state.shop.shop_name);
+	    }
+	  }, {
+	    key: "componentWillReceiveProps",
+	    value: function componentWillReceiveProps(nextProps) {
+	      console.log("NEXT " + nextProps.data);
+	      this.setState({ shop: nextProps.data });
+	    }
+	  }, {
+	    key: "componentWillUpdate",
+	    value: function componentWillUpdate() {
+	      console.log("Update");
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
-	      console.log("name of shop:");
-	      console.log(this.state.name);
+	      console.log("7");
 	      return _react2.default.createElement(
 	        "div",
 	        null,
@@ -25557,7 +25601,7 @@
 	                    _react2.default.createElement(
 	                      "span",
 	                      { className: "section-heading-lower" },
-	                      this.state.name
+	                      this.state.shop.shop_name
 	                    )
 	                  )
 	                )
@@ -25573,25 +25617,25 @@
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Address: ",
-	                  this.state.address
+	                  this.state.shop.shop_address
 	                ),
 	                _react2.default.createElement(
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Contact: ",
-	                  this.state.phone
+	                  this.state.shop.shop_contact
 	                ),
 	                _react2.default.createElement(
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Price: ",
-	                  this.state.price
+	                  this.state.shop.shop_price
 	                ),
 	                _react2.default.createElement(
 	                  "p",
 	                  { className: "mb-0" },
 	                  "Rating: ",
-	                  this.state.rating
+	                  this.state.shop.shop_rating
 	                )
 	              )
 	            )
@@ -25599,7 +25643,7 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "col-sm-5 instance-pic" },
-	            _react2.default.createElement("img", { className: "product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0", src: this.state.photo, alt: true, style: { width: 500, height: 500, marginTop: 50 } })
+	            _react2.default.createElement("img", { className: "product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0", src: this.state.shop.shop_picture, alt: true, style: { width: 500, height: 500, marginTop: 50 } })
 	          )
 	        ),
 	        _react2.default.createElement(

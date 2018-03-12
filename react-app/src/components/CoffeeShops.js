@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 class CoffeeShops extends Component {
 
-constructor () {
-  super();
+constructor (props) {
+  super(props);
   this.state = {
     coffeeshops: [],
     navigate: false,
@@ -13,7 +13,12 @@ constructor () {
   };
 };
 
-componentDidMount() {
+callback(shop) {
+  console.log("CALL"+shop.shop_name + " " + shop.shop_yelp_id)
+  this.props.callbackParent(shop)
+}
+
+componentDidMount(props) {
   fetch('/api/v1.0/coffeeshops').then(results =>{
     console.log(results)
     return results.json();
@@ -21,11 +26,11 @@ componentDidMount() {
     console.log(data)
     let shops = data.map((shop) =>{
       return(
-        <div key={shop.shop_name} className="col">
+        <div key={shop.shop_name} className="col" onClick={()=>this.callback(shop)}>
           <li>
-            <a href={"/shop/" + shop.shop_yelp_id}>
+            <a href={"/shop/" + shop.shop_yelp_id} >
               <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
-              onClick={() => this.setState({navigate: true, navigateTo: '/shop/{shop.shop_yelp_id}', selectedShop: shop})}/>
+              />
               <span className="picText"><span>Name {shop.shop_name}<br /><br />Address: {shop.shop_address}<br />Price: {shop.shop_price}<br />Rating: {shop.shop_rating}</span></span>
             </a>
           </li>
@@ -33,12 +38,10 @@ componentDidMount() {
       )
     })
     this.setState({coffeeshops: shops});
-    console.log("state", this.state.coffeeshops);
   })
 }
 
 render() {
-    console.log(this.state.coffeeshops);
     if (this.state.navigate) {
         console.log(this.state.item);
         return <Redirect to={{pathname: this.state.navigateTo, state: {item: item}}} push={true} />;
