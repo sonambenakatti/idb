@@ -66,6 +66,7 @@ photo3 = Photo('0', 'unknown', 'ClevrCat', '0', '0', 'YESSS. POST-WORKOUT AND HA
 
 @APP.route('/api/v1.0/sceniclocations', methods=['GET'])
 def get_sceniclocations() :
+    """
     user = 'TheCoolBeans'
     pwd = 'riley5143'
     host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
@@ -76,9 +77,11 @@ def get_sceniclocations() :
     metadata.reflect(bind=db)
     conn = db.connect()
                 conn.execute(ins)
+    """
 
     """
     Implement RESTful API here
+    """
     """
     places_json=[]
     place_dict = {}
@@ -103,6 +106,10 @@ def get_sceniclocations() :
     places_json.append(place_dict)
 
     return jsonify({'sceniclocations': places_json})
+    """
+    result = engine.execute('SELECT * FROM Scenic').fetchall()
+    jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    return jsonRes
 
 
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])

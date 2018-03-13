@@ -18,8 +18,23 @@ componentDidMount() {
     fetch('/api/v1.0/sceniclocations').then(results => {
       return results.json();
     }).then(data => {
-      this.setState({locations: data.sceniclocations});
+      console.log(data)
+    let shops = data.map((shop) =>{
+      return(
+        <div key={shop.shop_name} className="col">
+          <li>
+            <a href={"/scenic/" + scenic.}>
+              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
+              onClick={() => this.setState({navigate: true, navigateTo: '/shop/{shop.shop_yelp_id}', selectedShop: shop})}/>
+              <span className="picText"><span>Name {shop.shop_name}<br /><br />Address: {shop.shop_address}<br />Price: {shop.shop_price}<br />Rating: {shop.shop_rating}</span></span>
+            </a>
+          </li>
+        </div>
+      )
     })
+    this.setState({coffeeshops: shops});
+    console.log("state", this.state.coffeeshops);
+  })
 }
 
 render() {
