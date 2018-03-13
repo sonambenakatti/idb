@@ -114,7 +114,19 @@ def get_sceniclocations() :
 
 @APP.route('/api/v1.0/coffeeshops', methods=['GET'])
 def get_coffeeshops() :
+    """
+    returns all coffeeshops from the Shops table
+    """
     result = engine.execute('SELECT * FROM Shops').fetchall()
+    jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    return jsonRes
+
+@APP.route('/api/v1.0/coffeeshops/<coffeeId>', methods=['GET'])
+def get_coffeeshop(coffeeId) :
+    """
+    returns a row based off of coffeeId from the Shops table
+    """
+    result = engine.execute('SELECT * FROM Shops WHERE shop_yelp_id = %s', coffeeId).fetchall()
     jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
     return jsonRes
 

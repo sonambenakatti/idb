@@ -15,6 +15,12 @@ import Scenic from './components/Scenic';
 
 class App extends Component {
 
+  constructor(props) {
+        super(props);
+  }
+
+
+
 render() {
 
   return (
@@ -34,6 +40,9 @@ render() {
     </Router>
     );
   }
+
+
+
 }
 
 export default App;
