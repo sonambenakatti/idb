@@ -107,7 +107,9 @@ def get_sceniclocations() :
 
     return jsonify({'sceniclocations': places_json})
     """
+
     result = engine.execute('SELECT * FROM Scenic').fetchall()
+
     jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
     return jsonRes
 

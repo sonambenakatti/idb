@@ -1,74 +1,69 @@
 import React, { Component } from 'react';
-import chunk from 'lodash.chunk';
-import {Redirect} from 'react-router-dom';
+//import chunk from 'lodash.chunk';
+import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
 
 class Locations extends Component {
 
-constructor () {
-    super();
+constructor (props) {
+    super(props);
     this.state = {
       locations: [],
       navigate: false,
       navigateTo: '',
       selectedLocation: [],
+      navigateTo: "",
+      item: ""
     };
 };
 
-componentDidMount() {
-    fetch('/api/v1.0/sceniclocations').then(results => {
+componentDidMount(props) {
+    fetch('/api/v1.0/sceniclocations').then(results =>{
+      console.log(results)
       return results.json();
-    }).then(data => {
+    }).then(data =>{
       console.log(data)
-    let shops = data.map((shop) =>{
-      return(
-        <div key={shop.shop_name} className="col">
-          <li>
-            <a href={"/scenic/" + scenic.}>
-              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
-              onClick={() => this.setState({navigate: true, navigateTo: '/shop/{shop.shop_yelp_id}', selectedShop: shop})}/>
-              <span className="picText"><span>Name {shop.shop_name}<br /><br />Address: {shop.shop_address}<br />Price: {shop.shop_price}<br />Rating: {shop.shop_rating}</span></span>
-            </a>
+      let views = data.map((scenicloc) =>{
+        return(
+        <div key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/scenic", selectedLocation: scenicloc})}}>
+          <li className="col">
+              <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"
+              />
+              <span className="picText"><span>Name {scenicloc.scenic_name}<br /><br />Address: {scenicloc.scenic_address}<br />Rating: {scenicloc.scenic_rating}</span></span>
           </li>
         </div>
       )
     })
-    this.setState({coffeeshops: shops});
-    console.log("state", this.state.coffeeshops);
+    this.setState({locations: views});
   })
 }
 
 render() {
 
   if (this.state.navigate) {
-    console.log(this.state.selectedLocation);
+    console.log(t"REDIRCT" + this.state.selectedLocation);
     return <Redirect to={{pathname: this.state.navigateTo, state: {selectedLocation: this.state.selectedLocation}}} push={true} />;
-  }
-
-  let locationComponents = []
-  if (this.state.locations !== undefined) {
-      locationComponents = this.state.locations.map((location) => {
-          return (
-              <li className="col" onClick={() => this.setState({navigate: true, navigateTo: '/location', selectedLocation: location})}>
-                  <img src={location.photo} style={{width: 300, height: 300}} alt={location.name} />
-                  <span className="picText"><span>{location.name}<br />Rating: {location.rating}</span></span>
-              </li>
-          );
-      })
   }
 
   return (
       <div>
+        {/*location dropdown*/}
+        <div className="container">
+          <div className="dropdown">
+            <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" onclick="myFunction()">Choose City
+              <span className="caret" /></button>
+            <ul className="dropdown-menu">
+              <input className="form-control" id="myInput" type="text" placeholder="Search.." />
+              <li><a href="#">Austin, TX</a></li>
+            </ul>
+          </div>
+        </div>
         <section className="page-section">
           <div className="container">
             <div className="row">
               <ul className="img-list">
-                { chunk(locationComponents, 3).map((row) => {
-                   return (
-                     <div className="row">
-                         {row}
-                     </div>
-                   )
-                })}
+                <div className="row">
+                  {this.state.locations}
+                </div>
               </ul>
             </div>
           </div>
@@ -76,6 +71,6 @@ render() {
       </div>
     );
   }
-}
+
 
 export default Locations;
