@@ -25711,10 +25711,10 @@
 	    var _this = _possibleConstructorReturn(this, (Location.__proto__ || Object.getPrototypeOf(Location)).call(this, props));
 
 	    _this.state = {
-	      address: _this.props.location.state.selectedLocation.address,
-	      name: _this.props.location.state.selectedLocation.name,
-	      photo: _this.props.location.state.selectedLocation.photo,
-	      rating: _this.props.location.state.selectedLocation.rating
+	      address: _this.props.location.state.selectedLocation.scenic_address,
+	      name: _this.props.location.state.selectedLocation.scenic_name,
+	      photo: _this.props.location.state.selectedLocation.scenic_picture,
+	      rating: _this.props.location.state.selectedLocation.scenic_rating
 	    };
 	    console.log(_this.state);
 	    return _this;
@@ -25873,17 +25873,17 @@
 	            { className: 'col', onClick: function onClick() {
 	                return _this3.setState({ navigate: true, navigateTo: '/location', selectedLocation: location });
 	              } },
-	            _react2.default.createElement('img', { src: location.photo, style: { width: 300, height: 300 }, alt: location.name }),
+	            _react2.default.createElement('img', { src: location.scenic_picture, style: { width: 300, height: 300 }, alt: location.scenic_name }),
 	            _react2.default.createElement(
 	              'span',
 	              { className: 'picText' },
 	              _react2.default.createElement(
 	                'span',
 	                null,
-	                location.name,
+	                location.scenic_name,
 	                _react2.default.createElement('br', null),
 	                'Rating: ',
-	                location.rating
+	                location.scenic_rating
 	              )
 	            )
 	          );

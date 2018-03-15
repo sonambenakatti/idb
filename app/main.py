@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #push initial test jaemin
 from __future__ import print_function
-
+import sys
 import flask
 from flask import Flask, jsonify
 import sqlalchemy
@@ -31,7 +31,7 @@ APP = flask.Flask(__name__)
 def alchemyencoder(obj):
     """
     JSON encoder function for SQLAlchemy special classes.
-    Gets called on every column of the returned row
+    Invoked on every column of the returned row
     in the table from the database. ex. used in shops get api.
     """
     if isinstance(obj, bytes):
@@ -90,7 +90,6 @@ def get_sceniclocations() :
     place_dict["rating"] = '4.7'
     place_dict["photo"] = "https://s3.amazonaws.com/gs-waymarking-images/897c10a2-3419-4794-b4c3-fc9403decb45_d.jpg"
     places_json.append(place_dict)
-
     return jsonify({'sceniclocations': places_json})
 
 
@@ -99,8 +98,14 @@ def get_coffeeshops() :
     """
     returns all coffeeshops from the Shops table
     """
-    result = engine.execute('SELECT * FROM Shops').fetchall()
-    jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    jsonRes = []
+    try:
+        result = engine.execute('SELECT * FROM Shops').fetchall()
+        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    except:
+        flask.abort(500)
+    if len(jsonRes) <= 2:
+        flask.abort(500)  # nothing is in there
     return jsonRes
 
 @APP.route('/api/v1.0/coffeeshops/<coffeeId>', methods=['GET'])
@@ -108,8 +113,14 @@ def get_coffeeshop(coffeeId) :
     """
     returns a row based off of coffeeId from the Shops table
     """
-    result = engine.execute('SELECT * FROM Shops WHERE shop_yelp_id = %s', coffeeId).fetchall()
-    jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    jsonRes = []
+    try:
+        result = engine.execute('SELECT * FROM Shops WHERE shop_yelp_id = %s', coffeeId).fetchall()
+        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    except:
+        flask.abort(500)
+    if len(jsonRes) <= 2:
+        flask.abort(500)  # nothing is in there
     return jsonRes
 
 @APP.route('/api/v1.0/snapshots', methods=['GET'])
