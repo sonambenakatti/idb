@@ -6,6 +6,7 @@ class Location extends Component {
 
   constructor (props) {
       super(props);
+      console.log(this.props.location.state.selectedLocation.scenic_address);
       this.state = {
         address: this.props.location.state.selectedLocation.scenic_address,
         name: this.props.location.state.selectedLocation.scenic_name,
