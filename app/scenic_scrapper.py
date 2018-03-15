@@ -51,7 +51,6 @@ def main():
             #print (res)
 
             for v in views :
-                print(v)
                 ins = insert(metadata.tables['Scenic']).values(
                 scenic_name = bytes(v.name, 'utf8'),
                 scenic_address = bytes(v.address, 'utf8'),
