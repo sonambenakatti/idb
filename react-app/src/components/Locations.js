@@ -34,8 +34,8 @@ render() {
       locationComponents = this.state.locations.map((location) => {
           return (
               <li className="col" onClick={() => this.setState({navigate: true, navigateTo: '/location', selectedLocation: location})}>
-                  <img src={location.photo} style={{width: 300, height: 300}} alt={location.name} />
-                  <span className="picText"><span>{location.name}<br />Rating: {location.rating}</span></span>
+                  <img src={location.scenic_picture} style={{width: 300, height: 300}} alt={location.scenic_name} />
+                  <span className="picText"><span>{location.scenic_name}<br />Rating: {location.scenic_rating}</span></span>
               </li>
           );
       })

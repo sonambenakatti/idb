@@ -7,10 +7,10 @@ class Location extends Component {
   constructor (props) {
       super(props);
       this.state = {
-        address: this.props.location.state.selectedLocation.address,
-        name: this.props.location.state.selectedLocation.name,
-        photo: this.props.location.state.selectedLocation.photo,
-        rating: this.props.location.state.selectedLocation.rating,
+        address: this.props.location.state.selectedLocation.scenic_address,
+        name: this.props.location.state.selectedLocation.scenic_name,
+        photo: this.props.location.state.selectedLocation.scenic_picture,
+        rating: this.props.location.state.selectedLocation.scenic_rating,
       };
       console.log(this.state);
   };
