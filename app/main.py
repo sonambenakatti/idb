@@ -107,9 +107,14 @@ def get_sceniclocations() :
     return jsonify({'sceniclocations': places_json})
     """
 
-    result = engine.execute('SELECT * FROM Scenic').fetchall()
-
-    jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    jsonRes = []
+    try:
+        result = engine.execute('SELECT * FROM Scenic').fetchall()
+        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    except:
+        flask.abort(500)
+    if len(jsonRes) <= 2:
+        flask.abort(500)  # nothing is in there
     return jsonRes
 
 

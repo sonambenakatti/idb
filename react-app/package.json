@@ -4,11 +4,10 @@
   "private": true,
   "dependencies": {
     "lodash.chunk": "^4.2.0",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
+    "react": "^0.14.9",
+    "react-dom": "^0.14.9",
     "react-router-dom": "^4.2.2",
-    "supports-color": "^5.3.0",
-    "webpack": "^3.11.0"
+    "supports-color": "^5.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,7 +20,7 @@
     "babel-loader": "^6.2.1",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
-    "webpack": "^1.15.0",
+    "webpack": "^2.1.0-beta.22",
     "webpack-dev-server": "^2.11.2"
   }
 }
