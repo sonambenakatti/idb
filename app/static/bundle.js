@@ -25362,7 +25362,7 @@
 	    value: function componentDidMount(props) {
 	      var _this2 = this;
 
-	      fetch('/api/v1.0/coffeeshops').then(function (results) {
+	      fetch('/api/coffeeshops').then(function (results) {
 	        console.log(results);
 	        return results.json();
 	      }).then(function (data) {
@@ -25852,7 +25852,7 @@
 	    value: function componentDidMount(props) {
 	      var _this2 = this;
 
-	      fetch('/api/v1.0/sceniclocations').then(function (results) {
+	      fetch('/api/sceniclocations').then(function (results) {
 	        console.log(results);
 	        return results.json();
 	      }).then(function (data) {

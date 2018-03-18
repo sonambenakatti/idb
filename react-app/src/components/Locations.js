@@ -17,7 +17,7 @@ constructor (props) {
 };
 
 componentDidMount(props) {
-    fetch('/api/v1.0/sceniclocations').then(results =>{
+    fetch('/api/sceniclocations').then(results =>{
       console.log(results)
       return results.json();
     }).then(data =>{

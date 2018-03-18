@@ -15,7 +15,7 @@ constructor (props) {
 };
 
 componentDidMount(props) {
-  fetch('/api/v1.0/coffeeshops').then(results =>{
+  fetch('/api/coffeeshops').then(results =>{
     console.log(results)
     return results.json();
   }).then(data=>{

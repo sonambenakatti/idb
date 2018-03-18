@@ -22,14 +22,14 @@ class TestStringMethods(unittest.TestCase):
 
 
     def test_shops_api_exists(self):
-        r = self.app.get('/api/v1.0/coffeeshops')
+        r = self.app.get('/api/coffeeshops')
         str_data = r.data.decode('utf-8')
         data = json.loads(r)
         self.assertEqual(r.status_code, 200)
         self.assertNotEqual(len(data), 0)
 
     def test_shops_api_one(self):
-        r = self.app.get('/api/v1.0/coffeeshops/1')
+        r = self.app.get('/api/coffeeshops/1')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)
@@ -42,14 +42,14 @@ class TestStringMethods(unittest.TestCase):
 
 
     def test_scenic_api_exists(self):
-        r = self.app.get('/api/v1.0/sceniclocations')
+        r = self.app.get('/api/sceniclocations')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)
         self.assertNotEqual(len(data), 0)
 
     def test_scenic_api_one(self):
-        r = self.app.get('/api/v1.0/sceniclocations/2')
+        r = self.app.get('/api/sceniclocations/2')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)

@@ -41,7 +41,7 @@ def alchemyencoder(obj):
 def home():
     return flask.render_template('home.html')
 
-@APP.route('/api/v1.0/about', methods=['GET'])
+@APP.route('/api/about', methods=['GET'])
 def get_about():
     about_json = {}
     commits = githubstats.user_commits()
@@ -64,7 +64,7 @@ photo3 = Photo('0', 'unknown', 'ClevrCat', '0', '0', 'YESSS. POST-WORKOUT AND HA
 '#IFTTT #Instagram #Yesss. #Post-workout #haircut #coffee. #Houndstooth #has #cutest #cups #too. #Atx #caffeine #austin #@houndstoothcoffee', '3', '1')
 
 
-@APP.route('/api/v1.0/sceniclocations', methods=['GET'])
+@APP.route('/api/sceniclocations', methods=['GET'])
 def get_sceniclocations() :
     """
     user = 'TheCoolBeans'
@@ -118,7 +118,7 @@ def get_sceniclocations() :
     return jsonRes
 
 
-@APP.route('/api/v1.0/coffeeshops', methods=['GET'])
+@APP.route('/api/coffeeshops', methods=['GET'])
 def get_coffeeshops() :
     """
     returns all coffeeshops from the Shops table
@@ -133,7 +133,7 @@ def get_coffeeshops() :
         flask.abort(500)  # nothing is in there
     return jsonRes
 
-@APP.route('/api/v1.0/coffeeshops/<coffeeId>', methods=['GET'])
+@APP.route('/api/coffeeshops/<coffeeId>', methods=['GET'])
 def get_coffeeshop(coffeeId) :
     """
     returns a row based off of coffeeId from the Shops table
@@ -148,7 +148,7 @@ def get_coffeeshop(coffeeId) :
         flask.abort(500)  # nothing is in there
     return jsonRes
 
-@APP.route('/api/v1.0/snapshots', methods=['GET'])
+@APP.route('/api/snapshots', methods=['GET'])
 def get_snapshots() :
     """
     Implement RESTful API here
