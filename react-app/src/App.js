@@ -11,7 +11,7 @@ import Location from './components/Location';
 import Locations from './components/Locations';
 import SnapshotsMain from './components/SnapshotsMain';
 import Snapshot from './components/Snapshot';
-import Scenic from './components/Scenic';
+//import Scenic from './components/Scenic';
 
 
 class App extends Component {

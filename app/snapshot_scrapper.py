@@ -47,8 +47,6 @@ runs a search on photos related to sceinc locations, based on lat and lon
 def search_photos_scenic(latitude, longitude) :
     raw_json = flickr.photos.search(media="photo", page=1, per_page=5, lat=latitude, lon=longitude)
     parsed_dict = json.loads(raw_json.decode('utf-8')) #puts all json into dictionary object
-    print(parsed_dict)
-    print("\n\n\n")
     parse_search(parsed_dict)
 
 """
@@ -57,8 +55,6 @@ runs a search on photos realted to coffee shops, based on lat and lon
 def search_photos_coffee(latitude, longitude) :
     raw_json = flickr.photos.search(media="photo", page=1, per_page=5, lat=latitude, lon=longitude)
     parsed_dict = json.loads(raw_json.decode('utf-8'))
-    print(parsed_dict)
-    print("\n\n\n")
     parse_search(parsed_dict)
 
 """
@@ -145,6 +141,8 @@ def format_tags(tags) -> String:
             all_tags = all_tags + t['raw'] + ' \n'
         else :
             all_tags = all_tags + '#' + t['raw'] + ' \n'
+        if tags is '' :
+            all_tags = 'None'
     return all_tags
 #1
 def main():
@@ -167,19 +165,19 @@ def main():
         #shop_loc_id = db.Column(db.Integer)
         #scenic_loc_id = db.Column(db.Integer)
         for photo in photos :
-            # ins = insert(metadata.tables['Snapshots']).values(
-            #     snap_name = bytes(photo.title, 'utf8'),
-            #     snap_photographer = bytes(photo.name, 'utf8'),
-            #     snap_username = bytes(photo.username, 'utf8'),
-            #     snap_tags = bytes(photo.tags, 'utf8'),
-            #     snap_favs = photo.num_favorites,
-            #     snap_picture = bytes(photo.imageUrl, 'utf8'),
-            #     snap_latitude = photo.latitude,
-            #     snap_longitude = photo.longitude,
-            #     snap_photo_id = bytes(photo.id, 'utf8')
-            #     )
-            # conn = db.connect()
-            # conn.execute(ins)
+            ins = insert(metadata.tables['Snapshots']).values(
+                snap_name = bytes(photo.title, 'utf8'),
+                snap_photographer = bytes(photo.name, 'utf8'),
+                snap_username = bytes(photo.username, 'utf8'),
+                snap_tags = bytes(photo.tags, 'utf8'),
+                snap_favs = photo.num_favorites,
+                snap_picture = bytes(photo.imageUrl, 'utf8'),
+                snap_latitude = photo.latitude,
+                snap_longitude = photo.longitude,
+                snap_photo_id = bytes(photo.id, 'utf8')
+                )
+            conn = db.connect()
+            conn.execute(ins)
         return photos
     except HTTPError as error:
         sys.exit(
