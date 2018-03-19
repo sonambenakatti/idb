@@ -10,7 +10,7 @@ class SnapshotsMain extends Component {
     };
 
     componentDidMount() {
-      fetch('/api/v1.0/snapshots').then(results =>{
+      fetch('/api/snapshots').then(results =>{
         console.log(results)
         return results.json();
       }).then(data=>{

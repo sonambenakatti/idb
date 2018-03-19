@@ -25653,7 +25653,7 @@
 	            null,
 	            _react2.default.createElement(
 	              "a",
-	              { href: "/scenic" },
+	              { href: "/locations" },
 	              "LOCATIONS NEARBY "
 	            )
 	          ),
@@ -26004,7 +26004,7 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      fetch('/api/v1.0/snapshots').then(function (results) {
+	      fetch('/api/snapshots').then(function (results) {
 	        console.log(results);
 	        return results.json();
 	      }).then(function (data) {
