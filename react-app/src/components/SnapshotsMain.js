@@ -1,42 +1,52 @@
 import React, { Component } from 'react';
+import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
 
 class SnapshotsMain extends Component {
 
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
-        photos: []
+        photos: [],
+        navigate: false,
+        selectedSnapshot: [],
+        navigateTo: "",
+        item: ""
       };
     };
 
     componentDidMount() {
       fetch('/api/snapshots').then(results =>{
-        console.log(results)
         return results.json();
       }).then(data=>{
-          console.log(data)
-          console.log(data.snapshots)
-          let snapshots = data.snapshots.map((snapshot) =>{
+        console.log("This is the data")
+        console.log(data)
+          let snapshots = data.map((snapshot) =>{
             return(
-              <div key={snapshot.name} className="col">
-                <li>
-                  <a href="/snapshots/photoId">
-                    <img src={snapshot.imageUrl} style={{width: 300, height: 300}} alt="Photo1" />
-                    <span className="picText"><span> name <br /><br />location<br />Price:<br />Rating:</span></span>
-                  </a>
+              <div key={snapshot.snap_username} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                <li className="col">
+                    <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                    <span className="picText"><span>Photographer Name:  {snapshot.snap_photographer}<br /><br />
+                    Photographer username: {snapshot.snap_username}<br />Tags: {snapshot.snap_tags}<br />
+                    Faves: {snapshot.snap_favs}</span></span>
                 </li>
               </div>
-            )
-          })
+            );
+          });
           this.setState({photos: snapshots});
           console.log("state", this.state.photos);
-        })
-    }
+        });
+    };
 
     render() {
       console.log(this.state.photos);
+
+      if (this.state.navigate) {
+        console.log("REDIRCT" + this.state.selectedSnapshot.snap_username)
+        return <Redirect to={{pathname: this.state.navigateTo, state: {snapshot: this.state.selectedSnapshot}}} push={true} />;
+      }
+
       return (
-        <div className = "Snapshots">
+        <div>
           {/*location dropdown*/}
           <div className="container">
             <div className="dropdown">
@@ -52,14 +62,16 @@ class SnapshotsMain extends Component {
             <div className="container">
               <div className="row">
                 <ul className="img-list">
-                  {this.state.photos}
+                  <div className="row">
+                    {this.state.photos}
+                  </div>
                 </ul>
               </div>
             </div>
           </section>
         </div>
       );
+    }
   }
-}
 
 export default SnapshotsMain;
