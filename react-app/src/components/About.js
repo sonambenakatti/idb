@@ -199,14 +199,19 @@ render() {
                 <h3 className="mb-4">TOOLS</h3>
                 <p className="mb-4">
                   <b>Github:</b> for code storage and collaboration<br />
+                  <b>React:</b> for our front-end component based javascript code<br />
+                  <b>MySQL:</b> for database queries<br />
+                  <b>AWS RDS:</b> as our relational database storage<br />
                   <b>Bootstrap:</b> to beautify our UI<br />
                   <b>Flask:</b> for our backend framework <br />
                   <b>Amazon Web Services:</b> to host our website<br />
                   <b>Postman:</b> to help test our REST API endpoints<br />
                   <b>Namecheap:</b> to obtain a free domain name<br />
                   <b>GitBook:</b> holds our REST API<br />
-                  <b>PyGithub:</b> to easily scrape data from the Github API<br />
                   <b>flickrapi:</b> to easily scrape data from the Flickr API<br />
+                  <b>Unittests:</b> to test our backend python code<br />
+                  <b>Selenium:</b> to test our GUI<br />
+                  <b>Mocha:</b> to test our javascript code<br />
                 </p>
                 <h3 className="mb-4"><a href="https://github.com/sonambenakatti/idb">Github</a></h3>
                 <h3 className="mb-4"><a href="https://sonambenakatti.gitbooks.io/espresso-yoself/content/">Gitbook</a></h3>

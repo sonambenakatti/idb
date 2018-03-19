@@ -10,6 +10,7 @@ import CoffeeInstance from './components/CoffeeInstance';
 import Location from './components/Location';
 import Locations from './components/Locations';
 import SnapshotsMain from './components/SnapshotsMain';
+import Snapshot from './components/Snapshot';
 import Scenic from './components/Scenic';
 
 
@@ -33,6 +34,7 @@ render() {
           <Route path='/shop' component={CoffeeInstance} />
           <Route path='/about' component={About} />
           <Route path='/snapshots' component={SnapshotsMain} />
+          <Route path='/snapshot' component={Snapshot} />
           <Route path='/locations' component={Locations} />
           <Route path='/location' component={Location} />
         </Switch>
