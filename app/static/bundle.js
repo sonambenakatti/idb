@@ -14725,7 +14725,7 @@ var Navbar = function (_Component) {
                   { className: "nav-item px-lg-4" },
                   _react2.default.createElement(
                     "a",
-                    { className: "nav-link text-uppercase text-expanded", href: "/snapshots" },
+                    { id: "snaps", className: "nav-link text-uppercase text-expanded", href: "/snapshots" },
                     "Snapshots"
                   )
                 ),
@@ -14734,7 +14734,7 @@ var Navbar = function (_Component) {
                   { className: "nav-item px-lg-4" },
                   _react2.default.createElement(
                     "a",
-                    { className: "nav-link text-uppercase text-expanded", href: "/about" },
+                    { id: "about", className: "nav-link text-uppercase text-expanded", href: "/about" },
                     "about"
                   )
                 )
