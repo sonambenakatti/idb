@@ -10,7 +10,6 @@ import CoffeeInstance from './components/CoffeeInstance';
 import Location from './components/Location';
 import Locations from './components/Locations';
 import SnapshotsMain from './components/SnapshotsMain';
-import Scenic from './components/Scenic';
 
 
 class App extends Component {

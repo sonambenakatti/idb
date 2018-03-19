@@ -301,3 +301,21 @@ a:hover, a:visited, a:link, a:active {
   margin-top:100px;
   object-fit: cover;
 }
+
+.model-links {
+	width: 100%;
+	text-align: center;
+
+}
+
+.model-links p{
+	display: inline-block;
+	padding: 30px;
+	font-size:1rem;
+	font-weight:800;
+	font-family:Raleway;
+}
+
+.model-links p a{
+	color: rgba(255,255,255,.4)
+}

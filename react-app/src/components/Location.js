@@ -23,6 +23,7 @@ class Location extends Component {
   render() {
 
     return (
+      <div>
       <div className="content">
         <div className="col-sm-5 instance-details">
           <div className="product-item">
@@ -45,12 +46,12 @@ class Location extends Component {
         <div className="col-sm-5 instance-pic">
           <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.photo} alt={this.state.name} style={{width: 500, height: 500, marginTop: 50}} />
         </div>
+        </div>
+        <div className="model-links">
+          <p><a href="/shops">COFFEE SHOPS NEARBY </a></p>
+          <p><a href="/snapshots">MORE SNAPS</a></p>
+        </div>
       </div>
-      <div className="model-links">
-        <p><a href="/locations">LOCATIONS NEARBY </a></p>
-        <p><a href="/snapshots">MORE SNAPS</a></p>
-      </div>
-    </div>
     );
   }
 }
