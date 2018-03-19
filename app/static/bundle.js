@@ -13701,6 +13701,27 @@ var About = function (_Component) {
                     _react2.default.createElement(
                       "b",
                       null,
+                      "React:"
+                    ),
+                    " for our front-end component based javascript code",
+                    _react2.default.createElement("br", null),
+                    _react2.default.createElement(
+                      "b",
+                      null,
+                      "MySQL:"
+                    ),
+                    " for database queries",
+                    _react2.default.createElement("br", null),
+                    _react2.default.createElement(
+                      "b",
+                      null,
+                      "AWS RDS:"
+                    ),
+                    " as our relational database storage",
+                    _react2.default.createElement("br", null),
+                    _react2.default.createElement(
+                      "b",
+                      null,
                       "Bootstrap:"
                     ),
                     " to beautify our UI",
@@ -13743,16 +13764,30 @@ var About = function (_Component) {
                     _react2.default.createElement(
                       "b",
                       null,
-                      "PyGithub:"
+                      "flickrapi:"
                     ),
-                    " to easily scrape data from the Github API",
+                    " to easily scrape data from the Flickr API",
                     _react2.default.createElement("br", null),
                     _react2.default.createElement(
                       "b",
                       null,
-                      "flickrapi:"
+                      "Unittests:"
                     ),
-                    " to easily scrape data from the Flickr API",
+                    " to test our backend python code",
+                    _react2.default.createElement("br", null),
+                    _react2.default.createElement(
+                      "b",
+                      null,
+                      "Selenium:"
+                    ),
+                    " to test our GUI",
+                    _react2.default.createElement("br", null),
+                    _react2.default.createElement(
+                      "b",
+                      null,
+                      "Mocha:"
+                    ),
+                    " to test our javascript code",
                     _react2.default.createElement("br", null)
                   ),
                   _react2.default.createElement(
