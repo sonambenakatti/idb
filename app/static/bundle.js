@@ -25284,7 +25284,7 @@
 	                    _react2.default.createElement(
 	                      "a",
 	                      { href: "https://github.com/sonambenakatti/idb" },
-	                      "GITHUB"
+	                      "Github"
 	                    )
 	                  ),
 	                  _react2.default.createElement(
@@ -25293,7 +25293,16 @@
 	                    _react2.default.createElement(
 	                      "a",
 	                      { href: "https://sonambenakatti.gitbooks.io/espresso-yoself/content/" },
-	                      "GITBOOK"
+	                      "Gitbook"
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "h3",
+	                    { className: "mb-4" },
+	                    _react2.default.createElement(
+	                      "a",
+	                      { href: "https://yuml.me/7b029469.jpg" },
+	                      "UML Diagram"
 	                    )
 	                  )
 	                )

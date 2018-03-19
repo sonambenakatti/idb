@@ -208,8 +208,9 @@ render() {
                   <b>PyGithub:</b> to easily scrape data from the Github API<br />
                   <b>flickrapi:</b> to easily scrape data from the Flickr API<br />
                 </p>
-                <h3 className="mb-4"><a href="https://github.com/sonambenakatti/idb">GITHUB</a></h3>
-                <h3 className="mb-4"><a href="https://sonambenakatti.gitbooks.io/espresso-yoself/content/">GITBOOK</a></h3>
+                <h3 className="mb-4"><a href="https://github.com/sonambenakatti/idb">Github</a></h3>
+                <h3 className="mb-4"><a href="https://sonambenakatti.gitbooks.io/espresso-yoself/content/">Gitbook</a></h3>
+                <h3 className="mb-4"><a href="https://yuml.me/7b029469.jpg">UML Diagram</a></h3>
               </div>
             </div>
           </div>
