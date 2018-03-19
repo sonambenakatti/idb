@@ -14192,7 +14192,7 @@ var Home = function (_Component) {
               null,
               _react2.default.createElement(
                 "a",
-                { href: "/scenic" },
+                { href: "/locations" },
                 _react2.default.createElement("img", { className: "d-block w-100", src: "/static/img/coffee2.jpg", alt: "Second slide" })
               )
             ),
