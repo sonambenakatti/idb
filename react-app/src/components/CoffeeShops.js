@@ -15,7 +15,8 @@ constructor (props) {
 };
 
 componentDidMount(props) {
-  fetch('/api/coffeeshops').then(results =>{
+  console.log(document.domain)
+  fetch('//api.espressoyoself.me/coffeeshops').then(results =>{
     console.log(results)
     return results.json();
   }).then(data=>{
