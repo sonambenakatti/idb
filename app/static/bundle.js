@@ -25371,7 +25371,8 @@
 	    value: function componentDidMount(props) {
 	      var _this2 = this;
 
-	      fetch('/api/coffeeshops').then(function (results) {
+	      console.log(document.domain);
+	      fetch('//api.espressoyoself.me/coffeeshops').then(function (results) {
 	        console.log(results);
 	        return results.json();
 	      }).then(function (data) {
@@ -25861,7 +25862,7 @@
 	    value: function componentDidMount(props) {
 	      var _this2 = this;
 
-	      fetch('/api/sceniclocations').then(function (results) {
+	      fetch('//api.espressoyoself.me/sceniclocations').then(function (results) {
 	        console.log(results);
 	        return results.json();
 	      }).then(function (data) {
