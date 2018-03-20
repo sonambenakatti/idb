@@ -22,45 +22,59 @@ import time
 # driver.close()
 
 class TestSuite(unittest.TestCase):
-    #####################
     # Test Driver Setup #
-    #####################
     def setUp(self):
         self.driver = webdriver.Chrome()
         driver = self.driver
-        driver.get("http://espressoyoself.me")
-        self.assertEqual("http://espressoyoself.me/", driver.current_url)
+        #driver.url = "http://espressoyoself.me/"
+        driver.url = "http://127.0.0.1:5000/"
+        driver.get(driver.url)
+        self.assertEqual(driver.url, driver.current_url)
 
-    ##################
     # Test Nav Links #
-    ##################
-    def test_shops_link(self):
+    def test_navbar(self):
         driver = self.driver
         shops_link = driver.find_element_by_id("shops")
         shops_link.click()
-        self.assertEqual("http://espressoyoself.me/shops", driver.current_url)
-        time.sleep(2)
-
-    def test_locations_link(self):
-        driver = self.driver
+        self.assertEqual(driver.url + "shops", driver.current_url)
+        time.sleep(1)
         locations_link = driver.find_element_by_id("scenicloc")
         locations_link.click()
-        self.assertEqual("http://espressoyoself.me/locations", driver.current_url)
-        time.sleep(2)
-
-    def test_snapshots_link(self):
-        driver = self.driver
+        self.assertEqual(driver.url + "locations", driver.current_url)
+        time.sleep(1)
         snapshots_link = driver.find_element_by_id("snaps")
         snapshots_link.click()
-        self.assertEqual("http://espressoyoself.me/snapshots", driver.current_url)
-        time.sleep(2)
-
-    def test_about_link(self):
-        driver = self.driver
+        self.assertEqual(driver.url + "snapshots", driver.current_url)
+        time.sleep(1)
         about_link = driver.find_element_by_id("about")
         about_link.click()
-        self.assertEqual("http://espressoyoself.me/about", driver.current_url)
+        self.assertEqual(driver.url + "about", driver.current_url)
+        time.sleep(1)
+
+    def test_splash_page(self):
+        driver = self.driver
+        driver.find_element_by_xpath("//img[@src='/static/img/coffee1.jpg']").click()
+        self.assertEqual(driver.url + "shops", driver.current_url)
         time.sleep(2)
+        driver.back()
+        time.sleep(1)
+        driver.find_element_by_class_name("slide-to-locs").click()
+        time.sleep(1)
+        driver.find_element_by_xpath("//img[@src='/static/img/coffee2.jpg']").click()
+        self.assertEqual(driver.url + "locations", driver.current_url)
+        time.sleep(2)
+        driver.back()
+        time.sleep(1)
+        driver.find_element_by_class_name("slide-to-locs").click()
+        time.sleep(1)
+        driver.find_element_by_class_name("slide-to-snaps").click()
+        time.sleep(1)
+        driver.find_element_by_xpath("//img[@src='/static/img/coffee3.jpg']").click()
+        self.assertEqual(driver.url + "snapshots", driver.current_url)
+        time.sleep(2)
+        driver.back()
+
+
 
     ##################
     # Shut Down Driver #

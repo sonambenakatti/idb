@@ -40,8 +40,8 @@ class Snapshot extends Component {
           </div>
         </div>
         <div className="model-links">
-          <p><a href="/locations">Locations nearby</a></p>
-          <p><a href="/shops">Coffee shops nearby</a></p>
+          <p><a href="/locations">LOCATIONS NEARBY</a></p>
+          <p><a href="/shops">COFFEE SHOPS NEARBY</a></p>
         </div>
         </div>
 

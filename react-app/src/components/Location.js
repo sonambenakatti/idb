@@ -42,6 +42,7 @@ class Location extends Component {
               <p className="mb-0">Rating: {this.state.rating}</p>
             </div>
           </div>
+        </div>
         <div className="col-sm-5 instance-pic">
           <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.photo} alt={this.state.name} style={{width: 500, height: 500, marginTop: 50}} />
         </div>
