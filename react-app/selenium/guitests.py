@@ -4,22 +4,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import unittest
 import time
-#driver.get('http://www.google.com/xhtml');
-#time.sleep(5) # Let the user actually see something!
-#search_box = driver.find_element_by_name('q')
-#search_box.send_keys('ChromeDriver')
-#search_box.submit()
-#time.sleep(5) # Let the user actually see something!
-#driver.quit()
-
-# driver = webdriver.Chrome()
-# driver.get("http://espressoyoself.me")
-# assert "Coffee with a view" in driver.page_source
-# shops_link = driver.find_element_by_id("shops")
-# shops_link.click()
-# assertEqual("http://espressoyoself.me/shops", driver.current_url)
-# #assert "Coffee With a View" in driver.page_source
-# driver.close()
 
 class TestSuite(unittest.TestCase):
     # Test Driver Setup #
@@ -31,7 +15,6 @@ class TestSuite(unittest.TestCase):
         driver.get(driver.url)
         self.assertEqual(driver.url, driver.current_url)
 
-    # Test Nav Links #
     def test_navbar(self):
         driver = self.driver
         shops_link = driver.find_element_by_id("shops")
@@ -74,11 +57,89 @@ class TestSuite(unittest.TestCase):
         time.sleep(2)
         driver.back()
 
+    def test_coffee_instance(self):
+        driver = self.driver
+        shops_link = driver.find_element_by_id("shops")
+        shops_link.click()
+        self.assertEqual(driver.url + "shops", driver.current_url)
+        time.sleep(1)
+        #click on shop instance and navigate to instance page
+        shop_instance = driver.find_element_by_id("shop_instance")
+        shop_instance.click()
+        time.sleep(1)
+        self.assertEqual(driver.url + "shop", driver.current_url)
+        time.sleep(2)
+        #make sure instance has correct elements
+        assert "Local Shop:" in driver.page_source
+        #test coffee instance links to other models
+        locations_link = driver.find_element_by_link_text("LOCATIONS NEARBY")
+        locations_link.click()
+        self.assertEqual(driver.url + "locations", driver.current_url)
+        time.sleep(1)
+        driver.back()
+        time.sleep(1)
+        snapshots_link = driver.find_element_by_link_text("MORE SNAPS")
+        snapshots_link.click()
+        self.assertEqual(driver.url + "snapshots", driver.current_url)
+        time.sleep(1)
+
+    def test_locations_instance(self):
+        driver = self.driver
+        shops_link = driver.find_element_by_id("scenicloc")
+        shops_link.click()
+        self.assertEqual(driver.url + "locations", driver.current_url)
+        time.sleep(1)
+        #click on location instance and navigate to instance page
+        loc_instance = driver.find_element_by_id("location_instance")
+        loc_instance.click()
+        time.sleep(1)
+        self.assertEqual(driver.url + "location", driver.current_url)
+        time.sleep(2)
+        #make sure instance has correct elements
+        assert "Scenic Location:" in driver.page_source
+        #test location instance links to other models
+        shops_link = driver.find_element_by_link_text("COFFEE SHOPS NEARBY")
+        shops_link.click()
+        self.assertEqual(driver.url + "shops", driver.current_url)
+        time.sleep(1)
+        driver.back()
+        time.sleep(1)
+        snapshots_link = driver.find_element_by_link_text("MORE SNAPS")
+        snapshots_link.click()
+        self.assertEqual(driver.url + "snapshots", driver.current_url)
+        time.sleep(1)
+
+    def test_snapshots_instance(self):
+        driver = self.driver
+        snaps_link = driver.find_element_by_id("snaps")
+        snaps_link.click()
+        self.assertEqual(driver.url + "snapshots", driver.current_url)
+        time.sleep(1)
+        #click on snapshot instance and navigate to instance page
+        snap_instance = driver.find_element_by_id("snap_instance")
+        snap_instance.click()
+        time.sleep(1)
+        self.assertEqual(driver.url + "snapshot", driver.current_url)
+        time.sleep(2)
+        #make sure instance has correct elements
+        assert "Snapshot:" in driver.page_source
+        #test snapshot instance links to other models
+        shops_link = driver.find_element_by_link_text("COFFEE SHOPS NEARBY")
+        shops_link.click()
+        self.assertEqual(driver.url + "shops", driver.current_url)
+        time.sleep(1)
+        driver.back()
+        time.sleep(1)
+        locs_link = driver.find_element_by_link_text("LOCATIONS NEARBY")
+        locs_link.click()
+        self.assertEqual(driver.url + "locations", driver.current_url)
+        time.sleep(1)
+
+    # def test_about_page(self):
 
 
-    ##################
+
     # Shut Down Driver #
-    ##################
     def tearDown(self):
         self.driver.close()
 
