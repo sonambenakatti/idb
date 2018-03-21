@@ -27,7 +27,6 @@ metadata.reflect(bind=engine)
 
 # Create the application.
 APP = flask.Flask(__name__)
-
 def alchemyencoder(obj):
     """
     JSON encoder function for SQLAlchemy special classes.
@@ -41,94 +40,82 @@ def alchemyencoder(obj):
 def home():
     return flask.render_template('home.html')
 
-@APP.route('/api/about', methods=['GET'])
+@APP.route('/about', subdomain='api', methods=['GET'])
 def get_about():
-    about_json = {}
-    commits = githubstats.user_commits()
-    issues = githubstats.user_issues()
-    about_json["commits"] = commits
-    about_json["issues"] = issues
-    return jsonify({'about': about_json})
+    # about_json = {}
+    # commits = githubstats.user_commits()
+    # issues = githubstats.user_issues()
+    # about_json["commits"] = commits
+    # about_json["issues"] = issues
+    return 'api.espressoyoself.me/about'
 
 @APP.route('/<path:path>')
 def catch_all (path):
     return flask.render_template('home.html')
 
-@APP.route('/api/sceniclocations', methods=['GET'])
+@APP.route('/sceniclocations', subdomain='api', methods=['GET'])
 def get_sceniclocations() :
-    jsonRes = []
-    try:
-        result = engine.execute('SELECT * FROM Scenic').fetchall()
-        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
-    except:
-        flask.abort(500)
-    if len(jsonRes) <= 2:
-        flask.abort(500)  # nothing is in there
-    return jsonRes
+    return 'api.espressoyoself.me/sceniclocations'
 
+@APP.route('/sceniclocation/<scenicId>', subdomain='api', methods=['GET'])
+def get_sceniclocation(scenicId) :
+    # jsonRes = []
+    # try:
+    #     result = engine.execute('SELECT * FROM Scenic WHERE scenic_id = %s', str(scenicId)).fetchall()
+    #     jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    # except:
+    #     flask.abort(500)
+    # if len(jsonRes) <= 2:
+    #     flask.abort(500)  # nothing is in there
+    return 'api.espressoyoself.me/sceniclocation/' + scenicId
 
-@APP.route('/api/coffeeshops', methods=['GET'])
+@APP.route('/coffeeshops', subdomain='api', methods=['GET'])
 def get_coffeeshops() :
     """
     returns all coffeeshops from the Shops table
     """
-    jsonRes = []
-    try:
-        result = engine.execute('SELECT * FROM Shops').fetchall()
-        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
-    except:
-        flask.abort(500)
-    if len(jsonRes) <= 2:
-        flask.abort(500)  # nothing is in there
-    return jsonRes
+    #
+    # jsonRes = []
+    # try:
+    #     result = engine.execute('SELECT * FROM Shops').fetchall()
+    #     jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    # except:
+    #     flask.abort(500)
+    # if len(jsonRes) <= 2:
+    #     flask.abort(500)  # nothing is in there
+    return 'api.espressoyoself.me/coffeeshops'
 
-@APP.route('/api/coffeeshops/<coffeeId>', methods=['GET'])
+@APP.route('/coffeeshop/<coffeeId>', subdomain='api', methods=['GET'])
 def get_coffeeshop(coffeeId) :
     """
     returns a row based off of coffeeId from the Shops table
     """
-    jsonRes = []
-    try:
-        result = engine.execute('SELECT * FROM Shops WHERE shop_yelp_id = %s', coffeeId).fetchall()
-        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
-    except:
-        flask.abort(500)
-    if len(jsonRes) <= 2:
-        flask.abort(500)  # nothing is in there
-    return jsonRes
+    # jsonRes = []
+    # try:
+    #     result = engine.execute('SELECT * FROM Shops WHERE shop_id = %s', str(coffeeId)).fetchall()
+    #     jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    # except:
+    #     flask.abort(500)
+    # if len(jsonRes) <= 2:
+    #     flask.abort(500)  # nothing is in there
+    return 'api.espressoyoself.me/coffeeshops/' + coffeeId
 
-@APP.route('/api/snapshots', methods=['GET'])
+@APP.route('/snapshots', subdomain='api', methods=['GET'])
 def get_snapshots() :
     """
     returns all snapshots from the Snapshots table
     """
-    jsonRes = []
-    try:
-        result = engine.execute('SELECT * FROM Snapshots').fetchall()
-        print(result)
-        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
-    except Exception as e:
-        print(e)
-        flask.abort(500)
-    if len(jsonRes) <= 2:
-        flask.abort(500)  # nothing is in there
-    return jsonRes
+    return 'api.espressoyoself.me/snapshots'
 
-@APP.route('/api/snapshot/<snapshotId>', methods=['GET'])
+@APP.route('/snapshot/<snapshotId>', subdomain='api', methods=['GET'])
 def get_snapshot(snapshotId) :
     """
     returns a row based off of snapshotId from the Snapshots table
     """
-    jsonRes = []
-    try:
-        result = engine.execute('SELECT * FROM Snaphots WHERE snap_photo_id = %s', snapshotId).fetchall()
-        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
-    except:
-        flask.abort(500)
-    if len(jsonRes) <= 2:
-        flask.abort(500)  # nothing is in there
-    return jsonRes
-    
+
+    #     flask.abort(500)  # nothing is in there
+    return 'api.espressoyoself.me/snapshot/' + snapshotId
+
 if __name__ == '__main__':
     #APP.debug=True
     APP.run()

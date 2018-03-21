@@ -8,8 +8,8 @@ class Home extends Component {
         <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
           <ol className="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to={0} className="active" />
-            <li data-target="#carouselExampleIndicators" data-slide-to={1} />
-            <li data-target="#carouselExampleIndicators" data-slide-to={2} />
+            <li data-target="#carouselExampleIndicators" data-slide-to={1} className="slide-to-locs"/>
+            <li data-target="#carouselExampleIndicators" data-slide-to={2} className="slide-to-snaps"/>
           </ol>
           <div className="carousel-inner">
             <div className="carousel-item active">

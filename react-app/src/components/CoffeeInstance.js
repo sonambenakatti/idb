@@ -40,7 +40,7 @@ class CoffeeInstance extends Component {
         </div>
       </div>
       <div className="model-links">
-        <p><a href="/locations">LOCATIONS NEARBY </a></p>
+        <p><a href="/locations">LOCATIONS NEARBY</a></p>
         <p><a href="/snapshots">MORE SNAPS</a></p>
       </div>
     </div>

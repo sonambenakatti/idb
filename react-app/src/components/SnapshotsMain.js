@@ -15,14 +15,14 @@ class SnapshotsMain extends Component {
     };
 
     componentDidMount() {
-      fetch('/api/snapshots').then(results =>{
+      fetch('//api.espressoyoself.me/snapshots').then(results =>{
         return results.json();
       }).then(data=>{
         console.log("This is the data")
         console.log(data)
           let snapshots = data.map((snapshot) =>{
             return(
-              <div key={snapshot.snap_username} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+              <div key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
                 <li className="col">
                     <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
                     <span className="picText"><span>Photographer Name:  {snapshot.snap_photographer}<br /><br />

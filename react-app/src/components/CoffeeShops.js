@@ -15,14 +15,15 @@ constructor (props) {
 };
 
 componentDidMount(props) {
-  fetch('/api/coffeeshops').then(results =>{
+  console.log(document.domain)
+  fetch('//api.espressoyoself.me/coffeeshops').then(results =>{
     console.log(results)
     return results.json();
   }).then(data=>{
     console.log(data)
     let shops = data.map((shop) =>{
       return(
-        <div key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+        <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
           <li className="col">
               <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
               />
