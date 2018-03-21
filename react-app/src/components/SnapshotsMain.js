@@ -22,7 +22,7 @@ class SnapshotsMain extends Component {
         console.log(data)
           let snapshots = data.map((snapshot) =>{
             return(
-              <div key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+              <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
                 <li className="col">
                     <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
                     <span className="picText"><span>Photographer Name:  {snapshot.snap_photographer}<br /><br />

@@ -13188,7 +13188,8 @@ var About = function (_Component) {
 
     _this.state = {
       commits: { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 },
-      issues: { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 }
+      issues: { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 },
+      ready: false
     };
     return _this;
   }
@@ -13207,7 +13208,7 @@ var About = function (_Component) {
       fetch('https://api.github.com/repos/sonambenakatti/idb/stats/contributors').then(function (response) {
         return response.json();
       }).then(function (data) {
-        var actualCommits = {};
+        var actualCommits = { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 };
         var total = 0;
         for (var i = 0; i < data.length; i++) {
           actualCommits[data[i].author.login] = data[i].total;
@@ -13218,6 +13219,8 @@ var About = function (_Component) {
       }).catch(function (err) {
         return console.error(_this2.props.url, err.toString());
       });
+
+      this.setState({ ready: true });
     }
   }, {
     key: "loadIssues",
@@ -13244,6 +13247,10 @@ var About = function (_Component) {
     value: function render() {
       var commits = this.state.commits;
       var issues = this.state.issues;
+
+      if (this.state.ready) {
+        this.forceUpdate();
+      }
 
       return _react2.default.createElement(
         "div",
@@ -14964,7 +14971,7 @@ var SnapshotsMain = function (_Component) {
         var snapshots = data.map(function (snapshot) {
           return _react2.default.createElement(
             'div',
-            { key: snapshot.snap_name, onClick: function onClick() {
+            { id: 'snap_instance', key: snapshot.snap_name, onClick: function onClick() {
                 _this2.setState({ navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
               } },
             _react2.default.createElement(
