@@ -25416,7 +25416,7 @@
 	        var shops = data.map(function (shop) {
 	          return _react2.default.createElement(
 	            'div',
-	            { key: shop.shop_name, onClick: function onClick() {
+	            { id: 'shop_instance', key: shop.shop_name, onClick: function onClick() {
 	                _this2.setState({ navigate: true, navigateTo: "/shop", selectedShop: shop });
 	              } },
 	            _react2.default.createElement(
@@ -25700,7 +25700,7 @@
 	            _react2.default.createElement(
 	              "a",
 	              { href: "/locations" },
-	              "LOCATIONS NEARBY "
+	              "LOCATIONS NEARBY"
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -25932,7 +25932,7 @@
 	        var views = data.map(function (scenicloc) {
 	          return _react2.default.createElement(
 	            'div',
-	            { key: scenicloc.scenic_name, onClick: function onClick() {
+	            { id: 'location_instance', key: scenicloc.scenic_name, onClick: function onClick() {
 	                _this2.setState({ navigate: true, navigateTo: "/location", selectedLocation: scenicloc });
 	              } },
 	            _react2.default.createElement(
@@ -26090,7 +26090,7 @@
 	        var snapshots = data.map(function (snapshot) {
 	          return _react2.default.createElement(
 	            'div',
-	            { key: snapshot.snap_username, onClick: function onClick() {
+	            { id: 'snap_instance', key: snapshot.snap_username, onClick: function onClick() {
 	                _this2.setState({ navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
 	              } },
 	            _react2.default.createElement(
