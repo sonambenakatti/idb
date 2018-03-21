@@ -58,7 +58,6 @@ def catch_all (path):
 def get_sceniclocations() :
 
     jsonRes = []
-    print('IN API')
     try:
         result = engine.execute('SELECT * FROM Scenic').fetchall()
         jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
@@ -119,10 +118,8 @@ def get_snapshots() :
     jsonRes = []
     try:
         result = engine.execute('SELECT * FROM Snapshots').fetchall()
-        print(result)
         jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
     except Exception as e:
-        print(e)
         flask.abort(500)
     if len(jsonRes) <= 2:
         flask.abort(500)  # nothing is in there
@@ -133,11 +130,12 @@ def get_snapshot(snapshotId) :
     """
     returns a row based off of snapshotId from the Snapshots table
     """
+   
     jsonRes = []
     try:
-        result = engine.execute('SELECT * FROM Snaphots WHERE snap_photo_id = %s', snapshotId).fetchall()
+        result = engine.execute('SELECT * FROM Snapshots WHERE snap_id = %s', str(snapshotId)).fetchall()
         jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
-    except:
+    except Exception as e:
         flask.abort(500)
     if len(jsonRes) <= 2:
         flask.abort(500)  # nothing is in there

@@ -17,10 +17,15 @@ class TestStringMethods(unittest.TestCase):
         r = self.APP.get('/')
         self.assertEqual(r.status_code, 200)
     '''
-    def test_shops_query_exists(self):
-        result = Shops.query.all()
-        self.assertNotEqual(len(result), 0)
+    def test_about(self):
+        r = self.APP.get('/api/about')
+        str_data = r.data.decode('utf-8')
+        data = json.loads(str_data)
+        print(data)
+        self.assertEqual(r.status_code, 200)
+        self.assertNotEqual(len(data), 0)
     '''
+    
 
     def test_shops_api_exists(self):
         r = self.APP.get('/api/coffeeshops')
@@ -36,11 +41,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertEqual(data[0]['shop_name'], 'Summermoon Coffee Bar')
         self.assertNotEqual(len(data), 0)
-    '''
-    def test_scenic_query_exists(self):
-        result = Scenic.query.all()
-        self.assertNotEqual(len(result), 0)
-    '''
+    
 
     def test_scenic_api_exists(self):
         r = self.APP.get('/api/sceniclocations')
@@ -56,6 +57,23 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertEqual(data[0]['scenic_name'], 'Waterloo Neighborhood Park')
         self.assertNotEqual(len(data), 0)
+
+    def test_snapshots_api_exists(self):
+        r = self.APP.get('/api/snapshots')
+        str_data = r.data.decode('utf-8')
+        data = json.loads(str_data)
+        self.assertEqual(r.status_code, 200)
+        self.assertNotEqual(len(data), 0)
+
+    def test_snapshots_api_one(self):
+        r = self.APP.get('/api/snapshot/98')
+        str_data = r.data.decode('utf-8')
+        data = json.loads(str_data)
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(data[0]['snap_name'], 'Coffee Bean Journey To My Cup')
+        self.assertNotEqual(len(data), 0)
+
+
 
 if __name__ == '__main__':
     unittest.main()
