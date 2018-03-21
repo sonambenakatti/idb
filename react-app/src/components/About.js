@@ -20,7 +20,7 @@ loadCommits() {
   fetch('https://api.github.com/repos/sonambenakatti/idb/stats/contributors')
   			.then(response => response.json())
   			.then(data => {
-          let actualCommits = {};
+          let actualCommits = {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0};
           let total = 0;
           for (let i = 0; i < data.length; i++) {
             actualCommits[data[i].author.login] = data[i].total;
