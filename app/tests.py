@@ -28,14 +28,14 @@ class TestStringMethods(unittest.TestCase):
     
 
     def test_shops_api_exists(self):
-        r = self.APP.get('/api/coffeeshops')
+        r = self.APP.get('/coffeeshops')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)
         self.assertNotEqual(len(data), 0)
 
     def test_shops_api_one(self):
-        r = self.APP.get('/api/coffeeshops/1')
+        r = self.APP.get('/coffeeshop/1')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)
@@ -44,14 +44,14 @@ class TestStringMethods(unittest.TestCase):
     
 
     def test_scenic_api_exists(self):
-        r = self.APP.get('/api/sceniclocations')
+        r = self.APP.get('/sceniclocations')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)
         self.assertNotEqual(len(data), 0)
 
     def test_scenic_api_one(self):
-        r = self.APP.get('/api/sceniclocation/2')
+        r = self.APP.get('/sceniclocation/2')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)
@@ -59,14 +59,14 @@ class TestStringMethods(unittest.TestCase):
         self.assertNotEqual(len(data), 0)
 
     def test_snapshots_api_exists(self):
-        r = self.APP.get('/api/snapshots')
+        r = self.APP.get('/snapshots')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)
         self.assertNotEqual(len(data), 0)
 
     def test_snapshots_api_one(self):
-        r = self.APP.get('/api/snapshot/98')
+        r = self.APP.get('/snapshot/98')
         str_data = r.data.decode('utf-8')
         data = json.loads(str_data)
         self.assertEqual(r.status_code, 200)

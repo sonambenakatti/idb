@@ -17,14 +17,14 @@ constructor (props) {
 };
 
 componentDidMount(props) {
-    fetch('/api/sceniclocations').then(results =>{
+    fetch('//api.espressoyoself.me/sceniclocations').then(results =>{
       console.log(results)
       return results.json();
     }).then(data =>{
       console.log(data)
       let views = data.map((scenicloc) =>{
         return(
-        <div key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
           <li className="col">
               <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"
               />
