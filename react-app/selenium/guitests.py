@@ -135,9 +135,61 @@ class TestSuite(unittest.TestCase):
         self.assertEqual(driver.url + "locations", driver.current_url)
         time.sleep(1)
 
-    # def test_about_page(self):
+    def test_about_page(self):
+        driver = self.driver
+        about_link = driver.find_element_by_id("about")
+        about_link.click()
+        self.assertEqual(driver.url + "about", driver.current_url)
+        time.sleep(1)
+        assert "ESPRESSO YOSELF"
+        assert "Amrutha" in driver.page_source
+        assert "Jaemin" in driver.page_source
+        assert "Jenni" in driver.page_source
+        assert "Ruchi" in driver.page_source
+        assert "Sonam" in driver.page_source
+        assert "STATISTICS" in driver.page_source
+        assert "DATA SOURCES" in driver.page_source
+        assert "TOOLS" in driver.page_source
+        assert "Github" in driver.page_source
+        assert "Gitbook" in driver.page_source
+        assert "UML Diagram" in driver.page_source
 
-
+    def test_about_page_links(self):
+        driver = self.driver
+        about_link = driver.find_element_by_id("about")
+        about_link.click()
+        self.assertEqual(driver.url + "about", driver.current_url)
+        time.sleep(1)
+        # Yelp
+        driver.find_element_by_link_text("Yelp").click()
+        self.assertEqual("https://www.yelp.com/developers/documentation/v3", driver.current_url)
+        time.sleep(1)
+        driver.back()
+        # Google Places
+        driver.find_element_by_link_text("Google Places").click()
+        self.assertEqual("https://developers.google.com/places/", driver.current_url)
+        time.sleep(1)
+        driver.back()
+        # Flickr
+        driver.find_element_by_link_text("Flickr").click()
+        self.assertEqual("https://www.flickr.com/services/api/", driver.current_url)
+        time.sleep(1)
+        driver.back()
+        # Github
+        driver.find_element_by_link_text("Github").click()
+        self.assertEqual("https://github.com/sonambenakatti/idb", driver.current_url)
+        time.sleep(3)
+        driver.back()
+        # GitBook
+        driver.find_element_by_link_text("Gitbook").click()
+        self.assertEqual("https://sonambenakatti.gitbooks.io/espresso-yoself/content/", driver.current_url)
+        time.sleep(3)
+        driver.back()
+        # UML Diagram
+        driver.find_element_by_link_text("UML Diagram").click()
+        self.assertEqual("https://yuml.me/7b029469.jpg", driver.current_url)
+        time.sleep(1)
+        driver.back()
 
     # Shut Down Driver #
     def tearDown(self):
