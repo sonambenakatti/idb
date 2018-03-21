@@ -25,9 +25,9 @@ class SnapshotsMain extends Component {
               <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
                 <li className="col">
                     <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                    <span className="picText"><span>Photographer Name:  {snapshot.snap_photographer}<br /><br />
-                    Photographer username: {snapshot.snap_username}<br />Tags: {snapshot.snap_tags}<br />
-                    Faves: {snapshot.snap_favs}</span></span>
+                    <span className="picText"><span>{snapshot.snap_name}<br /><br />
+                    {snapshot.snap_tags}<br />
+                    {snapshot.snap_favs+" Faves"}</span></span>
                 </li>
               </div>
             );

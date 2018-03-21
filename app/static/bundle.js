@@ -14066,18 +14066,14 @@ var CoffeeShops = function (_Component) {
                 _react2.default.createElement(
                   'span',
                   null,
-                  'Name ',
                   shop.shop_name,
                   _react2.default.createElement('br', null),
                   _react2.default.createElement('br', null),
-                  'Address: ',
                   shop.shop_address,
                   _react2.default.createElement('br', null),
-                  'Price: ',
                   shop.shop_price,
                   _react2.default.createElement('br', null),
-                  'Rating: ',
-                  shop.shop_rating
+                  shop.shop_rating + "/5"
                 )
               )
             )
@@ -14356,7 +14352,10 @@ var Location = function (_Component) {
       address: _this.props.location.state.selectedLocation.scenic_address,
       name: _this.props.location.state.selectedLocation.scenic_name,
       photo: _this.props.location.state.selectedLocation.scenic_picture,
-      rating: _this.props.location.state.selectedLocation.scenic_rating
+      rating: _this.props.location.state.selectedLocation.scenic_rating,
+      review1: _this.props.location.state.selectedLocation.scenic_review1,
+      review2: _this.props.location.state.selectedLocation.scenic_review2
+
     };
     console.log(_this.state);
     return _this;
@@ -14423,7 +14422,24 @@ var Location = function (_Component) {
                   "p",
                   { className: "mb-0" },
                   "Rating: ",
-                  this.state.rating
+                  this.state.rating,
+                  "/5"
+                ),
+                _react2.default.createElement(
+                  "p",
+                  { className: "mb-0" },
+                  "Reviews:"
+                ),
+                _react2.default.createElement(
+                  "p",
+                  { className: "mb-0" },
+                  this.state.review1
+                ),
+                _react2.default.createElement("p", { className: "mb-0" }),
+                _react2.default.createElement(
+                  "p",
+                  { className: "mb-0" },
+                  this.state.review2
                 )
               )
             )
@@ -14542,15 +14558,12 @@ var Locations = function (_Component) {
                 _react2.default.createElement(
                   'span',
                   null,
-                  'Name ',
                   scenicloc.scenic_name,
                   _react2.default.createElement('br', null),
                   _react2.default.createElement('br', null),
-                  'Address: ',
                   scenicloc.scenic_address,
                   _react2.default.createElement('br', null),
-                  'Rating: ',
-                  scenicloc.scenic_rating
+                  scenicloc.scenic_rating + "/5"
                 )
               )
             )
@@ -14984,18 +14997,12 @@ var SnapshotsMain = function (_Component) {
                 _react2.default.createElement(
                   'span',
                   null,
-                  'Photographer Name:  ',
-                  snapshot.snap_photographer,
+                  snapshot.snap_name,
                   _react2.default.createElement('br', null),
                   _react2.default.createElement('br', null),
-                  'Photographer username: ',
-                  snapshot.snap_username,
-                  _react2.default.createElement('br', null),
-                  'Tags: ',
                   snapshot.snap_tags,
                   _react2.default.createElement('br', null),
-                  'Faves: ',
-                  snapshot.snap_favs
+                  snapshot.snap_favs + " Faves"
                 )
               )
             )

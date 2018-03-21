@@ -12,6 +12,9 @@ class Location extends Component {
         name: this.props.location.state.selectedLocation.scenic_name,
         photo: this.props.location.state.selectedLocation.scenic_picture,
         rating: this.props.location.state.selectedLocation.scenic_rating,
+        review1: this.props.location.state.selectedLocation.scenic_review1,
+        review2: this.props.location.state.selectedLocation.scenic_review2,
+
       };
       console.log(this.state);
   };
@@ -39,7 +42,7 @@ class Location extends Component {
           <div className="product-item-description mr-auto">
             <div className="bg-faded p-5 rounded">
               <p className="mb-0">Address: {this.state.address}</p>
-              <p className="mb-0">Rating: {this.state.rating}</p>
+              <p className="mb-0">Rating: {this.state.rating}/5</p>
               <p className="mb-0">Reviews:</p>
               <p className="mb-0">{this.state.review1}</p>
               <p className="mb-0"></p>

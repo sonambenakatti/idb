@@ -28,7 +28,7 @@ componentDidMount(props) {
           <li className="col">
               <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"
               />
-              <span className="picText"><span>Name {scenicloc.scenic_name}<br /><br />Address: {scenicloc.scenic_address}<br />Rating: {scenicloc.scenic_rating}</span></span>
+              <span className="picText"><span>{scenicloc.scenic_name}<br /><br />{scenicloc.scenic_address}<br />{scenicloc.scenic_rating + "/5"}</span></span>
           </li>
         </div>
       )

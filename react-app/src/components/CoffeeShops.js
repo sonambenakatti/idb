@@ -27,7 +27,7 @@ componentDidMount(props) {
           <li className="col">
               <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
               />
-              <span className="picText"><span>Name {shop.shop_name}<br /><br />Address: {shop.shop_address}<br />Price: {shop.shop_price}<br />Rating: {shop.shop_rating}</span></span>
+              <span className="picText"><span>{shop.shop_name}<br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
           </li>
         </div>
       )
