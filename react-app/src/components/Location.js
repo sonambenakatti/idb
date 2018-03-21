@@ -40,6 +40,10 @@ class Location extends Component {
             <div className="bg-faded p-5 rounded">
               <p className="mb-0">Address: {this.state.address}</p>
               <p className="mb-0">Rating: {this.state.rating}</p>
+              <p className="mb-0">Reviews:</p>
+              <p className="mb-0">{this.state.review1}</p>
+              <p className="mb-0"></p>
+              <p className="mb-0">{this.state.review2}</p>
             </div>
           </div>
         </div>

@@ -72,11 +72,11 @@ class TestStringMethods(unittest.TestCase):
         #self.assertNotEqual(len(data), 0)
 
     def test_snapshots_api_one(self):
-        r = self.APP.get('/getsnapshot/98')
+        r = self.APP.get('/getsnapshot/181')
         #str_data = r.data.decode('utf-8')
         #data = json.loads(str_data)
         self.assertEqual(r.status_code, 302)
-        self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshot/98')
+        self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshot/181')
         #self.assertEqual(data[0]['snap_name'], 'Coffee Bean Journey To My Cup')
         #self.assertNotEqual(len(data), 0)
 
