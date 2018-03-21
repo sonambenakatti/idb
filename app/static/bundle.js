@@ -14066,7 +14066,11 @@ var CoffeeShops = function (_Component) {
                 _react2.default.createElement(
                   'span',
                   null,
-                  shop.shop_name,
+                  _react2.default.createElement(
+                    'b',
+                    null,
+                    shop.shop_name
+                  ),
                   _react2.default.createElement('br', null),
                   _react2.default.createElement('br', null),
                   shop.shop_address,
@@ -14558,7 +14562,11 @@ var Locations = function (_Component) {
                 _react2.default.createElement(
                   'span',
                   null,
-                  scenicloc.scenic_name,
+                  _react2.default.createElement(
+                    'b',
+                    null,
+                    scenicloc.scenic_name
+                  ),
                   _react2.default.createElement('br', null),
                   _react2.default.createElement('br', null),
                   scenicloc.scenic_address,
@@ -14997,7 +15005,11 @@ var SnapshotsMain = function (_Component) {
                 _react2.default.createElement(
                   'span',
                   null,
-                  snapshot.snap_name,
+                  _react2.default.createElement(
+                    'b',
+                    null,
+                    snapshot.snap_name
+                  ),
                   _react2.default.createElement('br', null),
                   _react2.default.createElement('br', null),
                   snapshot.snap_tags,
