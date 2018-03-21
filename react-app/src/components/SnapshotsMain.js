@@ -15,7 +15,7 @@ class SnapshotsMain extends Component {
     };
 
     componentDidMount() {
-      fetch('//api.espressoyoself.me/snapshots').then(results =>{
+      fetch('/getsnapshots').then(results =>{
         return results.json();
       }).then(data=>{
         console.log("This is the data")

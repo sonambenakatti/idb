@@ -17,7 +17,7 @@ constructor (props) {
 };
 
 componentDidMount(props) {
-    fetch('//api.espressoyoself.me/sceniclocations').then(results =>{
+    fetch('/getsceniclocations').then(results =>{
       console.log(results)
       return results.json();
     }).then(data =>{
