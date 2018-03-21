@@ -25408,7 +25408,7 @@
 	      var _this2 = this;
 
 	      console.log(document.domain);
-	      fetch('//api.espressoyoself.me/coffeeshops').then(function (results) {
+	      fetch('/getcoffeeshops').then(function (results) {
 	        console.log(results);
 	        return results.json();
 	      }).then(function (data) {
@@ -25924,7 +25924,7 @@
 	    value: function componentDidMount(props) {
 	      var _this2 = this;
 
-	      fetch('//api.espressoyoself.me/sceniclocations').then(function (results) {
+	      fetch('/getsceniclocations').then(function (results) {
 	        console.log(results);
 	        return results.json();
 	      }).then(function (data) {
@@ -26082,7 +26082,7 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      fetch('//api.espressoyoself.me/snapshots').then(function (results) {
+	      fetch('/getsnapshots').then(function (results) {
 	        return results.json();
 	      }).then(function (data) {
 	        console.log("This is the data");

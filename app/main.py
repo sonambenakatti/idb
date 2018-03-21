@@ -3,7 +3,7 @@
 from __future__ import print_function
 import sys
 import flask
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 import sqlalchemy
 from sqlalchemy import *
 import pymysql
@@ -40,24 +40,24 @@ def alchemyencoder(obj):
 def home():
     return flask.render_template('home.html')
 
-@APP.route('/about', subdomain='api', methods=['GET'])
+@APP.route('/getabout', methods=['GET'])
 def get_about():
     # about_json = {}
     # commits = githubstats.user_commits()
     # issues = githubstats.user_issues()
     # about_json["commits"] = commits
     # about_json["issues"] = issues
-    return 'api.espressoyoself.me/about'
+    return redirect('//api.espressoyoself.me/about', code=302)
 
 @APP.route('/<path:path>')
 def catch_all (path):
     return flask.render_template('home.html')
 
-@APP.route('/sceniclocations', subdomain='api', methods=['GET'])
+@APP.route('/getsceniclocations', methods=['GET'])
 def get_sceniclocations() :
-    return 'api.espressoyoself.me/sceniclocations'
+    return redirect('//api.espressoyoself.me/sceniclocations', code=302)
 
-@APP.route('/sceniclocation/<scenicId>', subdomain='api', methods=['GET'])
+@APP.route('/getsceniclocation/<scenicId>', methods=['GET'])
 def get_sceniclocation(scenicId) :
     # jsonRes = []
     # try:
@@ -67,9 +67,9 @@ def get_sceniclocation(scenicId) :
     #     flask.abort(500)
     # if len(jsonRes) <= 2:
     #     flask.abort(500)  # nothing is in there
-    return 'api.espressoyoself.me/sceniclocation/' + scenicId
+    return redirect('//api.espressoyoself.me/sceniclocation/' + scenicId, code=302)
 
-@APP.route('/coffeeshops', subdomain='api', methods=['GET'])
+@APP.route('/getcoffeeshops', methods=['GET'])
 def get_coffeeshops() :
     """
     returns all coffeeshops from the Shops table
@@ -83,9 +83,9 @@ def get_coffeeshops() :
     #     flask.abort(500)
     # if len(jsonRes) <= 2:
     #     flask.abort(500)  # nothing is in there
-    return 'api.espressoyoself.me/coffeeshops'
+    return redirect('//api.espressoyoself.me/coffeeshops', code=302)
 
-@APP.route('/coffeeshop/<coffeeId>', subdomain='api', methods=['GET'])
+@APP.route('/getcoffeeshop/<coffeeId>', methods=['GET'])
 def get_coffeeshop(coffeeId) :
     """
     returns a row based off of coffeeId from the Shops table
@@ -98,23 +98,23 @@ def get_coffeeshop(coffeeId) :
     #     flask.abort(500)
     # if len(jsonRes) <= 2:
     #     flask.abort(500)  # nothing is in there
-    return 'api.espressoyoself.me/coffeeshops/' + coffeeId
+    return redirect('//api.espressoyoself.me/coffeeshops/' + coffeeId, code=302)
 
-@APP.route('/snapshots', subdomain='api', methods=['GET'])
+@APP.route('/getsnapshots', methods=['GET'])
 def get_snapshots() :
     """
     returns all snapshots from the Snapshots table
     """
-    return 'api.espressoyoself.me/snapshots'
+    return redirect('//api.espressoyoself.me/snapshots', code=302)
 
-@APP.route('/snapshot/<snapshotId>', subdomain='api', methods=['GET'])
+@APP.route('/getsnapshot/<snapshotId>', methods=['GET'])
 def get_snapshot(snapshotId) :
     """
     returns a row based off of snapshotId from the Snapshots table
     """
 
     #     flask.abort(500)  # nothing is in there
-    return 'api.espressoyoself.me/snapshot/' + snapshotId
+    return redirect('//api.espressoyoself.me/snapshot/' + snapshotId, code=302)
 
 if __name__ == '__main__':
     #APP.debug=True
