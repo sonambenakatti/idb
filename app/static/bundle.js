@@ -19822,9 +19822,9 @@
 
 	var _SnapshotsMain2 = _interopRequireDefault(_SnapshotsMain);
 
-	var _Scenic = __webpack_require__(217);
+	var _Snapshot = __webpack_require__(217);
 
-	var _Scenic2 = _interopRequireDefault(_Scenic);
+	var _Snapshot2 = _interopRequireDefault(_Snapshot);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19862,6 +19862,7 @@
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2.default }),
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/snapshot', component: _Snapshot2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2.default }),
 	            _react2.default.createElement(_reactRouterDom.Route, { path: '/location', component: _Location2.default })
 	          )
@@ -24486,7 +24487,7 @@
 	                  { className: "nav-item px-lg-4" },
 	                  _react2.default.createElement(
 	                    "a",
-	                    { className: "nav-link text-uppercase text-expanded", href: "/snapshots" },
+	                    { id: "snaps", className: "nav-link text-uppercase text-expanded", href: "/snapshots" },
 	                    "Snapshots"
 	                  )
 	                ),
@@ -24495,7 +24496,7 @@
 	                  { className: "nav-item px-lg-4" },
 	                  _react2.default.createElement(
 	                    "a",
-	                    { className: "nav-link text-uppercase text-expanded", href: "/about" },
+	                    { id: "about", className: "nav-link text-uppercase text-expanded", href: "/about" },
 	                    "about"
 	                  )
 	                )
@@ -24555,8 +24556,8 @@
 	          "ol",
 	          { className: "carousel-indicators" },
 	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 0, className: "active" }),
-	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 1 }),
-	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 2 })
+	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 1, className: "slide-to-locs" }),
+	          _react2.default.createElement("li", { "data-target": "#carouselExampleIndicators", "data-slide-to": 2, className: "slide-to-snaps" })
 	        ),
 	        _react2.default.createElement(
 	          "div",
@@ -24596,7 +24597,7 @@
 	              null,
 	              _react2.default.createElement(
 	                "a",
-	                { href: "/scenic" },
+	                { href: "/locations" },
 	                _react2.default.createElement("img", { className: "d-block w-100", src: "/static/img/coffee2.jpg", alt: "Second slide" })
 	              )
 	            ),
@@ -25224,6 +25225,27 @@
 	                    _react2.default.createElement(
 	                      "b",
 	                      null,
+	                      "React:"
+	                    ),
+	                    " for our front-end component based javascript code",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "MySQL:"
+	                    ),
+	                    " for database queries",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "AWS RDS:"
+	                    ),
+	                    " as our relational database storage",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
 	                      "Bootstrap:"
 	                    ),
 	                    " to beautify our UI",
@@ -25266,16 +25288,30 @@
 	                    _react2.default.createElement(
 	                      "b",
 	                      null,
-	                      "PyGithub:"
+	                      "flickrapi:"
 	                    ),
-	                    " to easily scrape data from the Github API",
+	                    " to easily scrape data from the Flickr API",
 	                    _react2.default.createElement("br", null),
 	                    _react2.default.createElement(
 	                      "b",
 	                      null,
-	                      "flickrapi:"
+	                      "Unittests:"
 	                    ),
-	                    " to easily scrape data from the Flickr API",
+	                    " to test our backend python code",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Selenium:"
+	                    ),
+	                    " to test our GUI",
+	                    _react2.default.createElement("br", null),
+	                    _react2.default.createElement(
+	                      "b",
+	                      null,
+	                      "Mocha:"
+	                    ),
+	                    " to test our javascript code",
 	                    _react2.default.createElement("br", null)
 	                  ),
 	                  _react2.default.createElement(
@@ -25743,61 +25779,87 @@
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "content" },
+	        null,
 	        _react2.default.createElement(
 	          "div",
-	          { className: "col-sm-5 instance-details" },
+	          { className: "content" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "product-item" },
+	            { className: "col-sm-5 instance-details" },
 	            _react2.default.createElement(
 	              "div",
-	              { className: "product-item-title" },
+	              { className: "product-item" },
 	              _react2.default.createElement(
 	                "div",
-	                { className: "bg-faded p-5 d-flex ml-auto rounded" },
+	                { className: "product-item-title" },
 	                _react2.default.createElement(
-	                  "h2",
-	                  { className: "section-heading mb-0" },
+	                  "div",
+	                  { className: "bg-faded p-5 d-flex ml-auto rounded" },
 	                  _react2.default.createElement(
-	                    "span",
-	                    { className: "section-heading-upper" },
-	                    "Scenic Location:"
-	                  ),
-	                  _react2.default.createElement(
-	                    "span",
-	                    { className: "section-heading-lower" },
-	                    this.state.name
+	                    "h2",
+	                    { className: "section-heading mb-0" },
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-upper" },
+	                      "Scenic Location:"
+	                    ),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-lower" },
+	                      this.state.name
+	                    )
 	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "product-item-description mr-auto" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "bg-faded p-5 rounded" },
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Address: ",
+	                  this.state.address
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Rating: ",
+	                  this.state.rating
 	                )
 	              )
 	            )
 	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { className: "product-item-description mr-auto" },
-	            _react2.default.createElement(
-	              "div",
-	              { className: "bg-faded p-5 rounded" },
-	              _react2.default.createElement(
-	                "p",
-	                { className: "mb-0" },
-	                "Address: ",
-	                this.state.address
-	              ),
-	              _react2.default.createElement(
-	                "p",
-	                { className: "mb-0" },
-	                "Rating: ",
-	                this.state.rating
-	              )
-	            )
+	            { className: "col-sm-5 instance-pic" },
+	            _react2.default.createElement("img", { className: "product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0", src: this.state.photo, alt: this.state.name, style: { width: 500, height: 500, marginTop: 50 } })
 	          )
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          { className: "col-sm-5 instance-pic" },
-	          _react2.default.createElement("img", { className: "product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0", src: this.state.photo, alt: this.state.name, style: { width: 500, height: 500, marginTop: 50 } })
+	          { className: "model-links" },
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "/shops" },
+	              "COFFEE SHOPS NEARBY "
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "/snapshots" },
+	              "MORE SNAPS"
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -25987,6 +26049,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(212);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25998,13 +26062,17 @@
 	var SnapshotsMain = function (_Component) {
 	  _inherits(SnapshotsMain, _Component);
 
-	  function SnapshotsMain() {
+	  function SnapshotsMain(props) {
 	    _classCallCheck(this, SnapshotsMain);
 
-	    var _this = _possibleConstructorReturn(this, (SnapshotsMain.__proto__ || Object.getPrototypeOf(SnapshotsMain)).call(this));
+	    var _this = _possibleConstructorReturn(this, (SnapshotsMain.__proto__ || Object.getPrototypeOf(SnapshotsMain)).call(this, props));
 
 	    _this.state = {
-	      photos: []
+	      photos: [],
+	      navigate: false,
+	      selectedSnapshot: [],
+	      navigateTo: "",
+	      item: ""
 	    };
 	    return _this;
 	  }
@@ -26014,38 +26082,39 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      fetch('/api/snapshots').then(function (results) {
-	        console.log(results);
+	      fetch('//api.espressoyoself.me/snapshots').then(function (results) {
 	        return results.json();
 	      }).then(function (data) {
+	        console.log("This is the data");
 	        console.log(data);
-	        console.log(data.snapshots);
-	        var snapshots = data.snapshots.map(function (snapshot) {
+	        var snapshots = data.map(function (snapshot) {
 	          return _react2.default.createElement(
 	            'div',
-	            { key: snapshot.name, className: 'col' },
+	            { key: snapshot.snap_username, onClick: function onClick() {
+	                _this2.setState({ navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
+	              } },
 	            _react2.default.createElement(
 	              'li',
-	              null,
+	              { className: 'col' },
+	              _react2.default.createElement('img', { src: snapshot.snap_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
 	              _react2.default.createElement(
-	                'a',
-	                { href: '/snapshots/photoId' },
-	                _react2.default.createElement('img', { src: snapshot.imageUrl, style: { width: 300, height: 300 }, alt: 'Photo1' }),
+	                'span',
+	                { className: 'picText' },
 	                _react2.default.createElement(
 	                  'span',
-	                  { className: 'picText' },
-	                  _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    ' name ',
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('br', null),
-	                    'location',
-	                    _react2.default.createElement('br', null),
-	                    'Price:',
-	                    _react2.default.createElement('br', null),
-	                    'Rating:'
-	                  )
+	                  null,
+	                  'Photographer Name:  ',
+	                  snapshot.snap_photographer,
+	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement('br', null),
+	                  'Photographer username: ',
+	                  snapshot.snap_username,
+	                  _react2.default.createElement('br', null),
+	                  'Tags: ',
+	                  snapshot.snap_tags,
+	                  _react2.default.createElement('br', null),
+	                  'Faves: ',
+	                  snapshot.snap_favs
 	                )
 	              )
 	            )
@@ -26059,9 +26128,15 @@
 	    key: 'render',
 	    value: function render() {
 	      console.log(this.state.photos);
+
+	      if (this.state.navigate) {
+	        console.log("REDIRCT" + this.state.selectedSnapshot.snap_username);
+	        return _react2.default.createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: { snapshot: this.state.selectedSnapshot } }, push: true });
+	      }
+
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'Snapshots' },
+	        null,
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'container' },
@@ -26102,7 +26177,11 @@
 	              _react2.default.createElement(
 	                'ul',
 	                { className: 'img-list' },
-	                this.state.photos
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  this.state.photos
+	                )
 	              )
 	            )
 	          )
@@ -26140,16 +26219,23 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Scenic = function (_Component) {
-	  _inherits(Scenic, _Component);
+	var Snapshot = function (_Component) {
+	  _inherits(Snapshot, _Component);
 
-	  function Scenic() {
-	    _classCallCheck(this, Scenic);
+	  function Snapshot(props) {
+	    _classCallCheck(this, Snapshot);
 
-	    return _possibleConstructorReturn(this, (Scenic.__proto__ || Object.getPrototypeOf(Scenic)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Snapshot.__proto__ || Object.getPrototypeOf(Snapshot)).call(this, props));
+
+	    _this.state = {
+	      snapshot: _this.props.location.state.snapshot
+	    };
+	    console.log("This is photo");
+	    console.log(_this.state.snapshot);
+	    return _this;
 	  }
 
-	  _createClass(Scenic, [{
+	  _createClass(Snapshot, [{
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -26157,132 +26243,94 @@
 	        null,
 	        _react2.default.createElement(
 	          "div",
-	          { className: "container" },
+	          { className: "content" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "dropdown" },
+	            { className: "col-sm-5 instance-details" },
 	            _react2.default.createElement(
-	              "button",
-	              { className: "btn btn-primary dropdown-toggle", type: "button", "data-toggle": "dropdown" },
-	              "Choose City",
-	              _react2.default.createElement("span", { className: "caret" })
+	              "div",
+	              { className: "product-item" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "product-item-title" },
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "bg-faded p-5 d-flex ml-auto rounded" },
+	                  _react2.default.createElement(
+	                    "h2",
+	                    { className: "section-heading mb-0" },
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-upper" },
+	                      "Snapshot: "
+	                    ),
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "section-heading-lower" },
+	                      this.state.snapshot.snap_name
+	                    )
+	                  )
+	                )
+	              )
 	            ),
 	            _react2.default.createElement(
-	              "ul",
-	              { className: "dropdown-menu" },
-	              _react2.default.createElement("input", { className: "form-control", id: "myInput", type: "text", placeholder: "Search.." }),
+	              "div",
+	              { className: "product-item-description mr-auto" },
 	              _react2.default.createElement(
-	                "li",
-	                null,
+	                "div",
+	                { className: "bg-faded p-5 rounded" },
 	                _react2.default.createElement(
-	                  "a",
-	                  { href: "#" },
-	                  "Austin, TX"
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Photographer name: ",
+	                  this.state.snapshot.snap_photographer
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Username: ",
+	                  this.state.snapshot.snap_username
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Tags: ",
+	                  this.state.snapshot.snap_tags
+	                ),
+	                _react2.default.createElement(
+	                  "p",
+	                  { className: "mb-0" },
+	                  "Faves: ",
+	                  this.state.snapshot.snap_favs
 	                )
 	              )
 	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-sm-5 instance-pic" },
+	            _react2.default.createElement("img", { className: "product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0", src: this.state.snapshot.snap_picture, alt: true, style: { width: 500, height: 500, marginTop: 50 } })
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "section",
-	          { className: "page-section" },
+	          "div",
+	          { className: "model-links" },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "container" },
+	            "p",
+	            null,
 	            _react2.default.createElement(
-	              "div",
-	              { className: "row" },
-	              _react2.default.createElement(
-	                "ul",
-	                { className: "img-list" },
-	                _react2.default.createElement(
-	                  "li",
-	                  { className: "col" },
-	                  _react2.default.createElement(
-	                    "a",
-	                    { href: "/scenic/{{placeID1}}", placeid: "{{placeID1}}" },
-	                    _react2.default.createElement("img", { src: "https://photos.smugmug.com/Galleries/All/i-hbc4Wbr/4/5477538c/L/DJI_0021-cware-L.jpg", style: { width: 300, height: 300 }, alt: "Photo 1" }),
-	                    _react2.default.createElement(
-	                      "span",
-	                      { className: "picText" },
-	                      _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        '{',
-	                        '{',
-	                        "name1",
-	                        '}',
-	                        '}',
-	                        _react2.default.createElement("br", null),
-	                        "Rating: ",
-	                        '{',
-	                        '{',
-	                        "rating1",
-	                        '}',
-	                        '}'
-	                      )
-	                    )
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  "li",
-	                  { className: "col" },
-	                  _react2.default.createElement(
-	                    "a",
-	                    { href: "/scenic/{{placeID2}}", placeid: "{{placeID2}}" },
-	                    _react2.default.createElement("img", { src: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/scenic-overlook-of-austin-mark-weaver.jpg", style: { width: 300, height: 300 }, alt: "Photo 2" }),
-	                    _react2.default.createElement(
-	                      "span",
-	                      { className: "picText" },
-	                      _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        '{',
-	                        '{',
-	                        "name2",
-	                        '}',
-	                        '}',
-	                        _react2.default.createElement("br", null),
-	                        "Rating: ",
-	                        '{',
-	                        '{',
-	                        "rating2",
-	                        '}',
-	                        '}'
-	                      )
-	                    )
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  "li",
-	                  { className: "col" },
-	                  _react2.default.createElement(
-	                    "a",
-	                    { href: "/scenic/{{placeID3}}", placeid: "{{placeID3}}" },
-	                    _react2.default.createElement("img", { src: "https://s3.amazonaws.com/gs-waymarking-images/897c10a2-3419-4794-b4c3-fc9403decb45_d.jpg", style: { width: 300, height: 300 }, alt: "Photo 3" }),
-	                    _react2.default.createElement(
-	                      "span",
-	                      { className: "picText" },
-	                      _react2.default.createElement(
-	                        "span",
-	                        null,
-	                        '{',
-	                        '{',
-	                        "name3",
-	                        '}',
-	                        '}',
-	                        _react2.default.createElement("br", null),
-	                        "Rating: ",
-	                        '{',
-	                        '{',
-	                        "rating3",
-	                        '}',
-	                        '}'
-	                      )
-	                    )
-	                  )
-	                )
-	              )
+	              "a",
+	              { href: "/locations" },
+	              "LOCATIONS NEARBY"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "/shops" },
+	              "COFFEE SHOPS NEARBY"
 	            )
 	          )
 	        )
@@ -26290,10 +26338,10 @@
 	    }
 	  }]);
 
-	  return Scenic;
+	  return Snapshot;
 	}(_react.Component);
 
-	exports.default = Scenic;
+	exports.default = Snapshot;
 
 /***/ }),
 /* 218 */

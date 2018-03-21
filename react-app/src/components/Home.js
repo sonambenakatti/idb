@@ -8,8 +8,8 @@ class Home extends Component {
         <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
           <ol className="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to={0} className="active" />
-            <li data-target="#carouselExampleIndicators" data-slide-to={1} />
-            <li data-target="#carouselExampleIndicators" data-slide-to={2} />
+            <li data-target="#carouselExampleIndicators" data-slide-to={1} className="slide-to-locs"/>
+            <li data-target="#carouselExampleIndicators" data-slide-to={2} className="slide-to-snaps"/>
           </ol>
           <div className="carousel-inner">
             <div className="carousel-item active">
@@ -20,7 +20,7 @@ class Home extends Component {
               </div>
             </div>
             <div className="carousel-item">
-              <p><a href="/scenic"><img className="d-block w-100" src="/static/img/coffee2.jpg" alt="Second slide" /></a></p>
+              <p><a href="/locations"><img className="d-block w-100" src="/static/img/coffee2.jpg" alt="Second slide" /></a></p>
               <div className="carousel-caption d-none d-md-block">
                 <h3>Scenic Views</h3>
                 <p>Click through stunning locations.</p>

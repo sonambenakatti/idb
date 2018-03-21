@@ -32,10 +32,10 @@ class Navbar extends Component {
                   <a id="scenicloc" className="nav-link text-uppercase text-expanded" href="/locations">Scenic Locations</a>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a className="nav-link text-uppercase text-expanded" href="/snapshots">Snapshots</a>
+                  <a id="snaps"className="nav-link text-uppercase text-expanded" href="/snapshots">Snapshots</a>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a className="nav-link text-uppercase text-expanded" href="/about">about</a>
+                  <a id="about"className="nav-link text-uppercase text-expanded" href="/about">about</a>
                 </li>
               </ul>
             </div>
