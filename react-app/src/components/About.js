@@ -8,6 +8,7 @@ constructor(props) {
   this.state = {
     commits: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
     issues: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
+    ready: false
   };
 }
 
@@ -32,6 +33,10 @@ loadCommits() {
           );
         })
   			.catch(err => console.error(this.props.url, err.toString()));
+
+        this.setState(
+          {ready: true}
+        );
 }
 
 loadIssues() {
@@ -55,6 +60,10 @@ loadIssues() {
 render() {
   let commits  = this.state.commits;
   let issues = this.state.issues;
+
+  if(this.state.ready) {
+    this.forceUpdate()
+  }
 
   return (
     <div>
