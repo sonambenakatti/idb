@@ -28,10 +28,12 @@ class CoffeeInstance extends Component {
           </div>
           <div className="product-item-description mr-auto">
             <div className="bg-faded p-5 rounded">
-              <p className="mb-0">Address: {this.state.shop.shop_address}</p>
-              <p className="mb-0">Contact: {this.state.shop.shop_contact}</p>
-              <p className="mb-0">Price: {this.state.shop.shop_price}</p>
-              <p className="mb-0">Rating: {this.state.shop.shop_rating}</p>
+              <span className="mb-0">
+                <b>Address: </b>{this.state.shop.shop_address}<br />
+                <b>Contact: </b>{this.state.shop.shop_contact}<br />
+                <b>Price: </b>{this.state.shop.shop_price}<br />
+                <b>Rating: </b>{this.state.shop.shop_rating}<br />
+              </span>
             </div>
           </div>
         </div>
