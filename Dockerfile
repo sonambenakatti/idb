@@ -33,8 +33,8 @@ RUN apt-get update && apt-get install -y supervisor \
 # Custom Supervisord config
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY ./app /app
-WORKDIR /app
+COPY ./backend /backend
+WORKDIR /backend
 
 CMD ["/usr/bin/supervisord"]
 
@@ -48,5 +48,4 @@ COPY requirements.txt /tmp/
 RUN pip install -U pip
 RUN pip install -r /tmp/requirements.txt
 
-COPY ./app /app
-
+COPY ./backend /backend

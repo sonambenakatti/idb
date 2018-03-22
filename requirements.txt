@@ -5,3 +5,5 @@ Flask==0.12.2
 selenium
 mocha
 chai
+sqlalchemy
+pymysql
