@@ -31,12 +31,11 @@ loadCommits() {
           this.setState(
             {commits: actualCommits}
           );
+          this.setState(
+            {ready: true}
+          );
         })
   			.catch(err => console.error(this.props.url, err.toString()));
-
-        this.setState(
-          {ready: true}
-        );
 }
 
 loadIssues() {
@@ -62,7 +61,7 @@ render() {
   let issues = this.state.issues;
 
   if(this.state.ready) {
-    this.forceUpdate()
+    commits = this.state.commits
   }
 
   return (

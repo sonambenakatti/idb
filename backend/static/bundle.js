@@ -13216,11 +13216,10 @@ var About = function (_Component) {
         }
         actualCommits["total"] = total;
         _this2.setState({ commits: actualCommits });
+        _this2.setState({ ready: true });
       }).catch(function (err) {
         return console.error(_this2.props.url, err.toString());
       });
-
-      this.setState({ ready: true });
     }
   }, {
     key: "loadIssues",
@@ -13249,7 +13248,7 @@ var About = function (_Component) {
       var issues = this.state.issues;
 
       if (this.state.ready) {
-        this.forceUpdate();
+        commits = this.state.commits;
       }
 
       return _react2.default.createElement(
