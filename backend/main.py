@@ -98,7 +98,7 @@ def get_coffeeshop(coffeeId) :
     #     flask.abort(500)
     # if len(jsonRes) <= 2:
     #     flask.abort(500)  # nothing is in there
-    return redirect('//api.espressoyoself.me/coffeeshops/' + coffeeId, code=302)
+    return redirect('//api.espressoyoself.me/coffeeshop/' + coffeeId, code=302)
 
 @APP.route('/getsnapshots', methods=['GET'])
 def get_snapshots() :
