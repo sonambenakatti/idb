@@ -7,7 +7,7 @@ class Navbar extends Component {
   render() {
 
     return (
-      <div>
+      <div id="navbar">
         <h1 className="site-heading text-center text-white d-none d-lg-block">
           <span className="site-heading-lower">Coffee With A View</span>
         </h1>

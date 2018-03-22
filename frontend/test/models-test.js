@@ -1,50 +1,51 @@
-//require('./.setup');//('<html><body></body></html>');
-
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
-import "isomorphic-fetch"
 
 import CoffeeShops from '../components/CoffeeShops.js';
+import CoffeeInstance from '../components/CoffeeInstance.js';
 import Locations from '../components/Locations.js';
 import SnapshotsMain from '../components/SnapshotsMain.js';
-import CoffeeInstance from '../components/CoffeeInstance.js';
-import Location from '../components/Location.js';
-import Snapshot from '../components/Snapshot.js';
+import About from '../components/About.js';
+import Navbar from '../components/Navbar.js';
 
 import {jsdom} from 'jsdom';
 
+describe('Test Navigation Bar', () => {
+    const wrapper = shallow(<Navbar />);
+    it('exists', () => {
+      expect(wrapper.find('#navbar').exists()).to.eql(true);
+    });
+});
+
 describe("Test CoffeeShops", function() {
-
-  before(() => {
-    global.document = jsdom('<!doctype html><html><body></body></html>')
-    global.window = global.defaultView
-    global.navigator = {
-      userAgent: 'node.js'
-    }
-  })
-
   it("Test for grid", function() {
       expect(shallow(<CoffeeShops />).contains(<div className="row" />)).to.equal(true);
   });
-  it("Test state of coffeeshops", function() {
-    const wrapper = mount(<CoffeeShops/>);
-    wrapper.setState({ coffeeshops: [1, 2, 3, 4]});
-    expect(wrapper.state('coffeeshops')).to.equal([1, 2, 3, 4]);
-  });
 });
 
-
-// Ensure that the grid is showing up
 describe("Test Locations", function() {
   it("Test for grid", function() {
       expect(shallow(<Locations />).contains(<div className="row" />)).to.equal(true);
   });
 });
 
-// Ensure that the grid is showing up
 describe("Test SnapshotsMain", function() {
   it("Test for grid", function() {
       expect(shallow(<SnapshotsMain />).contains(<div className="row" />)).to.equal(true);
+  });
+});
+
+describe("Test About", function() {
+  const wrapper = shallow(<About />);
+  it('Test all users exist', () => {
+      expect(wrapper.find('#amrutha').exists()).to.eql(true);
+      expect(wrapper.find('#jaemin').exists()).to.eql(true);
+      expect(wrapper.find('#sonam').exists()).to.eql(true);
+      expect(wrapper.find('#jenni').exists()).to.eql(true);
+      expect(wrapper.find('#ruchi').exists()).to.eql(true);
+  });
+  it('Test all tools/links exist', () => {
+        expect(wrapper.find('#info').exists()).to.eql(true);
   });
 });

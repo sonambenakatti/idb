@@ -91,7 +91,7 @@ render() {
                 <span className="section-heading-upper">Focus: Scenic Locations</span>
               </h2>
               <p className="mb-3">Amrutha's coffee of choice is a soy vanilla latte. In her spare time, she likes playing with her dogs, eating, and planning events. Her software interests include web development, security, and mobile applications.</p>
-              <p className="mb-3">
+              <p className="mb-3" id="amrutha">
                 <b>Commits:</b> {commits['AmruthaSreedharane']} <br />
                 <b>Issues:</b> {issues['AmruthaSreedharane']} <br />
                 <b>Unit Tests:</b> 0
@@ -111,7 +111,7 @@ render() {
                 <span className="section-heading-upper">Focus: Coffee Shops</span>
               </h2>
               <p className="mb-3">Jaemin is interested in VR, web apps, and mobile apps. In his free time he likes to play guitar and piano, and draw (you can follow him at @godrawjae). His favorite coffee is an americano with sweetener.</p>
-              <p className="mb-3">
+              <p className="mb-3" id="jaemin">
                 <b>Commits:</b> {commits['GohJazn']} <br />
                 <b>Issues:</b> {issues['GohJazn']} <br />
                 <b>Unit Tests:</b> 0
@@ -131,7 +131,7 @@ render() {
                 <span className="section-heading-upper">Focus: Snapshots</span>
               </h2>
               <p className="mb-3">Jenni enjoys reading, trying new food, and watching youtubers. She's into web development and her coffee of choice is cold brew.</p>
-              <p className="mb-3">
+              <p className="mb-3" id="jenni">
                 <b>Commits:</b> {commits['jenniferrethi']} <br />
                 <b>Issues:</b> {issues['jenniferrethi']} <br />
                 <b>Unit Tests:</b> 0
@@ -152,7 +152,7 @@ render() {
               </h2>
               <p className="mb-3">Ruchi is a fellow coffee enthusiast and guilty Starbucks fanatic. Her go to coffee drink is plain coffee with a little vanilla and a splash of coconut milk. In her spare time she likes to try new foods, do yoga, and binge watch TV shows. She's excited to get out in the real world and start off her career as a software engineer!
               </p>
-              <p className="mb-3">
+              <p className="mb-3" id="ruchi">
                 <b>Commits:</b> {commits['ruchi-shekar']} <br />
                 <b>Issues:</b> {issues['ruchi-shekar']} <br />
                 <b>Unit Tests:</b> 0
@@ -172,7 +172,7 @@ render() {
                 <span className="section-heading-upper">Focus: About</span>
               </h2>
               <p className="mb-3">Sonam likes all types of coffee, although her go-to is an iced coffee with one pump of vanilla syrup. In her free time, she loves to eat and attempt to convince herself that running is fun. She hopes one day she can make an impact as a software engineer.</p>
-              <p className="mb-3">
+              <p className="mb-3" id="sonam">
                 <b>Commits:</b> {commits['sonambenakatti']} <br />
                 <b>Issues:</b> {issues['sonambenakatti']} <br />
                 <b>Unit Tests:</b> 0
@@ -181,7 +181,7 @@ render() {
           </div>
         </div>
       </section>
-      <section className="page-section cta">
+      <section className="page-section cta" id="info">
         <div className="container">
           <div className="row">
             <div className="col-xl-9 mx-auto">
