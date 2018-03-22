@@ -2,3 +2,6 @@ requests==2.18.4
 pygithub
 flickrapi
 Flask==0.12.2
+selenium
+mocha
+chai
