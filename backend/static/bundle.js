@@ -13930,28 +13930,36 @@ var CoffeeInstance = function (_Component) {
                 "div",
                 { className: "bg-faded p-5 rounded" },
                 _react2.default.createElement(
-                  "p",
+                  "span",
                   { className: "mb-0" },
-                  "Address: ",
-                  this.state.shop.shop_address
-                ),
-                _react2.default.createElement(
-                  "p",
-                  { className: "mb-0" },
-                  "Contact: ",
-                  this.state.shop.shop_contact
-                ),
-                _react2.default.createElement(
-                  "p",
-                  { className: "mb-0" },
-                  "Price: ",
-                  this.state.shop.shop_price
-                ),
-                _react2.default.createElement(
-                  "p",
-                  { className: "mb-0" },
-                  "Rating: ",
-                  this.state.shop.shop_rating
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Address: "
+                  ),
+                  this.state.shop.shop_address,
+                  _react2.default.createElement("br", null),
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Contact: "
+                  ),
+                  this.state.shop.shop_contact,
+                  _react2.default.createElement("br", null),
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Price: "
+                  ),
+                  this.state.shop.shop_price,
+                  _react2.default.createElement("br", null),
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Rating: "
+                  ),
+                  this.state.shop.shop_rating,
+                  _react2.default.createElement("br", null)
                 )
               )
             )
@@ -14419,20 +14427,32 @@ var Location = function (_Component) {
                 _react2.default.createElement(
                   "p",
                   { className: "mb-0" },
-                  "Address: ",
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Address: "
+                  ),
                   this.state.address
                 ),
                 _react2.default.createElement(
                   "p",
                   { className: "mb-0" },
-                  "Rating: ",
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Rating: "
+                  ),
                   this.state.rating,
                   "/5"
                 ),
                 _react2.default.createElement(
                   "p",
                   { className: "mb-0" },
-                  "Reviews:"
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Reviews:"
+                  )
                 ),
                 _react2.default.createElement(
                   "p",
@@ -14873,25 +14893,41 @@ var Snapshot = function (_Component) {
                 _react2.default.createElement(
                   "p",
                   { className: "mb-0" },
-                  "Photographer name: ",
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Photographer name: "
+                  ),
                   this.state.snapshot.snap_photographer
                 ),
                 _react2.default.createElement(
                   "p",
                   { className: "mb-0" },
-                  "Username: ",
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Username: "
+                  ),
                   this.state.snapshot.snap_username
                 ),
                 _react2.default.createElement(
                   "p",
                   { className: "mb-0" },
-                  "Tags: ",
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Tags: "
+                  ),
                   this.state.snapshot.snap_tags
                 ),
                 _react2.default.createElement(
                   "p",
                   { className: "mb-0" },
-                  "Faves: ",
+                  _react2.default.createElement(
+                    "b",
+                    null,
+                    "Faves: "
+                  ),
                   this.state.snapshot.snap_favs
                 )
               )

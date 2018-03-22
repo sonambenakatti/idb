@@ -28,10 +28,10 @@ class Snapshot extends Component {
             </div>
             <div className="product-item-description mr-auto">
               <div className="bg-faded p-5 rounded">
-                <p className="mb-0">Photographer name: {this.state.snapshot.snap_photographer}</p>
-                <p className="mb-0">Username: {this.state.snapshot.snap_username}</p>
-                <p className="mb-0">Tags: {this.state.snapshot.snap_tags}</p>
-                <p className="mb-0">Faves: {this.state.snapshot.snap_favs}</p>
+                <p className="mb-0"><b>Photographer name: </b>{this.state.snapshot.snap_photographer}</p>
+                <p className="mb-0"><b>Username: </b>{this.state.snapshot.snap_username}</p>
+                <p className="mb-0"><b>Tags: </b>{this.state.snapshot.snap_tags}</p>
+                <p className="mb-0"><b>Faves: </b>{this.state.snapshot.snap_favs}</p>
               </div>
             </div>
           </div>
