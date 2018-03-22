@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
     "lodash.chunk": "^4.2.0",
     "react": "^0.14.9",
     "react-dom": "^0.14.9",
