@@ -7,15 +7,14 @@ import fetch from 'isomorphic-fetch'
 
 Enzyme.configure({adapter: new Adapter()});
 
-import CoffeeShops from '../components/CoffeeShops.js';
-import CoffeeInstance from '../components/CoffeeInstance.js';
-import Locations from '../components/Locations.js';
-import Location from '../components/Location.js';
-import SnapshotsMain from '../components/SnapshotsMain.js';
-import Snapshot from '../components/Snapshot.js';
-import About from '../components/About.js';
-
-import Navbar from '../components/Navbar.js';
+import CoffeeShops from '../frontend/components/CoffeeShops.js';
+import CoffeeInstance from '../frontend/components/CoffeeInstance.js';
+import Locations from '../frontend/components/Locations.js';
+import Location from '../frontend/components/Location.js';
+import SnapshotsMain from '../frontend/components/SnapshotsMain.js';
+import Snapshot from '../frontend/components/Snapshot.js';
+import About from '../frontend/components/About.js';
+import Navbar from '../frontend/components/Navbar.js';
 
 describe('Test Navigation Bar', () => {
 

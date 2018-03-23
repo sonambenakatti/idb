@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha test/.setup.js test/models-test.js",
+    "test": "mocha .setup.js tests.js",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
