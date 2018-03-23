@@ -94,7 +94,7 @@ render() {
               <p className="mb-3" id="amrutha">
                 <b>Commits:</b> {commits['AmruthaSreedharane']} <br />
                 <b>Issues:</b> {issues['AmruthaSreedharane']} <br />
-                <b>Unit Tests:</b> 0
+                <b>Unit Tests:</b> 8
               </p>
             </div>
           </div>
@@ -134,7 +134,7 @@ render() {
               <p className="mb-3" id="jenni">
                 <b>Commits:</b> {commits['jenniferrethi']} <br />
                 <b>Issues:</b> {issues['jenniferrethi']} <br />
-                <b>Unit Tests:</b> 0
+                <b>Unit Tests:</b> 13
               </p>
             </div>
           </div>
@@ -155,7 +155,7 @@ render() {
               <p className="mb-3" id="ruchi">
                 <b>Commits:</b> {commits['ruchi-shekar']} <br />
                 <b>Issues:</b> {issues['ruchi-shekar']} <br />
-                <b>Unit Tests:</b> 0
+                <b>Unit Tests:</b> 9
               </p>
             </div>
           </div>
@@ -175,7 +175,7 @@ render() {
               <p className="mb-3" id="sonam">
                 <b>Commits:</b> {commits['sonambenakatti']} <br />
                 <b>Issues:</b> {issues['sonambenakatti']} <br />
-                <b>Unit Tests:</b> 0
+                <b>Unit Tests:</b> 11
               </p>
             </div>
           </div>
@@ -193,7 +193,7 @@ render() {
                 <p className="mb-4">
                   Commits: {commits['total']} <br />
                   Issues: {issues['total']} <br />
-                  Unit Tests: 0
+                  Unit Tests: 41
                 </p>
                 <h3 className="mb-4">DATA SOURCES</h3>
                 <p className="mb-4">
