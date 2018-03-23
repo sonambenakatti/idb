@@ -1,0 +1,561 @@
+{
+	"info": {
+		"_postman_id": "2ea472e1-7d83-2b58-d6cf-565ab352c940",
+		"name": "Espresso Yoself",
+		"description": "Testing our API calls for snapshots, scenic locations and coffeeshops ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api.espressoyoself.me/coffeeshops",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96853a8c-4300-48e8-aa08-3907f2a149a9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//test to check all of the shops are in response",
+							"pm.test(\"Response body is correct\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 1');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 2');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 3')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 4')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 5')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 6')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 7')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 8')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 9')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 10')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 11')",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 12')",
+							"    ",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/coffeeshops",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"coffeeshops"
+					]
+				},
+				"description": "APi for coffeeshops"
+			},
+			"response": []
+		},
+		{
+			"name": "/api.espressoyoself.me/snapshots",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c6332cd-4828-438b-b443-29da46aa7874",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// test to check all snapshots in response ",
+							"pm.test(\"Response body is correct\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 181');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 182');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 183');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 184')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 185')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 186')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 187')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 188')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 189')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 190')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 191')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 192')",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshots",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshots"
+					]
+				},
+				"description": "Snapshots API data \n\nA snapshot should have a: \nsnap_name \nsnap_photographer\nsnap_username\nsnap_tags\nsnap_favs\nsnap_picture\nsnap_latitude\nsnap_longitude\nshop_loc_id\nscenic_loc_id\nsnap_photo_id"
+			},
+			"response": []
+		},
+		{
+			"name": "/api.espressoyoself.me/about",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69fb66ec-234b-4683-bd65-75d2b7480258",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/about",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"about"
+					]
+				},
+				"description": "API for commits\n\nA get request should return \n\ncommits\nissues"
+			},
+			"response": []
+		},
+		{
+			"name": "/api.espressoyoself.me/sceniclocations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "152612c6-65eb-4174-b588-063722dfeb64",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// check all scenic locations in response ",
+							"pm.test(\"Response body is correct\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 1');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 2');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 3');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 4')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 5')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 6')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 7')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 8')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 9')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 10')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 11')",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 12')",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://api.espressoyoself.me/sceniclocations",
+					"protocol": "http",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"sceniclocations"
+					]
+				},
+				"description": "Api for Scenic Locations \n"
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/snapshot/181",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5aafef06-5f5e-4dc2-ab07-b8fcce6d467c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is correct\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"snap_photographer\": \"Don Mason\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_username\": \"-Dons\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_picture\": \"https://farm5.staticflickr.com/4605/25036430577_0f11597674.jpg\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 181');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_photo_id\": \"25036430577\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_longitude\": -97.743');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_latitude\": 30.2662');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_name\": \"A Great Start to the Day\"');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshot/181",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshot",
+						"181"
+					]
+				},
+				"description": "Get snapshot with ID 181"
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/snapshot/0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72ec29ab-9143-41a9-afed-7fdf915c74a8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshot/0",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshot",
+						"0"
+					]
+				},
+				"description": "Get snapshot with ID 0 - should fail"
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/snapshot/'bad type'",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "683acbd7-36d4-4d8b-975e-08c7dc22aaea",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Invalid type coffeeshop id\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshot/'hello'",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshot",
+						"'hello'"
+					]
+				},
+				"description": "Test Snapshot with invalid type for id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://api.espressoyoself.me/coffeeshop/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c38c4d20-1383-4068-8186-e7e91fced952",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is correct\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"shop_yelp_id\": \"summermoon-coffee-bar-austin-5\"');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_price\": \"$\"');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_name\": \"Summermoon Coffee Bar\"');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_contact\": \"(737) 300-1265\"');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_latitude\": 30.3944');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_longitude\": -97.7202');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_rating\": 4.5');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 1');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_address\": \"11005 Burnet RdSte 112Austin, TX 78758\"');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://api.espressoyoself.me/coffeeshop/1",
+					"protocol": "http",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"coffeeshop",
+						"1"
+					]
+				},
+				"description": "Testing correct data for coffeeshop with valid id "
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/coffeeshop/0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "052a911e-19e2-4d41-9724-444c4850fb5e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Invalid cofeeshop Id\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/coffeeshop/0",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"coffeeshop",
+						"0"
+					]
+				},
+				"description": "test coffeeshops with invalid id"
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/coffeeshop/'bad type'",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "683acbd7-36d4-4d8b-975e-08c7dc22aaea",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Invalid type coffeeshop id\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/coffeeshop/'hello'",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"coffeeshop",
+						"'hello'"
+					]
+				},
+				"description": "test coffeeshops with invalid id"
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/sceniclocation/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29a1088d-3c57-4386-b7bf-5c6b138c05a6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is correct\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_place_id\": \"ChIJva0k12-1RIYRWWvusUoiw_4\"');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_longitude\": -97.7541');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_name\": \"Pease District Park\"');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 1');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_address\": \"1100 Kingsbury St, Austin, TX 78705, USA\"');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_rating\": 4.6');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_latitude\": 30.2845');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/sceniclocation/1",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"sceniclocation",
+						"1"
+					]
+				},
+				"description": "Testing correct data with scenic location with valid id "
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/sceniclocation/0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16c69ec5-9770-4a3e-aea6-7a59751c3edc",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Invalid cofeeshop Id\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/sceniclocation/0",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"sceniclocation",
+						"0"
+					]
+				},
+				"description": "Testing scenic location with invalid id"
+			},
+			"response": []
+		},
+		{
+			"name": "api.espressoyoself.me/sceniclocation/'hello'",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c377466-5a52-4788-a57f-56fbb0f19d69",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Invalid type coffeeshop id\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/sceniclocation/'hello'",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"sceniclocation",
+						"'hello'"
+					]
+				},
+				"description": "Checking 500 response for invalid id type"
+			},
+			"response": []
+		}
+	]
+}
