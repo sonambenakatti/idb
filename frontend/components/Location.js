@@ -14,7 +14,6 @@ class Location extends Component {
         rating: this.props.location.state.selectedLocation.scenic_rating,
         review1: this.props.location.state.selectedLocation.scenic_review1,
         review2: this.props.location.state.selectedLocation.scenic_review2,
-
       };
       console.log(this.state);
   };

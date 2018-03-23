@@ -13,7 +13,7 @@ class CoffeeInstance extends Component {
 
   render() {
       return (
-      <div>
+    <div>
       <div className="content">
         <div className="col-sm-5 instance-details">
           <div className="product-item">
@@ -29,7 +29,7 @@ class CoffeeInstance extends Component {
           <div className="product-item-description mr-auto">
             <div className="bg-faded p-5 rounded">
               <span className="mb-0">
-                <b>Address: </b>{this.state.shop.shop_address}<br />
+                <b id="address">Address: </b>{this.state.shop.shop_address}<br />
                 <b>Contact: </b>{this.state.shop.shop_contact}<br />
                 <b>Price: </b>{this.state.shop.shop_price}<br />
                 <b>Rating: </b>{this.state.shop.shop_rating}<br />

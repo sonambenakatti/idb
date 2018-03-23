@@ -50,7 +50,7 @@ class SnapshotsMain extends Component {
           {/*location dropdown*/}
           <div className="container">
             <div className="dropdown">
-              <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" onclick="myFunction()">Choose City
+              <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose City
                 <span className="caret" /></button>
               <ul className="dropdown-menu">
                 <input className="form-control" id="myInput" type="text" placeholder="Search.." />
