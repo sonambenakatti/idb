@@ -15,6 +15,24 @@ ul.img-list li {
   margin-bottom: 70px;
 }
 
+ul.page-list {
+  list-style-type: none;
+  text-align: center;
+}
+
+ul.page-list li {
+  display: inline-block;
+  color: white;
+  font-size: 24px;
+  padding: 32px;
+}
+ul.page-list li:hover {
+  color:brown
+}
+ul.page-list li:active {
+  color:orange
+}
+
 ul.img-list li img {
   border-radius: 5px;
 }

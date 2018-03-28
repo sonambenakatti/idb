@@ -155,8 +155,8 @@ def query_api(term, location):
 
 user = 'TheCoolBeans'
 pwd = 'riley5143'
-host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
-db = 'beansdb'
+host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
+db = 'beansdbdev'
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 #app.config['SQLALCHEMY_DATABASE_URI'] = uri
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
