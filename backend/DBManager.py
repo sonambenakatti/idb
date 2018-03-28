@@ -17,8 +17,8 @@ app = flask.Flask(__name__)
 
 user = 'TheCoolBeans'
 pwd = 'riley5143'
-host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
-db = 'beansdb'
+host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
+db = 'beansdbdev'
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 #mysql_engine = create_engine('mysql://{0}:{1}@{2}:{3}'.format(user, pwd, host, port))
 
@@ -36,49 +36,54 @@ db.echo = False
 #      supplies such a method, so you don't need to declare a new one).
 
 metadata = MetaData()
-coffee_shops = Table('Shops', metadata,
+
+Cities = Table('Cities', metadata,
+  Column('city_id', Integer, primary_key=True),
+  Column('city_name', String(255)),
+  Column('city_picture', LargeBinary(length=(2**32)-1)),
+)
+Shops = Table('Shops', metadata,
   Column('shop_id', Integer, primary_key=True),
-  Column('shop_name', String(100)),
-  Column('shop_address', String(100)),
-  Column('shop_contact', String(100)),
-  Column('shop_price', String(100)),
-  Column('shop_hours', String(100)),
+  Column('shop_name', String(255)),
+  Column('shop_address', String(528)),
+  Column('shop_contact', String(255)),
+  Column('shop_price', String(255)),
+  Column('shop_hours', String(255)),
   Column('shop_rating', Float),
   Column('shop_picture', LargeBinary(length=(2**32)-1)),
   Column('shop_latitude', Float),
   Column('shop_longitude', Float),
-  Column('shop_yelp_id', String(100))
-
+  Column('city_id', Integer, ForeignKey("Cities.city_id")),
 )
 
-scenic_views = Table('Scenic', metadata,
+Scenic = Table('Scenic', metadata,
   Column('scenic_id', Integer, primary_key=True),
-  Column('scenic_name', String(100)),
-  Column('scenic_address', String(100)),
+  Column('scenic_name', String(255)),
+  Column('scenic_address', String(528)),
   Column('scenic_rating', Float),
-  Column('scenic_review1', String(100)),
-  Column('scenic_review2', String(100)),
+  Column('scenic_review1', String(1024)),
+  Column('scenic_review2', String(1024)),
   Column('scenic_picture', LargeBinary(length=(2**32)-1)),
   Column('scenic_latitude', Float),
   Column('scenic_longitude', Float),
-  Column('scenic_place_id', String(100))
+  Column('city_id', Integer, ForeignKey("Cities.city_id")),
 
 
 )
 
-snapshots = Table('Snapshots', metadata,
+Snapshots = Table('Snapshots', metadata,
   Column('snap_id', Integer, primary_key=True),
-  Column('snap_name', String(100)),
-  Column('snap_photographer', String(100)),
-  Column('snap_username', String(100)),
-  Column('snap_tags', String(100)),
+  Column('snap_name', String(255)),
+  Column('snap_photographer', String(255)),
+  Column('snap_username', String(255)),
+  Column('snap_tags', String(255)),
   Column('snap_favs', Integer),
   Column('snap_picture', LargeBinary(length=(2**32)-1)),
   Column('snap_latitude', Float),
   Column('snap_longitude', Float),
-  Column('shop_loc_id', Integer, ForeignKey("Shops.shop_id")),
-  Column('scenic_loc_id', Integer, ForeignKey("Scenic.scenic_id")),
-  Column('snap_photo_id', String(100))
+  Column('shop_id', Integer, ForeignKey("Shops.shop_id")),
+  Column('scenic_id', Integer, ForeignKey("Scenic.scenic_id")),
+  Column('city_id', Integer, ForeignKey("Cities.city_id")),
 
 )
 
