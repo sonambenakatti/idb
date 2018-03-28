@@ -10,7 +10,9 @@ constructor (props) {
     navigate: false,
     selectedShop: [],
     navigateTo: "",
-    item: ""
+    item: "",
+    currentPage: 1,
+    shopsPerPage: 3
   };
 };
 
@@ -37,11 +39,48 @@ componentDidMount(props) {
   })
 }
 
+// invokoed when user clicks a page number on the bottom.
+handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
+
 render() {
+
+  const { coffeeshops, currentPage, shopsPerPage } = this.state;
+
+  // Logic for displaying todos
+  const indexOfLastShop = currentPage * shopsPerPage;
+  const indexOfFirstShop = indexOfLastShop - shopsPerPage;
+  const currentShops = coffeeshops.slice(indexOfFirstShop, indexOfLastShop);
+  console.log("CURRENT SHOPS" + currentShops +" : "+ coffeeshops)
+  // Logic for displaying page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(coffeeshops.length / shopsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
     if (this.state.navigate) {
       console.log("REDIRCT" + this.state.selectedShop.shop_name)
       return <Redirect to={{pathname: this.state.navigateTo, state: {shop: this.state.selectedShop}}} push={true} />;
     }
+
+    const renderShops = currentShops.map((coffeeshops, index) => {
+      return <li key={index}>{coffeeshops}</li>;
+    });
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <li
+          key={number}
+          id={number}
+          onClick={this.handleClick.bind(this)}
+        >
+          {number}
+        </li>
+      );
+    });
 
     return (
       <div>
@@ -61,12 +100,18 @@ render() {
             <div className="row">
               <ul className="img-list">
                 <div className="row">
-                  {this.state.coffeeshops}
+                  {renderShops}
                 </div>
               </ul>
             </div>
           </div>
         </section>
+        <div className="col-md-12 text-center">
+        <ul className="page-list">
+          {renderPageNumbers}
+        </ul>
+        </div>
+
       </div>
     );
   }

@@ -12,7 +12,9 @@ constructor (props) {
       navigateTo: '',
       selectedLocation: [],
       navigateTo: "",
-      item: ""
+      item: "",
+      currentPage: 1,
+      locationsPerPage: 3
     };
 };
 
@@ -42,12 +44,45 @@ componentDidMount(props) {
   })
 }
 
+handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
+
 render() {
+
+  const{locations, currentPage, locationsPerPage} = this.state;
+
+  const indexOfLastLocation = currentPage * locationsPerPage;
+  const indexOfFirstLocation = indexOfLastLocation - locationsPerPage;
+  const currentLocations = locations.slice(indexOfFirstLocation, indexOfLastLocation);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(locations.length / locationsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   if (this.state.navigate) {
     console.log("REDIRCT" + this.state.selectedLocation);
     return <Redirect to={{pathname: this.state.navigateTo, state: {selectedLocation: this.state.selectedLocation}}} push={true} />;
   }
+
+  const renderLocations = currentLocations.map((locations, index) => {
+    return <li key={index}>{locations}</li>;
+  });
+
+  const renderPageNumbers = pageNumbers.map(number => {
+    return (
+      <li
+        key={number}
+        id={number}
+        onClick={this.handleClick.bind(this)}
+      >
+        {number}
+      </li>
+    );
+  });
 
   return (
       <div>
@@ -67,12 +102,17 @@ render() {
             <div className="row">
               <ul className="img-list">
                 <div className="row">
-                  {this.state.locations}
+                  {renderLocations}
                 </div>
               </ul>
             </div>
           </div>
         </section>
+        <div className="col-md-12 text-center">
+        <ul className="page-list">
+          {renderPageNumbers}
+        </ul>
+        </div>
       </div>
     );
   }

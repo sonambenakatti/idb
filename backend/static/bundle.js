@@ -4167,7 +4167,9 @@ var CoffeeShops = function (_Component) {
       navigate: false,
       selectedShop: [],
       navigateTo: "",
-      item: ""
+      item: "",
+      currentPage: 1,
+      shopsPerPage: 3
     };
     return _this;
   }
@@ -4228,14 +4230,67 @@ var CoffeeShops = function (_Component) {
 
       return componentDidMount;
     }()
+
+    // invokoed when user clicks a page number on the bottom.
+
+  }, {
+    key: 'handleClick',
+    value: function () {
+      function handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
+      }
+
+      return handleClick;
+    }()
   }, {
     key: 'render',
     value: function () {
       function render() {
+        var _this3 = this;
+
+        var _state = this.state,
+            coffeeshops = _state.coffeeshops,
+            currentPage = _state.currentPage,
+            shopsPerPage = _state.shopsPerPage;
+
+        // Logic for displaying todos
+
+        var indexOfLastShop = currentPage * shopsPerPage;
+        var indexOfFirstShop = indexOfLastShop - shopsPerPage;
+        var currentShops = coffeeshops.slice(indexOfFirstShop, indexOfLastShop);
+        console.log("CURRENT SHOPS" + currentShops + " : " + coffeeshops);
+        // Logic for displaying page numbers
+        var pageNumbers = [];
+        for (var i = 1; i <= Math.ceil(coffeeshops.length / shopsPerPage); i++) {
+          pageNumbers.push(i);
+        }
+
         if (this.state.navigate) {
           console.log("REDIRCT" + this.state.selectedShop.shop_name);
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: { shop: this.state.selectedShop } }, push: true });
         }
+
+        var renderShops = currentShops.map(function (coffeeshops, index) {
+          return _react2['default'].createElement(
+            'li',
+            { key: index },
+            coffeeshops
+          );
+        });
+
+        var renderPageNumbers = pageNumbers.map(function (number) {
+          return _react2['default'].createElement(
+            'li',
+            {
+              key: number,
+              id: number,
+              onClick: _this3.handleClick.bind(_this3)
+            },
+            number
+          );
+        });
 
         return _react2['default'].createElement(
           'div',
@@ -4283,10 +4338,19 @@ var CoffeeShops = function (_Component) {
                   _react2['default'].createElement(
                     'div',
                     { className: 'row' },
-                    this.state.coffeeshops
+                    renderShops
                   )
                 )
               )
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'col-md-12 text-center' },
+            _react2['default'].createElement(
+              'ul',
+              { className: 'page-list' },
+              renderPageNumbers
             )
           )
         );
@@ -4696,7 +4760,7 @@ var Locations = function (_Component) {
       navigate: false,
       navigateTo: '',
       selectedLocation: []
-    }, _defineProperty(_this$state, 'navigateTo', ""), _defineProperty(_this$state, 'item', ""), _this$state);
+    }, _defineProperty(_this$state, 'navigateTo', ""), _defineProperty(_this$state, 'item', ""), _defineProperty(_this$state, 'currentPage', 1), _defineProperty(_this$state, 'locationsPerPage', 3), _this$state);
     return _this;
   }
 
@@ -4754,14 +4818,61 @@ var Locations = function (_Component) {
       return componentDidMount;
     }()
   }, {
+    key: 'handleClick',
+    value: function () {
+      function handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
+      }
+
+      return handleClick;
+    }()
+  }, {
     key: 'render',
     value: function () {
       function render() {
+        var _this3 = this;
+
+        var _state = this.state,
+            locations = _state.locations,
+            currentPage = _state.currentPage,
+            locationsPerPage = _state.locationsPerPage;
+
+
+        var indexOfLastLocation = currentPage * locationsPerPage;
+        var indexOfFirstLocation = indexOfLastLocation - locationsPerPage;
+        var currentLocations = locations.slice(indexOfFirstLocation, indexOfLastLocation);
+
+        var pageNumbers = [];
+        for (var i = 1; i <= Math.ceil(locations.length / locationsPerPage); i++) {
+          pageNumbers.push(i);
+        }
 
         if (this.state.navigate) {
           console.log("REDIRCT" + this.state.selectedLocation);
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: { selectedLocation: this.state.selectedLocation } }, push: true });
         }
+
+        var renderLocations = currentLocations.map(function (locations, index) {
+          return _react2['default'].createElement(
+            'li',
+            { key: index },
+            locations
+          );
+        });
+
+        var renderPageNumbers = pageNumbers.map(function (number) {
+          return _react2['default'].createElement(
+            'li',
+            {
+              key: number,
+              id: number,
+              onClick: _this3.handleClick.bind(_this3)
+            },
+            number
+          );
+        });
 
         return _react2['default'].createElement(
           'div',
@@ -4809,10 +4920,19 @@ var Locations = function (_Component) {
                   _react2['default'].createElement(
                     'div',
                     { className: 'row' },
-                    this.state.locations
+                    renderLocations
                   )
                 )
               )
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'col-md-12 text-center' },
+            _react2['default'].createElement(
+              'ul',
+              { className: 'page-list' },
+              renderPageNumbers
             )
           )
         );
@@ -5175,7 +5295,9 @@ var SnapshotsMain = function (_Component) {
       navigate: false,
       selectedSnapshot: [],
       navigateTo: "",
-      item: ""
+      item: "",
+      currentPage: 1,
+      photosPerPage: 3
     };
     return _this;
   }
@@ -5234,15 +5356,65 @@ var SnapshotsMain = function (_Component) {
       return componentDidMount;
     }()
   }, {
+    key: 'handleClick',
+
+
+    // invokoed when user clicks a page number on the bottom.
+    value: function () {
+      function handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
+      }
+
+      return handleClick;
+    }()
+  }, {
     key: 'render',
     value: function () {
       function render() {
+        var _this3 = this;
+
         console.log(this.state.photos);
+        var _state = this.state,
+            photos = _state.photos,
+            currentPage = _state.currentPage,
+            photosPerPage = _state.photosPerPage;
+
+
+        var indexOfLastPhoto = currentPage * photosPerPage;
+        var indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
+        var currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
+
+        var pageNumbers = [];
+        for (var i = 1; i <= Math.ceil(photos.length / photosPerPage); i++) {
+          pageNumbers.push(i);
+        }
 
         if (this.state.navigate) {
           console.log("REDIRCT" + this.state.selectedSnapshot.snap_username);
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: { snapshot: this.state.selectedSnapshot } }, push: true });
         }
+
+        var renderPhotos = currentPhotos.map(function (photos, index) {
+          return _react2['default'].createElement(
+            'li',
+            { key: index },
+            photos
+          );
+        });
+
+        var renderPageNumbers = pageNumbers.map(function (number) {
+          return _react2['default'].createElement(
+            'li',
+            {
+              key: number,
+              id: number,
+              onClick: _this3.handleClick.bind(_this3)
+            },
+            number
+          );
+        });
 
         return _react2['default'].createElement(
           'div',
@@ -5290,10 +5462,19 @@ var SnapshotsMain = function (_Component) {
                   _react2['default'].createElement(
                     'div',
                     { className: 'row' },
-                    this.state.photos
+                    renderPhotos
                   )
                 )
               )
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'col-md-12 text-center' },
+            _react2['default'].createElement(
+              'ul',
+              { className: 'page-list' },
+              renderPageNumbers
             )
           )
         );

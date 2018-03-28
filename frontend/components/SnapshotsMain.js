@@ -10,7 +10,9 @@ class SnapshotsMain extends Component {
         navigate: false,
         selectedSnapshot: [],
         navigateTo: "",
-        item: ""
+        item: "",
+        currentPage: 1,
+        photosPerPage: 3
       };
     };
 
@@ -37,13 +39,46 @@ class SnapshotsMain extends Component {
         });
     };
 
+    // invokoed when user clicks a page number on the bottom.
+    handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
+      }
+
     render() {
       console.log(this.state.photos);
+      const { photos, currentPage, photosPerPage } = this.state;
+
+      const indexOfLastPhoto = currentPage * photosPerPage;
+      const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
+      const currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
+
+      const pageNumbers = [];
+      for (let i = 1; i <= Math.ceil(photos.length / photosPerPage); i++) {
+        pageNumbers.push(i);
+      }
 
       if (this.state.navigate) {
         console.log("REDIRCT" + this.state.selectedSnapshot.snap_username)
         return <Redirect to={{pathname: this.state.navigateTo, state: {snapshot: this.state.selectedSnapshot}}} push={true} />;
       }
+
+      const renderPhotos = currentPhotos.map((photos, index) => {
+        return <li key={index}>{photos}</li>;
+      });
+
+      const renderPageNumbers = pageNumbers.map(number => {
+        return (
+          <li
+            key={number}
+            id={number}
+            onClick={this.handleClick.bind(this)}
+          >
+            {number}
+          </li>
+        );
+      });
 
       return (
         <div>
@@ -63,12 +98,17 @@ class SnapshotsMain extends Component {
               <div className="row">
                 <ul className="img-list">
                   <div className="row">
-                    {this.state.photos}
+                    {renderPhotos}
                   </div>
                 </ul>
               </div>
             </div>
           </section>
+          <div className="col-md-12 text-center">
+          <ul className="page-list">
+            {renderPageNumbers}
+          </ul>
+          </div>
         </div>
       );
     }
