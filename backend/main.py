@@ -39,6 +39,17 @@ def home():
 def home():
     return flask.render_template('home.html')
 
+@APP.route('/getcities', methods=['GET'])
+def get_cities():
+    try:
+        result = engine.execute('SELECT city_name FROM Cities').fetchall()
+        jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
+    except:
+        flask.abort(500)
+    if len(jsonRes) <= 2:
+        flask.abort(500)  # nothing is in there
+    return jsonRes
+
 @APP.route('/<path:path>')
 def catch_all (path):
     return flask.render_template('home.html')

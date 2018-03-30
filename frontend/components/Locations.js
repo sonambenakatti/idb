@@ -14,7 +14,8 @@ constructor (props) {
       navigateTo: "",
       item: "",
       currentPage: 1,
-      locationsPerPage: 3
+      locationsPerPage: 9,
+      cities_list: []
     };
 };
 
@@ -41,6 +42,22 @@ componentDidMount(props) {
       )
     })
     this.setState({locations: views});
+  })
+  this.getCities();
+}
+
+getCities() {
+  fetch('/getcities').then(results =>{
+    console.log(results)
+    return results.json();
+  }).then(data=>{
+    console.log(data)
+    let cities = data.map((city) =>{
+      return(
+        <li><a href="#">{city.city_name}</a></li>
+      )
+    })
+    this.setState({cities_list: cities});
   })
 }
 
@@ -87,13 +104,13 @@ render() {
   return (
       <div>
         {/*location dropdown*/}
-        <div className="container">
+        <div className="filters-and-grid">
+        <div className="filter-container">
           <div className="dropdown">
-            <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose City
+            <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a City to Explore
               <span className="caret" /></button>
             <ul className="dropdown-menu">
-              <input className="form-control" id="myInput" type="text" placeholder="Search.." />
-              <li><a href="#">Austin, TX</a></li>
+              {this.state.cities_list}
             </ul>
           </div>
         </div>
@@ -108,6 +125,7 @@ render() {
             </div>
           </div>
         </section>
+        </div>
         <div className="col-md-12 text-center">
         <ul className="page-list">
           {renderPageNumbers}
