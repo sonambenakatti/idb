@@ -11,17 +11,17 @@ import Location from './components/Location';
 import Locations from './components/Locations';
 import SnapshotsMain from './components/SnapshotsMain';
 import Snapshot from './components/Snapshot';
-
+import Search from './components/Search';
 
 class App extends Component {
 
   constructor(props) {
-        super(props);
+    super(props);
   }
 
 
 
-render() {
+  render() {
 
   return (
     <Router>
@@ -36,6 +36,7 @@ render() {
           <Route path='/snapshot' component={Snapshot} />
           <Route path='/locations' component={Locations} />
           <Route path='/location' component={Location} />
+          <Route path='/search' component={Search} />
         </Switch>
       </div>
     </Router>
