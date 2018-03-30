@@ -30,10 +30,19 @@ metadata.reflect(bind=engine)
 # Create the application.
 APP = flask.Flask(__name__)
 CORS(APP)
-
+'''
 @APP.route('/')
 def home():
     return "You have reached espressoyoself's rest api"
+'''
+
+@APP.route('/')
+def home():
+    return flask.render_template('home.html')
+
+@APP.route('/<path:path>')
+def catch_all (path):
+    return flask.render_template('home.html')
 
 def alchemyencoder(obj):
     """
@@ -43,8 +52,10 @@ def alchemyencoder(obj):
     """
     if isinstance(obj, bytes):
         return obj.decode('utf8')
-
+'''
 @APP.route('/about',  methods=['GET'])
+'''
+@APP.route('/getabout', methods=['GET'])
 def get_about():
     about_json = {}
     commits = githubstats.user_commits()
@@ -52,8 +63,10 @@ def get_about():
     about_json["commits"] = commits
     about_json["issues"] = issues
     return jsonify({'about': about_json})
-
+'''
 @APP.route('/sceniclocations', methods=['GET'])
+'''
+@APP.route('/getsceniclocations', methods=['GET'])
 def get_sceniclocations() :
     jsonRes = []
     print("IN SCENIC")
@@ -66,8 +79,10 @@ def get_sceniclocations() :
     if len(jsonRes) <= 2:
         flask.abort(500)  # nothing is in there
     return jsonRes
-
+'''
 @APP.route('/sceniclocation/<scenicId>', methods=['GET'])
+'''
+@APP.route('/getsceniclocation/<scenicId>', methods=['GET'])
 def get_sceniclocation(scenicId) :
     jsonRes = []
     print("IN SCENIC ID")
@@ -80,8 +95,10 @@ def get_sceniclocation(scenicId) :
     if len(jsonRes) <= 2:
         flask.abort(500)  # nothing is in there
     return jsonRes
-
+'''
 @APP.route('/coffeeshops', methods=['GET'])
+'''
+@APP.route('/getcoffeeshops', methods=['GET'])
 def get_coffeeshops() :
     """
     returns all coffeeshops from the Shops table
@@ -97,8 +114,10 @@ def get_coffeeshops() :
     if len(jsonRes) <= 2:
         flask.abort(500)  # nothing is in there
     return jsonRes
-
+'''
 @APP.route('/coffeeshop/<coffeeId>', methods=['GET'])
+'''
+@APP.route('/getcoffeeshop/<coffeeId>', methods=['GET'])
 def get_coffeeshop(coffeeId) :
     """
     returns a row based off of coffeeId from the Shops table
@@ -114,8 +133,10 @@ def get_coffeeshop(coffeeId) :
     if len(jsonRes) <= 2:
         flask.abort(500)  # nothing is in there
     return jsonRes
-
+'''
 @APP.route('/snapshots', methods=['GET'])
+'''
+@APP.route('/getsnapshots', methods=['GET'])
 def get_snapshots() :
     """
     Implement RESTful API here
@@ -131,8 +152,10 @@ def get_snapshots() :
     if len(jsonRes) <= 2:
         flask.abort(500)  # nothing is in there
     return jsonRes
-
+'''
 @APP.route('/snapshot/<snapshotId>',  methods=['GET'])
+'''
+@APP.route('/getsnapshot/<snapshotId>', methods=['GET'])
 def get_snapshot(snapshotId) :
     """
     returns a row based off of snapshotId from the Snapshots table
