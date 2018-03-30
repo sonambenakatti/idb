@@ -41,7 +41,6 @@ class SnapshotsMain extends Component {
           console.log("state", this.state.photos);
         });
         this.getCities();
-        this.filterMenu();
     };
 
     getCities() {
@@ -59,26 +58,12 @@ class SnapshotsMain extends Component {
       });
     };
 
-    filterMenu() {
-      let options = this.state.favoritesFilter.map((option) =>{
-        return(
-          <li><a href="#">{option}</a></li>
-        )
-      });
-      this.setState({favoritesFilter: options});
-    };
-
     // invokoed when user clicks a page number on the bottom.
     handleClick(event) {
         this.setState({
           currentPage: Number(event.target.id)
         });
       }
-
-    // handle range
-    handleRange(event) {
-        this.setState({selectedRange: event.target.value});
-    }
 
     render() {
       console.log(this.state.photos);
@@ -102,6 +87,10 @@ class SnapshotsMain extends Component {
         return <li key={index}>{photos}</li>;
       });
 
+      const renderRanges = this.state.favoritesFilter.map((option, index) => {
+        return <li key={index}><a href="#">{option}</a></li>;
+      });
+
       const renderPageNumbers = pageNumbers.map(number => {
         return (
           <li
@@ -113,13 +102,6 @@ class SnapshotsMain extends Component {
           </li>
         );
       });
-      
-      let filter_menu = []
-      filter_menu = this.state.favoritesFilter.map((range) => {
-        return (
-          <option value={range}>range</option>
-        );
-      })
 
       return (
         <div>
@@ -137,7 +119,7 @@ class SnapshotsMain extends Component {
               <button id="fave-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by number of favorites
                 <span className="caret" /></button>
               <ul className="dropdown-menu">
-                {this.state.favoritesFilter}
+                {renderRanges}
               </ul>
             </div>
           </div>
