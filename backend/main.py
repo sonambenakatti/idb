@@ -10,7 +10,6 @@ from sqlalchemy import *
 import pymysql
 import json
 import pprint
-import githubstats
 from photo import Photo
 from flask_cors import CORS, cross_origin
 
@@ -18,8 +17,8 @@ pymysql.install_as_MySQLdb()
 
 user = 'TheCoolBeans'
 pwd = 'riley5143'
-host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
-db = 'beansdb'
+host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
+db = 'beansdbdev'
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 # Database variable that is connected to database.
 engine = create_engine(uri)
