@@ -86,17 +86,10 @@ class ScenicLocations:
 	def latitude(self) :
 	    return self.__latitude
 
-	@latitude.setter
-	def latitude(self, reviews) :
-	    self.__latitude = latitude
-
 	@property
 	def longitude(self) :
 	    return self.__longitude
 
-	@longitude.setter
-	def longitude(self, reviews) :
-	    self.__longitude = longitude
 
 	
 	
