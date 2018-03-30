@@ -105,7 +105,7 @@ class SnapshotsMain extends Component {
             <div className="dropdown">
               <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a City to Explore
                 <span className="caret" /></button>
-              <ul className="dropdown-menu">
+              <ul className="dropdown-menu" x-placement="bottom-start">
                 {this.state.cities_list}
               </ul>
             </div>
