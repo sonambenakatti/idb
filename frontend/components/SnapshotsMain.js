@@ -13,7 +13,9 @@ class SnapshotsMain extends Component {
         item: "",
         currentPage: 1,
         photosPerPage: 9,
-        cities_list: []
+        cities_list: [],
+        selectedRange: "",
+        favoritesFilter: ["1-5", "5-10", "10-20", "20+"]
       };
     };
 
@@ -39,6 +41,7 @@ class SnapshotsMain extends Component {
           console.log("state", this.state.photos);
         });
         this.getCities();
+        this.filterMenu();
     };
 
     getCities() {
@@ -51,10 +54,19 @@ class SnapshotsMain extends Component {
           return(
             <li><a href="#">{city.city_name}</a></li>
           )
-        })
+        });
         this.setState({cities_list: cities});
-      })
-    }
+      });
+    };
+
+    filterMenu() {
+      let options = this.state.favoritesFilter.map((option) =>{
+        return(
+          <li><a href="#">{option}</a></li>
+        )
+      });
+      this.setState({favoritesFilter: options});
+    };
 
     // invokoed when user clicks a page number on the bottom.
     handleClick(event) {
@@ -62,6 +74,11 @@ class SnapshotsMain extends Component {
           currentPage: Number(event.target.id)
         });
       }
+
+    // handle range
+    handleRange(event) {
+        this.setState({selectedRange: event.target.value});
+    }
 
     render() {
       console.log(this.state.photos);
@@ -96,6 +113,13 @@ class SnapshotsMain extends Component {
           </li>
         );
       });
+      
+      let filter_menu = []
+      filter_menu = this.state.favoritesFilter.map((range) => {
+        return (
+          <option value={range}>range</option>
+        );
+      })
 
       return (
         <div>
@@ -107,6 +131,13 @@ class SnapshotsMain extends Component {
                 <span className="caret" /></button>
               <ul className="dropdown-menu" x-placement="bottom-start">
                 {this.state.cities_list}
+              </ul>
+            </div>
+            <div className="dropdown">
+              <button id="fave-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by number of favorites
+                <span className="caret" /></button>
+              <ul className="dropdown-menu">
+                {this.state.favoritesFilter}
               </ul>
             </div>
           </div>
