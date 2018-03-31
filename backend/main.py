@@ -185,13 +185,21 @@ def get_snapshot(snapshotId) :
 
 @APP.route('/search/<searchkey>',  methods=['GET'])
 def search(searchkey):
-    shops = engine.execute('SELECT * FROM Shops WHERE shop_name LIKE %(searchkey)% OR shop_address LIKE %(searchkey)% OR shop_contact LIKE %(searchkey)% OR shop_price LIKE %(searchkey)% OR shop_hours LIKE %(searchkey)% OR shop_rating LIKE %(searchkey)%').fetchall()
-    scenic = engine.execute('SELECT * FROM Scenic WHERE scenic_name LIKE %(searchkey)% OR scenic_address LIKE %(searchkey)% OR scenic_rating LIKE %(searchkey)%').fetchall()
-    snapshots = engine.execute('SELECT * FROM Snapshots WHERE snap_name LIKE %(searchkey)% OR snap_photographer LIKE %(searchkey)% OR snap_username LIKE %(searchkey)% OR snap_tags LIKE %(searchkey)%').fetchall()
-    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
-    jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
-    jsonSnaps = json.dumps([dict(r) for snap in snapshots], default=alchemyencoder)
-    return jsonShops, jsonScenic, jsonSnaps
+    search_key = "%" + searchkey + "%"
+    print("searchkey: " + searchkey)
+    shops = engine.execute('SELECT * FROM Shops WHERE shop_name LIKE %s OR shop_address LIKE %s OR shop_contact LIKE %s OR shop_price LIKE %s OR shop_hours LIKE %s OR shop_rating LIKE %s', (search_key, search_key, search_key, search_key, search_key, search_key)).fetchall()
+    scenic = engine.execute('SELECT * FROM Scenic WHERE scenic_name LIKE %s OR scenic_address LIKE %s OR scenic_rating LIKE %s', (search_key, search_key, search_key)).fetchall()
+    snapshots = engine.execute('SELECT * FROM Snapshots WHERE snap_name LIKE %s OR snap_photographer LIKE %s OR snap_username LIKE %s OR snap_tags LIKE %s', (search_key, search_key, search_key, search_key)).fetchall()
+    jsonShops = json.dumps([dict(r) for r in shops], default=alchemyencoder)
+    jsonScenic = json.dumps([dict(r) for r in scenic], default=alchemyencoder)
+    jsonSnaps = json.dumps([dict(r) for r in snapshots], default=alchemyencoder)
+    print("jsonShops: " + jsonShops)
+    print("jsonScenic: " + jsonScenic)
+    print("jsonSnaps: " + jsonSnaps)
+
+    # TODO: RETURN jsonScenic and jsonSnaps too once we've populated the database!
+
+    return jsonShops
 
 
 #COFFEE SHOPS SORTING
