@@ -5155,7 +5155,7 @@ exports["default"] = Navbar;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -5167,7 +5167,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _reactRouter = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5185,7 +5187,11 @@ var Search = function (_Component) {
 
     _this.state = {
       searchValue: "",
-      results: []
+      searchResults: [],
+      resultsPerPage: 9,
+      navigateTo: "",
+      instanceType: "",
+      selectedInstance: []
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -5195,53 +5201,147 @@ var Search = function (_Component) {
   }
 
   _createClass(Search, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function () {
       function componentDidMount(props) {}
 
       return componentDidMount;
     }()
   }, {
-    key: "search",
+    key: 'search',
     value: function () {
       function search() {
+        var _this2 = this;
+
         console.log("Value of search value after clicking Search: " + this.state.searchValue);
-        fetch('/search' + this.state.searchValue).then(function (results) {
+        fetch('/search/' + this.state.searchValue).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
           console.log(data);
-          // let cities = data.map((city) =>{
-          //   return(
-          //     <li><a href="#">{city.city_name}</a></li>
-          //   )
-          // })
-          // this.setState({cities_list: cities});
+          var results = data.map(function (result) {
+            // Handle differences between the three models
+            if (!(result["shop_id"] === undefined)) {
+              _this2.setState({ instanceType: "CoffeeInstance" });
+              return _this2.returnCoffeeShop(result);
+            } else if (!(result["scenic_id"] === undefined)) {
+              _this2.setState({ instanceType: "Location" });
+            } else {
+              _this2.setState({ instanceType: "Snapshot" });
+            }
+          });
+          _this2.setState({ searchResults: results });
         });
       }
 
       return search;
     }()
   }, {
-    key: "render",
+    key: 'returnCoffeeShop',
+    value: function () {
+      function returnCoffeeShop(result) {
+        var _this3 = this;
+
+        return _react2['default'].createElement(
+          'div',
+          { id: 'shop_instance', key: result.shop_name, onClick: function () {
+              function onClick() {
+                _this3.setState({ navigate: true, navigateTo: "/shop", selectedInstance: result });
+              }
+
+              return onClick;
+            }() },
+          _react2['default'].createElement(
+            'li',
+            { className: 'col' },
+            _react2['default'].createElement('img', { src: result.shop_picture, style: { width: 300, height: 300 }, alt: result.shop_picture }),
+            _react2['default'].createElement(
+              'span',
+              { className: 'picText' },
+              _react2['default'].createElement(
+                'span',
+                null,
+                _react2['default'].createElement(
+                  'b',
+                  null,
+                  result.shop_name
+                ),
+                _react2['default'].createElement('br', null),
+                _react2['default'].createElement('br', null),
+                result.shop_address,
+                _react2['default'].createElement('br', null),
+                result.shop_price,
+                _react2['default'].createElement('br', null),
+                result.shop_rating + "/5"
+              )
+            )
+          )
+        );
+      }
+
+      return returnCoffeeShop;
+    }()
+  }, {
+    key: 'render',
     value: function () {
       function render() {
-        var _this2 = this;
+        var _this4 = this;
 
-        return _react2["default"].createElement(
-          "div",
+        var searchResults = this.state.searchResults;
+        var locations = this.state.resultsPerPage;
+
+        if (this.state.navigate) {
+          var instanceType = this.state.instanceType;
+          console.log("instanceType: " + instanceType);
+          var instance_state = {};
+
+          // Need to account for different variable names within the instance pages
+          if (instanceType === "CoffeeInstance") {
+            instance_state = { shop: this.state.selectedInstance };
+            console.log(instance_state);
+          } else if (instanceType === "Location") {
+            instance_state = { selectedLocation: this.state.selectedInstance };
+          } else {
+            instance_state = { snapshot: this.state.selectedInstance };
+          }
+          return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
+        }
+
+        return _react2['default'].createElement(
+          'div',
           null,
-          _react2["default"].createElement("input", { value: this.state.inputValue, type: "text", name: "search" /*placeholder="Search..."*/, onChange: function () {
+          _react2['default'].createElement('input', { value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
               function onChange(evt) {
-                return _this2.updateInputValue(evt);
+                return _this4.updateInputValue(evt);
               }
 
               return onChange;
             }() }),
-          _react2["default"].createElement(
-            "button",
-            { type: "button", className: "btn", onClick: this.search },
-            "Search"
+          _react2['default'].createElement(
+            'button',
+            { type: 'button', className: 'btn', onClick: this.search },
+            'Search'
+          ),
+          _react2['default'].createElement(
+            'section',
+            { className: 'page-section' },
+            _react2['default'].createElement(
+              'div',
+              { className: 'container' },
+              _react2['default'].createElement(
+                'div',
+                { className: 'row' },
+                _react2['default'].createElement(
+                  'ul',
+                  { className: 'img-list' },
+                  _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    searchResults
+                  )
+                )
+              )
+            )
           )
         );
       }
@@ -5249,7 +5349,7 @@ var Search = function (_Component) {
       return render;
     }()
   }, {
-    key: "updateInputValue",
+    key: 'updateInputValue',
     value: function () {
       function updateInputValue(evt) {
         this.setState({
@@ -5264,7 +5364,7 @@ var Search = function (_Component) {
   return Search;
 }(_react.Component);
 
-exports["default"] = Search;
+exports['default'] = Search;
 
 /***/ },
 /* 54 */
