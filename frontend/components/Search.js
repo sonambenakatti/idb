@@ -30,18 +30,21 @@ class Search extends Component {
       return results.json();
     }).then(data => {
       console.log(data)
-      let results = data.map((result) =>{
+      let results = data.map((result) => {
         // Handle differences between the three models
         if(!(result["shop_id"] === undefined)) {
           this.setState({instanceType: "CoffeeInstance"});
           return this.returnCoffeeShop(result);
         } else if (!(result["scenic_id"] === undefined)) {
           this.setState({instanceType: "Location"});
-        } else {
+        } else if (!(result["snap_id"] === undefined)) {
           this.setState({instanceType: "Snapshot"});
         }
-
       })
+      if(data.length == 0) {
+        console.log("No results!");
+        results = this.returnNoResults();
+      }
       this.setState({searchResults: results});
     })
 
@@ -49,14 +52,32 @@ class Search extends Component {
 
   returnCoffeeShop(result) {
     return(
-      <div id="shop_instance" key={result.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result})}}>
-        <li className="col">
-            <img src={result.shop_picture} style={{width: 300, height: 300}} alt={result.shop_picture}/>
-            <span className="picText">
-              <span><b>{result.shop_name}</b><br /><br />{result.shop_address}<br />{result.shop_price}<br />{result.shop_rating + "/5"}</span>
-            </span>
-        </li>
-      </div>
+        <div id="shop_instance" key={result.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result})}}>
+          <li className="col">
+              <img src={result.shop_picture} style={{width: 300, height: 300}} alt={result.shop_picture}/>
+              <span className="picText">
+                <span><b>{result.shop_name}</b><br /><br />{result.shop_address}<br />{result.shop_price}<br />{result.shop_rating + "/5"}</span>
+              </span>
+          </li>
+        </div>
+    )
+  }
+
+  returnNoResults() {
+    return (
+      <section className="page-section cta">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-9 mx-auto">
+              <div className="cta-inner text-center rounded">
+                <h2 className="section-heading mb-4">
+                  <span className="section-heading-upper">No results found :(</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     )
   }
 
@@ -83,8 +104,10 @@ class Search extends Component {
 
     return (
       <div>
-        <input value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
-        <button type="button" className="btn" onClick={this.search}>Search</button>
+        <div id ="search">
+          <input value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
+          <button type="button" className="btn" onClick={this.search}>Search</button>
+        </div>
         <section className="page-section">
           <div className="container">
             <div className="row">
