@@ -59,9 +59,20 @@ class SnapshotsMain extends Component {
     };
 
     // invokoed when user clicks a page number on the bottom.
-    handleClick(event) {
+    handleClick(pageNumber, event) {
+      if(pageNumber <= 1) {
+        document.getElementById("prev").style.visibility="hidden";
+      } else {
+        document.getElementById("prev").style.visibility="visible";
+      }
+
+      if(pageNumber >= Math.ceil(this.state.photos.length / this.state.photosPerPage)) {
+        document.getElementById("next").style.visibility="hidden";
+      } else {
+        document.getElementById("next").style.visibility="visible";
+      }
         this.setState({
-          currentPage: Number(event.target.id)
+          currentPage: pageNumber
         });
       }
 
@@ -74,7 +85,9 @@ class SnapshotsMain extends Component {
       const currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
       const pageNumbers = [];
-      for (let i = 1; i <= Math.ceil(photos.length / photosPerPage); i++) {
+      const nextPageNumbers = currentPage + 7 <= Math.ceil(photos.length / photosPerPage)? currentPage + 7 : Math.ceil(photos.length / photosPerPage)
+      const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+      for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
         pageNumbers.push(i);
       }
 
@@ -96,7 +109,7 @@ class SnapshotsMain extends Component {
           <li
             key={number}
             id={number}
-            onClick={this.handleClick.bind(this)}
+            onClick={this.handleClick.bind(this, number)}
           >
             {number}
           </li>
@@ -137,7 +150,16 @@ class SnapshotsMain extends Component {
           </div>
           <div className="col-md-12 text-center">
           <ul className="page-list">
+          <li
+            id="prev"
+            style = {{visibility: "hidden"}}
+            onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+          </li>
             {renderPageNumbers}
+            <li
+              id="next"
+              onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            </li>
           </ul>
           </div>
         </div>
