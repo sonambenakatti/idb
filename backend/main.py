@@ -12,6 +12,8 @@ import json
 import pprint
 from photo import Photo
 from flask_cors import CORS, cross_origin
+import random
+
 
 pymysql.install_as_MySQLdb()
 
@@ -187,19 +189,30 @@ def get_snapshot(snapshotId) :
 def search(searchkey):
     search_key = "%" + searchkey + "%"
     print("searchkey: " + searchkey)
+    results = dict()
     shops = engine.execute('SELECT * FROM Shops WHERE shop_name LIKE %s OR shop_address LIKE %s OR shop_contact LIKE %s OR shop_price LIKE %s OR shop_hours LIKE %s OR shop_rating LIKE %s', (search_key, search_key, search_key, search_key, search_key, search_key)).fetchall()
     scenic = engine.execute('SELECT * FROM Scenic WHERE scenic_name LIKE %s OR scenic_address LIKE %s OR scenic_rating LIKE %s', (search_key, search_key, search_key)).fetchall()
     snapshots = engine.execute('SELECT * FROM Snapshots WHERE snap_name LIKE %s OR snap_photographer LIKE %s OR snap_username LIKE %s OR snap_tags LIKE %s', (search_key, search_key, search_key, search_key)).fetchall()
+    results = shops + scenic
+    results = results + snapshots
+    random.shuffle(results)
+    jsonRes = json.dumps([dict(r) for r in results], default=alchemyencoder)
+
+    print(jsonRes)
+    '''
     jsonShops = json.dumps([dict(r) for r in shops], default=alchemyencoder)
     jsonScenic = json.dumps([dict(r) for r in scenic], default=alchemyencoder)
     jsonSnaps = json.dumps([dict(r) for r in snapshots], default=alchemyencoder)
+
     print("jsonShops: " + jsonShops)
     print("jsonScenic: " + jsonScenic)
     print("jsonSnaps: " + jsonSnaps)
+    '''
 
     # TODO: RETURN jsonScenic and jsonSnaps too once we've populated the database!
 
-    return jsonShops
+    return jsonRes
+
 
 
 #COFFEE SHOPS SORTING
