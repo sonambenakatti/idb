@@ -108,7 +108,9 @@ render() {
         </section>
         <div className="col-md-12 text-center">
         <ul className="page-list">
-          {renderPageNumbers}
+          <li>'<'</li>
+            {renderPageNumbers}
+          <li>'>'</li>
         </ul>
         </div>
 
