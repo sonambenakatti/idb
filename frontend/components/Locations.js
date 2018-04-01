@@ -108,6 +108,7 @@ render() {
       <li
         key={number}
         id={number}
+        style={this.state.currentPage === number ? {color:'orange'} : {}}
         onClick={this.handleClick.bind(this, number)}
       >
         {number}

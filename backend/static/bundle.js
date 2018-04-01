@@ -4280,7 +4280,6 @@ var CoffeeShops = function (_Component) {
         } else {
           document.getElementById("prev").style.visibility = "visible";
         }
-
         if (pageNumber >= Math.ceil(this.state.coffeeshops.length / this.state.shopsPerPage)) {
           document.getElementById("next").style.visibility = "hidden";
         } else {
@@ -4338,6 +4337,7 @@ var CoffeeShops = function (_Component) {
             {
               key: number,
               id: number,
+              style: _this4.state.currentPage === number ? { color: 'orange' } : {},
               onClick: _this4.handleClick.bind(_this4, number)
             },
             number
@@ -4974,6 +4974,7 @@ var Locations = function (_Component) {
             {
               key: number,
               id: number,
+              style: _this4.state.currentPage === number ? { color: 'orange' } : {},
               onClick: _this4.handleClick.bind(_this4, number)
             },
             number
@@ -5926,6 +5927,7 @@ var SnapshotsMain = function (_Component) {
             {
               key: number,
               id: number,
+              style: _this4.state.currentPage === number ? { color: 'orange' } : {},
               onClick: _this4.handleClick.bind(_this4, number)
             },
             number

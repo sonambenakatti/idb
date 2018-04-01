@@ -66,7 +66,6 @@ handleClick(pageNumber, event) {
     } else {
       document.getElementById("prev").style.visibility="visible";
     }
-
     if(pageNumber >= Math.ceil(this.state.coffeeshops.length / this.state.shopsPerPage)) {
       document.getElementById("next").style.visibility="hidden";
     } else {
@@ -109,6 +108,7 @@ render() {
         <li
           key={number}
           id={number}
+          style={this.state.currentPage === number ? {color:'orange'} : {}}
           onClick={this.handleClick.bind(this, number)}
         >
           {number}
