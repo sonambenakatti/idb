@@ -24,6 +24,7 @@ class Search extends Component {
   }
 
   search() {
+    this.setState({searchResults: []});
     console.log("Value of search value after clicking Search: " + this.state.searchValue);
     fetch('/search/' + this.state.searchValue).then(results => {
       console.log(results)
@@ -37,6 +38,7 @@ class Search extends Component {
           return this.returnCoffeeShop(result);
         } else if (!(result["scenic_id"] === undefined)) {
           this.setState({instanceType: "Location"});
+          return this.returnScenicLocation(result);
         } else if (!(result["snap_id"] === undefined)) {
           this.setState({instanceType: "Snapshot"});
         }
@@ -56,28 +58,51 @@ class Search extends Component {
           <li className="col">
               <img src={result.shop_picture} style={{width: 300, height: 300}} alt={result.shop_picture}/>
               <span className="picText">
-                <span><b>{result.shop_name}</b><br /><br />{result.shop_address}<br />{result.shop_price}<br />{result.shop_rating + "/5"}</span>
+                <span><b>{result.shop_name}</b>
+                <br /><br />{result.shop_address}
+                <br />{result.shop_price}<br />
+                {result.shop_rating + "/5"}</span>
               </span>
           </li>
         </div>
-    )
+    );
   }
+
+  returnScenicLocation(result) {
+    return(
+      <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result})}}>
+        <li className="col">
+            <img src={result.scenic_picture} style={{width: 300, height: 300}} alt={result.scenic_name}/>
+            <span className="picText">
+              <span><b>{result.scenic_name}</b>
+              <br /><br />{result.scenic_address}
+              <br />{result.scenic_rating + "/5"}
+              </span>
+            </span>
+        </li>
+      </div>
+    );
+  }
+
+  returnSnapshot(result) {
+    return(
+      <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result})}}>
+        <li className="col">
+            <img src={result.snap_picture} style={{width: 300, height: 300}} alt={result.snap_name}/>
+            <span className="picText"><span><b>{result.snap_name}</b><br /><br />
+            {result.snap_tags}<br />
+            {result.snap_favs+" Faves"}</span></span>
+        </li>
+      </div>
+    );
+  }
+
 
   returnNoResults() {
     return (
-      <section className="page-section cta">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-9 mx-auto">
-              <div className="cta-inner text-center rounded">
-                <h2 className="section-heading mb-4">
-                  <span className="section-heading-upper">No results found :(</span>
-                </h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">No search results found for {this.state.searchValue}</span>
+      </div>
     )
   }
 
@@ -104,11 +129,13 @@ class Search extends Component {
 
     return (
       <div>
-        <div id ="search">
-          <input value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
-          <button type="button" className="btn" onClick={this.search}>Search</button>
-        </div>
-        <section className="page-section">
+        <section className="page-section-1">
+          <div className="search">
+            <input value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
+            <button type="button" className="btn" onClick={this.search}>Search</button>
+          </div>
+        </section>
+        <section className="page-section-1">
           <div className="container">
             <div className="row">
               <ul className="img-list">

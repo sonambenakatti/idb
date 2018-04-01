@@ -3372,7 +3372,7 @@ var About = function (_Component) {
           null,
           _react2["default"].createElement(
             "section",
-            { className: "page-section cta" },
+            { className: "page-section-1 cta" },
             _react2["default"].createElement(
               "div",
               { className: "container" },
@@ -3406,7 +3406,7 @@ var About = function (_Component) {
           ),
           _react2["default"].createElement(
             "section",
-            { className: "page-section clearfix" },
+            { className: "page-section-1 clearfix" },
             _react2["default"].createElement(
               "div",
               { className: "container" },
@@ -3470,7 +3470,7 @@ var About = function (_Component) {
           ),
           _react2["default"].createElement(
             "section",
-            { className: "page-section clearfix" },
+            { className: "page-section-1 clearfix" },
             _react2["default"].createElement(
               "div",
               { className: "container" },
@@ -3534,7 +3534,7 @@ var About = function (_Component) {
           ),
           _react2["default"].createElement(
             "section",
-            { className: "page-section clearfix" },
+            { className: "page-section-1 clearfix" },
             _react2["default"].createElement(
               "div",
               { className: "container" },
@@ -3598,7 +3598,7 @@ var About = function (_Component) {
           ),
           _react2["default"].createElement(
             "section",
-            { className: "page-section clearfix" },
+            { className: "page-section-1 clearfix" },
             _react2["default"].createElement(
               "div",
               { className: "container" },
@@ -3662,7 +3662,7 @@ var About = function (_Component) {
           ),
           _react2["default"].createElement(
             "section",
-            { className: "page-section clearfix" },
+            { className: "page-section-1 clearfix" },
             _react2["default"].createElement(
               "div",
               { className: "container" },
@@ -3726,7 +3726,7 @@ var About = function (_Component) {
           ),
           _react2["default"].createElement(
             "section",
-            { className: "page-section cta", id: "info" },
+            { className: "page-section-1 cta", id: "info" },
             _react2["default"].createElement(
               "div",
               { className: "container" },
@@ -5274,6 +5274,7 @@ var Search = function (_Component) {
       function search() {
         var _this2 = this;
 
+        this.setState({ searchResults: [] });
         console.log("Value of search value after clicking Search: " + this.state.searchValue);
         fetch('/search/' + this.state.searchValue).then(function (results) {
           console.log(results);
@@ -5287,6 +5288,7 @@ var Search = function (_Component) {
               return _this2.returnCoffeeShop(result);
             } else if (!(result["scenic_id"] === undefined)) {
               _this2.setState({ instanceType: "Location" });
+              return _this2.returnScenicLocation(result);
             } else if (!(result["snap_id"] === undefined)) {
               _this2.setState({ instanceType: "Snapshot" });
             }
@@ -5347,36 +5349,103 @@ var Search = function (_Component) {
       return returnCoffeeShop;
     }()
   }, {
+    key: 'returnScenicLocation',
+    value: function () {
+      function returnScenicLocation(result) {
+        var _this4 = this;
+
+        return _react2['default'].createElement(
+          'div',
+          { id: 'location_instance', key: result.scenic_name, onClick: function () {
+              function onClick() {
+                _this4.setState({ navigate: true, navigateTo: "/location", selectedInstance: result });
+              }
+
+              return onClick;
+            }() },
+          _react2['default'].createElement(
+            'li',
+            { className: 'col' },
+            _react2['default'].createElement('img', { src: result.scenic_picture, style: { width: 300, height: 300 }, alt: result.scenic_name }),
+            _react2['default'].createElement(
+              'span',
+              { className: 'picText' },
+              _react2['default'].createElement(
+                'span',
+                null,
+                _react2['default'].createElement(
+                  'b',
+                  null,
+                  result.scenic_name
+                ),
+                _react2['default'].createElement('br', null),
+                _react2['default'].createElement('br', null),
+                result.scenic_address,
+                _react2['default'].createElement('br', null),
+                result.scenic_rating + "/5"
+              )
+            )
+          )
+        );
+      }
+
+      return returnScenicLocation;
+    }()
+  }, {
+    key: 'returnSnapshot',
+    value: function () {
+      function returnSnapshot(result) {
+        var _this5 = this;
+
+        return _react2['default'].createElement(
+          'div',
+          { id: 'snap_instance', key: result.snap_name, onClick: function () {
+              function onClick() {
+                _this5.setState({ navigate: true, navigateTo: "/snapshot", selectedInstance: result });
+              }
+
+              return onClick;
+            }() },
+          _react2['default'].createElement(
+            'li',
+            { className: 'col' },
+            _react2['default'].createElement('img', { src: result.snap_picture, style: { width: 300, height: 300 }, alt: result.snap_name }),
+            _react2['default'].createElement(
+              'span',
+              { className: 'picText' },
+              _react2['default'].createElement(
+                'span',
+                null,
+                _react2['default'].createElement(
+                  'b',
+                  null,
+                  result.snap_name
+                ),
+                _react2['default'].createElement('br', null),
+                _react2['default'].createElement('br', null),
+                result.snap_tags,
+                _react2['default'].createElement('br', null),
+                result.snap_favs + " Faves"
+              )
+            )
+          )
+        );
+      }
+
+      return returnSnapshot;
+    }()
+  }, {
     key: 'returnNoResults',
     value: function () {
       function returnNoResults() {
         return _react2['default'].createElement(
-          'section',
-          { className: 'page-section cta' },
+          'div',
+          { className: 'intro-text text-center bg-faded p-5 rounded' },
           _react2['default'].createElement(
-            'div',
-            { className: 'container' },
-            _react2['default'].createElement(
-              'div',
-              { className: 'row' },
-              _react2['default'].createElement(
-                'div',
-                { className: 'col-xl-9 mx-auto' },
-                _react2['default'].createElement(
-                  'div',
-                  { className: 'cta-inner text-center rounded' },
-                  _react2['default'].createElement(
-                    'h2',
-                    { className: 'section-heading mb-4' },
-                    _react2['default'].createElement(
-                      'span',
-                      { className: 'section-heading-upper' },
-                      'No results found :('
-                    )
-                  )
-                )
-              )
-            )
+            'span',
+            { className: 'section-heading-upper text-center' },
+            'No search results found for ',
+            this.state.searchValue
           )
         );
       }
@@ -5387,7 +5456,7 @@ var Search = function (_Component) {
     key: 'render',
     value: function () {
       function render() {
-        var _this4 = this;
+        var _this6 = this;
 
         var searchResults = this.state.searchResults;
         var locations = this.state.resultsPerPage;
@@ -5413,24 +5482,28 @@ var Search = function (_Component) {
           'div',
           null,
           _react2['default'].createElement(
-            'div',
-            { id: 'search' },
-            _react2['default'].createElement('input', { value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
-                function onChange(evt) {
-                  return _this4.updateInputValue(evt);
-                }
-
-                return onChange;
-              }() }),
+            'section',
+            { className: 'page-section-1' },
             _react2['default'].createElement(
-              'button',
-              { type: 'button', className: 'btn', onClick: this.search },
-              'Search'
+              'div',
+              { className: 'search' },
+              _react2['default'].createElement('input', { value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
+                  function onChange(evt) {
+                    return _this6.updateInputValue(evt);
+                  }
+
+                  return onChange;
+                }() }),
+              _react2['default'].createElement(
+                'button',
+                { type: 'button', className: 'btn', onClick: this.search },
+                'Search'
+              )
             )
           ),
           _react2['default'].createElement(
             'section',
-            { className: 'page-section' },
+            { className: 'page-section-1' },
             _react2['default'].createElement(
               'div',
               { className: 'container' },

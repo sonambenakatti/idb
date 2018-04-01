@@ -66,7 +66,7 @@ render() {
 
   return (
     <div>
-      <section className="page-section cta">
+      <section className="page-section-1 cta">
         <div className="container">
           <div className="row">
             <div className="col-xl-9 mx-auto">
@@ -81,7 +81,7 @@ render() {
         </div>
       </section>
       {/* About Amrutha */}
-      <section className="page-section clearfix">
+      <section className="page-section-1 clearfix">
         <div className="container">
           <div className="intro">
             <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/amrutha.jpg" alt="Amrutha" />
@@ -101,7 +101,7 @@ render() {
         </div>
       </section>
       {/* About Jaemin */}
-      <section className="page-section clearfix">
+      <section className="page-section-1 clearfix">
         <div className="container">
           <div className="intro">
             <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/jaemin.jpg" alt="Jaemin" />
@@ -121,7 +121,7 @@ render() {
         </div>
       </section>
       {/* About Jenni */}
-      <section className="page-section clearfix">
+      <section className="page-section-1 clearfix">
         <div className="container">
           <div className="intro">
             <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/jenni.jpg" alt="Jenni" />
@@ -141,7 +141,7 @@ render() {
         </div>
       </section>
       {/* About Ruchi */}
-      <section className="page-section clearfix">
+      <section className="page-section-1 clearfix">
         <div className="container">
           <div className="intro">
             <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/ruchi.jpg" alt="Ruchi" />
@@ -162,7 +162,7 @@ render() {
         </div>
       </section>
       {/* About Sonam */}
-      <section className="page-section clearfix">
+      <section className="page-section-1 clearfix">
         <div className="container">
           <div className="intro">
             <img className="intro-img img-fluid mb-3 mb-lg-0 rounded" src="/static/img/sonam.jpg" alt="Sonam" />
@@ -181,7 +181,7 @@ render() {
           </div>
         </div>
       </section>
-      <section className="page-section cta" id="info">
+      <section className="page-section-1 cta" id="info">
         <div className="container">
           <div className="row">
             <div className="col-xl-9 mx-auto">
