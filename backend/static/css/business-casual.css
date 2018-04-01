@@ -307,7 +307,6 @@ a:hover, a:visited, a:link, a:active {
 .model-links {
 	width: 100%;
 	text-align: center;
-
 }
 
 .model-links p{
@@ -316,6 +315,27 @@ a:hover, a:visited, a:link, a:active {
 	font-size:1rem;
 	font-weight:800;
 	font-family:Raleway;
+}
+
+input[type=text] {
+    margin:0 auto;
+    text-align: center;
+    width: 400px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    /* background-image: url('../img/searchicon.png'); */
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    /* -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out; */
+}
+
+#search {
+    margin:0 auto;
 }
 
 .model-links p a{
