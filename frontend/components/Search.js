@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+import Highlighter from 'react-highlight-words';
+import styles from '../../backend/static/css/highlighter.css'
+
 
 class Search extends Component {
 
@@ -33,14 +36,15 @@ class Search extends Component {
       console.log(data)
       let results = data.map((result) => {
         // Handle differences between the three models
-        if(!(result["shop_id"] === undefined)) {
+        if(!(result["shop_name"] === undefined)) {
           this.setState({instanceType: "CoffeeInstance"});
           return this.returnCoffeeShop(result);
-        } else if (!(result["scenic_id"] === undefined)) {
+        } else if (!(result["scenic_name"] === undefined)) {
           this.setState({instanceType: "Location"});
           return this.returnScenicLocation(result);
-        } else if (!(result["snap_id"] === undefined)) {
+        } else if (!(result["snap_name"] === undefined)) {
           this.setState({instanceType: "Snapshot"});
+          return this.returnSnapshot(result);
         }
       })
       if(data.length == 0) {
@@ -58,25 +62,36 @@ class Search extends Component {
           <li className="col">
               <img src={result.shop_picture} style={{width: 300, height: 300}} alt={result.shop_picture}/>
               <span className="picText">
-                <span><b>{result.shop_name}</b>
-                <br /><br />{result.shop_address}
-                <br />{result.shop_price}<br />
-                {result.shop_rating + "/5"}</span>
+                <span><b>{this.highlightText(result.shop_name)}</b>
+                <br /><br />{this.highlightText(result.shop_address)}
+                <br />{this.highlightText(result.shop_price)}<br />
+                {this.highlightText(result.shop_rating + "/5")}</span>
               </span>
           </li>
         </div>
     );
   }
 
+  highlightText(text) {
+    return (
+      <Highlighter
+         highlightClassName={styles.Highlight}
+         searchWords = {this.state.searchValue.split(" ")}
+         autoEscape={true}
+         textToHighlight= {text}
+      />
+    )
+  }
+
   returnScenicLocation(result) {
     return(
       <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result})}}>
         <li className="col">
-            <img src={result.scenic_picture} style={{width: 300, height: 300}} alt={result.scenic_name}/>
+            <img src={this.highlightText(result.scenic_picture)} style={{width: 300, height: 300}} alt={this.highlightText(result.scenic_name)}/>
             <span className="picText">
-              <span><b>{result.scenic_name}</b>
-              <br /><br />{result.scenic_address}
-              <br />{result.scenic_rating + "/5"}
+              <span><b>{this.highlightText(result.scenic_name)}</b>
+              <br /><br />{this.highlightText(result.scenic_address)}
+              <br />{this.highlightText(result.scenic_rating + "/5")}
               </span>
             </span>
         </li>
@@ -89,9 +104,9 @@ class Search extends Component {
       <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result})}}>
         <li className="col">
             <img src={result.snap_picture} style={{width: 300, height: 300}} alt={result.snap_name}/>
-            <span className="picText"><span><b>{result.snap_name}</b><br /><br />
-            {result.snap_tags}<br />
-            {result.snap_favs+" Faves"}</span></span>
+            <span className="picText"><span><b>{this.highlightText(result.snap_name)}</b><br /><br />
+            {this.highlightText(result.snap_tags)}<br />
+            {this.highlightText(result.snap_favs + " Faves")}</span></span>
         </li>
       </div>
     );
