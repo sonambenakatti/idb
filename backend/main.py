@@ -189,7 +189,6 @@ def get_snapshot(snapshotId) :
 def search(searchkey):
     search_key = "%" + searchkey + "%"
     print("searchkey: " + searchkey)
-    results = dict()
     shops = engine.execute('SELECT * FROM Shops WHERE shop_name LIKE %s OR shop_address LIKE %s OR shop_contact LIKE %s OR shop_price LIKE %s OR shop_hours LIKE %s OR shop_rating LIKE %s', (search_key, search_key, search_key, search_key, search_key, search_key)).fetchall()
     scenic = engine.execute('SELECT * FROM Scenic WHERE scenic_name LIKE %s OR scenic_address LIKE %s OR scenic_rating LIKE %s', (search_key, search_key, search_key)).fetchall()
     snapshots = engine.execute('SELECT * FROM Snapshots WHERE snap_name LIKE %s OR snap_photographer LIKE %s OR snap_username LIKE %s OR snap_tags LIKE %s', (search_key, search_key, search_key, search_key)).fetchall()
@@ -217,76 +216,114 @@ def search(searchkey):
 
 #COFFEE SHOPS SORTING
 @APP.route('/coffeeshops/sort/priceasc',  methods=['GET'])
-def sort_coffeeshops_price_ascending(searchkey):
+def sort_coffeeshops_price_ascending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_price asc').fetchall()
     jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/pricedesc',  methods=['GET'])
-def sort_coffeeshops_price_descending(searchkey):
+def sort_coffeeshops_price_descending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_price desc').fetchall()
     jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/ratingasc',  methods=['GET'])
-def sort_coffeeshops_rating_ascending(searchkey):
+def sort_coffeeshops_rating_ascending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_rating asc').fetchall()
     jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/ratingdesc',  methods=['GET'])
-def sort_coffeeshops_ratng_descending(searchkey):
+def sort_coffeeshops_rating_descending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_rating desc').fetchall()
     jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/atoz',  methods=['GET'])
-def sort_coffeeshops_name_ascending(searchkey):
+def sort_coffeeshops_name_ascending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_name asc').fetchall()
     jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
     return jsonShops
 
+@APP.route('/coffeeshops/sort/ztoa',  methods=['GET'])
+def sort_coffeeshops_name_descending():
+    shops = engine.execute('SELECT * FROM Shops ORDER BY shop_name desc').fetchall()
+    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
+    return jsonShops
 
 
 #SCENIC LOCATIONS SORTING
 @APP.route('/sceniclocations/sort/ratingasc',  methods=['GET'])
-def sort_sceniclocations_rating_ascending(searchkey):
+def sort_sceniclocations_rating_ascending():
     scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_rating asc').fetchall()
     jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
 
 @APP.route('/sceniclocations/sort/ratingdesc',  methods=['GET'])
-def sort_sceniclocations_ratng_descending(searchkey):
+def sort_sceniclocations_ratng_descending():
     scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_rating desc').fetchall()
     jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
 
 @APP.route('/sceniclocations/sort/atoz',  methods=['GET'])
-def sort_sceniclocations_name_ascending(searchkey):
+def sort_sceniclocations_name_ascending():
     scenic = engine.execute('SELECT * FROM Scenic ORDER BY shop_name asc').fetchall()
     jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
+@APP.route('/sceniclocations/sort/ztoa',  methods=['GET'])
+def sort_sceniclocations_name_descending():
+    scenic = engine.execute('SELECT * FROM Scenic ORDER BY shop_name desc').fetchall()
+    jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
+    return jsonScenic
+
+
 
 #SNAPSHOTS SORTING
-@APP.route('/snapshots/sort/favesasc',  methods=['GET'])
-def sort_snapshots_price_ascending(searchkey):
+@APP.route('/snapshots/sort/favsasc',  methods=['GET'])
+def sort_snapshots_favs_ascending():
     snaps = engine.execute('SELECT * FROM Snapshots ORDER BY snap_favs asc').fetchall()
     jsonSnaps = json.dumps([dict(r) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
 
 
-@APP.route('/snapshots/sort/favesdesc',  methods=['GET'])
-def sort_snapshots_price_descending(searchkey):
+@APP.route('/snapshots/sort/favsdesc',  methods=['GET'])
+def sort_snapshots_favs_descending(searchkey):
     snaps = engine.execute('SELECT * FROM Snapshots ORDER BY snap_favs desc').fetchall()
     jsonSnaps = json.dumps([dict(r) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
+
+
+#NEARBY SEARCHES
+
+@APP.route('/nearby_scenic_from_shops/<shop_id>',  methods=['GET'])
+def nearby_scenic_from_shops(shop_id):
+
+    shops = engine.execute('SELECT * FROM Shops WHERE shop_id = shop_id').fetchone()
+    lat = Float(shops.shop_latitude)
+    lon = Float(shops.shop_longitude)
+
+    scenic = engine.execute('SELECT *, 3956 * 2 * ASIN(SQRT( POWER(SIN((lat - abs(scenic_latitude)) * pi()/180 / 2),2) + COS(lat * pi()/180 ) * COS(abs(scenic_latitude) *  pi()/180) * POWER(SIN((lon – scenic_longitude) *  pi()/180 / 2), 2))) AS distance FROM Scenic Order by distance desc').fetchall()
+    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
+    return jsonScenic
+
+
+@APP.route('/nearby_shops_from_scenic/<scenic_id>',  methods=['GET'])
+def nearby_shops_from_scenic(scenic_id):
+
+    scenic = engine.execute('SELECT * FROM Scenic WHERE scenic_id = scenic_id').fetchone()
+    lat = Float(scenic.scenic_latitude)
+    lon = Float(scenic.scenic_longitude)
+
+    shops = engine.execute('SELECT *, 3956 * 2 * ASIN(SQRT( POWER(SIN((lat - abs(shop_latitude)) * pi()/180 / 2),2) + COS(lat * pi()/180 ) * COS(abs(shop_latitude) *  pi()/180) * POWER(SIN((lon – shop_longitude) *  pi()/180 / 2), 2))) AS distance FROM Scenic Order by distance desc').fetchall()
+    jsonShops = json.dumps([dict(shop) for shop in Shops], default=alchemyencoder)
+    return jsonShopss
 
 
 

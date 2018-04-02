@@ -61,6 +61,11 @@ getCities() {
   })
 }
 
+sort_rating_asc(){
+  console.log(cities_list)
+
+}
+
 handleClick(event) {
     this.setState({
       currentPage: Number(event.target.id)
@@ -111,6 +116,12 @@ render() {
               <span className="caret" /></button>
             <ul className="dropdown-menu" x-placement="bottom-start">
               {this.state.cities_list}
+            </ul>
+            <button id="filter" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a City to Explore
+              <span className="caret" /></button>
+            <ul className="dropdown-menu" x-placement="bottom-start">
+                <li><a onClick={this.sort_rating_asc.bind(this)} >Name (A to Z)</a>
+              
             </ul>
           </div>
         </div>
