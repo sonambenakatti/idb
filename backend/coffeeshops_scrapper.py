@@ -49,7 +49,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 # Defaults for our simple example.
 DEFAULT_TERM = 'coffee'
 DEFAULT_LOCATION = 'Austin, TX'
-SEARCH_LIMIT = 12
+SEARCH_LIMIT = 27
 
 # called in #3 and #6
 def request(host, path, api_key, url_params=None):
@@ -89,11 +89,31 @@ def get_business(business_id, coffeeshop):
     business_path = BUSINESS_PATH + business_id
     response =  request(API_HOST, business_path, API_KEY)
     pprint.pprint(response, indent=2)
-    coffeeshop.location = response["location"]["display_address"]
-    coffeeshop.latitude = response["coordinates"]["latitude"]
-    coffeeshop.longitude = response["coordinates"]["longitude"]
-    coffeeshop.hours = response["hours"]
-    coffeeshop.phone = response["display_phone"]
+    hours = "Hours Not Found"
+    if(('hours' in response)) :
+        hours = response["hours"]
+
+    location = "Location Not Found"
+    if(('location' in response)) :
+        location = response["location"]["display_address"]
+
+    latitude = "Latitude Not Found"
+    if(('coordinates' in response)) :
+        latitude = response["coordinates"]["latitude"]
+
+    longitude = "Longitude Not Found"
+    if(('coordinates' in response)) :
+        longitude = response["coordinates"]["longitude"]
+
+    contact = "No Contact Info"
+    if(('contact' in response)) :
+        contact = response["display_phone"]
+
+    coffeeshop.location = location
+    coffeeshop.latitude = latitude
+    coffeeshop.longitude = longitude
+    coffeeshop.hours = hours
+    coffeeshop.phone = contact
 #4
 def coffee_shop_results(response):
     '''
@@ -106,16 +126,32 @@ def coffee_shop_results(response):
     for obj in response["businesses"] :
         #print (obj, "next \n\n")
         #address = obj["location"]["display_address"]
-        coffeeshop =  CoffeeShop(obj["name"],
-        obj["id"],
-        "n/a",
-        obj["price"],
-        obj["rating"],
-        obj["image_url"],
-        "n/a")
-        #coffeeshop.location = address
-        get_business(coffeeshop.id, coffeeshop)
-        list_shops.append(coffeeshop)
+        if(obj is not None) :
+            print("OBJECT BEING PRINTED: " + str(obj))
+
+            price = "Price Not Found"
+            if(('price' in obj)) :
+                price = obj["price"]
+
+            rating = "No Ratings"
+            if(('rating' in obj)) :
+                rating = obj["rating"]
+
+            img_url = "No Image Found"
+            if(('image_url' in obj)) :
+                img_url = obj["image_url"]
+
+            coffeeshop =  CoffeeShop(obj["name"],
+            obj["id"],
+            "n/a",
+            price,
+            rating,
+            img_url,
+            "n/a")
+            #coffeeshop.location = address
+            get_business(coffeeshop.id, coffeeshop)
+            list_shops.append(coffeeshop)
+
     return list_shops
 
 #3
@@ -165,44 +201,32 @@ uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
 #1
 def main():
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('-q', '--term', dest='term', default=DEFAULT_TERM,
-                        type=str, help='Search term (default: %(default)s)')
-    parser.add_argument('-l', '--location', dest='location',
-                        default=DEFAULT_LOCATION, type=str,
-                        help='Search location (default: %(default)s)')
-
-    input_values = parser.parse_args()
-
     try:
-        coffee_shops = query_api(input_values.term, input_values.location)
-
         db = create_engine(uri)
         metadata = MetaData()
         metadata.reflect(bind=db)
-
-        print(metadata.tables['Shops'])
-        #selecte query execute
-        #res = conn.execute(select_st).fetchall()
-        #print (res)
-
-        for shop in coffee_shops :
-            ins = insert(metadata.tables['Shops']).values(
-            shop_name = bytes(shop.name, 'utf8'),
-            shop_address = bytes(shop.location, 'utf8'),
-            shop_contact = bytes(shop.phone, 'utf8'),
-            shop_price = bytes(shop.price, 'utf8'),
-            shop_hours = bytes(shop.hours, 'utf8'),
-            shop_rating = shop.rating,
-            shop_picture = bytes(shop.imageUrl, 'utf8'),
-            shop_latitude = shop.latitude,
-            shop_longitude = shop.longitude,
-            shop_yelp_id = bytes(shop.id, 'utf8')
-            )
-            conn = db.connect()
-            conn.execute(ins)
-        return coffee_shops
+        conn = db.connect()
+        print([metadata.tables['Cities']])
+        select_st = select([metadata.tables['Cities']])
+        res = conn.execute(select_st)
+        for _row in res:
+            print (_row[1])
+            coffee_shops = query_api('coffee', _row[1])
+            for shop in coffee_shops :
+                ins = insert(metadata.tables['Shops']).values(
+                shop_name = bytes(shop.name, 'utf8'),
+                shop_address = bytes(shop.location, 'utf8'),
+                shop_contact = bytes(shop.phone, 'utf8'),
+                shop_price = bytes(shop.price, 'utf8'),
+                shop_hours = bytes(shop.hours, 'utf8'),
+                shop_rating = shop.rating,
+                shop_picture = bytes(shop.imageUrl, 'utf8'),
+                shop_latitude = shop.latitude,
+                shop_longitude = shop.longitude,
+                city_id = _row[0]
+                )
+                conn = db.connect()
+                conn.execute(ins)
     except HTTPError as error:
         sys.exit(
             'Encountered HTTP error {0} on {1}:\n {2}\nAbort program.'.format(

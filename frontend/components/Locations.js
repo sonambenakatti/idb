@@ -66,9 +66,21 @@ sort_rating_asc(){
 
 }
 
-handleClick(event) {
+handleClick(pageNumber, event) {
+  if(pageNumber <= 1) {
+    document.getElementById("prev").style.visibility="hidden";
+  } else {
+    document.getElementById("prev").style.visibility="visible";
+  }
+
+  if(pageNumber >= Math.ceil(this.state.locations.length / this.state.locationsPerPage)) {
+    document.getElementById("next").style.visibility="hidden";
+  } else {
+    document.getElementById("next").style.visibility="visible";
+  }
+
     this.setState({
-      currentPage: Number(event.target.id)
+      currentPage: pageNumber
     });
   }
 
@@ -81,7 +93,9 @@ render() {
   const currentLocations = locations.slice(indexOfFirstLocation, indexOfLastLocation);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(locations.length / locationsPerPage); i++) {
+  const nextPageNumbers = currentPage + 7 <= Math.ceil(locations.length / locationsPerPage)? currentPage + 7 : Math.ceil(locations.length / locationsPerPage)
+  const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+  for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
     pageNumbers.push(i);
   }
 
@@ -99,7 +113,8 @@ render() {
       <li
         key={number}
         id={number}
-        onClick={this.handleClick.bind(this)}
+        style={this.state.currentPage === number ? {color:'orange'} : {}}
+        onClick={this.handleClick.bind(this, number)}
       >
         {number}
       </li>
@@ -139,7 +154,16 @@ render() {
         </div>
         <div className="col-md-12 text-center">
         <ul className="page-list">
+        <li
+          id="prev"
+          style = {{visibility: "hidden"}}
+          onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+        </li>
           {renderPageNumbers}
+          <li
+            id="next"
+            onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+          </li>
         </ul>
         </div>
       </div>

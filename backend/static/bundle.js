@@ -4175,6 +4175,7 @@ var CoffeeShops = function (_Component) {
       item: "",
       currentPage: 1,
       shopsPerPage: 9,
+      totalPages: 1,
       cities_list: []
     };
     return _this;
@@ -4266,14 +4267,27 @@ var CoffeeShops = function (_Component) {
       return getCities;
     }()
 
-    // invokoed when user clicks a page number on the bottom.
+    // invoked when user clicks a page number on the bottom.
 
   }, {
     key: 'handleClick',
     value: function () {
-      function handleClick(event) {
+      function handleClick(pageNumber, event) {
+        console.log(event.target.id);
+        console.log(pageNumber);
+        if (pageNumber <= 1) {
+          document.getElementById("prev").style.visibility = "hidden";
+        } else {
+          document.getElementById("prev").style.visibility = "visible";
+        }
+        if (pageNumber >= Math.ceil(this.state.coffeeshops.length / this.state.shopsPerPage)) {
+          document.getElementById("next").style.visibility = "hidden";
+        } else {
+          document.getElementById("next").style.visibility = "visible";
+        }
+        console.log("set state");
         this.setState({
-          currentPage: Number(event.target.id)
+          currentPage: pageNumber
         });
       }
 
@@ -4295,10 +4309,12 @@ var CoffeeShops = function (_Component) {
         var indexOfLastShop = currentPage * shopsPerPage;
         var indexOfFirstShop = indexOfLastShop - shopsPerPage;
         var currentShops = coffeeshops.slice(indexOfFirstShop, indexOfLastShop);
-        console.log("CURRENT SHOPS" + currentShops + " : " + coffeeshops);
+        //console.log("CURRENT SHOPS" + currentShops +" : "+ coffeeshops)
         // Logic for displaying page numbers
         var pageNumbers = [];
-        for (var i = 1; i <= Math.ceil(coffeeshops.length / shopsPerPage); i++) {
+        var nextPageNumbers = currentPage + 7 <= Math.ceil(coffeeshops.length / shopsPerPage) ? currentPage + 7 : Math.ceil(coffeeshops.length / shopsPerPage);
+        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
 
@@ -4321,7 +4337,8 @@ var CoffeeShops = function (_Component) {
             {
               key: number,
               id: number,
-              onClick: _this4.handleClick.bind(_this4)
+              style: _this4.state.currentPage === number ? { color: 'orange' } : {},
+              onClick: _this4.handleClick.bind(_this4, number)
             },
             number
           );
@@ -4381,7 +4398,22 @@ var CoffeeShops = function (_Component) {
             _react2['default'].createElement(
               'ul',
               { className: 'page-list' },
-              renderPageNumbers
+              _react2['default'].createElement(
+                'li',
+                {
+                  id: 'prev',
+                  style: { visibility: "hidden" },
+                  onClick: this.handleClick.bind(this, this.state.currentPage - 1) },
+                ' <prev'
+              ),
+              renderPageNumbers,
+              _react2['default'].createElement(
+                'li',
+                {
+                  id: 'next',
+                  onClick: this.handleClick.bind(this, this.state.currentPage + 1) },
+                ' next>'
+              )
             )
           )
         );
@@ -4880,9 +4912,21 @@ var Locations = function (_Component) {
   }, {
     key: 'handleClick',
     value: function () {
-      function handleClick(event) {
+      function handleClick(pageNumber, event) {
+        if (pageNumber <= 1) {
+          document.getElementById("prev").style.visibility = "hidden";
+        } else {
+          document.getElementById("prev").style.visibility = "visible";
+        }
+
+        if (pageNumber >= Math.ceil(this.state.locations.length / this.state.locationsPerPage)) {
+          document.getElementById("next").style.visibility = "hidden";
+        } else {
+          document.getElementById("next").style.visibility = "visible";
+        }
+
         this.setState({
-          currentPage: Number(event.target.id)
+          currentPage: pageNumber
         });
       }
 
@@ -4905,7 +4949,9 @@ var Locations = function (_Component) {
         var currentLocations = locations.slice(indexOfFirstLocation, indexOfLastLocation);
 
         var pageNumbers = [];
-        for (var i = 1; i <= Math.ceil(locations.length / locationsPerPage); i++) {
+        var nextPageNumbers = currentPage + 7 <= Math.ceil(locations.length / locationsPerPage) ? currentPage + 7 : Math.ceil(locations.length / locationsPerPage);
+        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
 
@@ -4928,7 +4974,8 @@ var Locations = function (_Component) {
             {
               key: number,
               id: number,
-              onClick: _this4.handleClick.bind(_this4)
+              style: _this4.state.currentPage === number ? { color: 'orange' } : {},
+              onClick: _this4.handleClick.bind(_this4, number)
             },
             number
           );
@@ -4987,7 +5034,22 @@ var Locations = function (_Component) {
             _react2['default'].createElement(
               'ul',
               { className: 'page-list' },
-              renderPageNumbers
+              _react2['default'].createElement(
+                'li',
+                {
+                  id: 'prev',
+                  style: { visibility: "hidden" },
+                  onClick: this.handleClick.bind(this, this.state.currentPage - 1) },
+                ' <prev'
+              ),
+              renderPageNumbers,
+              _react2['default'].createElement(
+                'li',
+                {
+                  id: 'next',
+                  onClick: this.handleClick.bind(this, this.state.currentPage + 1) },
+                ' next>'
+              )
             )
           )
         );
@@ -5791,9 +5853,20 @@ var SnapshotsMain = function (_Component) {
 
     // invokoed when user clicks a page number on the bottom.
     value: function () {
-      function handleClick(event) {
+      function handleClick(pageNumber, event) {
+        if (pageNumber <= 1) {
+          document.getElementById("prev").style.visibility = "hidden";
+        } else {
+          document.getElementById("prev").style.visibility = "visible";
+        }
+
+        if (pageNumber >= Math.ceil(this.state.photos.length / this.state.photosPerPage)) {
+          document.getElementById("next").style.visibility = "hidden";
+        } else {
+          document.getElementById("next").style.visibility = "visible";
+        }
         this.setState({
-          currentPage: Number(event.target.id)
+          currentPage: pageNumber
         });
       }
 
@@ -5817,7 +5890,9 @@ var SnapshotsMain = function (_Component) {
         var currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
         var pageNumbers = [];
-        for (var i = 1; i <= Math.ceil(photos.length / photosPerPage); i++) {
+        var nextPageNumbers = currentPage + 7 <= Math.ceil(photos.length / photosPerPage) ? currentPage + 7 : Math.ceil(photos.length / photosPerPage);
+        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
 
@@ -5852,7 +5927,8 @@ var SnapshotsMain = function (_Component) {
             {
               key: number,
               id: number,
-              onClick: _this4.handleClick.bind(_this4)
+              style: _this4.state.currentPage === number ? { color: 'orange' } : {},
+              onClick: _this4.handleClick.bind(_this4, number)
             },
             number
           );
@@ -5926,7 +6002,22 @@ var SnapshotsMain = function (_Component) {
             _react2['default'].createElement(
               'ul',
               { className: 'page-list' },
-              renderPageNumbers
+              _react2['default'].createElement(
+                'li',
+                {
+                  id: 'prev',
+                  style: { visibility: "hidden" },
+                  onClick: this.handleClick.bind(this, this.state.currentPage - 1) },
+                ' <prev'
+              ),
+              renderPageNumbers,
+              _react2['default'].createElement(
+                'li',
+                {
+                  id: 'next',
+                  onClick: this.handleClick.bind(this, this.state.currentPage + 1) },
+                ' next>'
+              )
             )
           )
         );

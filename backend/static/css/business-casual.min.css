@@ -37,6 +37,9 @@ ul.img-list li img {
   border-radius: 5px;
 }
 
+.current-page {
+  color: orange;
+}
 
 span.picText {
   font-family: Raleway;

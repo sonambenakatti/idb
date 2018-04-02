@@ -13,6 +13,7 @@ constructor (props) {
     item: "",
     currentPage: 1,
     shopsPerPage: 9,
+    totalPages: 1,
     cities_list: []
   };
 };
@@ -56,10 +57,23 @@ getCities() {
   })
 }
 
-// invokoed when user clicks a page number on the bottom.
-handleClick(event) {
+// invoked when user clicks a page number on the bottom.
+handleClick(pageNumber, event) {
+  console.log(event.target.id)
+  console.log(pageNumber)
+    if(pageNumber <= 1) {
+      document.getElementById("prev").style.visibility="hidden";
+    } else {
+      document.getElementById("prev").style.visibility="visible";
+    }
+    if(pageNumber >= Math.ceil(this.state.coffeeshops.length / this.state.shopsPerPage)) {
+      document.getElementById("next").style.visibility="hidden";
+    } else {
+      document.getElementById("next").style.visibility="visible";
+    }
+    console.log("set state")
     this.setState({
-      currentPage: Number(event.target.id)
+      currentPage: pageNumber
     });
   }
 
@@ -71,10 +85,12 @@ render() {
   const indexOfLastShop = currentPage * shopsPerPage;
   const indexOfFirstShop = indexOfLastShop - shopsPerPage;
   const currentShops = coffeeshops.slice(indexOfFirstShop, indexOfLastShop);
-  console.log("CURRENT SHOPS" + currentShops +" : "+ coffeeshops)
+  //console.log("CURRENT SHOPS" + currentShops +" : "+ coffeeshops)
   // Logic for displaying page numbers
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(coffeeshops.length / shopsPerPage); i++) {
+  const nextPageNumbers = currentPage + 7 <= Math.ceil(coffeeshops.length / shopsPerPage)? currentPage + 7 : Math.ceil(coffeeshops.length / shopsPerPage)
+  const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+  for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
     pageNumbers.push(i);
   }
 
@@ -92,7 +108,8 @@ render() {
         <li
           key={number}
           id={number}
-          onClick={this.handleClick.bind(this)}
+          style={this.state.currentPage === number ? {color:'orange'} : {}}
+          onClick={this.handleClick.bind(this, number)}
         >
           {number}
         </li>
@@ -128,7 +145,16 @@ render() {
         </div>
         <div className="col-md-12 text-center">
         <ul className="page-list">
-          {renderPageNumbers}
+          <li
+            id="prev"
+            style = {{visibility: "hidden"}}
+            onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+          </li>
+            {renderPageNumbers}
+          <li
+            id="next"
+            onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+          </li>
         </ul>
         </div>
 
