@@ -19,7 +19,9 @@ constructor (props) {
       item: "",
       currentPage: 1,
       locationsPerPage: 9,
-      cities_list: []
+      cities_list: [],
+      selectedCity: '',
+      selectedRating: ''
     };
 };
 
@@ -95,6 +97,36 @@ handleCityChange(selectedCity){
   }
 }
 
+handleRatingChange(selectedRating){
+  console.log("INSIDE HANDLE CITY");
+  this.setState({ selectedRating });
+  //console.log(`Selected: ${selectedCity.label}`);
+  if (selectedRating === null) {
+    this.resetToAllData();
+  } else if (selectedRating) {
+    var value = selectedRating.value;
+    console.log(value);
+    let views = this.state.full_data.map((scenicloc) =>{
+      if (scenicloc.scenic_rating >= value) {
+        return(
+          <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+            <li className="col">
+                <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText">
+                  <span><b>{scenicloc.scenic_name}</b>
+                  <br /><br />{scenicloc.scenic_address}
+                  <br />{scenicloc.scenic_rating + "/5"}
+                  </span>
+                </span>
+            </li>
+          </div>
+        )
+      }
+    })
+    this.setState({locations: views});
+  }
+}
+
 resetToAllData() {
   let views = this.state.full_data.map((scenicloc) =>{
     return(
@@ -137,12 +169,19 @@ render() {
 
   const{locations, currentPage, locationsPerPage} = this.state;
 
+  const concat_locs = [];
+  const locs = this.state.locations.map((locations, index) => {
+    if (locations) {
+      concat_locs.push(locations)
+    }
+  });
+
   const indexOfLastLocation = currentPage * locationsPerPage;
   const indexOfFirstLocation = indexOfLastLocation - locationsPerPage;
-  const currentLocations = locations.slice(indexOfFirstLocation, indexOfLastLocation);
+  const currentLocations = concat_locs.slice(indexOfFirstLocation, indexOfLastLocation);
 
   const pageNumbers = [];
-  const nextPageNumbers = currentPage + 7 <= Math.ceil(locations.length / locationsPerPage)? currentPage + 7 : Math.ceil(locations.length / locationsPerPage)
+  const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_locs.length / locationsPerPage)? currentPage + 7 : Math.ceil(concat_locs.length / locationsPerPage)
   const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
   for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
     pageNumbers.push(i);
@@ -154,7 +193,9 @@ render() {
   }
 
   const renderLocations = currentLocations.map((locations, index) => {
-    return <li key={index}>{locations}</li>;
+    if (locations) {
+      return <li key={index}>{locations}</li>;
+    }
   });
 
   const renderPageNumbers = pageNumbers.map(number => {
@@ -173,8 +214,10 @@ render() {
   const SelectPackage = require('react-select');
   const Select = SelectPackage.default;
   const {selectedCity} = this.state;
+  const {selectedRating} = this.state;
 
   const cityValue = selectedCity && selectedCity.value;
+  const ratingValue = selectedRating && selectedRating.value;
 
   return (
       <div>
@@ -188,6 +231,21 @@ render() {
                 value={cityValue}
                 onChange={this.handleCityChange.bind(this)}
                 options={this.state.cities_list}
+            />
+          </div>
+          <div className="filter">
+            <h6>Filter by Rating</h6>
+            <Select
+                name="form-field-name"
+                value={ratingValue}
+                onChange={this.handleRatingChange.bind(this)}
+                options={[
+                  {value: '0', label: '0+'},
+                  {value: '1', label: '1+'},
+                  {value: '2', label: '2+'},
+                  {value: '3', label: '3+'},
+                  {value: '4', label: '4+'},
+                ]}
             />
           </div>
         </div>

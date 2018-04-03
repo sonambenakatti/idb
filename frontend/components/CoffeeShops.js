@@ -180,16 +180,26 @@ handleClick(pageNumber, event) {
 
 render() {
 
+  console.log("INSIDE RENDER")
+
   const { coffeeshops, currentPage, shopsPerPage } = this.state;
+  console.log(coffeeshops)
+  
+  const concat_shops = [];
+  const shops = this.state.coffeeshops.map((coffeeshops, index) => {
+    if (coffeeshops) {
+      concat_shops.push(coffeeshops)
+    }
+  });
 
   // Logic for displaying shops
   const indexOfLastShop = currentPage * shopsPerPage;
   const indexOfFirstShop = indexOfLastShop - shopsPerPage;
-  const currentShops = coffeeshops.slice(indexOfFirstShop, indexOfLastShop);
+  const currentShops = concat_shops.slice(indexOfFirstShop, indexOfLastShop);
   //console.log("CURRENT SHOPS" + currentShops +" : "+ coffeeshops)
   // Logic for displaying page numbers
   const pageNumbers = [];
-  const nextPageNumbers = currentPage + 7 <= Math.ceil(coffeeshops.length / shopsPerPage)? currentPage + 7 : Math.ceil(coffeeshops.length / shopsPerPage)
+  const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_shops.length / shopsPerPage)? currentPage + 7 : Math.ceil(concat_shops.length / shopsPerPage)
   const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
   for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
     pageNumbers.push(i);
@@ -201,7 +211,7 @@ render() {
     }
 
     const renderShops = currentShops.map((coffeeshops, index) => {
-      return <li key={index}>{coffeeshops}</li>;
+        return <li key={index}>{coffeeshops}</li>;
     });
 
     const renderPageNumbers = pageNumbers.map(number => {
