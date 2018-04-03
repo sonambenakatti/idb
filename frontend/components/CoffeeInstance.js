@@ -11,8 +11,11 @@ class CoffeeInstance extends Component {
       shop: this.props.location.state.shop,
       scenic_list: [],
       selectedLocation: [],
+      snaps_list: [],
+      selectedSnapshot:[],
     };
     this.get_scenic = this.get_scenic.bind(this);
+    this.get_snaps = this.get_snaps.bind(this);
   }
 
 get_scenic(){
@@ -23,7 +26,7 @@ get_scenic(){
       console.log(data)
       let views = data.map((scenicloc) =>{
         return(
-        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
           <li className="col">
               <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"
               />
@@ -41,15 +44,46 @@ get_scenic(){
   })
 }
 
+  get_snaps(){
+    console.log("IN SNAPS JS")
+    fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
+    return results.json();
+  }).then(data=>{
+      console.log("This is the data")
+      console.log(data)
+      let snapshots = data.map((snapshot) =>{
+        return(
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+            <li className="col">
+                <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                {snapshot.snap_tags}<br />
+                {snapshot.snap_favs+" Faves"}</span></span>
+            </li>
+          </div>
+        );
+      });
+      this.setState({snaps_list: snapshots});
+      });
+    };
+
   render() {
-    if (this.state.navigate) {
+    if (this.state.navigateScenic) {
       console.log("IN METHOD")
        var instance_state = {};
        instance_state = {selectedLocation: this.state.selectedLocation};
 
        return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
     }
-      return (
+    if (this.state.navigateSnap) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {snapshot: this.state.selectedSnapshot};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
+      
+    return (
     <div>
       <div className="content">
         <div className="col-sm-5 instance-details">
@@ -80,6 +114,8 @@ get_scenic(){
       </div>
       <div className="model-links">
           <button id="scenic_nearby" className="btn btn-primary" type="button" onClick={this.get_scenic}>Scenic Locations Nearby</button>
+          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>More Snaps</button>
+
         </div>
         <div>
          <section className="page-section">
@@ -88,6 +124,19 @@ get_scenic(){
               <ul className="img-list">
                 <div className="row">
                   {this.state.scenic_list}
+                </div>
+              </ul>
+            </div>
+          </div>
+        </section>
+        </div>
+        <div>
+         <section className="page-section">
+          <div className="container">
+            <div className="row">
+              <ul className="img-list">
+                <div className="row">
+                  {this.state.snaps_list}
                 </div>
               </ul>
             </div>

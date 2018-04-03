@@ -19,9 +19,12 @@ class Location extends Component {
         scenic_id: this.props.location.state.selectedLocation.scenic_id,
         shops_list: [],
         selectedShop: [],
+        snaps_list: [],
+        selectedSnapshot:[],
       };
       console.log(this.state);
       this.get_coffeeshops = this.get_coffeeshops.bind(this);
+      this.get_snaps = this.get_snaps.bind(this);
   };
 
   componentDidMount(props) {
@@ -36,7 +39,7 @@ class Location extends Component {
     console.log(data)
     let shops = data.map((shop) =>{
       return(
-       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateTo: "/shop", selectedShop: shop})}}>
           <li className="col">
               <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
               />
@@ -50,13 +53,44 @@ class Location extends Component {
   })
 }
 
+  get_snaps(){
+    console.log("IN SNAPS JS")
+    fetch('/snapshots_scenic/'+ this.state.scenic_id).then(results =>{
+    return results.json();
+  }).then(data=>{
+      console.log("This is the data")
+      console.log(data)
+      let snapshots = data.map((snapshot) =>{
+        return(
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+            <li className="col">
+                <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                {snapshot.snap_tags}<br />
+                {snapshot.snap_favs+" Faves"}</span></span>
+            </li>
+          </div>
+        );
+      });
+      this.setState({snaps_list: snapshots});
+      });
+    };
+
+
 
 
   render() {
-    if (this.state.navigate) {
+    if (this.state.navigateShop) {
       console.log("IN METHOD")
        var instance_state = {};
        instance_state = {shop: this.state.selectedShop};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
+    if (this.state.navigateSnap) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {snapshot: this.state.selectedSnapshot};
 
        return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
     }
@@ -92,6 +126,8 @@ class Location extends Component {
         </div>
         <div className="model-links">
           <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>Coffee Shops Nearby</button>
+          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>More Snaps</button>
+
         </div>
         <div>
          <section className="page-section">
@@ -100,6 +136,20 @@ class Location extends Component {
               <ul className="img-list">
                 <div className="row">
                   {this.state.shops_list}
+                </div>
+              </ul>
+            </div>
+          </div>
+        </section>
+        </div>
+
+        <div>
+         <section className="page-section">
+          <div className="container">
+            <div className="row">
+              <ul className="img-list">
+                <div className="row">
+                  {this.state.snaps_list}
                 </div>
               </ul>
             </div>
