@@ -44,7 +44,7 @@ def home():
 @APP.route('/getcities', methods=['GET'])
 def get_cities():
     try:
-        result = engine.execute('SELECT city_name FROM Cities').fetchall()
+        result = engine.execute('SELECT city_id, city_name FROM Cities').fetchall()
         jsonRes = json.dumps([dict(r) for r in result], default=alchemyencoder)
     except:
         flask.abort(500)
@@ -341,6 +341,23 @@ def nearby_shops_from_scenic(scenic_id):
 
     jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
+
+@APP.route('/snapshots_shop/<shop_id>',  methods=['GET'])
+def snapshots_shop(shop_id):
+    print("IN SNAPSHOTS SHOPS")
+    snaps = engine.execute('SELECT * FROM Snapshots where shop_id = shop_id Limit 10').fetchall()
+    jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
+    return jsonSnaps
+
+@APP.route('/snapshots_scenic/<scenic_id>',  methods=['GET'])
+def snapshots_scenic(scenic_id):
+
+    print("IN SNAPSHOTS SCENIC")
+    snaps = engine.execute('SELECT * FROM Snapshots where scenic_id = scenic_id Limit 10').fetchall()
+    jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
+    return jsonSnaps
+
+
 
 
 

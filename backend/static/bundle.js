@@ -4011,9 +4011,12 @@ var CoffeeInstance = function (_Component) {
     _this.state = {
       shop: _this.props.location.state.shop,
       scenic_list: [],
-      selectedLocation: []
+      selectedLocation: [],
+      snaps_list: [],
+      selectedSnapshot: []
     };
     _this.get_scenic = _this.get_scenic.bind(_this);
+    _this.get_snaps = _this.get_snaps.bind(_this);
     return _this;
   }
 
@@ -4033,7 +4036,7 @@ var CoffeeInstance = function (_Component) {
               'div',
               { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
                   function onClick() {
-                    _this2.setState({ navigate: true, navigateTo: "/location", selectedLocation: scenicloc });
+                    _this2.setState({ navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc });
                   }
 
                   return onClick;
@@ -4071,16 +4074,77 @@ var CoffeeInstance = function (_Component) {
       return get_scenic;
     }()
   }, {
+    key: 'get_snaps',
+    value: function () {
+      function get_snaps() {
+        var _this3 = this;
+
+        console.log("IN SNAPS JS");
+        fetch('/snapshots_shop/' + this.state.shop.shop_id).then(function (results) {
+          return results.json();
+        }).then(function (data) {
+          console.log("This is the data");
+          console.log(data);
+          var snapshots = data.map(function (snapshot) {
+            return _react2['default'].createElement(
+              'div',
+              { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
+                  function onClick() {
+                    _this3.setState({ navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
+                  }
+
+                  return onClick;
+                }() },
+              _react2['default'].createElement(
+                'li',
+                { className: 'col' },
+                _react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
+                _react2['default'].createElement(
+                  'span',
+                  { className: 'picText' },
+                  _react2['default'].createElement(
+                    'span',
+                    null,
+                    _react2['default'].createElement(
+                      'b',
+                      null,
+                      snapshot.snap_name
+                    ),
+                    _react2['default'].createElement('br', null),
+                    _react2['default'].createElement('br', null),
+                    snapshot.snap_tags,
+                    _react2['default'].createElement('br', null),
+                    snapshot.snap_favs + " Faves"
+                  )
+                )
+              )
+            );
+          });
+          _this3.setState({ snaps_list: snapshots });
+        });
+      }
+
+      return get_snaps;
+    }()
+  }, {
     key: 'render',
     value: function () {
       function render() {
-        if (this.state.navigate) {
+        if (this.state.navigateScenic) {
           console.log("IN METHOD");
           var instance_state = {};
           instance_state = { selectedLocation: this.state.selectedLocation };
 
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
         }
+        if (this.state.navigateSnap) {
+          console.log("IN METHOD");
+          var instance_state = {};
+          instance_state = { snapshot: this.state.selectedSnapshot };
+
+          return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
+        }
+
         return _react2['default'].createElement(
           'div',
           null,
@@ -4170,6 +4234,11 @@ var CoffeeInstance = function (_Component) {
               'button',
               { id: 'scenic_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_scenic },
               'Scenic Locations Nearby'
+            ),
+            _react2['default'].createElement(
+              'button',
+              { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+              'More Snaps'
             )
           ),
           _react2['default'].createElement(
@@ -4191,6 +4260,31 @@ var CoffeeInstance = function (_Component) {
                       'div',
                       { className: 'row' },
                       this.state.scenic_list
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            null,
+            _react2['default'].createElement(
+              'section',
+              { className: 'page-section' },
+              _react2['default'].createElement(
+                'div',
+                { className: 'container' },
+                _react2['default'].createElement(
+                  'div',
+                  { className: 'row' },
+                  _react2['default'].createElement(
+                    'ul',
+                    { className: 'img-list' },
+                    _react2['default'].createElement(
+                      'div',
+                      { className: 'row' },
+                      this.state.snaps_list
                     )
                   )
                 )
@@ -4717,10 +4811,13 @@ var Location = function (_Component) {
       review2: _this.props.location.state.selectedLocation.scenic_review2,
       scenic_id: _this.props.location.state.selectedLocation.scenic_id,
       shops_list: [],
-      selectedShop: []
+      selectedShop: [],
+      snaps_list: [],
+      selectedSnapshot: []
     };
     console.log(_this.state);
     _this.get_coffeeshops = _this.get_coffeeshops.bind(_this);
+    _this.get_snaps = _this.get_snaps.bind(_this);
     return _this;
   }
 
@@ -4747,7 +4844,7 @@ var Location = function (_Component) {
               'div',
               { id: 'shop_instance', key: shop.shop_name, onClick: function () {
                   function onClick() {
-                    _this2.setState({ navigate: true, navigateTo: "/shop", selectedShop: shop });
+                    _this2.setState({ navigateShop: true, navigateTo: "/shop", selectedShop: shop });
                   }
 
                   return onClick;
@@ -4787,13 +4884,73 @@ var Location = function (_Component) {
       return get_coffeeshops;
     }()
   }, {
+    key: 'get_snaps',
+    value: function () {
+      function get_snaps() {
+        var _this3 = this;
+
+        console.log("IN SNAPS JS");
+        fetch('/snapshots_scenic/' + this.state.scenic_id).then(function (results) {
+          return results.json();
+        }).then(function (data) {
+          console.log("This is the data");
+          console.log(data);
+          var snapshots = data.map(function (snapshot) {
+            return _react2['default'].createElement(
+              'div',
+              { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
+                  function onClick() {
+                    _this3.setState({ navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
+                  }
+
+                  return onClick;
+                }() },
+              _react2['default'].createElement(
+                'li',
+                { className: 'col' },
+                _react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
+                _react2['default'].createElement(
+                  'span',
+                  { className: 'picText' },
+                  _react2['default'].createElement(
+                    'span',
+                    null,
+                    _react2['default'].createElement(
+                      'b',
+                      null,
+                      snapshot.snap_name
+                    ),
+                    _react2['default'].createElement('br', null),
+                    _react2['default'].createElement('br', null),
+                    snapshot.snap_tags,
+                    _react2['default'].createElement('br', null),
+                    snapshot.snap_favs + " Faves"
+                  )
+                )
+              )
+            );
+          });
+          _this3.setState({ snaps_list: snapshots });
+        });
+      }
+
+      return get_snaps;
+    }()
+  }, {
     key: 'render',
     value: function () {
       function render() {
-        if (this.state.navigate) {
+        if (this.state.navigateShop) {
           console.log("IN METHOD");
           var instance_state = {};
           instance_state = { shop: this.state.selectedShop };
+
+          return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
+        }
+        if (this.state.navigateSnap) {
+          console.log("IN METHOD");
+          var instance_state = {};
+          instance_state = { snapshot: this.state.selectedSnapshot };
 
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
         }
@@ -4896,6 +5053,11 @@ var Location = function (_Component) {
               'button',
               { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
               'Coffee Shops Nearby'
+            ),
+            _react2['default'].createElement(
+              'button',
+              { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+              'More Snaps'
             )
           ),
           _react2['default'].createElement(
@@ -4917,6 +5079,31 @@ var Location = function (_Component) {
                       'div',
                       { className: 'row' },
                       this.state.shops_list
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            null,
+            _react2['default'].createElement(
+              'section',
+              { className: 'page-section' },
+              _react2['default'].createElement(
+                'div',
+                { className: 'container' },
+                _react2['default'].createElement(
+                  'div',
+                  { className: 'row' },
+                  _react2['default'].createElement(
+                    'ul',
+                    { className: 'img-list' },
+                    _react2['default'].createElement(
+                      'div',
+                      { className: 'row' },
+                      this.state.snaps_list
                     )
                   )
                 )
