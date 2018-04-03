@@ -12,6 +12,7 @@ class Search extends Component {
       searchValue: "",
       searchResults: [],
       resultsPerPage: 9,
+      currentPage: 1,
       navigateTo: "",
       instanceType: "",
       selectedInstance: []
@@ -30,27 +31,27 @@ class Search extends Component {
     this.setState({searchResults: []});
     console.log("Value of search value after clicking Search: " + this.state.searchValue);
     fetch('/search/' + this.state.searchValue).then(results => {
-      console.log(results)
+      //console.log(results)
       return results.json();
     }).then(data => {
       console.log(data)
       let results = data.map((result) => {
         // Handle differences between the three models
-        if(!(result["shop_name"] === undefined)) {
-          this.setState({instanceType: "CoffeeInstance"});
+        if(result["shop_name"] !== undefined) {
           return this.returnCoffeeShop(result);
-        } else if (!(result["scenic_name"] === undefined)) {
-          this.setState({instanceType: "Location"});
+        } else if (result["scenic_name"] !== undefined) {
           return this.returnScenicLocation(result);
-        } else if (!(result["snap_name"] === undefined)) {
-          this.setState({instanceType: "Snapshot"});
+        } else if (result["snap_name"] !== undefined) {
           return this.returnSnapshot(result);
+        } else {
+          console.log("else " + result);
         }
       })
       if(data.length == 0) {
         console.log("No results!");
         results = this.returnNoResults();
       }
+      console.log("RESULTS HERE: " + results)
       this.setState({searchResults: results});
     })
 
@@ -58,9 +59,9 @@ class Search extends Component {
 
   returnCoffeeShop(result) {
     return(
-        <div id="shop_instance" key={result.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result})}}>
+        <div id="shop_instance" onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result, instanceType: "CoffeeInstance"})}}>
           <li className="col">
-              <img src={result.shop_picture} style={{width: 300, height: 300}} alt={result.shop_picture}/>
+              <img src={result.shop_picture} style={{width: 300, height: 300}}/>
               <span className="picText">
                 <span><b>{this.highlightText(result.shop_name)}</b>
                 <br /><br />{this.highlightText(result.shop_address)}
@@ -84,10 +85,13 @@ class Search extends Component {
   }
 
   returnScenicLocation(result) {
+    if(result.scenic_picture === "") {
+      result.scenic_picture = "/static/img/ruchi.jpg"
+    }
     return(
-      <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result})}}>
+      <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location"})}}>
         <li className="col">
-            <img src={this.highlightText(result.scenic_picture)} style={{width: 300, height: 300}} alt={this.highlightText(result.scenic_name)}/>
+            <img src={result.scenic_picture} style={{width: 300, height: 300}}/>
             <span className="picText">
               <span><b>{this.highlightText(result.scenic_name)}</b>
               <br /><br />{this.highlightText(result.scenic_address)}
@@ -101,9 +105,9 @@ class Search extends Component {
 
   returnSnapshot(result) {
     return(
-      <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result})}}>
+      <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result, instanceType: "Snapshot"})}}>
         <li className="col">
-            <img src={result.snap_picture} style={{width: 300, height: 300}} alt={result.snap_name}/>
+            <img src={result.snap_picture} style={{width: 300, height: 300}}/>
             <span className="picText"><span><b>{this.highlightText(result.snap_name)}</b><br /><br />
             {this.highlightText(result.snap_tags)}<br />
             {this.highlightText(result.snap_favs + " Faves")}</span></span>
@@ -121,9 +125,36 @@ class Search extends Component {
     )
   }
 
+  handleClick(pageNumber, event) {
+      if(pageNumber <= 1) {
+        document.getElementById("prev").style.visibility="hidden";
+      } else {
+        document.getElementById("prev").style.visibility="visible";
+      }
+      if(pageNumber >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage)) {
+        document.getElementById("next").style.visibility="hidden";
+      } else {
+        document.getElementById("next").style.visibility="visible";
+      }
+      console.log("set state")
+      this.setState({
+        currentPage: pageNumber
+      });
+    }
+
   render() {
-     var searchResults = this.state.searchResults;
-     var locations = this.state.resultsPerPage;
+     const{searchResults, currentPage, resultsPerPage} = this.state;
+
+     const indexOfLastResult = currentPage * resultsPerPage;
+     const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+     const currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
+
+     const pageNumbers = [];
+     const nextPageNumbers = currentPage + 7 <= Math.ceil(searchResults.length / resultsPerPage)? currentPage + 7 : Math.ceil(searchResults.length / resultsPerPage)
+     const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+     for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
+       pageNumbers.push(i);
+     }
 
      if (this.state.navigate) {
        var instanceType = this.state.instanceType;
@@ -142,6 +173,23 @@ class Search extends Component {
        return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
      }
 
+    const renderResults = currentResults.map((res, index) => {
+      return <li key={index}>{res}</li>;
+    });
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <li
+          key={number}
+          id={number}
+          style={this.state.currentPage === number ? {color:'orange'} : {}}
+          onClick={this.handleClick.bind(this, number)}
+        >
+          {number}
+        </li>
+      );
+    });
+
     return (
       <div>
         <section className="page-section-1">
@@ -155,10 +203,27 @@ class Search extends Component {
             <div className="row">
               <ul className="img-list">
                 <div className="row">
-                  {searchResults}
+                  {renderResults}
                 </div>
               </ul>
             </div>
+          </div>
+        </section>
+        <section className="page-section-1">
+          <div className="col-md-12 text-center">
+          <ul className="page-list">
+            <li
+              id="prev"
+              style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+            </li>
+              {renderPageNumbers}
+            <li
+              id="next"
+              style={this.state.currentPage >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage) ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            </li>
+          </ul>
           </div>
         </section>
       </div>
