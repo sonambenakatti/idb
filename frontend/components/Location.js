@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+
 
 /* The instance page for scenic locations */
 
@@ -14,15 +16,50 @@ class Location extends Component {
         rating: this.props.location.state.selectedLocation.scenic_rating,
         review1: this.props.location.state.selectedLocation.scenic_review1,
         review2: this.props.location.state.selectedLocation.scenic_review2,
+        scenic_id: this.props.location.state.selectedLocation.scenic_id,
+        shops_list: [],
+        selectedShop: [],
       };
       console.log(this.state);
+      this.get_coffeeshops = this.get_coffeeshops.bind(this);
   };
 
-  // componentDidMount() {
-  //
-  // }
+  componentDidMount(props) {
+
+  }
+
+  get_coffeeshops(){
+    fetch('/nearby_shops_from_scenic/' + this.state.scenic_id).then(results =>{
+    console.log("Results:" + results)
+    return results.json();
+  }).then(data=>{
+    console.log(data)
+    let shops = data.map((shop) =>{
+      return(
+       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+          <li className="col">
+              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
+              />
+              <span className="picText">
+              <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+          </li>
+        </div>
+      )
+    })
+    this.setState({shops_list: shops});
+  })
+}
+
+
 
   render() {
+    if (this.state.navigate) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {shop: this.state.selectedShop};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
 
     return (
       <div>
@@ -54,12 +91,24 @@ class Location extends Component {
         </div>
         </div>
         <div className="model-links">
-          <p><a href="/shops">COFFEE SHOPS NEARBY </a></p>
-          <p><a href="/snapshots">MORE SNAPS</a></p>
+          <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>Coffee Shops Nearby</button>
+        </div>
+        <div>
+         <section className="page-section">
+          <div className="container">
+            <div className="row">
+              <ul className="img-list">
+                <div className="row">
+                  {this.state.shops_list}
+                </div>
+              </ul>
+            </div>
+          </div>
+        </section>
         </div>
       </div>
     );
   }
 }
 
-export default Location;
+export default Location; 
