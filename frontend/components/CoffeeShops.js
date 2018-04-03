@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+import {Select} from 'react-select';
+import 'react-select/dist/react-select.css';
+import axios from 'axios';
 
 class CoffeeShops extends Component {
 
@@ -7,6 +10,7 @@ constructor (props) {
   console.log(props);
   super(props);
   this.state = {
+    full_data: [],
     coffeeshops: [],
     navigate: false,
     selectedShop: [],
@@ -15,7 +19,13 @@ constructor (props) {
     currentPage: 1,
     shopsPerPage: 9,
     totalPages: 1,
-    cities_list: []
+    cities_list: [],
+    selectedCity: '',
+    selectedPrice: '',
+    selectedRating: '',
+    activeFilter: '',
+    activeValue: '',
+    activeComparison: ''
   };
 };
 
@@ -25,7 +35,9 @@ componentDidMount(props) {
     console.log(results)
     return results.json();
   }).then(data=>{
+    console.log("DATA")
     console.log(data)
+    this.setState({full_data: data})
     let shops = data.map((shop) =>{
       return(
         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
@@ -51,11 +63,112 @@ getCities() {
     console.log(data)
     let cities = data.map((city) =>{
       return(
-        <li><a href="#">{city.city_name}</a></li>
+        {value: city.city_name, label: city.city_name}
       )
     })
     this.setState({cities_list: cities});
   })
+}
+
+handleCityChange(selectedCity){
+  this.setState({ selectedCity });
+  console.log(`Selected: ${selectedCity.label}`);
+
+}
+
+handlePriceChange(selectedPrice){
+  this.setState({ selectedPrice });
+  console.log(`Selected: ${selectedPrice.label}`);
+
+  var filter = '';
+  var value = '';
+  var comparison = '';
+  if (selectedPrice) {
+    switch (selectedPrice.value) {
+      case '$':
+        filter = 'shop_price';
+        value = '$';
+        comparison = 'like';
+        break;
+      case '$$':
+        filter = 'shop_price';
+        value = '$$';
+        comparison = 'like';
+        break;
+      case '$$$':
+        filter = 'shop_price';
+        value = '$$$';
+        comparison = 'like';
+        break;
+      case '$$$$':
+        filter = 'shop_price';
+        value = '$$$$';
+        comparison = 'like';
+        break;
+      default:
+        console.log("HERE PRICE FILTER");
+      }
+    } else {
+      console.log("INSIDE ELSE PRICE FILTER")
+    }
+    this.setState({
+      activeFilter: filter
+    }, function() {
+    this.setState({
+        activeValue: value
+      }, function() {
+      this.setState({
+          activeComparison: comparison
+        }, function() {
+        this.setState({
+          currentPage: 1
+        }, function() {
+          this.updateData();
+        });
+      });
+    });
+    });
+
+}
+
+handleRatingChange(selectedRating){
+  this.setState({ selectedPrice });
+  console.log(`Selected: ${selectedRating.label}`);
+
+}
+
+updateData(){
+  let shops = this.state.full_data.map((shop) =>{
+    if (shop.shop_price === this.state.activeValue) {
+      return(
+        <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+          <li className="col">
+              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
+              />
+              <span className="picText">
+              <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+          </li>
+        </div>
+      )
+    }
+  })
+  console.log("SHOPS AFTER FILTER");
+  console.log(shops);
+  this.setState({coffeeshops: shops});
+
+  // let url = `http://api.espressoyoself.me/coffeeshops/${this.state.activeFilter}&value=${this.state.activeValue}&comparison=${this.state.activeComparison}`;
+  // //console.log(url);
+  // console.log(url);
+  // axios.get(url).then(res => {
+  //   const instanceList = res.data;
+  //   this.setState({
+  //     coffeeshops: instanceList
+  //   });
+  //
+  // }).catch((error) => {
+  //   console.log(error);
+  // });
+
 }
 
 // invoked when user clicks a page number on the bottom.
@@ -117,19 +230,56 @@ render() {
       );
     });
 
+    const SelectPackage = require('react-select');
+    const Select = SelectPackage.default;
+    const {selectedCity} = this.state;
+    const {selectedPrice} = this.state;
+    const {selectedRating} = this.state;
+    const cityValue = selectedCity && selectedCity.value;
+    const priceValue = selectedPrice && selectedPrice.value;
+    const ratingValue = selectedRating && selectedRating.value;
+
     return (
       <div>
         {/*location dropdown*/}
-        <div className="filters-and-grid">
         <div className="filter-container">
-          <div className="dropdown">
-            <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button"
-            data-toggle="dropdown">
-            Choose a City to Explore
-              <span className="caret" /></button>
-            <ul className="dropdown-menu"  x-placement="bottom-start">
-              {this.state.cities_list}
-            </ul>
+          <div className="filter">
+            <h6>Choose a City to Explore</h6>
+            <Select
+                name="form-field-name"
+                value={cityValue}
+                onChange={this.handleCityChange.bind(this)}
+                options={this.state.cities_list}
+            />
+          </div>
+          <div className="filter">
+            <h6>Filter by Price Range</h6>
+            <Select
+                name="form-field-name"
+                value={priceValue}
+                onChange={this.handlePriceChange.bind(this)}
+                options={[
+                  {value: '$', label: '$'},
+                  {value: '$$', label: '$$'},
+                  {value: '$$$', label: '$$$'},
+                  {value: '$$$$', label: '$$$$'},
+                ]}
+            />
+          </div>
+          <div className="filter">
+            <h6>Filter by Rating</h6>
+            <Select
+                name="form-field-name"
+                value={ratingValue}
+                onChange={this.handleRatingChange.bind(this)}
+                options={[
+                  {value: '0-1', label: '0-1 stars'},
+                  {value: '1-2', label: '1-2 stars'},
+                  {value: '2-3', label: '2-3 stars'},
+                  {value: '3-4', label: '3-4 stars'},
+                  {value: '4-5', label: '4-5 stars'},
+                ]}
+            />
           </div>
         </div>
         <section className="page-section">
@@ -143,7 +293,6 @@ render() {
             </div>
           </div>
         </section>
-        </div>
         <div className="col-md-12 text-center">
         <ul className="page-list">
           <li

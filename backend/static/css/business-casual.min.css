@@ -116,7 +116,6 @@ p{
 .page-section{
 	margin-top:5rem;
 	margin-bottom:5rem;
-  width: 80%
 }
 
 .section-heading{
@@ -354,13 +353,17 @@ p{
 	border: none;
 }
 
-.filters-and-grid {
+.filter-container {
   display: inline-flex;
-  width: 100%
+  margin: 5rem;
+  font-family: 'Roboto';
+  color: white;
 }
 
-.filter-container {
-  width: 20%;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
+.filter-container h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container .filter {
+  margin-left: 2rem;
 }
