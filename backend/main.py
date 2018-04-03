@@ -304,26 +304,43 @@ def sort_snapshots_favs_descending(searchkey):
 
 @APP.route('/nearby_scenic_from_shops/<shop_id>',  methods=['GET'])
 def nearby_scenic_from_shops(shop_id):
+    shop = engine.execute('SELECT * FROM Shops WHERE shop_id = shop_id').fetchone()
+    lat = float(shop.shop_latitude)
+    lon = float(shop.shop_longitude)
+    print(lat)
+    print(lon)
+    query = 'SELECT *,   6371 * 2 * ASIN(SQRT(POWER(SIN((scenic_latitude - abs(%(lat)s)) * pi()/180 / 2), 2) + COS(scenic_latitude * pi()/180 ) * COS(abs(%(lat)s) * pi()/180) * POWER(SIN((scenic_longitude - (%(lon)s)) *pi()/180 / 2), 2))) as distance FROM Scenic Order by distance asc Limit 10'
+    data={
+        'lat': float(lat),
+        'lon': float(lon),
+    }
+    scenic = engine.execute(query, data).fetchall()
+    print(scenic)
 
-    shops = engine.execute('SELECT * FROM Shops WHERE shop_id = shop_id').fetchone()
-    lat = Float(shops.shop_latitude)
-    lon = Float(shops.shop_longitude)
-
-    scenic = engine.execute('SELECT *, 3956 * 2 * ASIN(SQRT( POWER(SIN((lat - abs(scenic_latitude)) * pi()/180 / 2),2) + COS(lat * pi()/180 ) * COS(abs(scenic_latitude) *  pi()/180) * POWER(SIN((lon – scenic_longitude) *  pi()/180 / 2), 2))) AS distance FROM Scenic Order by distance desc').fetchall()
     jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
 
 @APP.route('/nearby_shops_from_scenic/<scenic_id>',  methods=['GET'])
 def nearby_shops_from_scenic(scenic_id):
+    print("in method")
 
     scenic = engine.execute('SELECT * FROM Scenic WHERE scenic_id = scenic_id').fetchone()
-    lat = Float(scenic.scenic_latitude)
-    lon = Float(scenic.scenic_longitude)
+    print(scenic)
+    lat = scenic.scenic_latitude
+    lon = scenic.scenic_longitude
+    print(lat)
+    print(lon)
+    query = 'SELECT *,   6371 * 2 * ASIN(SQRT(POWER(SIN((shop_latitude - abs(%(lat)s)) * pi()/180 / 2), 2) + COS(shop_latitude * pi()/180 ) * COS(abs(%(lat)s) * pi()/180) * POWER(SIN((shop_longitude - (%(lon)s)) *pi()/180 / 2), 2))) as distance FROM Shops Order by distance asc Limit 10'
+    data={
+        'lat': float(lat),
+        'lon': float(lon),
+    }
+    shops = engine.execute(query, data).fetchall()
+    print(shops)
 
-    shops = engine.execute('SELECT *, 3956 * 2 * ASIN(SQRT( POWER(SIN((lat - abs(shop_latitude)) * pi()/180 / 2),2) + COS(lat * pi()/180 ) * COS(abs(shop_latitude) *  pi()/180) * POWER(SIN((lon – shop_longitude) *  pi()/180 / 2), 2))) AS distance FROM Scenic Order by distance desc').fetchall()
-    jsonShops = json.dumps([dict(shop) for shop in Shops], default=alchemyencoder)
-    return jsonShopss
+    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
+    return jsonShops
 
 
 

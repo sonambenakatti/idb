@@ -136,7 +136,6 @@ render() {
               <span className="caret" /></button>
             <ul className="dropdown-menu" x-placement="bottom-start">
                 <li><a onClick={this.sort_rating_asc.bind(this)} >Name (A to Z)</a></li>
-
             </ul>
           </div>
         </div>

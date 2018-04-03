@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+
 
 class CoffeeInstance extends Component {
 
@@ -6,12 +8,47 @@ class CoffeeInstance extends Component {
 
     super(props);
     this.state = {
-      shop: this.props.location.state.shop
+      shop: this.props.location.state.shop,
+      scenic_list: [],
+      selectedLocation: [],
     };
+    this.get_scenic = this.get_scenic.bind(this);
   }
 
+get_scenic(){
+    fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(results =>{
+    console.log("Results:" + results)
+    return results.json();
+  }).then(data =>{
+      console.log(data)
+      let views = data.map((scenicloc) =>{
+        return(
+        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+          <li className="col">
+              <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"
+              />
+              <span className="picText">
+                <span><b>{scenicloc.scenic_name}</b>
+                <br /><br />{scenicloc.scenic_address}
+                <br />{scenicloc.scenic_rating + "/5"}
+                </span>
+              </span>
+          </li>
+        </div>
+      )
+    })
+    this.setState({scenic_list: views});
+  })
+}
 
   render() {
+    if (this.state.navigate) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {selectedLocation: this.state.selectedLocation};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
       return (
     <div>
       <div className="content">
@@ -42,9 +79,21 @@ class CoffeeInstance extends Component {
         </div>
       </div>
       <div className="model-links">
-        <p><a href="/locations">LOCATIONS NEARBY</a></p>
-        <p><a href="/snapshots">MORE SNAPS</a></p>
-      </div>
+          <button id="scenic_nearby" className="btn btn-primary" type="button" onClick={this.get_scenic}>Scenic Locations Nearby</button>
+        </div>
+        <div>
+         <section className="page-section">
+          <div className="container">
+            <div className="row">
+              <ul className="img-list">
+                <div className="row">
+                  {this.state.scenic_list}
+                </div>
+              </ul>
+            </div>
+          </div>
+        </section>
+        </div>
     </div>
 
       );
