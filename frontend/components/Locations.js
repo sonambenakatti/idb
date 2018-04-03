@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 //import chunk from 'lodash.chunk';
 import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+import {Select} from 'react-select';
+import 'react-select/dist/react-select.css';
+import axios from 'axios';
 
 class Locations extends Component {
 
 constructor (props) {
     super(props);
     this.state = {
+      full_data: [],
       locations: [],
       navigate: false,
       navigateTo: '',
@@ -25,12 +29,12 @@ componentDidMount(props) {
       return results.json();
     }).then(data =>{
       console.log(data)
+      this.setState({full_data: data})
       let views = data.map((scenicloc) =>{
         return(
         <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
           <li className="col">
-              <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"
-              />
+              <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
               <span className="picText">
                 <span><b>{scenicloc.scenic_name}</b>
                 <br /><br />{scenicloc.scenic_address}
@@ -54,15 +58,60 @@ getCities() {
     console.log(data)
     let cities = data.map((city) =>{
       return(
-        <li><a href="#">{city.city_name}</a></li>
+        {value: city.city_id, label: city.city_name}
       )
     })
     this.setState({cities_list: cities});
   })
 }
 
-sort_rating_asc(){
-  console.log(cities_list)
+handleCityChange(selectedCity){
+  console.log("INSIDE HANDLE CITY");
+  this.setState({ selectedCity });
+  //console.log(`Selected: ${selectedCity.label}`);
+  if (selectedCity === null) {
+    this.resetToAllData();
+  } else if (selectedCity) {
+    var value = selectedCity.value;
+    console.log(value);
+    let views = this.state.full_data.map((scenicloc) =>{
+      if (scenicloc.city_id === value) {
+        return(
+          <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+            <li className="col">
+                <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText">
+                  <span><b>{scenicloc.scenic_name}</b>
+                  <br /><br />{scenicloc.scenic_address}
+                  <br />{scenicloc.scenic_rating + "/5"}
+                  </span>
+                </span>
+            </li>
+          </div>
+        )
+      }
+    })
+    this.setState({locations: views});
+  }
+}
+
+resetToAllData() {
+  let views = this.state.full_data.map((scenicloc) =>{
+    return(
+    <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+      <li className="col">
+          <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+          <span className="picText">
+            <span><b>{scenicloc.scenic_name}</b>
+            <br /><br />{scenicloc.scenic_address}
+            <br />{scenicloc.scenic_rating + "/5"}
+            </span>
+          </span>
+      </li>
+    </div>
+    )
+  })
+  this.setState({locations: views});
 
 }
 
@@ -121,22 +170,25 @@ render() {
     );
   });
 
+  const SelectPackage = require('react-select');
+  const Select = SelectPackage.default;
+  const {selectedCity} = this.state;
+
+  const cityValue = selectedCity && selectedCity.value;
+
   return (
       <div>
         {/*location dropdown*/}
         <div className="filters-and-grid">
         <div className="filter-container">
-          <div className="dropdown">
-            <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a City to Explore
-              <span className="caret" /></button>
-            <ul className="dropdown-menu" x-placement="bottom-start">
-              {this.state.cities_list}
-            </ul>
-            <button id="filter" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a City to Explore
-              <span className="caret" /></button>
-            <ul className="dropdown-menu" x-placement="bottom-start">
-                <li><a onClick={this.sort_rating_asc.bind(this)} >Name (A to Z)</a></li>
-            </ul>
+          <div className="filter">
+            <h6>Choose a City to Explore</h6>
+            <Select
+                name="form-field-name"
+                value={cityValue}
+                onChange={this.handleCityChange.bind(this)}
+                options={this.state.cities_list}
+            />
           </div>
         </div>
         <section className="page-section">

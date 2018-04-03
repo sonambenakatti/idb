@@ -22,10 +22,7 @@ constructor (props) {
     cities_list: [],
     selectedCity: '',
     selectedPrice: '',
-    selectedRating: '',
-    activeFilter: '',
-    activeValue: '',
-    activeComparison: ''
+    selectedRating: ''
   };
 };
 
@@ -42,8 +39,7 @@ componentDidMount(props) {
       return(
         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
           <li className="col">
-              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
-              />
+              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
               <span className="picText">
               <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
           </li>
@@ -63,7 +59,7 @@ getCities() {
     console.log(data)
     let cities = data.map((city) =>{
       return(
-        {value: city.city_name, label: city.city_name}
+        {value: city.city_id, label: city.city_name}
       )
     })
     this.setState({cities_list: cities});
@@ -71,103 +67,94 @@ getCities() {
 }
 
 handleCityChange(selectedCity){
+  console.log("INSIDE HANDLE CITY");
   this.setState({ selectedCity });
-  console.log(`Selected: ${selectedCity.label}`);
-
+  //console.log(`Selected: ${selectedCity.label}`);
+  if (selectedCity === null) {
+    this.resetToAllData();
+  } else if (selectedCity) {
+    var value = selectedCity.value;
+    console.log(value);
+    let shops = this.state.full_data.map((shop) =>{
+      if (shop.city_id === value) {
+        return(
+          <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+            <li className="col">
+                <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText">
+                <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+            </li>
+          </div>
+        )
+      }
+    })
+    this.setState({coffeeshops: shops});
+  }
 }
 
 handlePriceChange(selectedPrice){
   this.setState({ selectedPrice });
-  console.log(`Selected: ${selectedPrice.label}`);
+  //console.log(`Selected: ${selectedPrice.label}`);
 
-  var filter = '';
-  var value = '';
-  var comparison = '';
-  if (selectedPrice) {
-    switch (selectedPrice.value) {
-      case '$':
-        filter = 'shop_price';
-        value = '$';
-        comparison = 'like';
-        break;
-      case '$$':
-        filter = 'shop_price';
-        value = '$$';
-        comparison = 'like';
-        break;
-      case '$$$':
-        filter = 'shop_price';
-        value = '$$$';
-        comparison = 'like';
-        break;
-      case '$$$$':
-        filter = 'shop_price';
-        value = '$$$$';
-        comparison = 'like';
-        break;
-      default:
-        console.log("HERE PRICE FILTER");
+  if (selectedPrice == null) {
+    this.resetToAllData();
+  } else if (selectedPrice) {
+    var value = selectedPrice.value;
+    let shops = this.state.full_data.map((shop) =>{
+      if (shop.shop_price === value) {
+        return(
+          <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+            <li className="col">
+                <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText">
+                <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+            </li>
+          </div>
+        )
       }
-    } else {
-      console.log("INSIDE ELSE PRICE FILTER")
-    }
-    this.setState({
-      activeFilter: filter
-    }, function() {
-    this.setState({
-        activeValue: value
-      }, function() {
-      this.setState({
-          activeComparison: comparison
-        }, function() {
-        this.setState({
-          currentPage: 1
-        }, function() {
-          this.updateData();
-        });
-      });
-    });
-    });
-
+    })
+    this.setState({coffeeshops: shops});
+  }
 }
 
 handleRatingChange(selectedRating){
-  this.setState({ selectedPrice });
-  console.log(`Selected: ${selectedRating.label}`);
+  this.setState({ selectedRating });
+  //console.log(`Selected: ${selectedRating.label}`);
 
+  if (selectedRating == null) {
+    this.resetToAllData();
+  } else if (selectedRating) {
+    var value = selectedRating.value;
+    let shops = this.state.full_data.map((shop) =>{
+      if (shop.shop_rating >= value) {
+        return(
+          <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+            <li className="col">
+                <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText">
+                <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+            </li>
+          </div>
+        )
+      }
+    })
+    this.setState({coffeeshops: shops});
+  }
 }
 
-updateData(){
+resetToAllData() {
   let shops = this.state.full_data.map((shop) =>{
-    if (shop.shop_price === this.state.activeValue) {
       return(
         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
           <li className="col">
-              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
-              />
+              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
               <span className="picText">
               <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
           </li>
         </div>
       )
-    }
   })
-  console.log("SHOPS AFTER FILTER");
-  console.log(shops);
   this.setState({coffeeshops: shops});
-
-  // let url = `http://api.espressoyoself.me/coffeeshops/${this.state.activeFilter}&value=${this.state.activeValue}&comparison=${this.state.activeComparison}`;
-  // //console.log(url);
-  // console.log(url);
-  // axios.get(url).then(res => {
-  //   const instanceList = res.data;
-  //   this.setState({
-  //     coffeeshops: instanceList
-  //   });
-  //
-  // }).catch((error) => {
-  //   console.log(error);
-  // });
 
 }
 
@@ -273,11 +260,11 @@ render() {
                 value={ratingValue}
                 onChange={this.handleRatingChange.bind(this)}
                 options={[
-                  {value: '0-1', label: '0-1 stars'},
-                  {value: '1-2', label: '1-2 stars'},
-                  {value: '2-3', label: '2-3 stars'},
-                  {value: '3-4', label: '3-4 stars'},
-                  {value: '4-5', label: '4-5 stars'},
+                  {value: '0', label: '0+'},
+                  {value: '1', label: '1+'},
+                  {value: '2', label: '2+'},
+                  {value: '3', label: '3+'},
+                  {value: '4', label: '4+'},
                 ]}
             />
           </div>
