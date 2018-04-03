@@ -4,6 +4,7 @@ import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
 class CoffeeShops extends Component {
 
 constructor (props) {
+  console.log(props);
   super(props);
   this.state = {
     coffeeshops: [],

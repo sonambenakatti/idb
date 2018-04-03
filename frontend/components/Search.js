@@ -36,14 +36,11 @@ class Search extends Component {
       console.log(data)
       let results = data.map((result) => {
         // Handle differences between the three models
-        if(!(result["shop_name"] === undefined)) {
-          this.setState({instanceType: "CoffeeInstance"});
+        if(result["shop_name"] !== undefined) {
           return this.returnCoffeeShop(result);
-        } else if (!(result["scenic_name"] === undefined)) {
-          this.setState({instanceType: "Location"});
+        } else if (result["scenic_name"] !== undefined) {
           return this.returnScenicLocation(result);
-        } else if (!(result["snap_name"] === undefined)) {
-          this.setState({instanceType: "Snapshot"});
+        } else if (result["snap_name"] !== undefined) {
           return this.returnSnapshot(result);
         }
       })
@@ -58,9 +55,9 @@ class Search extends Component {
 
   returnCoffeeShop(result) {
     return(
-        <div id="shop_instance" key={result.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result})}}>
+        <div id="shop_instance" onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result, instanceType: "CoffeeInstance"})}}>
           <li className="col">
-              <img src={result.shop_picture} style={{width: 300, height: 300}} alt={result.shop_picture}/>
+              <img src={result.shop_picture} style={{width: 300, height: 300}}/>
               <span className="picText">
                 <span><b>{this.highlightText(result.shop_name)}</b>
                 <br /><br />{this.highlightText(result.shop_address)}
@@ -84,10 +81,13 @@ class Search extends Component {
   }
 
   returnScenicLocation(result) {
+    if(result.scenic_picture === "") {
+      result.scenic_picture = "/static/img/ruchi.jpg"
+    }
     return(
-      <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result})}}>
+      <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location"})}}>
         <li className="col">
-            <img src={this.highlightText(result.scenic_picture)} style={{width: 300, height: 300}} alt={this.highlightText(result.scenic_name)}/>
+            <img src={result.scenic_picture} style={{width: 300, height: 300}}/>
             <span className="picText">
               <span><b>{this.highlightText(result.scenic_name)}</b>
               <br /><br />{this.highlightText(result.scenic_address)}
@@ -101,9 +101,9 @@ class Search extends Component {
 
   returnSnapshot(result) {
     return(
-      <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result})}}>
+      <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result, instanceType: "Snapshot"})}}>
         <li className="col">
-            <img src={result.snap_picture} style={{width: 300, height: 300}} alt={result.snap_name}/>
+            <img src={result.snap_picture} style={{width: 300, height: 300}}/>
             <span className="picText"><span><b>{this.highlightText(result.snap_name)}</b><br /><br />
             {this.highlightText(result.snap_tags)}<br />
             {this.highlightText(result.snap_favs + " Faves")}</span></span>

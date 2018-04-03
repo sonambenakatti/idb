@@ -3838,7 +3838,7 @@ var About = function (_Component) {
                       { className: "mb-4" },
                       _react2["default"].createElement(
                         "a",
-                        { href: "https://yuml.me/7b029469.jpg" },
+                        { href: "https://yuml.me/3114f25a.png" },
                         "UML Diagram"
                       )
                     )
@@ -4053,6 +4053,8 @@ var CoffeeShops = function (_Component) {
 
   function CoffeeShops(props) {
     _classCallCheck(this, CoffeeShops);
+
+    console.log(props);
 
     var _this = _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).call(this, props));
 
@@ -5209,14 +5211,11 @@ var Search = function (_Component) {
           console.log(data);
           var results = data.map(function (result) {
             // Handle differences between the three models
-            if (!(result["shop_name"] === undefined)) {
-              _this2.setState({ instanceType: "CoffeeInstance" });
+            if (result["shop_name"] !== undefined) {
               return _this2.returnCoffeeShop(result);
-            } else if (!(result["scenic_name"] === undefined)) {
-              _this2.setState({ instanceType: "Location" });
+            } else if (result["scenic_name"] !== undefined) {
               return _this2.returnScenicLocation(result);
-            } else if (!(result["snap_name"] === undefined)) {
-              _this2.setState({ instanceType: "Snapshot" });
+            } else if (result["snap_name"] !== undefined) {
               return _this2.returnSnapshot(result);
             }
           });
@@ -5238,9 +5237,9 @@ var Search = function (_Component) {
 
         return _react2['default'].createElement(
           'div',
-          { id: 'shop_instance', key: result.shop_name, onClick: function () {
+          { id: 'shop_instance', onClick: function () {
               function onClick() {
-                _this3.setState({ navigate: true, navigateTo: "/shop", selectedInstance: result });
+                _this3.setState({ navigate: true, navigateTo: "/shop", selectedInstance: result, instanceType: "CoffeeInstance" });
               }
 
               return onClick;
@@ -5248,7 +5247,7 @@ var Search = function (_Component) {
           _react2['default'].createElement(
             'li',
             { className: 'col' },
-            _react2['default'].createElement('img', { src: result.shop_picture, style: { width: 300, height: 300 }, alt: result.shop_picture }),
+            _react2['default'].createElement('img', { src: result.shop_picture, style: { width: 300, height: 300 } }),
             _react2['default'].createElement(
               'span',
               { className: 'picText' },
@@ -5295,11 +5294,14 @@ var Search = function (_Component) {
       function returnScenicLocation(result) {
         var _this4 = this;
 
+        if (result.scenic_picture === "") {
+          result.scenic_picture = "/static/img/ruchi.jpg";
+        }
         return _react2['default'].createElement(
           'div',
           { id: 'location_instance', key: result.scenic_name, onClick: function () {
               function onClick() {
-                _this4.setState({ navigate: true, navigateTo: "/location", selectedInstance: result });
+                _this4.setState({ navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location" });
               }
 
               return onClick;
@@ -5307,7 +5309,7 @@ var Search = function (_Component) {
           _react2['default'].createElement(
             'li',
             { className: 'col' },
-            _react2['default'].createElement('img', { src: this.highlightText(result.scenic_picture), style: { width: 300, height: 300 }, alt: this.highlightText(result.scenic_name) }),
+            _react2['default'].createElement('img', { src: result.scenic_picture, style: { width: 300, height: 300 } }),
             _react2['default'].createElement(
               'span',
               { className: 'picText' },
@@ -5342,7 +5344,7 @@ var Search = function (_Component) {
           'div',
           { id: 'snap_instance', key: result.snap_name, onClick: function () {
               function onClick() {
-                _this5.setState({ navigate: true, navigateTo: "/snapshot", selectedInstance: result });
+                _this5.setState({ navigate: true, navigateTo: "/snapshot", selectedInstance: result, instanceType: "Snapshot" });
               }
 
               return onClick;
@@ -5350,7 +5352,7 @@ var Search = function (_Component) {
           _react2['default'].createElement(
             'li',
             { className: 'col' },
-            _react2['default'].createElement('img', { src: result.snap_picture, style: { width: 300, height: 300 }, alt: result.snap_name }),
+            _react2['default'].createElement('img', { src: result.snap_picture, style: { width: 300, height: 300 } }),
             _react2['default'].createElement(
               'span',
               { className: 'picText' },
