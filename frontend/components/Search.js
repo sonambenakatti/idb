@@ -9,6 +9,7 @@ class Search extends Component {
       searchValue: "",
       searchResults: [],
       resultsPerPage: 9,
+      currentPage: 1,
       navigateTo: "",
       instanceType: "",
       selectedInstance: []
@@ -27,26 +28,29 @@ class Search extends Component {
     this.setState({searchResults: []});
     console.log("Value of search value after clicking Search: " + this.state.searchValue);
     fetch('/search/' + this.state.searchValue).then(results => {
-      console.log(results)
+      //console.log(results)
       return results.json();
     }).then(data => {
       console.log(data)
       let results = data.map((result) => {
         // Handle differences between the three models
-        if(!(result["shop_id"] === undefined)) {
+        if(!(result["shop_name"] === undefined)) {
           this.setState({instanceType: "CoffeeInstance"});
           return this.returnCoffeeShop(result);
-        } else if (!(result["scenic_id"] === undefined)) {
+        } else if (!(result["scenic_name"] === undefined)) {
           this.setState({instanceType: "Location"});
           return this.returnScenicLocation(result);
-        } else if (!(result["snap_id"] === undefined)) {
+        } else if (!(result["snap_name"] === undefined)) {
           this.setState({instanceType: "Snapshot"});
+        } else {
+          console.log("else " + result);
         }
       })
       if(data.length == 0) {
         console.log("No results!");
         results = this.returnNoResults();
       }
+      console.log("RESULTS HERE: " + results)
       this.setState({searchResults: results});
     })
 
@@ -106,9 +110,36 @@ class Search extends Component {
     )
   }
 
+  handleClick(pageNumber, event) {
+      if(pageNumber <= 1) {
+        document.getElementById("prev").style.visibility="hidden";
+      } else {
+        document.getElementById("prev").style.visibility="visible";
+      }
+      if(pageNumber >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage)) {
+        document.getElementById("next").style.visibility="hidden";
+      } else {
+        document.getElementById("next").style.visibility="visible";
+      }
+      console.log("set state")
+      this.setState({
+        currentPage: pageNumber
+      });
+    }
+
   render() {
-     var searchResults = this.state.searchResults;
-     var locations = this.state.resultsPerPage;
+     const{searchResults, currentPage, resultsPerPage} = this.state;
+
+     const indexOfLastResult = currentPage * resultsPerPage;
+     const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+     const currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
+
+     const pageNumbers = [];
+     const nextPageNumbers = currentPage + 7 <= Math.ceil(searchResults.length / resultsPerPage)? currentPage + 7 : Math.ceil(searchResults.length / resultsPerPage)
+     const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+     for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
+       pageNumbers.push(i);
+     }
 
      if (this.state.navigate) {
        var instanceType = this.state.instanceType;
@@ -127,6 +158,23 @@ class Search extends Component {
        return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
      }
 
+    const renderResults = currentResults.map((res, index) => {
+      return <li key={index}>{res}</li>;
+    });
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <li
+          key={number}
+          id={number}
+          style={this.state.currentPage === number ? {color:'orange'} : {}}
+          onClick={this.handleClick.bind(this, number)}
+        >
+          {number}
+        </li>
+      );
+    });
+
     return (
       <div>
         <section className="page-section-1">
@@ -140,10 +188,27 @@ class Search extends Component {
             <div className="row">
               <ul className="img-list">
                 <div className="row">
-                  {searchResults}
+                  {renderResults}
                 </div>
               </ul>
             </div>
+          </div>
+        </section>
+        <section className="page-section-1">
+          <div className="col-md-12 text-center">
+          <ul className="page-list">
+            <li
+              id="prev"
+              style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+            </li>
+              {renderPageNumbers}
+            <li
+              id="next"
+              style={this.state.currentPage >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage) ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            </li>
+          </ul>
           </div>
         </section>
       </div>

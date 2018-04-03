@@ -81,7 +81,7 @@ render() {
 
   const { coffeeshops, currentPage, shopsPerPage } = this.state;
 
-  // Logic for displaying todos
+  // Logic for displaying shops
   const indexOfLastShop = currentPage * shopsPerPage;
   const indexOfFirstShop = indexOfLastShop - shopsPerPage;
   const currentShops = coffeeshops.slice(indexOfFirstShop, indexOfLastShop);
