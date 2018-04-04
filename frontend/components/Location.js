@@ -32,6 +32,7 @@ class Location extends Component {
   }
 
   get_coffeeshops(){
+    console.log(this.state.scenic_id)
     fetch('/nearby_shops_from_scenic/' + this.state.scenic_id).then(results =>{
     console.log("Results:" + results)
     return results.json();

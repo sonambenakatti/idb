@@ -304,7 +304,13 @@ def sort_snapshots_favs_descending(searchkey):
 
 @APP.route('/nearby_scenic_from_shops/<shop_id>',  methods=['GET'])
 def nearby_scenic_from_shops(shop_id):
-    shop = engine.execute('SELECT * FROM Shops WHERE shop_id = shop_id').fetchone()
+    print(shop_id)
+
+    query = 'SELECT * FROM Shops WHERE shop_id = %(id)s'
+    data={
+        'id': int(scenic_id),
+    }
+    scenic = engine.execute(query, data).fetchone()
     lat = float(shop.shop_latitude)
     lon = float(shop.shop_longitude)
     print(lat)
@@ -324,8 +330,13 @@ def nearby_scenic_from_shops(shop_id):
 @APP.route('/nearby_shops_from_scenic/<scenic_id>',  methods=['GET'])
 def nearby_shops_from_scenic(scenic_id):
     print("in method")
+    print(scenic_id)
+    query = 'SELECT * FROM Scenic WHERE scenic_id = %(id)s'
+    data={
+        'id': int(scenic_id),
+    }
+    scenic = engine.execute(query, data).fetchone()
 
-    scenic = engine.execute('SELECT * FROM Scenic WHERE scenic_id = scenic_id').fetchone()
     print(scenic)
     lat = scenic.scenic_latitude
     lon = scenic.scenic_longitude
@@ -337,7 +348,6 @@ def nearby_shops_from_scenic(scenic_id):
         'lon': float(lon),
     }
     shops = engine.execute(query, data).fetchall()
-    print(shops)
 
     jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
@@ -356,6 +366,7 @@ def snapshots_scenic(scenic_id):
     snaps = engine.execute('SELECT * FROM Snapshots where scenic_id = scenic_id Limit 10').fetchall()
     jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
+
 
 
 
