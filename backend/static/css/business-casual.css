@@ -315,12 +315,15 @@ a:hover, a:visited, a:link, a:active {
 	text-align: center;
 }
 
-.model-links p{
+.model-links .btn{
 	display: inline-block;
-	padding: 30px;
+	padding: 10px;
+  margin-left: 2rem;
+  margin-right: 2rem;
 	font-size:1rem;
 	font-weight:800;
 	font-family:Raleway;
+  color: rgba(255,255,255,.4)
 }
 
 input[type=text] {
@@ -344,6 +347,38 @@ input[type=text] {
     margin:0 auto;
 }
 
-.model-links p a{
-	color: rgba(255,255,255,.4)
+.page-section-instance {
+}
+
+span.picTextInstance {
+  font-family: Raleway;
+  font-weight: 300;
+  font-size: 1rem;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+  cursor: pointer;
+  display: table;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+    border-radius: 5px;
+}
+
+span.picTextInstance span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 18em
+}
+
+ul.img-list li:hover span.picTextInstance {
+  opacity: 2;
 }

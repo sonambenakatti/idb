@@ -80,6 +80,7 @@ class SnapshotsMain extends Component {
         });
         this.setState({photos: snapshots});
       }
+      this.setState({currentPage: 1})
     }
 
     handleFaveSortChange(selectedSort) {
@@ -158,6 +159,7 @@ class SnapshotsMain extends Component {
         });
         this.setState({photos: snapshots});
       }
+      this.setState({currentPage: 1})
     }
 
     resetToAllData() {
@@ -174,6 +176,7 @@ class SnapshotsMain extends Component {
         );
       });
       this.setState({photos: snapshots});
+      this.setState({currentPage: 1})
     }
 
     // invokoed when user clicks a page number on the bottom.

@@ -90,6 +90,7 @@ handleCityChange(selectedCity){
     })
     this.setState({coffeeshops: shops});
   }
+  this.setState({currentPage: 1})
 }
 
 handleSortChange(selectedSort) {
@@ -140,6 +141,7 @@ handlePriceChange(selectedPrice){
     })
     this.setState({coffeeshops: shops});
   }
+  this.setState({currentPage: 1})
 }
 
 handleRatingChange(selectedRating){
@@ -165,6 +167,7 @@ handleRatingChange(selectedRating){
     })
     this.setState({coffeeshops: shops});
   }
+  this.setState({currentPage: 1})
 }
 
 resetToAllData() {
@@ -180,6 +183,7 @@ resetToAllData() {
       )
   })
   this.setState({coffeeshops: shops});
+  this.setState({currentPage: 1})
 
 }
 

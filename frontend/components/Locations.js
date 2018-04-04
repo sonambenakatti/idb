@@ -95,6 +95,7 @@ handleCityChange(selectedCity){
     })
     this.setState({locations: views});
   }
+  this.setState({currentPage: 1})
 }
 
 handleSortChange(selectedSort) {
@@ -154,6 +155,7 @@ handleRatingChange(selectedRating){
     })
     this.setState({locations: views});
   }
+  this.setState({currentPage: 1})
 }
 
 resetToAllData() {
@@ -173,6 +175,7 @@ resetToAllData() {
     )
   })
   this.setState({locations: views});
+  this.setState({currentPage: 1})
 
 }
 

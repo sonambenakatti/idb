@@ -28,9 +28,9 @@ get_scenic(){
         return(
         <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
           <li className="col">
-              <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"
+              <img src={scenicloc.scenic_picture} style={{width: 200, height: 200}} alt="Photo1"
               />
-              <span className="picText">
+              <span className="picTextInstance">
                 <span><b>{scenicloc.scenic_name}</b>
                 <br /><br />{scenicloc.scenic_address}
                 <br />{scenicloc.scenic_rating + "/5"}
@@ -55,8 +55,8 @@ get_scenic(){
         return(
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
             <li className="col">
-                <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /><br />
                 {snapshot.snap_tags}<br />
                 {snapshot.snap_favs+" Faves"}</span></span>
             </li>
@@ -82,7 +82,7 @@ get_scenic(){
 
        return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
     }
-      
+
     return (
     <div>
       <div className="content">
@@ -113,12 +113,12 @@ get_scenic(){
         </div>
       </div>
       <div className="model-links">
-          <button id="scenic_nearby" className="btn btn-primary" type="button" onClick={this.get_scenic}>Scenic Locations Nearby</button>
-          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>More Snaps</button>
+          <button id="scenic_nearby" className="btn btn-primary" type="button" onClick={this.get_scenic}>SCENIC LOCATIONS NEARBY</button>
+          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
 
         </div>
         <div>
-         <section className="page-section">
+         <section className="page-section-instance">
           <div className="container">
             <div className="row">
               <ul className="img-list">
@@ -131,7 +131,7 @@ get_scenic(){
         </section>
         </div>
         <div>
-         <section className="page-section">
+         <section className="page-section-instance">
           <div className="container">
             <div className="row">
               <ul className="img-list">
