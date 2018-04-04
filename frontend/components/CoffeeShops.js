@@ -21,7 +21,8 @@ constructor (props) {
     cities_list: [],
     selectedCity: '',
     selectedPrice: '',
-    selectedRating: ''
+    selectedRating: '',
+    selectedSort: ''
   };
 };
 
@@ -89,6 +90,38 @@ handleCityChange(selectedCity){
     })
     this.setState({coffeeshops: shops});
   }
+}
+
+// there are a lot of ways to sort attributes of a coffeeshop
+// high to low price
+// low to high price
+// high to low rating
+// low to high rating
+// A-Z
+
+handleSortChange(selectedSort) {
+  this.setState({ selectedSort });
+  if(selectedSort === null) {
+    this.resetToAllData();
+  } else if (selectedSort) {
+      var value = selectedSort.value;
+      fetch('/coffeeshops/sort/' + value).then(results => {
+        return results.json();
+      }).then(data => {
+          let shops = data.map((shop) => {
+            return(
+              <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+                <li className="col">
+                    <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                    <span className="picText">
+                    <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+                </li>
+              </div>
+            );
+          })
+        this.setState({coffeeshops: shops})
+      })
+    }
 }
 
 handlePriceChange(selectedPrice){
@@ -183,7 +216,7 @@ render() {
 
   const { coffeeshops, currentPage, shopsPerPage } = this.state;
   console.log(coffeeshops)
-  
+
   const concat_shops = [];
   const shops = this.state.coffeeshops.map((coffeeshops, index) => {
     if (coffeeshops) {
@@ -231,52 +264,91 @@ render() {
     const {selectedCity} = this.state;
     const {selectedPrice} = this.state;
     const {selectedRating} = this.state;
+    const {selectedSort} = this.state;
+
     const cityValue = selectedCity && selectedCity.value;
     const priceValue = selectedPrice && selectedPrice.value;
     const ratingValue = selectedRating && selectedRating.value;
+    const sortValue = selectedSort && selectedSort.value
 
     return (
       <div>
-        {/*location dropdown*/}
+        <div className="filters-and-grid">
         <div className="filter-container">
-          <div className="filter">
-            <h6>Choose a City to Explore</h6>
-            <Select
-                name="form-field-name"
-                value={cityValue}
-                onChange={this.handleCityChange.bind(this)}
-                options={this.state.cities_list}
-            />
-          </div>
-          <div className="filter">
-            <h6>Filter by Price Range</h6>
-            <Select
-                name="form-field-name"
-                value={priceValue}
-                onChange={this.handlePriceChange.bind(this)}
-                options={[
-                  {value: '$', label: '$'},
-                  {value: '$$', label: '$$'},
-                  {value: '$$$', label: '$$$'},
-                  {value: '$$$$', label: '$$$$'},
-                ]}
-            />
-          </div>
-          <div className="filter">
-            <h6>Filter by Rating</h6>
-            <Select
-                name="form-field-name"
-                value={ratingValue}
-                onChange={this.handleRatingChange.bind(this)}
-                options={[
-                  {value: '0', label: '0+'},
-                  {value: '1', label: '1+'},
-                  {value: '2', label: '2+'},
-                  {value: '3', label: '3+'},
-                  {value: '4', label: '4+'},
-                ]}
-            />
-          </div>
+        <div className="filter">
+          <h6>Choose a City to Explore</h6>
+          <Select
+              name="form-field-name"
+              value={cityValue}
+              onChange={this.handleCityChange.bind(this)}
+              options={this.state.cities_list}
+          />
+        </div>
+        <div className="filter">
+          <h6>Filter by Price Range</h6>
+          <Select
+              name="form-field-name"
+              value={priceValue}
+              onChange={this.handlePriceChange.bind(this)}
+              options={[
+                {value: '$', label: '$'},
+                {value: '$$', label: '$$'},
+                {value: '$$$', label: '$$$'},
+                {value: '$$$$', label: '$$$$'},
+              ]}
+          />
+        </div>
+        <div className="filter">
+          <h6>Filter by Rating</h6>
+          <Select
+              name="form-field-name"
+              value={ratingValue}
+              onChange={this.handleRatingChange.bind(this)}
+              options={[
+                {value: '0', label: '0+'},
+                {value: '1', label: '1+'},
+                {value: '2', label: '2+'},
+                {value: '3', label: '3+'},
+                {value: '4', label: '4+'},
+              ]}
+          />
+        </div>
+        <div className="filter">
+          <h6>Sort by price</h6>
+          <Select
+              name="form-field-name"
+              value={sortValue}
+              onChange={this.handleSortChange.bind(this)}
+              options={[
+                {value: 'priceasc', label: 'Low - High'},
+                {value: 'pricedesc', label: 'High - Low'},
+              ]}
+          />
+        </div>
+        <div className="filter">
+          <h6>Sort by rating</h6>
+          <Select
+              name="form-field-name"
+              value={sortValue}
+              onChange={this.handleSortChange.bind(this)}
+              options={[
+                {value: 'ratingasc', label: 'Low - High'},
+                {value: 'ratingdesc', label: 'High - Low'},
+              ]}
+          />
+        </div>
+        <div className="filter">
+          <h6>Sort alphabetically</h6>
+          <Select
+              name="form-field-name"
+              value={sortValue}
+              onChange={this.handleSortChange.bind(this)}
+              options={[
+                {value: 'atoz', label: 'A - Z'},
+                {value: 'ztoa', label: 'Z - A'},
+              ]}
+          />
+        </div>
         </div>
         <section className="page-section">
           <div className="container">
@@ -303,8 +375,8 @@ render() {
           </li>
         </ul>
         </div>
-
       </div>
+    </div>
     );
   }
 }

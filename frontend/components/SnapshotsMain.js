@@ -289,7 +289,7 @@ class SnapshotsMain extends Component {
               />
             </div>
             <div className="filter">
-              <h6>Choose an option to sort by</h6>
+              <h6>Sort by favorites</h6>
               <Select
                 name="form-field-name"
                 value={sortValue}
