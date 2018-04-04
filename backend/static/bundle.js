@@ -9551,10 +9551,8 @@ var Search = function (_Component) {
         this.setState({ searchResults: [] });
         console.log("Value of search value after clicking Search: " + this.state.searchValue);
         fetch('/search/' + this.state.searchValue).then(function (results) {
-          //console.log(results)
           return results.json();
         }).then(function (data) {
-          console.log(data);
           var results = data.map(function (result) {
             // Handle differences between the three models
             if (result["shop_name"] !== undefined) {
@@ -9569,9 +9567,8 @@ var Search = function (_Component) {
           });
           if (data.length == 0) {
             console.log("No results!");
-            results = _this2.returnNoResults();
+            results = [_react2['default'].createElement('div', null), _this2.returnNoResults()];
           }
-          console.log("RESULTS HERE: " + results);
           _this2.setState({ searchResults: results });
         });
       }
@@ -9599,12 +9596,12 @@ var Search = function (_Component) {
             _react2['default'].createElement('img', { src: result.shop_picture, style: { width: 300, height: 300 } }),
             _react2['default'].createElement(
               'span',
-              { className: 'picText' },
+              { 'class': 'picText' },
               _react2['default'].createElement(
                 'span',
                 null,
                 _react2['default'].createElement(
-                  'b',
+                  'nobr',
                   null,
                   this.highlightText(result.shop_name)
                 ),
@@ -9627,10 +9624,12 @@ var Search = function (_Component) {
     key: 'highlightText',
     value: function () {
       function highlightText(text) {
+        console.log(text);
+        console.log(this.state.searchValue.split(" "));
         return _react2['default'].createElement(_reactHighlightWords2['default'], {
           highlightClassName: _highlighter2['default'].Highlight,
           searchWords: this.state.searchValue.split(" "),
-          autoEscape: true,
+          autoEscape: false,
           textToHighlight: text
         });
       }
@@ -9777,6 +9776,8 @@ var Search = function (_Component) {
             currentPage = _state.currentPage,
             resultsPerPage = _state.resultsPerPage;
 
+
+        console.log(searchResults);
 
         var indexOfLastResult = currentPage * resultsPerPage;
         var indexOfFirstResult = indexOfLastResult - resultsPerPage;
