@@ -20,7 +20,8 @@ constructor (props) {
       locationsPerPage: 9,
       cities_list: [],
       selectedCity: '',
-      selectedRating: ''
+      selectedRating: '',
+      selectedSort: ''
     };
 };
 
@@ -94,6 +95,36 @@ handleCityChange(selectedCity){
     })
     this.setState({locations: views});
   }
+  this.setState({currentPage: 1})
+}
+
+handleSortChange(selectedSort) {
+  this.setState({ selectedSort });
+  if(selectedSort === null) {
+    this.resetToAllData();
+  } else if (selectedSort) {
+      var value = selectedSort.value;
+        fetch('/sceniclocations/sort/' + value).then(results => {
+          return results.json();
+        }).then(data => {
+            let views = data.map((scenicloc) => {
+              return(
+                <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+                  <li className="col">
+                      <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                      <span className="picText">
+                        <span><b>{scenicloc.scenic_name}</b>
+                        <br /><br />{scenicloc.scenic_address}
+                        <br />{scenicloc.scenic_rating + "/5"}
+                        </span>
+                      </span>
+                  </li>
+                </div>
+              );
+            })
+          this.setState({locations: views})
+        })
+    }
 }
 
 handleRatingChange(selectedRating){
@@ -124,6 +155,7 @@ handleRatingChange(selectedRating){
     })
     this.setState({locations: views});
   }
+  this.setState({currentPage: 1})
 }
 
 resetToAllData() {
@@ -143,17 +175,18 @@ resetToAllData() {
     )
   })
   this.setState({locations: views});
+  this.setState({currentPage: 1})
 
 }
 
-handleClick(pageNumber, event) {
+handleClick(pageNumber, arr, event) {
   if(pageNumber <= 1) {
     document.getElementById("prev").style.visibility="hidden";
   } else {
     document.getElementById("prev").style.visibility="visible";
   }
 
-  if(pageNumber >= Math.ceil(this.state.locations.length / this.state.locationsPerPage)) {
+  if(pageNumber >= Math.ceil(arr.length / this.state.locationsPerPage)) {
     document.getElementById("next").style.visibility="hidden";
   } else {
     document.getElementById("next").style.visibility="visible";
@@ -203,7 +236,7 @@ render() {
         key={number}
         id={number}
         style={this.state.currentPage === number ? {color:'orange'} : {}}
-        onClick={this.handleClick.bind(this, number)}
+        onClick={this.handleClick.bind(this, number, concat_locs)}
       >
         {number}
       </li>
@@ -214,9 +247,11 @@ render() {
   const Select = SelectPackage.default;
   const {selectedCity} = this.state;
   const {selectedRating} = this.state;
+  const {selectedSort} = this.state;
 
   const cityValue = selectedCity && selectedCity.value;
   const ratingValue = selectedRating && selectedRating.value;
+  const sortValue = selectedSort && selectedSort.value
 
   return (
       <div>
@@ -247,6 +282,30 @@ render() {
                 ]}
             />
           </div>
+          <div className="filter">
+            <h6>Sort by Rating</h6>
+            <Select
+                name="form-field-name"
+                value={sortValue}
+                onChange={this.handleSortChange.bind(this)}
+                options={[
+                  {value: 'ratingasc', label: 'Low - High'},
+                  {value: 'ratingdesc', label: 'High - Low'},
+                ]}
+            />
+          </div>
+          <div className="filter">
+            <h6>Sort alphabetically</h6>
+            <Select
+                name="form-field-name"
+                value={sortValue}
+                onChange={this.handleSortChange.bind(this)}
+                options={[
+                  {value: 'atoz', label: 'A - Z'},
+                  {value: 'ztoa', label: 'Z - A'},
+                ]}
+            />
+          </div>
         </div>
         <section className="page-section">
           <div className="container">
@@ -264,13 +323,14 @@ render() {
         <ul className="page-list">
         <li
           id="prev"
-          style = {{visibility: "hidden"}}
-          onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+          style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+          onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_locs)}> &lt;prev
         </li>
           {renderPageNumbers}
           <li
             id="next"
-            onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            style={this.state.currentPage >= Math.ceil(concat_locs.length / this.state.locationsPerPage) ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_locs)}> next&gt;
           </li>
         </ul>
         </div>

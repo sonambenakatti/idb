@@ -31,10 +31,8 @@ class Search extends Component {
     this.setState({searchResults: []});
     console.log("Value of search value after clicking Search: " + this.state.searchValue);
     fetch('/search/' + this.state.searchValue).then(results => {
-      //console.log(results)
       return results.json();
     }).then(data => {
-      console.log(data)
       let results = data.map((result) => {
         // Handle differences between the three models
         if(result["shop_name"] !== undefined) {
@@ -49,9 +47,8 @@ class Search extends Component {
       })
       if(data.length == 0) {
         console.log("No results!");
-        results = this.returnNoResults();
+        results = [<div></div>, this.returnNoResults()];
       }
-      console.log("RESULTS HERE: " + results)
       this.setState({searchResults: results});
     })
 
@@ -62,8 +59,8 @@ class Search extends Component {
         <div id="shop_instance" onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result, instanceType: "CoffeeInstance"})}}>
           <li className="col">
               <img src={result.shop_picture} style={{width: 300, height: 300}}/>
-              <span className="picText">
-                <span><b>{this.highlightText(result.shop_name)}</b>
+              <span class="picText">
+                <span><nobr>{this.highlightText(result.shop_name)}</nobr>
                 <br /><br />{this.highlightText(result.shop_address)}
                 <br />{this.highlightText(result.shop_price)}<br />
                 {this.highlightText(result.shop_rating + "/5")}</span>
@@ -74,11 +71,13 @@ class Search extends Component {
   }
 
   highlightText(text) {
+    console.log(text)
+    console.log(this.state.searchValue.split(" "))
     return (
       <Highlighter
          highlightClassName={styles.Highlight}
          searchWords = {this.state.searchValue.split(" ")}
-         autoEscape={true}
+         autoEscape={false}
          textToHighlight= {text}
       />
     )
@@ -86,7 +85,7 @@ class Search extends Component {
 
   returnScenicLocation(result) {
     if(result.scenic_picture === "") {
-      result.scenic_picture = "/static/img/ruchi.jpg"
+      result.scenic_picture = "/static/img/noLocationImage.png"
     }
     return(
       <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location"})}}>
@@ -144,6 +143,8 @@ class Search extends Component {
 
   render() {
      const{searchResults, currentPage, resultsPerPage} = this.state;
+
+     console.log(searchResults);
 
      const indexOfLastResult = currentPage * resultsPerPage;
      const indexOfFirstResult = indexOfLastResult - resultsPerPage;

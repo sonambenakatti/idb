@@ -20,7 +20,7 @@ class SnapshotsMain extends Component {
         selectedCity: '',
         selectedFavs: '',
         selectedTag: '',
-        selectedSort: ''
+        selectedSort: '',
       };
     };
 
@@ -28,8 +28,6 @@ class SnapshotsMain extends Component {
       fetch('/getsnapshots').then(results =>{
         return results.json();
       }).then(data=>{
-        console.log("This is the data")
-        console.log(data)
         this.setState({full_data: data})
           let snapshots = data.map((snapshot) =>{
             return(
@@ -44,17 +42,14 @@ class SnapshotsMain extends Component {
             );
           });
           this.setState({photos: snapshots});
-          console.log("state", this.state.photos);
         });
         this.getCities();
     };
 
     getCities() {
       fetch('/getcities').then(results =>{
-        console.log(results)
         return results.json();
       }).then(data=>{
-        console.log(data)
         let cities = data.map((city) =>{
           return(
             {value: city.city_id, label: city.city_name}
@@ -65,13 +60,11 @@ class SnapshotsMain extends Component {
     };
 
     handleCityChange(selectedCity){
-      console.log("INSIDE HANDLE CITY");
       this.setState({ selectedCity });
       if (selectedCity === null) {
         this.resetToAllData();
       } else if (selectedCity) {
         var value = selectedCity.value;
-        console.log(value);
         let snapshots = this.state.full_data.map((snapshot) =>{
           if (snapshot.city_id === value)
             return(
@@ -87,58 +80,62 @@ class SnapshotsMain extends Component {
         });
         this.setState({photos: snapshots});
       }
+      this.setState({currentPage: 1})
     }
 
     handleFaveSortChange(selectedSort) {
       this.setState({ selectedSort });
       if(selectedSort === null) {
         this.resetToAllData();
-        console.log("Selected sort is null")
       } else if (selectedSort) {
           var value = selectedSort.value;
-          if(value==="favsasc") {
-            fetch('/snapshots/sort/favsasc').then(results => {
-              console.log("In Favsasc, these are the json results")
+            fetch('/snapshots/sort/' + value).then(results => {
               return results.json();
             }).then(data => {
-                console.log("Data Faves Low-High")
                 let snapshots = data.map((snapshot) => {
-                  console.log("This is the snapshot")
-                  console.log(snapshot)
-                  return(
-                    <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                      <li className="col">
-                          <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                          <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                          {snapshot.snap_tags}<br />
-                          {snapshot.snap_favs+" Faves"}</span></span>
-                      </li>
-                    </div>
-                  );
-                })
-                this.setState({photos: snapshots})
+                  if(this.state.selectedCity) {
+                    if (snapshot.city_id === value) {
+                      return(
+                        <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                          <li className="col">
+                              <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                              <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                              {snapshot.snap_tags}<br />
+                              {snapshot.snap_favs+" Faves"}</span></span>
+                          </li>
+                        </div>
+                      );
+                    }
+                  } else if(this.state.selectedFavs) {
+                    if (snapshot.snap_favs >= value) {
+                      return(
+                        <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                          <li className="col">
+                              <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                              <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                              {snapshot.snap_tags}<br />
+                              {snapshot.snap_favs+" Faves"}</span></span>
+                          </li>
+                        </div>
+                      );
+                    }
+                  } else {
+                    return(
+                      <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                        <li className="col">
+                            <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                            <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                            {snapshot.snap_tags}<br />
+                            {snapshot.snap_favs+" Faves"}</span></span>
+                        </li>
+                      </div>
+                    );
+                  }
+                  })
+
+              this.setState({photos: snapshots})
             })
-          } else if (value === "favsdesc") {
-            fetch('/snapshots/sort/favsdesc').then(results => {
-              return results.json();
-            }).then(data => {
-                console.log(data)
-                let snapshots = data.map((snapshot) => {
-                  return(
-                    <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                      <li className="col">
-                          <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                          <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                          {snapshot.snap_tags}<br />
-                          {snapshot.snap_favs+" Faves"}</span></span>
-                      </li>
-                    </div>
-                  );
-                })
-                this.setState({photos: snapshots})
-            })
-          }
-      }
+        }
     }
 
     handleFavChange(selectedFavs){
@@ -147,7 +144,6 @@ class SnapshotsMain extends Component {
         this.resetToAllData();
       } else if (selectedFavs) {
         var value = selectedFavs.value;
-        console.log(value);
         let snapshots = this.state.full_data.map((snapshot) =>{
           if (snapshot.snap_favs >= value)
             return(
@@ -163,6 +159,7 @@ class SnapshotsMain extends Component {
         });
         this.setState({photos: snapshots});
       }
+      this.setState({currentPage: 1})
     }
 
     resetToAllData() {
@@ -179,18 +176,18 @@ class SnapshotsMain extends Component {
         );
       });
       this.setState({photos: snapshots});
-
+      this.setState({currentPage: 1})
     }
 
     // invokoed when user clicks a page number on the bottom.
-    handleClick(pageNumber, event) {
+    handleClick(pageNumber, arr, event) {
       if(pageNumber <= 1) {
         document.getElementById("prev").style.visibility="hidden";
       } else {
         document.getElementById("prev").style.visibility="visible";
       }
 
-      if(pageNumber >= Math.ceil(this.state.photos.length / this.state.photosPerPage)) {
+      if(pageNumber >= Math.ceil(arr.length / this.state.photosPerPage)) {
         document.getElementById("next").style.visibility="hidden";
       } else {
         document.getElementById("next").style.visibility="visible";
@@ -201,7 +198,6 @@ class SnapshotsMain extends Component {
       }
 
     render() {
-      console.log(this.state.photos);
       const { photos, currentPage, photosPerPage } = this.state;
 
       const concat_photos = [];
@@ -223,7 +219,6 @@ class SnapshotsMain extends Component {
       }
 
       if (this.state.navigate) {
-        console.log("REDIRCT" + this.state.selectedSnapshot.snap_username)
         return <Redirect to={{pathname: this.state.navigateTo, state: {snapshot: this.state.selectedSnapshot}}} push={true} />;
       }
 
@@ -239,7 +234,7 @@ class SnapshotsMain extends Component {
             key={number}
             id={number}
             style={this.state.currentPage === number ? {color:'orange'} : {}}
-            onClick={this.handleClick.bind(this, number)}
+            onClick={this.handleClick.bind(this, number, concat_photos)}
           >
             {number}
           </li>
@@ -248,20 +243,19 @@ class SnapshotsMain extends Component {
 
       const SelectPackage = require('react-select');
       const Select = SelectPackage.default;
+
       const {selectedCity} = this.state;
       const {selectedFavs} = this.state;
       const {selectedTag} = this.state;
       const {selectedSort} = this.state;
 
-
       const cityValue = selectedCity && selectedCity.value;
       const favsValue = selectedFavs && selectedFavs.value;
       const tagValue = selectedTag && selectedTag.value;
-      const sortValue = selectedSort && selectedSort.value
-
+      const sortValue = selectedSort && selectedSort.value;
+      console.log("STATE LENGTH" +this.state.photos.length);
       return (
         <div>
-          {/*location dropdown*/}
           <div className="filters-and-grid">
           <div className="filter-container">
             <div className="filter">
@@ -318,12 +312,14 @@ class SnapshotsMain extends Component {
           <li
             id="prev"
             style = {{visibility: "hidden"}}
-            onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_photos)}> &lt;prev
           </li>
             {renderPageNumbers}
             <li
               id="next"
-              onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+              style={this.state.currentPage >= Math.ceil(concat_photos.length / this.state.photosPerPage) ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_photos)}> next&gt;
             </li>
           </ul>
           </div>

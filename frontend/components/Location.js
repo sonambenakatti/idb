@@ -42,9 +42,9 @@ class Location extends Component {
       return(
        <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateTo: "/shop", selectedShop: shop})}}>
           <li className="col">
-              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"
+              <img src={shop.shop_picture} style={{width: 200, height: 200}} alt="Photo1"
               />
-              <span className="picText">
+              <span className="picTextInstance">
               <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
           </li>
         </div>
@@ -65,8 +65,8 @@ class Location extends Component {
         return(
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
             <li className="col">
-                <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /><br />
                 {snapshot.snap_tags}<br />
                 {snapshot.snap_favs+" Faves"}</span></span>
             </li>
@@ -126,12 +126,12 @@ class Location extends Component {
         </div>
         </div>
         <div className="model-links">
-          <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>Coffee Shops Nearby</button>
-          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>More Snaps</button>
+          <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>COFFEESHOPS NEARBY</button>
+          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
 
         </div>
         <div>
-         <section className="page-section">
+         <section className="page-section-instance">
           <div className="container">
             <div className="row">
               <ul className="img-list">
@@ -145,7 +145,7 @@ class Location extends Component {
         </div>
 
         <div>
-         <section className="page-section">
+         <section className="page-section-instance">
           <div className="container">
             <div className="row">
               <ul className="img-list">
@@ -162,4 +162,4 @@ class Location extends Component {
   }
 }
 
-export default Location; 
+export default Location;

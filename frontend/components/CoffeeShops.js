@@ -90,14 +90,8 @@ handleCityChange(selectedCity){
     })
     this.setState({coffeeshops: shops});
   }
+  this.setState({currentPage: 1})
 }
-
-// there are a lot of ways to sort attributes of a coffeeshop
-// high to low price
-// low to high price
-// high to low rating
-// low to high rating
-// A-Z
 
 handleSortChange(selectedSort) {
   this.setState({ selectedSort });
@@ -147,6 +141,7 @@ handlePriceChange(selectedPrice){
     })
     this.setState({coffeeshops: shops});
   }
+  this.setState({currentPage: 1})
 }
 
 handleRatingChange(selectedRating){
@@ -172,6 +167,7 @@ handleRatingChange(selectedRating){
     })
     this.setState({coffeeshops: shops});
   }
+  this.setState({currentPage: 1})
 }
 
 resetToAllData() {
@@ -187,11 +183,12 @@ resetToAllData() {
       )
   })
   this.setState({coffeeshops: shops});
+  this.setState({currentPage: 1})
 
 }
 
 // invoked when user clicks a page number on the bottom.
-handleClick(pageNumber, event) {
+handleClick(pageNumber, arr, event) {
   console.log(event.target.id)
   console.log(pageNumber)
     if(pageNumber <= 1) {
@@ -199,7 +196,7 @@ handleClick(pageNumber, event) {
     } else {
       document.getElementById("prev").style.visibility="visible";
     }
-    if(pageNumber >= Math.ceil(this.state.coffeeshops.length / this.state.shopsPerPage)) {
+    if(pageNumber >= Math.ceil(arr.length / this.state.shopsPerPage)) {
       document.getElementById("next").style.visibility="hidden";
     } else {
       document.getElementById("next").style.visibility="visible";
@@ -228,7 +225,7 @@ render() {
   const indexOfLastShop = currentPage * shopsPerPage;
   const indexOfFirstShop = indexOfLastShop - shopsPerPage;
   const currentShops = concat_shops.slice(indexOfFirstShop, indexOfLastShop);
-  //console.log("CURRENT SHOPS" + currentShops +" : "+ coffeeshops)
+
   // Logic for displaying page numbers
   const pageNumbers = [];
   const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_shops.length / shopsPerPage)? currentPage + 7 : Math.ceil(concat_shops.length / shopsPerPage)
@@ -252,7 +249,7 @@ render() {
           key={number}
           id={number}
           style={this.state.currentPage === number ? {color:'orange'} : {}}
-          onClick={this.handleClick.bind(this, number)}
+          onClick={this.handleClick.bind(this, number, concat_shops)}
         >
           {number}
         </li>
@@ -365,13 +362,14 @@ render() {
         <ul className="page-list">
           <li
             id="prev"
-            style = {{visibility: "hidden"}}
-            onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_shops)}> &lt;prev
           </li>
             {renderPageNumbers}
           <li
             id="next"
-            onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            style={this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_shops)}> next&gt;
           </li>
         </ul>
         </div>
