@@ -86,7 +86,7 @@ class Search extends Component {
 
   returnScenicLocation(result) {
     if(result.scenic_picture === "") {
-      result.scenic_picture = "/static/img/ruchi.jpg"
+      result.scenic_picture = "/static/img/noLocationImage.png"
     }
     return(
       <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location"})}}>
