@@ -347,7 +347,8 @@ input[type=text] {
     margin:0 auto;
 }
 
-.page-section-instance {
+.page-section-instance-1 {
+  text-align: right;
 }
 
 span.picTextInstance {

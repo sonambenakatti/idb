@@ -433,48 +433,6 @@ module.exports = invariant;
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
-
-"use strict";
-"use strict";
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -514,6 +472,48 @@ module.exports = emptyFunction;
 
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_8__withRouter__["a"]; });
 
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+"use strict";
+"use strict";
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
 
 /***/ },
 /* 7 */
@@ -4491,7 +4491,7 @@ function toComment(sourceMap) {
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(5);
+var emptyFunction = __webpack_require__(6);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -4856,7 +4856,7 @@ module.exports = shallowEqual;
 
 'use strict';
 
-var emptyFunction = __webpack_require__(5);
+var emptyFunction = __webpack_require__(6);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -7239,7 +7239,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(6);
+var _reactRouter = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -7560,7 +7560,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(6);
+var _reactRouter = __webpack_require__(5);
 
 var _reactSelect = __webpack_require__(7);
 
@@ -8408,7 +8408,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(6);
+var _reactRouter = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -8666,61 +8666,61 @@ var Location = function (_Component) {
             'div',
             { className: 'model-links' },
             _react2['default'].createElement(
-              'button',
-              { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
-              'COFFEESHOPS NEARBY'
-            ),
-            _react2['default'].createElement(
-              'button',
-              { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
-              'MORE SNAPS'
-            )
-          ),
-          _react2['default'].createElement(
-            'div',
-            null,
-            _react2['default'].createElement(
-              'section',
-              { className: 'page-section-instance' },
+              'div',
+              { 'class': 'row' },
               _react2['default'].createElement(
                 'div',
-                { className: 'container' },
+                { className: 'col-md-6' },
                 _react2['default'].createElement(
-                  'div',
-                  { className: 'row' },
-                  _react2['default'].createElement(
-                    'ul',
-                    { className: 'img-list' },
-                    _react2['default'].createElement(
-                      'div',
-                      { className: 'row' },
-                      this.state.shops_list
-                    )
-                  )
+                  'button',
+                  { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
+                  'COFFEESHOPS NEARBY'
+                )
+              ),
+              _react2['default'].createElement(
+                'div',
+                { className: 'col-md-6' },
+                _react2['default'].createElement(
+                  'button',
+                  { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                  'MORE SNAPS'
                 )
               )
             )
           ),
           _react2['default'].createElement(
             'div',
-            null,
+            { 'class': 'row' },
             _react2['default'].createElement(
               'section',
-              { className: 'page-section-instance' },
+              { className: 'page-section-instance col-md-6' },
               _react2['default'].createElement(
                 'div',
-                { className: 'container' },
+                { className: 'row' },
                 _react2['default'].createElement(
-                  'div',
-                  { className: 'row' },
+                  'ul',
+                  { className: 'img-list' },
                   _react2['default'].createElement(
-                    'ul',
-                    { className: 'img-list' },
-                    _react2['default'].createElement(
-                      'div',
-                      { className: 'row' },
-                      this.state.snaps_list
-                    )
+                    'div',
+                    { className: 'row' },
+                    this.state.shops_list
+                  )
+                )
+              )
+            ),
+            _react2['default'].createElement(
+              'section',
+              { className: 'page-section-instance col-md-6' },
+              _react2['default'].createElement(
+                'div',
+                { className: 'row' },
+                _react2['default'].createElement(
+                  'ul',
+                  { className: 'img-list' },
+                  _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    this.state.snaps_list
                   )
                 )
               )
@@ -8755,7 +8755,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(6);
+var _reactRouter = __webpack_require__(5);
 
 var _reactSelect = __webpack_require__(7);
 
@@ -9472,7 +9472,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(6);
+var _reactRouter = __webpack_require__(5);
 
 var _reactHighlightWords = __webpack_require__(84);
 
@@ -9920,7 +9920,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(6);
+var _reactRouter = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -10127,7 +10127,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(6);
+var _reactRouter = __webpack_require__(5);
 
 var _reactSelect = __webpack_require__(7);
 
@@ -13598,7 +13598,7 @@ var invariant = __webpack_require__(31);
 var warning = __webpack_require__(33);
 var ExecutionEnvironment = __webpack_require__(27);
 var _assign = __webpack_require__(12);
-var emptyFunction = __webpack_require__(5);
+var emptyFunction = __webpack_require__(6);
 var EventListener = __webpack_require__(26);
 var getActiveElement = __webpack_require__(30);
 var shallowEqual = __webpack_require__(32);
@@ -28990,7 +28990,7 @@ module.exports = reactDom;
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-'use strict';var aa=__webpack_require__(0),l=__webpack_require__(27),B=__webpack_require__(12),C=__webpack_require__(5),ba=__webpack_require__(26),da=__webpack_require__(30),ea=__webpack_require__(32),fa=__webpack_require__(28),ia=__webpack_require__(29),D=__webpack_require__(10);
+'use strict';var aa=__webpack_require__(0),l=__webpack_require__(27),B=__webpack_require__(12),C=__webpack_require__(6),ba=__webpack_require__(26),da=__webpack_require__(30),ea=__webpack_require__(32),fa=__webpack_require__(28),ia=__webpack_require__(29),D=__webpack_require__(10);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -31947,7 +31947,7 @@ var _assign = __webpack_require__(12);
 var emptyObject = __webpack_require__(10);
 var invariant = __webpack_require__(31);
 var warning = __webpack_require__(33);
-var emptyFunction = __webpack_require__(5);
+var emptyFunction = __webpack_require__(6);
 var checkPropTypes = __webpack_require__(18);
 
 // TODO: this is special because it gets imported during build.
@@ -33356,7 +33356,7 @@ module.exports = react;
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';var m=__webpack_require__(12),n=__webpack_require__(10),p=__webpack_require__(5),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.portal"):60106,u=q?Symbol["for"]("react.fragment"):60107,v=q?Symbol["for"]("react.strict_mode"):60108,w=q?Symbol["for"]("react.provider"):60109,x=q?Symbol["for"]("react.context"):60110,y=q?Symbol["for"]("react.async_mode"):60111,z=q?Symbol["for"]("react.forward_ref"):60112,A="function"===
+'use strict';var m=__webpack_require__(12),n=__webpack_require__(10),p=__webpack_require__(6),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.portal"):60106,u=q?Symbol["for"]("react.fragment"):60107,v=q?Symbol["for"]("react.strict_mode"):60108,w=q?Symbol["for"]("react.provider"):60109,x=q?Symbol["for"]("react.context"):60110,y=q?Symbol["for"]("react.async_mode"):60111,z=q?Symbol["for"]("react.forward_ref"):60112,A="function"===
 typeof Symbol&&Symbol.iterator;function B(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var C={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function D(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||C}D.prototype.isReactComponent={};D.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?B("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};D.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};function E(){}
 E.prototype=D.prototype;function F(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||C}var G=F.prototype=new E;G.constructor=F;m(G,D.prototype);G.isPureReactComponent=!0;var H={current:null},I=Object.prototype.hasOwnProperty,J={key:!0,ref:!0,__self:!0,__source:!0};

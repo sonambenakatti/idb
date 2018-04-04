@@ -124,37 +124,39 @@ class Location extends Component {
         </div>
         </div>
         <div className="model-links">
-          <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>COFFEESHOPS NEARBY</button>
-          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
-
-        </div>
-        <div>
-         <section className="page-section-instance">
-          <div className="container">
-            <div className="row">
-              <ul className="img-list">
-                <div className="row">
-                  {this.state.shops_list}
-                </div>
-              </ul>
+          <div class="row">
+            <div className="col-md-6">
+              <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>COFFEESHOPS NEARBY</button>
+            </div>
+            <div className="col-md-6">
+              <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
             </div>
           </div>
-        </section>
         </div>
 
-        <div>
-         <section className="page-section-instance">
-          <div className="container">
-            <div className="row">
-              <ul className="img-list">
+          <div class="row">
+
+             <section className="page-section-instance col-md-6">
                 <div className="row">
-                  {this.state.snaps_list}
+                  <ul className="img-list">
+                    <div className="row">
+                      {this.state.shops_list}
+                    </div>
+                  </ul>
                 </div>
-              </ul>
-            </div>
+            </section>
+
+             <section className="page-section-instance col-md-6">
+                <div className="row">
+                  <ul className="img-list">
+                    <div className="row">
+                      {this.state.snaps_list}
+                    </div>
+                  </ul>
+                </div>
+            </section>
+
           </div>
-        </section>
-        </div>
       </div>
     );
   }
