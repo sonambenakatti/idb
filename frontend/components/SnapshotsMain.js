@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+import {Select} from 'react-select';
+import 'react-select/dist/react-select.css';
+import axios from 'axios';
 
 class SnapshotsMain extends Component {
 
     constructor(props) {
       super(props);
       this.state = {
+        full_data: [],
         photos: [],
         navigate: false,
         selectedSnapshot: [],
@@ -14,7 +18,9 @@ class SnapshotsMain extends Component {
         currentPage: 1,
         photosPerPage: 9,
         cities_list: [],
-        selectedRange: "",
+        selectedCity: '',
+        selectedFavs: '',
+        selectedTag: '',
         favoritesFilter: ["1-5", "5-10", "10-20", "20+"]
       };
     };
@@ -25,6 +31,7 @@ class SnapshotsMain extends Component {
       }).then(data=>{
         console.log("This is the data")
         console.log(data)
+        this.setState({full_data: data})
           let snapshots = data.map((snapshot) =>{
             return(
               <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
@@ -51,12 +58,80 @@ class SnapshotsMain extends Component {
         console.log(data)
         let cities = data.map((city) =>{
           return(
-            <li><a href="#">{city.city_name}</a></li>
+            {value: city.city_id, label: city.city_name}
           )
         });
         this.setState({cities_list: cities});
       });
     };
+
+    handleCityChange(selectedCity){
+      console.log("INSIDE HANDLE CITY");
+      this.setState({ selectedCity });
+
+      if (selectedCity === null) {
+        this.resetToAllData();
+      } else if (selectedCity) {
+        var value = selectedCity.value;
+        console.log(value);
+        let snapshots = this.state.full_data.map((snapshot) =>{
+          if (snapshot.city_id === value)
+            return(
+              <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                <li className="col">
+                    <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                    <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                    {snapshot.snap_tags}<br />
+                    {snapshot.snap_favs+" Faves"}</span></span>
+                </li>
+              </div>
+            );
+        });
+        this.setState({photos: snapshots});
+      }
+    }
+
+    handleFavChange(selectedFavs){
+      this.setState({ selectedFavs });
+
+      if (selectedFavs === null) {
+        this.resetToAllData();
+      } else if (selectedFavs) {
+        var value = selectedFavs.value;
+        console.log(value);
+        let snapshots = this.state.full_data.map((snapshot) =>{
+          if (snapshot.snap_favs >= value)
+            return(
+              <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                <li className="col">
+                    <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                    <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                    {snapshot.snap_tags}<br />
+                    {snapshot.snap_favs+" Faves"}</span></span>
+                </li>
+              </div>
+            );
+        });
+        this.setState({photos: snapshots});
+      }
+    }
+
+    resetToAllData() {
+      let snapshots = this.state.full_data.map((snapshot) =>{
+        return(
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+            <li className="col">
+                <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                {snapshot.snap_tags}<br />
+                {snapshot.snap_favs+" Faves"}</span></span>
+            </li>
+          </div>
+        );
+      });
+      this.setState({photos: snapshots});
+
+    }
 
     // invokoed when user clicks a page number on the bottom.
     handleClick(pageNumber, event) {
@@ -80,12 +155,19 @@ class SnapshotsMain extends Component {
       console.log(this.state.photos);
       const { photos, currentPage, photosPerPage } = this.state;
 
+      const concat_photos = [];
+      const phots = this.state.photos.map((photos, index) => {
+        if (photos) {
+          concat_photos.push(photos)
+        }
+      });
+
       const indexOfLastPhoto = currentPage * photosPerPage;
       const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
-      const currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
+      const currentPhotos = concat_photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
       const pageNumbers = [];
-      const nextPageNumbers = currentPage + 7 <= Math.ceil(photos.length / photosPerPage)? currentPage + 7 : Math.ceil(photos.length / photosPerPage)
+      const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_photos.length / photosPerPage)? currentPage + 7 : Math.ceil(concat_photos.length / photosPerPage)
       const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
       for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
         pageNumbers.push(i);
@@ -97,7 +179,9 @@ class SnapshotsMain extends Component {
       }
 
       const renderPhotos = currentPhotos.map((photos, index) => {
-        return <li key={index}>{photos}</li>;
+        if (photos) {
+          return <li key={index}>{photos}</li>;
+        }
       });
 
       const renderRanges = this.state.favoritesFilter.map((option, index) => {
@@ -117,24 +201,44 @@ class SnapshotsMain extends Component {
         );
       });
 
+      const SelectPackage = require('react-select');
+      const Select = SelectPackage.default;
+      const {selectedCity} = this.state;
+      const {selectedFavs} = this.state;
+      const {selectedTag} = this.state;
+
+      const cityValue = selectedCity && selectedCity.value;
+      const favsValue = selectedFavs && selectedFavs.value;
+      const tagValue = selectedTag && selectedTag.value;
+
       return (
         <div>
           {/*location dropdown*/}
           <div className="filters-and-grid">
           <div className="filter-container">
-            <div className="dropdown">
-              <button id="city-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a City to Explore
-                <span className="caret" /></button>
-              <ul className="dropdown-menu" x-placement="bottom-start">
-                {this.state.cities_list}
-              </ul>
+            <div className="filter">
+              <h6>Choose a City to Explore</h6>
+              <Select
+                  name="form-field-name"
+                  value={cityValue}
+                  onChange={this.handleCityChange.bind(this)}
+                  options={this.state.cities_list}
+              />
             </div>
-            <div className="dropdown">
-              <button id="fave-btn" className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by number of favorites
-                <span className="caret" /></button>
-              <ul className="dropdown-menu">
-                {renderRanges}
-              </ul>
+            <div className="filter">
+              <h6>Filter by Faves</h6>
+              <Select
+                  name="form-field-name"
+                  value={favsValue}
+                  onChange={this.handleFavChange.bind(this)}
+                  options={[
+                    {value: '0', label: '0+'},
+                    {value: '5', label: '5+'},
+                    {value: '10', label: '10+'},
+                    {value: '15', label: '15+'},
+                    {value: '20', label: '20+'},
+                  ]}
+              />
             </div>
           </div>
           <section className="page-section">
