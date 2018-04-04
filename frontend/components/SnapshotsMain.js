@@ -180,14 +180,14 @@ class SnapshotsMain extends Component {
     }
 
     // invokoed when user clicks a page number on the bottom.
-    handleClick(pageNumber, event) {
+    handleClick(pageNumber, arr, event) {
       if(pageNumber <= 1) {
         document.getElementById("prev").style.visibility="hidden";
       } else {
         document.getElementById("prev").style.visibility="visible";
       }
 
-      if(pageNumber >= Math.ceil(this.state.photos.length / this.state.photosPerPage)) {
+      if(pageNumber >= Math.ceil(arr.length / this.state.photosPerPage)) {
         document.getElementById("next").style.visibility="hidden";
       } else {
         document.getElementById("next").style.visibility="visible";
@@ -234,7 +234,7 @@ class SnapshotsMain extends Component {
             key={number}
             id={number}
             style={this.state.currentPage === number ? {color:'orange'} : {}}
-            onClick={this.handleClick.bind(this, number)}
+            onClick={this.handleClick.bind(this, number, concat_photos)}
           >
             {number}
           </li>
@@ -252,8 +252,8 @@ class SnapshotsMain extends Component {
       const cityValue = selectedCity && selectedCity.value;
       const favsValue = selectedFavs && selectedFavs.value;
       const tagValue = selectedTag && selectedTag.value;
-      const sortValue = selectedSort && selectedSort.value
-
+      const sortValue = selectedSort && selectedSort.value;
+      console.log("STATE LENGTH" +this.state.photos.length);
       return (
         <div>
           <div className="filters-and-grid">
@@ -312,12 +312,14 @@ class SnapshotsMain extends Component {
           <li
             id="prev"
             style = {{visibility: "hidden"}}
-            onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_photos)}> &lt;prev
           </li>
             {renderPageNumbers}
             <li
               id="next"
-              onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+              style={this.state.currentPage >= Math.ceil(concat_photos.length / this.state.photosPerPage) ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_photos)}> next&gt;
             </li>
           </ul>
           </div>

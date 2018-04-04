@@ -179,14 +179,14 @@ resetToAllData() {
 
 }
 
-handleClick(pageNumber, event) {
+handleClick(pageNumber, arr, event) {
   if(pageNumber <= 1) {
     document.getElementById("prev").style.visibility="hidden";
   } else {
     document.getElementById("prev").style.visibility="visible";
   }
 
-  if(pageNumber >= Math.ceil(this.state.locations.length / this.state.locationsPerPage)) {
+  if(pageNumber >= Math.ceil(arr.length / this.state.locationsPerPage)) {
     document.getElementById("next").style.visibility="hidden";
   } else {
     document.getElementById("next").style.visibility="visible";
@@ -236,7 +236,7 @@ render() {
         key={number}
         id={number}
         style={this.state.currentPage === number ? {color:'orange'} : {}}
-        onClick={this.handleClick.bind(this, number)}
+        onClick={this.handleClick.bind(this, number, concat_locs)}
       >
         {number}
       </li>
@@ -323,13 +323,14 @@ render() {
         <ul className="page-list">
         <li
           id="prev"
-          style = {{visibility: "hidden"}}
-          onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+          style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+          onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_locs)}> &lt;prev
         </li>
           {renderPageNumbers}
           <li
             id="next"
-            onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            style={this.state.currentPage >= Math.ceil(concat_locs.length / this.state.locationsPerPage) ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_locs)}> next&gt;
           </li>
         </ul>
         </div>

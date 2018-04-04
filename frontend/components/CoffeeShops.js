@@ -188,7 +188,7 @@ resetToAllData() {
 }
 
 // invoked when user clicks a page number on the bottom.
-handleClick(pageNumber, event) {
+handleClick(pageNumber, arr, event) {
   console.log(event.target.id)
   console.log(pageNumber)
     if(pageNumber <= 1) {
@@ -196,7 +196,7 @@ handleClick(pageNumber, event) {
     } else {
       document.getElementById("prev").style.visibility="visible";
     }
-    if(pageNumber >= Math.ceil(this.state.coffeeshops.length / this.state.shopsPerPage)) {
+    if(pageNumber >= Math.ceil(arr.length / this.state.shopsPerPage)) {
       document.getElementById("next").style.visibility="hidden";
     } else {
       document.getElementById("next").style.visibility="visible";
@@ -249,7 +249,7 @@ render() {
           key={number}
           id={number}
           style={this.state.currentPage === number ? {color:'orange'} : {}}
-          onClick={this.handleClick.bind(this, number)}
+          onClick={this.handleClick.bind(this, number, concat_shops)}
         >
           {number}
         </li>
@@ -362,13 +362,14 @@ render() {
         <ul className="page-list">
           <li
             id="prev"
-            style = {{visibility: "hidden"}}
-            onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_shops)}> &lt;prev
           </li>
             {renderPageNumbers}
           <li
             id="next"
-            onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            style={this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_shops)}> next&gt;
           </li>
         </ul>
         </div>

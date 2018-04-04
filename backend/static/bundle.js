@@ -7981,7 +7981,7 @@ var CoffeeShops = function (_Component) {
   }, {
     key: 'handleClick',
     value: function () {
-      function handleClick(pageNumber, event) {
+      function handleClick(pageNumber, arr, event) {
         console.log(event.target.id);
         console.log(pageNumber);
         if (pageNumber <= 1) {
@@ -7989,7 +7989,7 @@ var CoffeeShops = function (_Component) {
         } else {
           document.getElementById("prev").style.visibility = "visible";
         }
-        if (pageNumber >= Math.ceil(this.state.coffeeshops.length / this.state.shopsPerPage)) {
+        if (pageNumber >= Math.ceil(arr.length / this.state.shopsPerPage)) {
           document.getElementById("next").style.visibility = "hidden";
         } else {
           document.getElementById("next").style.visibility = "visible";
@@ -8057,7 +8057,7 @@ var CoffeeShops = function (_Component) {
               key: number,
               id: number,
               style: _this9.state.currentPage === number ? { color: 'orange' } : {},
-              onClick: _this9.handleClick.bind(_this9, number)
+              onClick: _this9.handleClick.bind(_this9, number, concat_shops)
             },
             number
           );
@@ -8207,8 +8207,8 @@ var CoffeeShops = function (_Component) {
                   'li',
                   {
                     id: 'prev',
-                    style: { visibility: "hidden" },
-                    onClick: this.handleClick.bind(this, this.state.currentPage - 1) },
+                    style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
+                    onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_shops) },
                   ' <prev'
                 ),
                 renderPageNumbers,
@@ -8216,7 +8216,8 @@ var CoffeeShops = function (_Component) {
                   'li',
                   {
                     id: 'next',
-                    onClick: this.handleClick.bind(this, this.state.currentPage + 1) },
+                    style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
+                    onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_shops) },
                   ' next>'
                 )
               )
@@ -9109,14 +9110,14 @@ var Locations = function (_Component) {
   }, {
     key: 'handleClick',
     value: function () {
-      function handleClick(pageNumber, event) {
+      function handleClick(pageNumber, arr, event) {
         if (pageNumber <= 1) {
           document.getElementById("prev").style.visibility = "hidden";
         } else {
           document.getElementById("prev").style.visibility = "visible";
         }
 
-        if (pageNumber >= Math.ceil(this.state.locations.length / this.state.locationsPerPage)) {
+        if (pageNumber >= Math.ceil(arr.length / this.state.locationsPerPage)) {
           document.getElementById("next").style.visibility = "hidden";
         } else {
           document.getElementById("next").style.visibility = "visible";
@@ -9181,7 +9182,7 @@ var Locations = function (_Component) {
               key: number,
               id: number,
               style: _this8.state.currentPage === number ? { color: 'orange' } : {},
-              onClick: _this8.handleClick.bind(_this8, number)
+              onClick: _this8.handleClick.bind(_this8, number, concat_locs)
             },
             number
           );
@@ -9300,8 +9301,8 @@ var Locations = function (_Component) {
                 'li',
                 {
                   id: 'prev',
-                  style: { visibility: "hidden" },
-                  onClick: this.handleClick.bind(this, this.state.currentPage - 1) },
+                  style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
+                  onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_locs) },
                 ' <prev'
               ),
               renderPageNumbers,
@@ -9309,7 +9310,8 @@ var Locations = function (_Component) {
                 'li',
                 {
                   id: 'next',
-                  onClick: this.handleClick.bind(this, this.state.currentPage + 1) },
+                  style: this.state.currentPage >= Math.ceil(concat_locs.length / this.state.locationsPerPage) ? { visibility: 'hidden' } : {},
+                  onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_locs) },
                 ' next>'
               )
             )
@@ -10153,6 +10155,8 @@ __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -10545,14 +10549,14 @@ var SnapshotsMain = function (_Component) {
   }, {
     key: 'handleClick',
     value: function () {
-      function handleClick(pageNumber, event) {
+      function handleClick(pageNumber, arr, event) {
         if (pageNumber <= 1) {
           document.getElementById("prev").style.visibility = "hidden";
         } else {
           document.getElementById("prev").style.visibility = "visible";
         }
 
-        if (pageNumber >= Math.ceil(this.state.photos.length / this.state.photosPerPage)) {
+        if (pageNumber >= Math.ceil(arr.length / this.state.photosPerPage)) {
           document.getElementById("next").style.visibility = "hidden";
         } else {
           document.getElementById("next").style.visibility = "visible";
@@ -10568,7 +10572,8 @@ var SnapshotsMain = function (_Component) {
     key: 'render',
     value: function () {
       function render() {
-        var _this8 = this;
+        var _this8 = this,
+            _React$createElement;
 
         var _state = this.state,
             photos = _state.photos,
@@ -10615,7 +10620,7 @@ var SnapshotsMain = function (_Component) {
               key: number,
               id: number,
               style: _this8.state.currentPage === number ? { color: 'orange' } : {},
-              onClick: _this8.handleClick.bind(_this8, number)
+              onClick: _this8.handleClick.bind(_this8, number, concat_photos)
             },
             number
           );
@@ -10634,7 +10639,7 @@ var SnapshotsMain = function (_Component) {
         var favsValue = selectedFavs && selectedFavs.value;
         var tagValue = selectedTag && selectedTag.value;
         var sortValue = selectedSort && selectedSort.value;
-
+        console.log("STATE LENGTH" + this.state.photos.length);
         return _react2['default'].createElement(
           'div',
           null,
@@ -10720,10 +10725,10 @@ var SnapshotsMain = function (_Component) {
               { className: 'page-list' },
               _react2['default'].createElement(
                 'li',
-                {
+                (_React$createElement = {
                   id: 'prev',
-                  style: { visibility: "hidden" },
-                  onClick: this.handleClick.bind(this, this.state.currentPage - 1) },
+                  style: { visibility: "hidden" }
+                }, _defineProperty(_React$createElement, 'style', this.state.currentPage <= 1 ? { visibility: 'hidden' } : {}), _defineProperty(_React$createElement, 'onClick', this.handleClick.bind(this, this.state.currentPage - 1, concat_photos)), _React$createElement),
                 ' <prev'
               ),
               renderPageNumbers,
@@ -10731,7 +10736,8 @@ var SnapshotsMain = function (_Component) {
                 'li',
                 {
                   id: 'next',
-                  onClick: this.handleClick.bind(this, this.state.currentPage + 1) },
+                  style: this.state.currentPage >= Math.ceil(concat_photos.length / this.state.photosPerPage) ? { visibility: 'hidden' } : {},
+                  onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_photos) },
                 ' next>'
               )
             )
