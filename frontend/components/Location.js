@@ -47,7 +47,7 @@ class Location extends Component {
               <img src={shop.shop_picture} style={{width: 200, height: 200}} alt="Photo1"
               />
               <span className="picTextInstance">
-              <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+              <span><b>{shop.shop_name}</b></span></span>
           </li>
         </div>
       )
@@ -69,9 +69,7 @@ class Location extends Component {
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
-                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /><br />
-                {snapshot.snap_tags}<br />
-                {snapshot.snap_favs+" Faves"}</span></span>
+                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b></span></span>
             </li>
           </div>
         );
