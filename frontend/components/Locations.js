@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
 import {Select} from 'react-select';
 import 'react-select/dist/react-select.css';
-import axios from 'axios';
 
 class Locations extends Component {
 

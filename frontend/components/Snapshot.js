@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+
 
 class Snapshot extends Component {
 
@@ -7,33 +9,59 @@ class Snapshot extends Component {
     this.state = {
       snapshot: this.props.location.state.snapshot,
       selectedShop: [],
+      shop:[],
 
     };
     console.log("This is photo")
     console.log(this.state.snapshot)
+    this.go_to_instance = this.go_to_instance.bind(this);
   };
 
-  componentDidMount(props) {
+  
+  go_to_instance(){
     if(this.state.snapshot.shop_id != null){
       fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(results =>{
       console.log("Results:" + results)
       return results.json();
-    }).then(data=>{
-      console.log(data)
-      return(
-        <div>
-          <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={() =>{this.setState({navigateShop: true, navigateTo: "/shop", selectedShop: data})}}>Learn More</button>
-        </div>
-        )
-    })
+       }).then(data=>{
+        console.log(data)
+        let shops = data.map((shop) =>{
+          this.setState({navigateShop: true, navigateTo: "/shop", selectedShop: shop})
+
+        })
+      })
+        
+    }
+
+    else if(this.state.snapshot.scenic_id != null){
+      fetch("/getsceniclocation/" + this.state.snapshot.scenic_id).then(results =>{
+      console.log("Results:" + results)
+      return results.json();
+       }).then(data=>{
+        console.log(data)
+        let views = data.map((scenicloc) =>{
+          this.setState({navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc})
+
+        })
+      })
+        
+    }
   }
-}
+
+
 
   render() {
     if (this.state.navigateShop) {
       console.log("IN METHOD")
        var instance_state = {};
        instance_state = {shop: this.state.selectedShop};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
+     if (this.state.navigateScenic) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {selectedLocation: this.state.selectedLocation};
 
        return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
     }
@@ -63,6 +91,9 @@ class Snapshot extends Component {
           <div className="col-sm-5 instance-pic">
             <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.snapshot.snap_picture} alt style={{width: 500, height: 500, marginTop: 50}} />
           </div>
+        </div>
+        <div>
+          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.go_to_instance}>Learn More about this place!</button>
         </div>
         </div>
 
