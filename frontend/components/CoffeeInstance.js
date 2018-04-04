@@ -31,10 +31,7 @@ get_scenic(){
               <img src={scenicloc.scenic_picture} style={{width: 200, height: 200}} alt="Photo1"
               />
               <span className="picTextInstance">
-                <span><b>{scenicloc.scenic_name}</b>
-                <br /><br />{scenicloc.scenic_address}
-                <br />{scenicloc.scenic_rating + "/5"}
-                </span>
+                <span><b>{scenicloc.scenic_name}</b></span>
               </span>
           </li>
         </div>
@@ -56,9 +53,7 @@ get_scenic(){
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
-                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /><br />
-                {snapshot.snap_tags}<br />
-                {snapshot.snap_favs+" Faves"}</span></span>
+                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
             </li>
           </div>
         );
