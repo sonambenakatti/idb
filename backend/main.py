@@ -213,8 +213,33 @@ def search(searchkey):
     return jsonRes
 
 
-
 #COFFEE SHOPS SORTING
+
+@APP.route('/coffeeshops2/',  methods=['GET'])
+def sort_coffeeshops():
+    sort = request.args.get('sort')
+    sortby = request.args.get('sortby')
+    cf = request.args.get('cityfilter')
+    print(sort)
+    print(sortby)
+    print(cf)
+    citywhere = 'WHERE city_id = ' + str(cf)
+    if(cf == ""):
+        citywhere = ""
+
+    if(sortby == 'asc'):
+        if cf == "": #If all filters empty
+            return sort_coffeeshops_price_ascending()
+        else: #only city, only rating, only price, city + rating, city + price, 
+            query = 'SELECT * FROM Shops WHERE city_id = %(city)s ORDER BY %(sort)s asc'
+            data = {
+                'sort': sort,
+                'city': int(city_id),
+            }
+            shops = engine.execute(query, data)
+            jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
+            return jsonShops
+
 @APP.route('/coffeeshops/sort/priceasc',  methods=['GET'])
 def sort_coffeeshops_price_ascending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_price asc').fetchall()
@@ -305,14 +330,14 @@ def nearby_scenic_from_shops(shop_id):
 
     query = 'SELECT * FROM Shops WHERE shop_id = %(id)s'
     data={
-        'id': int(scenic_id),
+        'id': int(shop_id),
     }
-    scenic = engine.execute(query, data).fetchone()
+    shop = engine.execute(query, data).fetchone()
     lat = float(shop.shop_latitude)
     lon = float(shop.shop_longitude)
     print(lat)
     print(lon)
-    query = 'SELECT *,   6371 * 2 * ASIN(SQRT(POWER(SIN((scenic_latitude - abs(%(lat)s)) * pi()/180 / 2), 2) + COS(scenic_latitude * pi()/180 ) * COS(abs(%(lat)s) * pi()/180) * POWER(SIN((scenic_longitude - (%(lon)s)) *pi()/180 / 2), 2))) as distance FROM Scenic Order by distance asc Limit 10'
+    query = 'SELECT *,   6371 * 2 * ASIN(SQRT(POWER(SIN((scenic_latitude - abs(%(lat)s)) * pi()/180 / 2), 2) + COS(scenic_latitude * pi()/180 ) * COS(abs(%(lat)s) * pi()/180) * POWER(SIN((scenic_longitude - (%(lon)s)) *pi()/180 / 2), 2))) as distance FROM Scenic Order by distance asc Limit 3'
     data={
         'lat': float(lat),
         'lon': float(lon),
@@ -339,7 +364,7 @@ def nearby_shops_from_scenic(scenic_id):
     lon = scenic.scenic_longitude
     print(lat)
     print(lon)
-    query = 'SELECT *,   6371 * 2 * ASIN(SQRT(POWER(SIN((shop_latitude - abs(%(lat)s)) * pi()/180 / 2), 2) + COS(shop_latitude * pi()/180 ) * COS(abs(%(lat)s) * pi()/180) * POWER(SIN((shop_longitude - (%(lon)s)) *pi()/180 / 2), 2))) as distance FROM Shops Order by distance asc Limit 10'
+    query = 'SELECT *,   6371 * 2 * ASIN(SQRT(POWER(SIN((shop_latitude - abs(%(lat)s)) * pi()/180 / 2), 2) + COS(shop_latitude * pi()/180 ) * COS(abs(%(lat)s) * pi()/180) * POWER(SIN((shop_longitude - (%(lon)s)) *pi()/180 / 2), 2))) as distance FROM Shops Order by distance asc Limit 3'
     data={
         'lat': float(lat),
         'lon': float(lon),
@@ -352,7 +377,7 @@ def nearby_shops_from_scenic(scenic_id):
 @APP.route('/snapshots_shop/<shop_id>',  methods=['GET'])
 def snapshots_shop(shop_id):
     print("IN SNAPSHOTS SHOPS")
-    snaps = engine.execute('SELECT * FROM Snapshots where shop_id = shop_id Limit 10').fetchall()
+    snaps = engine.execute('SELECT * FROM Snapshots where shop_id = shop_id Limit 3').fetchall()
     jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
 
@@ -360,7 +385,7 @@ def snapshots_shop(shop_id):
 def snapshots_scenic(scenic_id):
 
     print("IN SNAPSHOTS SCENIC")
-    snaps = engine.execute('SELECT * FROM Snapshots where scenic_id = scenic_id Limit 10').fetchall()
+    snaps = engine.execute('SELECT * FROM Snapshots where scenic_id = scenic_id Limit 3').fetchall()
     jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
 
