@@ -289,14 +289,14 @@ def sort_sceniclocations_name_descending():
 @APP.route('/snapshots/sort/favsasc',  methods=['GET'])
 def sort_snapshots_favs_ascending():
     snaps = engine.execute('SELECT * FROM Snapshots ORDER BY snap_favs asc').fetchall()
-    jsonSnaps = json.dumps([dict(r) for snap in snaps], default=alchemyencoder)
+    jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
 
 
 @APP.route('/snapshots/sort/favsdesc',  methods=['GET'])
-def sort_snapshots_favs_descending(searchkey):
+def sort_snapshots_favs_descending():
     snaps = engine.execute('SELECT * FROM Snapshots ORDER BY snap_favs desc').fetchall()
-    jsonSnaps = json.dumps([dict(r) for snap in snaps], default=alchemyencoder)
+    jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
 
 
