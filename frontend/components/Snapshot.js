@@ -5,13 +5,38 @@ class Snapshot extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      snapshot: this.props.location.state.snapshot
+      snapshot: this.props.location.state.snapshot,
+      selectedShop: [],
+
     };
     console.log("This is photo")
     console.log(this.state.snapshot)
   };
 
+  componentDidMount(props) {
+    if(this.state.snapshot.shop_id != null){
+      fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(results =>{
+      console.log("Results:" + results)
+      return results.json();
+    }).then(data=>{
+      console.log(data)
+      return(
+        <div>
+          <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={() =>{this.setState({navigateShop: true, navigateTo: "/shop", selectedShop: data})}}>Learn More</button>
+        </div>
+        )
+    })
+  }
+}
+
   render() {
+    if (this.state.navigateShop) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {shop: this.state.selectedShop};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
       return (
       <div>
         <div className="content">
@@ -38,10 +63,6 @@ class Snapshot extends Component {
           <div className="col-sm-5 instance-pic">
             <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.snapshot.snap_picture} alt style={{width: 500, height: 500, marginTop: 50}} />
           </div>
-        </div>
-        <div className="model-links">
-          <p><a href="/locations">LOCATIONS NEARBY</a></p>
-          <p><a href="/shops">COFFEE SHOPS NEARBY</a></p>
         </div>
         </div>
 
