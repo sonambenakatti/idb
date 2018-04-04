@@ -92,13 +92,6 @@ handleCityChange(selectedCity){
   }
 }
 
-// there are a lot of ways to sort attributes of a coffeeshop
-// high to low price
-// low to high price
-// high to low rating
-// low to high rating
-// A-Z
-
 handleSortChange(selectedSort) {
   this.setState({ selectedSort });
   if(selectedSort === null) {
@@ -228,7 +221,7 @@ render() {
   const indexOfLastShop = currentPage * shopsPerPage;
   const indexOfFirstShop = indexOfLastShop - shopsPerPage;
   const currentShops = concat_shops.slice(indexOfFirstShop, indexOfLastShop);
-  //console.log("CURRENT SHOPS" + currentShops +" : "+ coffeeshops)
+
   // Logic for displaying page numbers
   const pageNumbers = [];
   const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_shops.length / shopsPerPage)? currentPage + 7 : Math.ceil(concat_shops.length / shopsPerPage)

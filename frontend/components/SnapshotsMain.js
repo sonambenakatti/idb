@@ -20,7 +20,7 @@ class SnapshotsMain extends Component {
         selectedCity: '',
         selectedFavs: '',
         selectedTag: '',
-        selectedSort: ''
+        selectedSort: '',
       };
     };
 
@@ -28,8 +28,6 @@ class SnapshotsMain extends Component {
       fetch('/getsnapshots').then(results =>{
         return results.json();
       }).then(data=>{
-        console.log("This is the data")
-        console.log(data)
         this.setState({full_data: data})
           let snapshots = data.map((snapshot) =>{
             return(
@@ -44,17 +42,14 @@ class SnapshotsMain extends Component {
             );
           });
           this.setState({photos: snapshots});
-          console.log("state", this.state.photos);
         });
         this.getCities();
     };
 
     getCities() {
       fetch('/getcities').then(results =>{
-        console.log(results)
         return results.json();
       }).then(data=>{
-        console.log(data)
         let cities = data.map((city) =>{
           return(
             {value: city.city_id, label: city.city_name}
@@ -65,13 +60,11 @@ class SnapshotsMain extends Component {
     };
 
     handleCityChange(selectedCity){
-      console.log("INSIDE HANDLE CITY");
       this.setState({ selectedCity });
       if (selectedCity === null) {
         this.resetToAllData();
       } else if (selectedCity) {
         var value = selectedCity.value;
-        console.log(value);
         let snapshots = this.state.full_data.map((snapshot) =>{
           if (snapshot.city_id === value)
             return(
@@ -93,52 +86,55 @@ class SnapshotsMain extends Component {
       this.setState({ selectedSort });
       if(selectedSort === null) {
         this.resetToAllData();
-        console.log("Selected sort is null")
       } else if (selectedSort) {
           var value = selectedSort.value;
-          if(value==="favsasc") {
-            fetch('/snapshots/sort/favsasc').then(results => {
-              console.log("In Favsasc, these are the json results")
+            fetch('/snapshots/sort/' + value).then(results => {
               return results.json();
             }).then(data => {
-                console.log("Data Faves Low-High")
                 let snapshots = data.map((snapshot) => {
-                  console.log("This is the snapshot")
-                  console.log(snapshot)
-                  return(
-                    <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                      <li className="col">
-                          <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                          <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                          {snapshot.snap_tags}<br />
-                          {snapshot.snap_favs+" Faves"}</span></span>
-                      </li>
-                    </div>
-                  );
-                })
-                this.setState({photos: snapshots})
+                  if(this.state.selectedCity) {
+                    if (snapshot.city_id === value) {
+                      return(
+                        <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                          <li className="col">
+                              <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                              <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                              {snapshot.snap_tags}<br />
+                              {snapshot.snap_favs+" Faves"}</span></span>
+                          </li>
+                        </div>
+                      );
+                    }
+                  } else if(this.state.selectedFavs) {
+                    if (snapshot.snap_favs >= value) {
+                      return(
+                        <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                          <li className="col">
+                              <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                              <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                              {snapshot.snap_tags}<br />
+                              {snapshot.snap_favs+" Faves"}</span></span>
+                          </li>
+                        </div>
+                      );
+                    }
+                  } else {
+                    return(
+                      <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                        <li className="col">
+                            <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                            <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                            {snapshot.snap_tags}<br />
+                            {snapshot.snap_favs+" Faves"}</span></span>
+                        </li>
+                      </div>
+                    );
+                  }
+                  })
+
+              this.setState({photos: snapshots})
             })
-          } else if (value === "favsdesc") {
-            fetch('/snapshots/sort/favsdesc').then(results => {
-              return results.json();
-            }).then(data => {
-                console.log(data)
-                let snapshots = data.map((snapshot) => {
-                  return(
-                    <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                      <li className="col">
-                          <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                          <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                          {snapshot.snap_tags}<br />
-                          {snapshot.snap_favs+" Faves"}</span></span>
-                      </li>
-                    </div>
-                  );
-                })
-                this.setState({photos: snapshots})
-            })
-          }
-      }
+        }
     }
 
     handleFavChange(selectedFavs){
@@ -147,7 +143,6 @@ class SnapshotsMain extends Component {
         this.resetToAllData();
       } else if (selectedFavs) {
         var value = selectedFavs.value;
-        console.log(value);
         let snapshots = this.state.full_data.map((snapshot) =>{
           if (snapshot.snap_favs >= value)
             return(
@@ -179,7 +174,6 @@ class SnapshotsMain extends Component {
         );
       });
       this.setState({photos: snapshots});
-
     }
 
     // invokoed when user clicks a page number on the bottom.
@@ -201,7 +195,6 @@ class SnapshotsMain extends Component {
       }
 
     render() {
-      console.log(this.state.photos);
       const { photos, currentPage, photosPerPage } = this.state;
 
       const concat_photos = [];
@@ -223,7 +216,6 @@ class SnapshotsMain extends Component {
       }
 
       if (this.state.navigate) {
-        console.log("REDIRCT" + this.state.selectedSnapshot.snap_username)
         return <Redirect to={{pathname: this.state.navigateTo, state: {snapshot: this.state.selectedSnapshot}}} push={true} />;
       }
 
@@ -248,11 +240,11 @@ class SnapshotsMain extends Component {
 
       const SelectPackage = require('react-select');
       const Select = SelectPackage.default;
+
       const {selectedCity} = this.state;
       const {selectedFavs} = this.state;
       const {selectedTag} = this.state;
       const {selectedSort} = this.state;
-
 
       const cityValue = selectedCity && selectedCity.value;
       const favsValue = selectedFavs && selectedFavs.value;
@@ -261,7 +253,6 @@ class SnapshotsMain extends Component {
 
       return (
         <div>
-          {/*location dropdown*/}
           <div className="filters-and-grid">
           <div className="filter-container">
             <div className="filter">

@@ -273,13 +273,13 @@ def sort_sceniclocations_ratng_descending():
 
 @APP.route('/sceniclocations/sort/atoz',  methods=['GET'])
 def sort_sceniclocations_name_ascending():
-    scenic = engine.execute('SELECT * FROM Scenic ORDER BY shop_name asc').fetchall()
+    scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_name asc').fetchall()
     jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
 @APP.route('/sceniclocations/sort/ztoa',  methods=['GET'])
 def sort_sceniclocations_name_descending():
-    scenic = engine.execute('SELECT * FROM Scenic ORDER BY shop_name desc').fetchall()
+    scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_name desc').fetchall()
     jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 

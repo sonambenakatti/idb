@@ -20,7 +20,8 @@ constructor (props) {
       locationsPerPage: 9,
       cities_list: [],
       selectedCity: '',
-      selectedRating: ''
+      selectedRating: '',
+      selectedSort: ''
     };
 };
 
@@ -94,6 +95,35 @@ handleCityChange(selectedCity){
     })
     this.setState({locations: views});
   }
+}
+
+handleSortChange(selectedSort) {
+  this.setState({ selectedSort });
+  if(selectedSort === null) {
+    this.resetToAllData();
+  } else if (selectedSort) {
+      var value = selectedSort.value;
+        fetch('/sceniclocations/sort/' + value).then(results => {
+          return results.json();
+        }).then(data => {
+            let views = data.map((scenicloc) => {
+              return(
+                <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+                  <li className="col">
+                      <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                      <span className="picText">
+                        <span><b>{scenicloc.scenic_name}</b>
+                        <br /><br />{scenicloc.scenic_address}
+                        <br />{scenicloc.scenic_rating + "/5"}
+                        </span>
+                      </span>
+                  </li>
+                </div>
+              );
+            })
+          this.setState({locations: views})
+        })
+    }
 }
 
 handleRatingChange(selectedRating){
@@ -214,9 +244,11 @@ render() {
   const Select = SelectPackage.default;
   const {selectedCity} = this.state;
   const {selectedRating} = this.state;
+  const {selectedSort} = this.state;
 
   const cityValue = selectedCity && selectedCity.value;
   const ratingValue = selectedRating && selectedRating.value;
+  const sortValue = selectedSort && selectedSort.value
 
   return (
       <div>
@@ -244,6 +276,30 @@ render() {
                   {value: '2', label: '2+'},
                   {value: '3', label: '3+'},
                   {value: '4', label: '4+'},
+                ]}
+            />
+          </div>
+          <div className="filter">
+            <h6>Sort by Rating</h6>
+            <Select
+                name="form-field-name"
+                value={sortValue}
+                onChange={this.handleSortChange.bind(this)}
+                options={[
+                  {value: 'ratingasc', label: 'Low - High'},
+                  {value: 'ratingdesc', label: 'High - Low'},
+                ]}
+            />
+          </div>
+          <div className="filter">
+            <h6>Sort alphabetically</h6>
+            <Select
+                name="form-field-name"
+                value={sortValue}
+                onChange={this.handleSortChange.bind(this)}
+                options={[
+                  {value: 'atoz', label: 'A - Z'},
+                  {value: 'ztoa', label: 'Z - A'},
                 ]}
             />
           </div>
