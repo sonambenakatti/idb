@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom'
 
 
 class Navbar extends Component {
 
+  constructor (props) {
+      super(props);
+      this.state = {
+        currentPage:""
+      };
+  };
 
+  handleClick(event) {
+      this.setState({
+        currentPage: event.target.id
+      });
+    }
 
   render() {
-
+    console.log("NAV" + this.state.currentPage);
+    //  console.log("CURRENT"+ this.context.router.getCurrentPathname());
     return (
       <div id="navbar">
         <h1 className="site-heading text-center text-white d-none d-lg-block">
@@ -21,25 +34,42 @@ class Navbar extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarResponsive">
               <ul className="navbar-nav mx-auto">
-                <li className="nav-item active px-lg-4">
-                  <a className="nav-link text-uppercase text-expanded" href="/">Home
-                    <span className="sr-only">(current)</span>
-                  </a>
+                <li className="nav-item px-lg-4">
+                  <NavLink exact={true} id="home" className="nav-link text-uppercase text-expanded" to="/"
+                    activeClassName='active'
+                    style={this.state.currentPage === "home" ? {color:'orange'} : {}}
+                    onClick={this.handleClick.bind(this)}>Home
+                  </NavLink>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a id="shops" className="nav-link text-uppercase text-expanded" href="/shops">Coffee Shops</a>
+                  <NavLink id="shops" className="nav-link text-uppercase text-expanded" to="/shops"
+                  activeClassName='active'
+                  style={this.state.currentPage === "shops" ? {color:'orange'} : {}}
+                  onClick={this.handleClick.bind(this)}>Coffee Shops</NavLink>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a id="scenicloc" className="nav-link text-uppercase text-expanded" href="/locations">Scenic Locations</a>
+                  <NavLink id="scenicloc" className="nav-link text-uppercase text-expanded" to="/locations"
+                  activeClassName='active'
+                  style={this.state.currentPage === "scenicloc" ? {color:'orange'} : {}}
+                  onClick={this.handleClick.bind(this)}>Scenic Locations</NavLink>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a id="snaps"className="nav-link text-uppercase text-expanded" href="/snapshots">Snapshots</a>
+                  <NavLink id="snaps"className="nav-link text-uppercase text-expanded" to="/snapshots"
+                  activeClassName='active'
+                  style={this.state.currentPage === "snaps" ? {color:'orange'} : {}}
+                  onClick={this.handleClick.bind(this)}>Snapshots</NavLink>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a id="about"className="nav-link text-uppercase text-expanded" href="/about">About</a>
+                  <NavLink id="about"className="nav-link text-uppercase text-expanded" to="/about"
+                  activeClassName='active'
+                  style={this.state.currentPage === "about" ? {color:'orange'} : {}}
+                  onClick={this.handleClick.bind(this)}>About</NavLink>
                 </li>
                 <li className="nav-item px-lg-4">
-                  <a id="about"className="nav-link text-uppercase text-expanded" href="/search">Search</a>
+                  <NavLink id="search" className="nav-link text-uppercase text-expanded" to="/search"
+                  activeClassName='active'
+                  style={this.state.currentPage === "search" ? {color:'orange'} : {}}
+                  onClick={this.handleClick.bind(this)}>Search</NavLink>
                 </li>
               </ul>
             </div>

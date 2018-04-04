@@ -147,6 +147,7 @@ class Search extends Component {
 
      const indexOfLastResult = currentPage * resultsPerPage;
      const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+     console.log("THE RES" +searchResults);
      const currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
      const pageNumbers = [];

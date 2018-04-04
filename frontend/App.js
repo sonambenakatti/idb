@@ -24,6 +24,7 @@ class App extends Component {
   render() {
 
   return (
+    <div>
     <Router>
       <div>
         <Navbar />
@@ -40,6 +41,7 @@ class App extends Component {
         </Switch>
       </div>
     </Router>
+    </div>
     );
   }
 

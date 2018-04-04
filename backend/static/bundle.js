@@ -6473,24 +6473,28 @@ var App = function (_Component) {
       function render() {
 
         return _react2['default'].createElement(
-          _reactRouterDom.BrowserRouter,
+          'div',
           null,
           _react2['default'].createElement(
-            'div',
+            _reactRouterDom.BrowserRouter,
             null,
-            _react2['default'].createElement(_Navbar2['default'], null),
             _react2['default'].createElement(
-              _reactRouterDom.Switch,
+              'div',
               null,
-              _react2['default'].createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/about', component: _About2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/snapshot', component: _Snapshot2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/location', component: _Location2['default'] }),
-              _react2['default'].createElement(_reactRouterDom.Route, { path: '/search', component: _Search2['default'] })
+              _react2['default'].createElement(_Navbar2['default'], null),
+              _react2['default'].createElement(
+                _reactRouterDom.Switch,
+                null,
+                _react2['default'].createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/about', component: _About2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/snapshot', component: _Snapshot2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/location', component: _Location2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/search', component: _Search2['default'] })
+              )
             )
           )
         );
@@ -9333,7 +9337,7 @@ exports['default'] = Locations;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -9345,7 +9349,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _reactRouterDom = __webpack_require__(94);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9356,108 +9362,138 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Navbar = function (_Component) {
   _inherits(Navbar, _Component);
 
-  function Navbar() {
+  function Navbar(props) {
     _classCallCheck(this, Navbar);
 
-    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
+
+    _this.state = {
+      currentPage: ""
+    };
+    return _this;
   }
 
   _createClass(Navbar, [{
-    key: "render",
+    key: 'handleClick',
+    value: function () {
+      function handleClick(event) {
+        this.setState({
+          currentPage: event.target.id
+        });
+      }
+
+      return handleClick;
+    }()
+  }, {
+    key: 'render',
     value: function () {
       function render() {
-
-        return _react2["default"].createElement(
-          "div",
-          { id: "navbar" },
-          _react2["default"].createElement(
-            "h1",
-            { className: "site-heading text-center text-white d-none d-lg-block" },
-            _react2["default"].createElement(
-              "span",
-              { className: "site-heading-lower" },
-              "Coffee With A View"
+        console.log("NAV" + this.state.currentPage);
+        //  console.log("CURRENT"+ this.context.router.getCurrentPathname());
+        return _react2['default'].createElement(
+          'div',
+          { id: 'navbar' },
+          _react2['default'].createElement(
+            'h1',
+            { className: 'site-heading text-center text-white d-none d-lg-block' },
+            _react2['default'].createElement(
+              'span',
+              { className: 'site-heading-lower' },
+              'Coffee With A View'
             )
           ),
-          _react2["default"].createElement(
-            "nav",
-            { className: "navbar navbar-expand-lg navbar-dark py-lg-4", id: "mainNav" },
-            _react2["default"].createElement(
-              "div",
-              { className: "container" },
-              _react2["default"].createElement(
-                "a",
-                { className: "navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none", href: "#" },
-                "ESPRESSO YOSELF"
+          _react2['default'].createElement(
+            'nav',
+            { className: 'navbar navbar-expand-lg navbar-dark py-lg-4', id: 'mainNav' },
+            _react2['default'].createElement(
+              'div',
+              { className: 'container' },
+              _react2['default'].createElement(
+                'a',
+                { className: 'navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none', href: '#' },
+                'ESPRESSO YOSELF'
               ),
-              _react2["default"].createElement(
-                "button",
-                { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#navbarResponsive", "aria-controls": "navbarResponsive", "aria-expanded": "false", "aria-label": "Toggle navigation" },
-                _react2["default"].createElement("span", { className: "navbar-toggler-icon" })
+              _react2['default'].createElement(
+                'button',
+                { className: 'navbar-toggler', type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbarResponsive', 'aria-controls': 'navbarResponsive', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
+                _react2['default'].createElement('span', { className: 'navbar-toggler-icon' })
               ),
-              _react2["default"].createElement(
-                "div",
-                { className: "collapse navbar-collapse", id: "navbarResponsive" },
-                _react2["default"].createElement(
-                  "ul",
-                  { className: "navbar-nav mx-auto" },
-                  _react2["default"].createElement(
-                    "li",
-                    { className: "nav-item active px-lg-4" },
-                    _react2["default"].createElement(
-                      "a",
-                      { className: "nav-link text-uppercase text-expanded", href: "/" },
-                      "Home",
-                      _react2["default"].createElement(
-                        "span",
-                        { className: "sr-only" },
-                        "(current)"
-                      )
+              _react2['default'].createElement(
+                'div',
+                { className: 'collapse navbar-collapse', id: 'navbarResponsive' },
+                _react2['default'].createElement(
+                  'ul',
+                  { className: 'navbar-nav mx-auto' },
+                  _react2['default'].createElement(
+                    'li',
+                    { className: 'nav-item px-lg-4' },
+                    _react2['default'].createElement(
+                      _reactRouterDom.NavLink,
+                      { exact: true, id: 'home', className: 'nav-link text-uppercase text-expanded', to: '/',
+                        activeClassName: 'active',
+                        style: this.state.currentPage === "home" ? { color: 'orange' } : {},
+                        onClick: this.handleClick.bind(this) },
+                      'Home'
                     )
                   ),
-                  _react2["default"].createElement(
-                    "li",
-                    { className: "nav-item px-lg-4" },
-                    _react2["default"].createElement(
-                      "a",
-                      { id: "shops", className: "nav-link text-uppercase text-expanded", href: "/shops" },
-                      "Coffee Shops"
+                  _react2['default'].createElement(
+                    'li',
+                    { className: 'nav-item px-lg-4' },
+                    _react2['default'].createElement(
+                      _reactRouterDom.NavLink,
+                      { id: 'shops', className: 'nav-link text-uppercase text-expanded', to: '/shops',
+                        activeClassName: 'active',
+                        style: this.state.currentPage === "shops" ? { color: 'orange' } : {},
+                        onClick: this.handleClick.bind(this) },
+                      'Coffee Shops'
                     )
                   ),
-                  _react2["default"].createElement(
-                    "li",
-                    { className: "nav-item px-lg-4" },
-                    _react2["default"].createElement(
-                      "a",
-                      { id: "scenicloc", className: "nav-link text-uppercase text-expanded", href: "/locations" },
-                      "Scenic Locations"
+                  _react2['default'].createElement(
+                    'li',
+                    { className: 'nav-item px-lg-4' },
+                    _react2['default'].createElement(
+                      _reactRouterDom.NavLink,
+                      { id: 'scenicloc', className: 'nav-link text-uppercase text-expanded', to: '/locations',
+                        activeClassName: 'active',
+                        style: this.state.currentPage === "scenicloc" ? { color: 'orange' } : {},
+                        onClick: this.handleClick.bind(this) },
+                      'Scenic Locations'
                     )
                   ),
-                  _react2["default"].createElement(
-                    "li",
-                    { className: "nav-item px-lg-4" },
-                    _react2["default"].createElement(
-                      "a",
-                      { id: "snaps", className: "nav-link text-uppercase text-expanded", href: "/snapshots" },
-                      "Snapshots"
+                  _react2['default'].createElement(
+                    'li',
+                    { className: 'nav-item px-lg-4' },
+                    _react2['default'].createElement(
+                      _reactRouterDom.NavLink,
+                      { id: 'snaps', className: 'nav-link text-uppercase text-expanded', to: '/snapshots',
+                        activeClassName: 'active',
+                        style: this.state.currentPage === "snaps" ? { color: 'orange' } : {},
+                        onClick: this.handleClick.bind(this) },
+                      'Snapshots'
                     )
                   ),
-                  _react2["default"].createElement(
-                    "li",
-                    { className: "nav-item px-lg-4" },
-                    _react2["default"].createElement(
-                      "a",
-                      { id: "about", className: "nav-link text-uppercase text-expanded", href: "/about" },
-                      "About"
+                  _react2['default'].createElement(
+                    'li',
+                    { className: 'nav-item px-lg-4' },
+                    _react2['default'].createElement(
+                      _reactRouterDom.NavLink,
+                      { id: 'about', className: 'nav-link text-uppercase text-expanded', to: '/about',
+                        activeClassName: 'active',
+                        style: this.state.currentPage === "about" ? { color: 'orange' } : {},
+                        onClick: this.handleClick.bind(this) },
+                      'About'
                     )
                   ),
-                  _react2["default"].createElement(
-                    "li",
-                    { className: "nav-item px-lg-4" },
-                    _react2["default"].createElement(
-                      "a",
-                      { id: "about", className: "nav-link text-uppercase text-expanded", href: "/search" },
-                      "Search"
+                  _react2['default'].createElement(
+                    'li',
+                    { className: 'nav-item px-lg-4' },
+                    _react2['default'].createElement(
+                      _reactRouterDom.NavLink,
+                      { id: 'search', className: 'nav-link text-uppercase text-expanded', to: '/search',
+                        activeClassName: 'active',
+                        style: this.state.currentPage === "search" ? { color: 'orange' } : {},
+                        onClick: this.handleClick.bind(this) },
+                      'Search'
                     )
                   )
                 )
@@ -9474,7 +9510,7 @@ var Navbar = function (_Component) {
   return Navbar;
 }(_react.Component);
 
-exports["default"] = Navbar;
+exports['default'] = Navbar;
 
 /***/ },
 /* 58 */
@@ -9780,6 +9816,7 @@ var Search = function (_Component) {
 
         var indexOfLastResult = currentPage * resultsPerPage;
         var indexOfFirstResult = indexOfLastResult - resultsPerPage;
+        console.log("THE RES" + searchResults);
         var currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
         var pageNumbers = [];
