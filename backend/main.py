@@ -218,41 +218,41 @@ def search(searchkey):
 @APP.route('/coffeeshops/sort/priceasc',  methods=['GET'])
 def sort_coffeeshops_price_ascending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_price asc').fetchall()
-    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
+    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/pricedesc',  methods=['GET'])
 def sort_coffeeshops_price_descending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_price desc').fetchall()
-    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
+    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/ratingasc',  methods=['GET'])
 def sort_coffeeshops_rating_ascending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_rating asc').fetchall()
-    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
+    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/ratingdesc',  methods=['GET'])
 def sort_coffeeshops_rating_descending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_rating desc').fetchall()
-    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
+    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
 @APP.route('/coffeeshops/sort/atoz',  methods=['GET'])
 def sort_coffeeshops_name_ascending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_name asc').fetchall()
-    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
+    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 @APP.route('/coffeeshops/sort/ztoa',  methods=['GET'])
 def sort_coffeeshops_name_descending():
     shops = engine.execute('SELECT * FROM Shops ORDER BY shop_name desc').fetchall()
-    jsonShops = json.dumps([dict(r) for shop in shops], default=alchemyencoder)
+    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
 
 
@@ -260,30 +260,28 @@ def sort_coffeeshops_name_descending():
 @APP.route('/sceniclocations/sort/ratingasc',  methods=['GET'])
 def sort_sceniclocations_rating_ascending():
     scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_rating asc').fetchall()
-    jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
+    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
 
 @APP.route('/sceniclocations/sort/ratingdesc',  methods=['GET'])
 def sort_sceniclocations_ratng_descending():
     scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_rating desc').fetchall()
-    jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
+    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
 
 @APP.route('/sceniclocations/sort/atoz',  methods=['GET'])
 def sort_sceniclocations_name_ascending():
     scenic = engine.execute('SELECT * FROM Scenic ORDER BY shop_name asc').fetchall()
-    jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
+    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
 @APP.route('/sceniclocations/sort/ztoa',  methods=['GET'])
 def sort_sceniclocations_name_descending():
     scenic = engine.execute('SELECT * FROM Scenic ORDER BY shop_name desc').fetchall()
-    jsonScenic = json.dumps([dict(r) for sc in scenic], default=alchemyencoder)
+    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
-
-
 
 #SNAPSHOTS SORTING
 @APP.route('/snapshots/sort/favsasc',  methods=['GET'])
@@ -301,7 +299,6 @@ def sort_snapshots_favs_descending():
 
 
 #NEARBY SEARCHES
-
 @APP.route('/nearby_scenic_from_shops/<shop_id>',  methods=['GET'])
 def nearby_scenic_from_shops(shop_id):
     print(shop_id)
