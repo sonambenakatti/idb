@@ -21,7 +21,7 @@ class SnapshotsMain extends Component {
         selectedCity: '',
         selectedFavs: '',
         selectedTag: '',
-        favoritesFilter: ["1-5", "5-10", "10-20", "20+"]
+        selectedSort: ''
       };
     };
 
@@ -68,7 +68,6 @@ class SnapshotsMain extends Component {
     handleCityChange(selectedCity){
       console.log("INSIDE HANDLE CITY");
       this.setState({ selectedCity });
-
       if (selectedCity === null) {
         this.resetToAllData();
       } else if (selectedCity) {
@@ -91,9 +90,60 @@ class SnapshotsMain extends Component {
       }
     }
 
+    handleFaveSortChange(selectedSort) {
+      this.setState({ selectedSort });
+      if(selectedSort === null) {
+        this.resetToAllData();
+        console.log("Selected sort is null")
+      } else if (selectedSort) {
+          var value = selectedSort.value;
+          if(value==="favsasc") {
+            fetch('/snapshots/sort/favsasc').then(results => {
+              console.log("In Favsasc, these are the json results")
+              return results.json();
+            }).then(data => {
+                console.log("Data Faves Low-High")
+                let snapshots = data.map((snapshot) => {
+                  console.log("This is the snapshot")
+                  console.log(snapshot)
+                  return(
+                    <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                      <li className="col">
+                          <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                          <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                          {snapshot.snap_tags}<br />
+                          {snapshot.snap_favs+" Faves"}</span></span>
+                      </li>
+                    </div>
+                  );
+                })
+                this.setState({photos: snapshots})
+            })
+          } else if (value === "favsdesc") {
+            fetch('/snapshots/sort/favsdesc').then(results => {
+              return results.json();
+            }).then(data => {
+                console.log(data)
+                let snapshots = data.map((snapshot) => {
+                  return(
+                    <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+                      <li className="col">
+                          <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                          <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                          {snapshot.snap_tags}<br />
+                          {snapshot.snap_favs+" Faves"}</span></span>
+                      </li>
+                    </div>
+                  );
+                })
+                this.setState({photos: snapshots})
+            })
+          }
+      }
+    }
+
     handleFavChange(selectedFavs){
       this.setState({ selectedFavs });
-
       if (selectedFavs === null) {
         this.resetToAllData();
       } else if (selectedFavs) {
@@ -184,10 +234,6 @@ class SnapshotsMain extends Component {
         }
       });
 
-      const renderRanges = this.state.favoritesFilter.map((option, index) => {
-        return <li key={index}><a href="#">{option}</a></li>;
-      });
-
       const renderPageNumbers = pageNumbers.map(number => {
         return (
           <li
@@ -206,10 +252,13 @@ class SnapshotsMain extends Component {
       const {selectedCity} = this.state;
       const {selectedFavs} = this.state;
       const {selectedTag} = this.state;
+      const {selectedSort} = this.state;
+
 
       const cityValue = selectedCity && selectedCity.value;
       const favsValue = selectedFavs && selectedFavs.value;
       const tagValue = selectedTag && selectedTag.value;
+      const sortValue = selectedSort && selectedSort.value
 
       return (
         <div>
@@ -238,6 +287,18 @@ class SnapshotsMain extends Component {
                     {value: '15', label: '15+'},
                     {value: '20', label: '20+'},
                   ]}
+              />
+            </div>
+            <div className="filter">
+              <h6>Choose an option to sort by</h6>
+              <Select
+                name="form-field-name"
+                value={sortValue}
+                onChange={this.handleFaveSortChange.bind(this)}
+                options={[
+                  {value: 'favsasc', label: 'Low-High'},
+                  {value: 'favsdesc', label: 'High-Low'}
+                ]}
               />
             </div>
           </div>
