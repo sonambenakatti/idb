@@ -377,7 +377,11 @@ def nearby_shops_from_scenic(scenic_id):
 @APP.route('/snapshots_shop/<shop_id>',  methods=['GET'])
 def snapshots_shop(shop_id):
     print("IN SNAPSHOTS SHOPS")
-    snaps = engine.execute('SELECT * FROM Snapshots where shop_id = shop_id Limit 3').fetchall()
+    query = 'SELECT * FROM Snapshots where shop_id = %(id)s Limit 3'
+    data={
+        'id': int(shop_id),
+    }
+    snaps = engine.execute(query, data).fetchall()
     jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
 
@@ -385,7 +389,11 @@ def snapshots_shop(shop_id):
 def snapshots_scenic(scenic_id):
 
     print("IN SNAPSHOTS SCENIC")
-    snaps = engine.execute('SELECT * FROM Snapshots where scenic_id = scenic_id Limit 3').fetchall()
+    query = 'SELECT * FROM Snapshots where scenic_id = %(id)s Limit 3'
+    data={
+        'id': int(scenic_id),
+    }
+    snaps = engine.execute(query, data).fetchall()
     jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
 

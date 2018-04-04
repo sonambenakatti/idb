@@ -348,6 +348,7 @@ input[type=text] {
 }
 
 .page-section-instance {
+  display:inline-flex;
 }
 
 span.picTextInstance {

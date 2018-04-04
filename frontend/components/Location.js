@@ -25,6 +25,8 @@ class Location extends Component {
       console.log(this.state);
       this.get_coffeeshops = this.get_coffeeshops.bind(this);
       this.get_snaps = this.get_snaps.bind(this);
+      this.returnNoResults = this.returnNoResults.bind(this);
+
   };
 
   componentDidMount(props) {
@@ -63,6 +65,7 @@ class Location extends Component {
       console.log(data)
       let snapshots = data.map((snapshot) =>{
         return(
+          
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
@@ -73,11 +76,21 @@ class Location extends Component {
           </div>
         );
       });
+      if(data.length == 0) {
+        console.log("No results!");
+        snapshots = [<div></div>, this.returnNoResults()];
+      }
       this.setState({snaps_list: snapshots});
       });
     };
 
-
+ returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">There are no more snaps for this view</span>
+      </div>
+    )
+  }
 
 
   render() {
