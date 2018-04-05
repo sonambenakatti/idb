@@ -17,8 +17,10 @@ import Snapshot from '../frontend/components/Snapshot.js';
 import About from '../frontend/components/About.js';
 import Navbar from '../frontend/components/Navbar.js';
 import Search from '../frontend/components/Search.js';
+import {Select} from 'react-select';
 
 var ReactTestUtils = require('react-dom/test-utils');
+var sinon = require('sinon');
 
 describe("Test Search", function() {
 
@@ -30,10 +32,11 @@ describe("Test Search", function() {
     this.jsdom();
   })
 
-  it('Test search', function () {
+  it('Test Search', function () {
     const component = ReactTestUtils.renderIntoDocument(
 			<Search />
 		);
+    const spy = sinon.spy(component, 'search')
 
     const inputField = ReactTestUtils.findRenderedDOMComponentWithTag(component, 'input');
     const button = ReactTestUtils.findRenderedDOMComponentWithTag(component, 'button');
@@ -44,10 +47,41 @@ describe("Test Search", function() {
     ReactTestUtils.Simulate.change(inputField);
     ReactTestUtils.Simulate.click(button);
 
-    const li = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'li');
-    expect(li).to.be.ok;
-
+    expect(spy.calledOnce).to.equal(true)
   });
+
+  it('Test Pagination', function () {
+      let wrapper = mount(<Search />);
+      expect(wrapper.find('#prev').exists()).to.eql(true);
+      expect(wrapper.find('#next').exists()).to.eql(true);
+  });
+});
+
+describe("Test Nearby Buttons", function() {
+
+  before(function() {
+    this.jsdom = require('jsdom-global')();
+  })
+
+  after(function() {
+    this.jsdom();
+  })
+
+  it('Test nearby scenic locations', function () {
+        const spy = sinon.spy(CoffeeInstance.prototype, 'get_scenic');
+        const wrapper = shallow(<CoffeeInstance location={{state: {shop: {shop_address: '1234 SWE St'}}}}/>);
+
+        wrapper.findWhere(n => n.type() === 'button' && n.contains('SCENIC LOCATIONS NEARBY')).simulate('click');
+        expect(spy.calledOnce).to.equal(true);
+  });
+  it('Test nearby snaps', function () {
+        const spy = sinon.spy(CoffeeInstance.prototype, 'get_snaps');
+        const wrapper = shallow(<CoffeeInstance location={{state: {shop: {shop_address: '1234 SWE St'}}}}/>);
+
+        wrapper.findWhere(n => n.type() === 'button' && n.contains('MORE SNAPS')).simulate('click');
+        expect(spy.calledOnce).to.equal(true);
+  });
+
 });
 
 describe('Test Navigation Bar', () => {
@@ -76,13 +110,21 @@ describe("Test CoffeeShops", function() {
     this.jsdom();
   })
 
+  it('Test filter', function () {
+    expect(shallow(<CoffeeShops />).find('.filter')).to.have.length(6);
+  });
   it("Test for grid", function() {
-      expect(shallow(<CoffeeShops />).contains(<div className="row" />)).to.equal(true);
+    expect(shallow(<CoffeeShops />).contains(<div className="row" />)).to.equal(true);
   });
   it('Test coffee shop set state', function () {
-    const wrapper = mount(<CoffeeShops/>);
+    const wrapper = mount(<CoffeeShops />);
     wrapper.setState({ coffeeshops: ["test"] });
     expect(wrapper.state('coffeeshops')).to.have.length(1);
+  });
+  it('Test Pagination', function () {
+      let wrapper = mount(<CoffeeShops />);
+      expect(wrapper.find('#prev').exists()).to.eql(true);
+      expect(wrapper.find('#next').exists()).to.eql(true);
   });
 });
 
@@ -113,6 +155,9 @@ describe("Test Locations", function() {
     this.jsdom();
   })
 
+  it('Test filter', function () {
+    expect(shallow(<Locations />).find('.filter')).to.have.length(4);
+  });
   it("Test for grid", function() {
       expect(shallow(<Locations />).contains(<div className="row" />)).to.equal(true);
   });
@@ -120,6 +165,11 @@ describe("Test Locations", function() {
     const wrapper = mount(<Locations />);
     wrapper.setState({ locations: ["test"] });
     expect(wrapper.state('locations')).to.have.length(1);
+  });
+  it('Test Pagination', function () {
+      let wrapper = mount(<Locations />);
+      expect(wrapper.find('#prev').exists()).to.eql(true);
+      expect(wrapper.find('#next').exists()).to.eql(true);
   });
 });
 
@@ -133,6 +183,9 @@ describe("Test SnapshotsMain", function() {
     this.jsdom();
   })
 
+  it('Test filter', function () {
+    expect(shallow(<SnapshotsMain />).find('.filter')).to.have.length(3);
+  });
   it("Test for grid", function() {
       expect(shallow(<SnapshotsMain />).contains(<div className="row" />)).to.equal(true);
   });
@@ -140,6 +193,11 @@ describe("Test SnapshotsMain", function() {
     const wrapper = mount(<SnapshotsMain />);
     wrapper.setState({ photos: ["test"] });
     expect(wrapper.state('photos')).to.have.length(1);
+  });
+  it('Test Pagination', function () {
+      let wrapper = mount(<CoffeeShops />);
+      expect(wrapper.find('#prev').exists()).to.eql(true);
+      expect(wrapper.find('#next').exists()).to.eql(true);
   });
 });
 

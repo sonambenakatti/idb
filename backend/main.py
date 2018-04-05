@@ -53,12 +53,12 @@ def get_sceniclocations() :
 
 @APP.route('/getsceniclocation/<scenicId>', methods=['GET'])
 def get_sceniclocation(scenicId) :
-   
+
     return redirect('//api.espressoyoself.me/sceniclocation/' + scenicId, code=302)
 
 @APP.route('/getcoffeeshops', methods=['GET'])
 def get_coffeeshops() :
- 
+
     return redirect('//api.espressoyoself.me/coffeeshops', code=302)
 
 @APP.route('/getcoffeeshop/<coffeeId>', methods=['GET'])
@@ -68,19 +68,19 @@ def get_coffeeshop(coffeeId) :
 
 @APP.route('/getsnapshots', methods=['GET'])
 def get_snapshots() :
-    
+
     return redirect('//api.espressoyoself.me/snapshots', code=302)
 
 @APP.route('/getsnapshot/<snapshotId>', methods=['GET'])
 def get_snapshot(snapshotId) :
-   
+
     return redirect('//api.espressoyoself.me/snapshot/' + snapshotId, code=302)
 
 
 @APP.route('/search/<searchkey>',  methods=['GET'])
 def search(searchkey):
     print(searchkey)
- 
+
     return redirect('//api.espressoyoself.me/search/' + searchkey, code=302)
 
 
@@ -108,4 +108,3 @@ def snapshots_scenic(scenic_id):
 if __name__ == '__main__':
     #APP.debug=True
     APP.run()
-
