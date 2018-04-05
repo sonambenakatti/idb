@@ -31,6 +31,8 @@ class SnapshotsMain extends Component {
         sort_by: undefined,
         sort_attr: undefined
       };
+    this.returnNoResults = this.returnNoResults.bind(this);
+
     };
 
     componentDidMount() {
@@ -116,6 +118,14 @@ class SnapshotsMain extends Component {
       this.update();
     }
 
+    returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">No Results</span>
+      </div>
+    )
+  }
+
     update () {
       var cityfilter = this.state.selectedCity.value;
       var sort = this.state.sort_attr;
@@ -139,6 +149,11 @@ class SnapshotsMain extends Component {
             </div>
           );
         });
+
+        if(data.length == 0) {
+          console.log("No results!");
+          snapshots = [<div></div>, this.returnNoResults()];
+        }
         this.setState({photos: snapshots})
       })
       this.setState({currentPage: 1})
@@ -241,8 +256,6 @@ class SnapshotsMain extends Component {
                     {value: '0', label: '0+'},
                     {value: '5', label: '5+'},
                     {value: '10', label: '10+'},
-                    {value: '15', label: '15+'},
-                    {value: '20', label: '20+'},
                   ]}
               />
             </div>

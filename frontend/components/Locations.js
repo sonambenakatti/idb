@@ -33,6 +33,7 @@ constructor (props) {
       sort_by: undefined,
       sort_attr: undefined
     };
+    this.returnNoResults = this.returnNoResults.bind(this);
 };
 
 componentDidMount(props) {
@@ -125,6 +126,15 @@ handleRatingChange (selectedRating){
   this.update();
 }
 
+returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">No Results</span>
+      </div>
+    )
+  }
+
+
 update () {
   var cityfilter = this.state.selectedCity.value;
   var sort = this.state.sort_attr;
@@ -151,6 +161,10 @@ update () {
       </div>
     )
     })
+     if(data.length == 0) {
+        console.log("No results!");
+        locations = [<div></div>, this.returnNoResults()];
+      }
     this.setState({locations: views})
   })
   this.setState({currentPage: 1})
