@@ -141,7 +141,7 @@ update () {
   var sortby = this.state.sort_by;
   var ratfilter = this.state.selectedRating.value;
 
-  fetch('/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
+  fetch('//api.espressoyoself.me/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
     ).then(results => {
     console.log(results)
     return results.json();

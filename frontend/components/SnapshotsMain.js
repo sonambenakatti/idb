@@ -132,7 +132,7 @@ class SnapshotsMain extends Component {
       var sortby = this.state.sort_by;
       var favsfilter = this.state.selectedFavs.value;
 
-      fetch('/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter
+      fetch('//api.espressoyoself.me/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter
         ).then(results => {
         console.log(results)
         return results.json();

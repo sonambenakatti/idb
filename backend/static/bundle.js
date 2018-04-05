@@ -8972,7 +8972,7 @@ var Locations = function (_Component) {
         var sortby = this.state.sort_by;
         var ratfilter = this.state.selectedRating.value;
 
-        fetch('/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter).then(function (results) {
+        fetch('//api.espressoyoself.me/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
@@ -10343,7 +10343,7 @@ var SnapshotsMain = function (_Component) {
         var sortby = this.state.sort_by;
         var favsfilter = this.state.selectedFavs.value;
 
-        fetch('/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter).then(function (results) {
+        fetch('//api.espressoyoself.me/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
