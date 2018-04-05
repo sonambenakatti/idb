@@ -25,6 +25,8 @@ class Location extends Component {
       console.log(this.state);
       this.get_coffeeshops = this.get_coffeeshops.bind(this);
       this.get_snaps = this.get_snaps.bind(this);
+      this.returnNoResults = this.returnNoResults.bind(this);
+
   };
 
   componentDidMount(props) {
@@ -63,6 +65,7 @@ class Location extends Component {
       console.log(data)
       let snapshots = data.map((snapshot) =>{
         return(
+          
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
@@ -71,11 +74,21 @@ class Location extends Component {
           </div>
         );
       });
+      if(data.length == 0) {
+        console.log("No results!");
+        snapshots = [<div></div>, this.returnNoResults()];
+      }
       this.setState({snaps_list: snapshots});
       });
     };
 
-
+ returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">There are no more snaps for this view</span>
+      </div>
+    )
+  }
 
 
   render() {
@@ -124,37 +137,39 @@ class Location extends Component {
         </div>
         </div>
         <div className="model-links">
-          <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>COFFEESHOPS NEARBY</button>
-          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
-
-        </div>
-        <div>
-         <section className="page-section-instance">
-          <div className="container">
-            <div className="row">
-              <ul className="img-list">
-                <div className="row">
-                  {this.state.shops_list}
-                </div>
-              </ul>
+          <div class="row">
+            <div className="col-md-6">
+              <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>COFFEESHOPS NEARBY</button>
+            </div>
+            <div className="col-md-6">
+              <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
             </div>
           </div>
-        </section>
         </div>
 
-        <div>
-         <section className="page-section-instance">
-          <div className="container">
-            <div className="row">
-              <ul className="img-list">
+          <div class="row">
+
+             <section className="page-section-instance col-md-6">
                 <div className="row">
-                  {this.state.snaps_list}
+                  <ul className="img-list">
+                    <div className="row">
+                      {this.state.shops_list}
+                    </div>
+                  </ul>
                 </div>
-              </ul>
-            </div>
+            </section>
+
+             <section className="page-section-instance col-md-6">
+                <div className="row">
+                  <ul className="img-list">
+                    <div className="row">
+                      {this.state.snaps_list}
+                    </div>
+                  </ul>
+                </div>
+            </section>
+
           </div>
-        </section>
-        </div>
       </div>
     );
   }

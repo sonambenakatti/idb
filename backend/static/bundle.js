@@ -7328,6 +7328,7 @@ var CoffeeInstance = function (_Component) {
     };
     _this.get_scenic = _this.get_scenic.bind(_this);
     _this.get_snaps = _this.get_snaps.bind(_this);
+    _this.returnNoResults = _this.returnNoResults.bind(_this);
     return _this;
   }
 
@@ -7380,6 +7381,23 @@ var CoffeeInstance = function (_Component) {
       return get_scenic;
     }()
   }, {
+    key: 'returnNoResults',
+    value: function () {
+      function returnNoResults() {
+        return _react2['default'].createElement(
+          'div',
+          { className: 'intro-text text-center bg-faded p-5 rounded' },
+          _react2['default'].createElement(
+            'span',
+            { className: 'section-heading-upper text-center' },
+            'There are no more snaps for this shop'
+          )
+        );
+      }
+
+      return returnNoResults;
+    }()
+  }, {
     key: 'get_snaps',
     value: function () {
       function get_snaps() {
@@ -7422,6 +7440,10 @@ var CoffeeInstance = function (_Component) {
               )
             );
           });
+          if (data.length == 0) {
+            console.log("No results!");
+            snapshots = [_react2['default'].createElement('div', null), _this3.returnNoResults()];
+          }
           _this3.setState({ snaps_list: snapshots });
         });
       }
@@ -8507,6 +8529,8 @@ var Location = function (_Component) {
     console.log(_this.state);
     _this.get_coffeeshops = _this.get_coffeeshops.bind(_this);
     _this.get_snaps = _this.get_snaps.bind(_this);
+    _this.returnNoResults = _this.returnNoResults.bind(_this);
+
     return _this;
   }
 
@@ -8608,11 +8632,32 @@ var Location = function (_Component) {
               )
             );
           });
+          if (data.length == 0) {
+            console.log("No results!");
+            snapshots = [_react2['default'].createElement('div', null), _this3.returnNoResults()];
+          }
           _this3.setState({ snaps_list: snapshots });
         });
       }
 
       return get_snaps;
+    }()
+  }, {
+    key: 'returnNoResults',
+    value: function () {
+      function returnNoResults() {
+        return _react2['default'].createElement(
+          'div',
+          { className: 'intro-text text-center bg-faded p-5 rounded' },
+          _react2['default'].createElement(
+            'span',
+            { className: 'section-heading-upper text-center' },
+            'There are no more snaps for this view'
+          )
+        );
+      }
+
+      return returnNoResults;
     }()
   }, {
     key: 'render',
@@ -8728,61 +8773,61 @@ var Location = function (_Component) {
             'div',
             { className: 'model-links' },
             _react2['default'].createElement(
-              'button',
-              { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
-              'COFFEESHOPS NEARBY'
-            ),
-            _react2['default'].createElement(
-              'button',
-              { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
-              'MORE SNAPS'
-            )
-          ),
-          _react2['default'].createElement(
-            'div',
-            null,
-            _react2['default'].createElement(
-              'section',
-              { className: 'page-section-instance' },
+              'div',
+              { 'class': 'row' },
               _react2['default'].createElement(
                 'div',
-                { className: 'container' },
+                { className: 'col-md-6' },
                 _react2['default'].createElement(
-                  'div',
-                  { className: 'row' },
-                  _react2['default'].createElement(
-                    'ul',
-                    { className: 'img-list' },
-                    _react2['default'].createElement(
-                      'div',
-                      { className: 'row' },
-                      this.state.shops_list
-                    )
-                  )
+                  'button',
+                  { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
+                  'COFFEESHOPS NEARBY'
+                )
+              ),
+              _react2['default'].createElement(
+                'div',
+                { className: 'col-md-6' },
+                _react2['default'].createElement(
+                  'button',
+                  { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                  'MORE SNAPS'
                 )
               )
             )
           ),
           _react2['default'].createElement(
             'div',
-            null,
+            { 'class': 'row' },
             _react2['default'].createElement(
               'section',
-              { className: 'page-section-instance' },
+              { className: 'page-section-instance col-md-6' },
               _react2['default'].createElement(
                 'div',
-                { className: 'container' },
+                { className: 'row' },
                 _react2['default'].createElement(
-                  'div',
-                  { className: 'row' },
+                  'ul',
+                  { className: 'img-list' },
                   _react2['default'].createElement(
-                    'ul',
-                    { className: 'img-list' },
-                    _react2['default'].createElement(
-                      'div',
-                      { className: 'row' },
-                      this.state.snaps_list
-                    )
+                    'div',
+                    { className: 'row' },
+                    this.state.shops_list
+                  )
+                )
+              )
+            ),
+            _react2['default'].createElement(
+              'section',
+              { className: 'page-section-instance col-md-6' },
+              _react2['default'].createElement(
+                'div',
+                { className: 'row' },
+                _react2['default'].createElement(
+                  'ul',
+                  { className: 'img-list' },
+                  _react2['default'].createElement(
+                    'div',
+                    { className: 'row' },
+                    this.state.snaps_list
                   )
                 )
               )

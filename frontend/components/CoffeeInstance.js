@@ -16,6 +16,7 @@ class CoffeeInstance extends Component {
     };
     this.get_scenic = this.get_scenic.bind(this);
     this.get_snaps = this.get_snaps.bind(this);
+    this.returnNoResults = this.returnNoResults.bind(this);
   }
 
 get_scenic(){
@@ -41,6 +42,15 @@ get_scenic(){
   })
 }
 
+returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">There are no more snaps for this shop</span>
+      </div>
+    )
+  }
+
+
   get_snaps(){
     console.log("IN SNAPS JS")
     fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
@@ -58,6 +68,10 @@ get_scenic(){
           </div>
         );
       });
+      if(data.length == 0) {
+        console.log("No results!");
+        snapshots= [<div></div>, this.returnNoResults()];
+      }
       this.setState({snaps_list: snapshots});
       });
     };
