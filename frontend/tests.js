@@ -3,7 +3,8 @@ import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
+import 'ignore-styles';
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -15,6 +16,39 @@ import SnapshotsMain from '../frontend/components/SnapshotsMain.js';
 import Snapshot from '../frontend/components/Snapshot.js';
 import About from '../frontend/components/About.js';
 import Navbar from '../frontend/components/Navbar.js';
+import Search from '../frontend/components/Search.js';
+
+var ReactTestUtils = require('react-dom/test-utils');
+
+describe("Test Search", function() {
+
+  before(function() {
+    this.jsdom = require('jsdom-global')();
+  })
+
+  after(function() {
+    this.jsdom();
+  })
+
+  it('Test search', function () {
+    const component = ReactTestUtils.renderIntoDocument(
+			<Search />
+		);
+
+    const inputField = ReactTestUtils.findRenderedDOMComponentWithTag(component, 'input');
+    const button = ReactTestUtils.findRenderedDOMComponentWithTag(component, 'button');
+    expect(inputField).to.be.ok;
+    expect(button).to.be.ok;
+
+    inputField.value = 'coffee';
+    ReactTestUtils.Simulate.change(inputField);
+    ReactTestUtils.Simulate.click(button);
+
+    const li = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'li');
+    expect(li).to.be.ok;
+
+  });
+});
 
 describe('Test Navigation Bar', () => {
 

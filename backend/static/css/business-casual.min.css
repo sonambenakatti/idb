@@ -15,10 +15,52 @@ ul.img-list li {
   margin-bottom: 70px;
 }
 
+ul.page-list {
+  list-style-type: none;
+  text-align: center;
+}
+
+ul.page-list li {
+  display: inline-block;
+  color: white;
+  background-color: rgba(150, 150, 150, 0.3);
+  font-size: 24px;
+  padding: 16px;
+}
+ul.page-list #prev li {
+  border-radius: 30px, 0px, 0px, 30px;
+  display: inline-block;
+  color: white;
+  background-color: rgba(150, 150, 150, 0.3);
+  font-size: 24px;
+  padding: 16px;
+}
+
+ul.page-list #next li {
+  border-radius: 0px, 30px, 30px, 0px;
+  display: inline-block;
+  color: white;
+  background-color: rgba(150, 150, 150, 0.3);
+  font-size: 24px;
+  padding: 16px;
+}
+
+ul.page-list li:hover {
+  color:brown;
+  background-color: rgba(190, 190, 190, 0.5);
+}
+ul.page-list li:active {
+  color:orange;
+  background-color: rgba(250, 250, 250, 0.8);
+}
+
 ul.img-list li img {
   border-radius: 5px;
 }
 
+.current-page {
+  color: orange;
+}
 
 span.picText {
   font-family: Raleway;
@@ -94,7 +136,7 @@ p{
 
 .page-section{
 	margin-top:5rem;
-	margin-bottom:5rem
+	margin-bottom:5rem;
 }
 
 .section-heading{
@@ -145,6 +187,14 @@ p{
 	#mainNav .navbar-nav .nav-item.active .nav-link:hover{
 		color:#e6a756
 	}
+}
+
+#prev .page-item{
+  border-radius: 30px, 0px, 0px, 30px
+}
+
+#next .page-item{
+  border-radius: 0px, 30px, 30px, 0px
 }
 
 .btn-xl{
@@ -296,36 +346,53 @@ p{
 	font-weight:100!important
 }
 
-.dropdown {
-	left: 50%;
-	right: auto;
-	text-align: center;
-	transform: translate(-50%, 0);
-	padding: 20px;
-	margin-top: -6px;
-	border: 0;
-	border-radius: 0;
-	font-family: Raleway
+.filter-container-shops {
+  width: 100%;
+  display: inline-flex;;
+  margin-left: 100px;
+  margin-right: 100px;
+  font-family: 'Roboto';
+  color: white;
 }
 
-.dropdown-menu {
-	padding: 10px;
-	text-align: left;
-	font-weight: 500;
-	font-family: Raleway;
-	background-color: rgba(255,255,255,.4)
+.filter-container-shops h6 {
+  font-family: 'Raleway'
 }
 
-.dropdown-menu li:hover {
-	font-weight: bold;
+.filter-container-shops .filter {
+  margin: 2rem;
 }
 
-.dropdown-menu a{
-	text-decoration: none;
-	color: white;
+.filter-container-locs {
+  width: 100%;
+  display: inline-flex;;
+  margin-left: 300px;
+  margin-right: 300px;
+  font-family: 'Roboto';
+  color: white;
 }
 
-.dropdown .btn {
-	background-color: rgba(255,255,255,.4);
-	border: none;
+.filter-container-locs h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container-locs .filter {
+  margin: 2rem;
+}
+
+.filter-container-snaps {
+  width: 100%;
+  display: inline-flex;;
+  margin-left: 400px;
+  margin-right: 400px;
+  font-family: 'Roboto';
+  color: white;
+}
+
+.filter-container-snaps h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container-snaps .filter {
+  margin: 2rem;
 }

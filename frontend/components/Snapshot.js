@@ -1,17 +1,70 @@
 import React, { Component } from 'react';
+import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
+
 
 class Snapshot extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      snapshot: this.props.location.state.snapshot
+      snapshot: this.props.location.state.snapshot,
+      selectedShop: [],
+      shop:[],
+
     };
     console.log("This is photo")
     console.log(this.state.snapshot)
+    this.go_to_instance = this.go_to_instance.bind(this);
   };
 
+
+  go_to_instance(){
+    if(this.state.snapshot.shop_id != null){
+      fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(results =>{
+      console.log("Results:" + results)
+      return results.json();
+       }).then(data=>{
+        console.log(data)
+        let shops = data.map((shop) =>{
+          this.setState({navigateShop: true, navigateTo: "/shop", selectedShop: shop})
+
+        })
+      })
+
+    }
+
+    else if(this.state.snapshot.scenic_id != null){
+      fetch("/getsceniclocation/" + this.state.snapshot.scenic_id).then(results =>{
+      console.log("Results:" + results)
+      return results.json();
+       }).then(data=>{
+        console.log(data)
+        let views = data.map((scenicloc) =>{
+          this.setState({navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc})
+
+        })
+      })
+
+    }
+  }
+
+
+
   render() {
+    if (this.state.navigateShop) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {shop: this.state.selectedShop};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
+     if (this.state.navigateScenic) {
+      console.log("IN METHOD")
+       var instance_state = {};
+       instance_state = {selectedLocation: this.state.selectedLocation};
+
+       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+    }
       return (
       <div>
         <div className="content">
@@ -40,8 +93,7 @@ class Snapshot extends Component {
           </div>
         </div>
         <div className="model-links">
-          <p><a href="/locations">LOCATIONS NEARBY</a></p>
-          <p><a href="/shops">COFFEE SHOPS NEARBY</a></p>
+          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.go_to_instance}>Learn More about this place!</button>
         </div>
         </div>
 

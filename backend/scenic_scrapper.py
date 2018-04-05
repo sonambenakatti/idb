@@ -32,9 +32,11 @@ except ImportError:
 
 user = 'TheCoolBeans'
 pwd = 'riley5143'
-host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
-db = 'beansdb'
+host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
+db = 'beansdbdev'
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
+
+
 
 def main():
     try:
@@ -60,7 +62,8 @@ def main():
                 scenic_picture = bytes(v.photo, 'utf8'),
                 scenic_latitude = bytes(str(v.latitude), 'utf8'),
                 scenic_longitude = bytes(str(v.longitude), 'utf8'),
-                scenic_place_id = bytes(v.placeID, 'utf8'),
+                city_id = bytes(str(v.city_id), 'utf8'),
+
                 )
                 conn = db.connect()
                 conn.execute(ins)
@@ -78,3 +81,8 @@ def main():
 if __name__ == '__main__':
     main()
     print("INSERTED DATA")
+    #views = get_places()
+    #for v in views:
+       # print(v.name)
+
+

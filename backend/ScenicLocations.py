@@ -9,7 +9,7 @@ import urllib
 
 
 class ScenicLocations:
-	def __init__(self, name, address, rating, review1, review2, photo, latitude, longitude, placeID) :
+	def __init__(self, name, address, rating, review1, review2, photo, latitude, longitude, city_id) :
 		self.__name = name
 		self.__address = address
 		self.__rating = rating
@@ -18,8 +18,7 @@ class ScenicLocations:
 		self.__photo = photo
 		self.__latitude = latitude
 		self.__longitude = longitude
-		self.__placeID = placeID
-		
+		self.__city_id = city_id		
 
 
 	def __str__(self):
@@ -86,17 +85,13 @@ class ScenicLocations:
 	def latitude(self) :
 	    return self.__latitude
 
-	@latitude.setter
-	def latitude(self, reviews) :
-	    self.__latitude = latitude
-
 	@property
 	def longitude(self) :
 	    return self.__longitude
 
-	@longitude.setter
-	def longitude(self, reviews) :
-	    self.__longitude = longitude
+	@property
+	def city_id(self) :
+	    return self.__city_id
 
 	
 	

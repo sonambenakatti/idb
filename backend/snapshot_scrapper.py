@@ -25,8 +25,8 @@ except ImportError:
 
 user = 'TheCoolBeans'
 pwd = 'riley5143'
-host = 'beansdb.cahtfudy2tyu.us-east-1.rds.amazonaws.com'
-db = 'beansdb'
+host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
+db = 'beansdbdev'
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
 """
@@ -36,7 +36,6 @@ TODO: hide these
 api_key = '646861afb9b6bf211e4b286b447ad794'
 api_secret = '1bb508d092416b93'
 
-photos = []
 photo_titles = []
 RADIUS = '30'
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='json')
@@ -45,9 +44,10 @@ flickr = flickrapi.FlickrAPI(api_key, api_secret, format='json')
 runs a search on photos related to sceinc locations, based on lat and lon
 """
 def search_photos_scenic(latitude, longitude, title) :
-    raw_json = flickr.photos.search(tags=title, media="photo", page=1, per_page=6, lat=latitude, lon=longitude)
+    raw_json = flickr.photos.search(tags=title, media="photo", page=1, per_page=3, lat=latitude, lon=longitude)
     parsed_dict = json.loads(raw_json.decode('utf-8')) #puts all json into dictionary object
-    parse_search(parsed_dict)
+    photos = parse_search(parsed_dict)
+    return photos
 
 """
 runs a search on photos realted to coffee shops, based on lat and lon
@@ -55,23 +55,26 @@ runs a search on photos realted to coffee shops, based on lat and lon
 def search_photos_coffee(latitude, longitude, title) :
     raw_json = flickr.photos.search(tags=title, media="photo", page=1, per_page=3, lat=latitude, lon=longitude)
     parsed_dict = json.loads(raw_json.decode('utf-8'))
-    parse_search(parsed_dict)
+    photos = parse_search(parsed_dict)
+    return photos
 
 """
 parses the result of flcikr.photos.search,
 return a list of Photo objects with attributes populated
 """
 def parse_search(parsed_dict):
+    photos = []
     for key, value in parsed_dict['photos'].items():
-        if(type(value) is list) :
+        if(type(value) is list) and len(value) > 0 :
             for item in value:
                 title = item['title']
-                if title not in photo_titles and len(photos) < 12 and title is not '':
+                if title not in photo_titles and title is not '':
                     photo_titles.append(title)
                     photo_info = get_info(item['id'], item['secret'])
                     photo = parse_info(photo_info, item['id'], item['secret'])
                     if photo.tags is not 'None' :
                         photos.append(photo)
+    return photos
 """
 parse all information about this photo, return a Photo object
 with these attributes populated
@@ -143,7 +146,38 @@ def format_tags(tags) -> String:
     if all_tags is '' :
         all_tags = 'None'
     return all_tags
-#1
+
+def insert(photo, shop_id, scenic_id):
+    ins = insert(metadata.tables['Snapshots']).values(
+        snap_name = bytes(photo.title, 'utf8'),
+        snap_photographer = bytes(photo.name, 'utf8'),
+        snap_username = bytes(photo.username, 'utf8'),
+        snap_tags = bytes(photo.tags, 'utf8'),
+        snap_favs = photo.num_favorites,
+        snap_picture = bytes(photo.imageUrl, 'utf8'),
+        snap_latitude = photo.latitude,
+        snap_longitude = photo.longitude,
+        snap_photo_id = bytes(photo.id, 'utf8')
+        shop_id = bytes(shop_id, 'utf8')
+        scenic_id = bytes(scenic_id, 'utf8')
+        )
+    conn = db.connect()
+    conn.execute(ins)
+
+def clear_db() :
+    user_t = metadata.tables['Snapshots']
+    sel_st = user_t.select()
+    res = conn.execute(sel_st)
+    for _row in res:
+        print(_row)
+        print("\n\n\n")
+    del_st = user_t.delete()
+    res = conn.execute(del_st)
+
+    sel_st = user_t.select()
+    res = conn.execute(sel_st)
+    for _row in res: print(_row)
+
 def main():
     try:
         db = create_engine(uri)
@@ -151,51 +185,24 @@ def main():
         conn = db.connect()
         metadata.reflect(bind=db)
 
-        # user_t = metadata.tables['Snapshots']
-        # sel_st = user_t.select()
-        # res = conn.execute(sel_st)
-        # for _row in res:
-        #     print(_row)
-        #     print("\n\n\n")
-        # del_st = user_t.delete()
-        # res = conn.execute(del_st)
-        #
-        # sel_st = user_t.select()
-        # res = conn.execute(sel_st)
-        # for _row in res: print(_row)
+        #clear_db
 
-        global photos
-
+        # snapshots of shops
         coffeeshops = db.execute('SELECT * FROM Shops').fetchall()
         for shop in coffeeshops :
             shop = dict(shop)
-            search_photos_coffee(shop['shop_latitude'], shop['shop_longitude'], shop['shop_name'])
+            photos = search_photos_coffee(shop['shop_latitude'], shop['shop_longitude'], shop['shop_name'])
+            for photo in photos:
+                #insert(photo, shop['shop_id'], '')
 
+        # snapshots of scenic locations
         locations = db.execute('SELECT * FROM Scenic').fetchall()
         for loc in locations:
             loc = dict(loc)
-            search_photos_scenic(loc['scenic_latitude'], loc['scenic_longitude'], loc['scenic_name'])
+            photos = search_photos_scenic(loc['scenic_latitude'], loc['scenic_longitude'], loc['scenic_name'])
+            for photo in photos:
+                #insert(photo,'' , shop['scenic_id'])
 
-        print(len(photos))
-
-        #shop_loc_id = db.Column(db.Integer)
-        #scenic_loc_id = db.Column(db.Integer)
-        for photo in photos :
-            print(photo.title)
-            ins = insert(metadata.tables['Snapshots']).values(
-                snap_name = bytes(photo.title, 'utf8'),
-                snap_photographer = bytes(photo.name, 'utf8'),
-                snap_username = bytes(photo.username, 'utf8'),
-                snap_tags = bytes(photo.tags, 'utf8'),
-                snap_favs = photo.num_favorites,
-                snap_picture = bytes(photo.imageUrl, 'utf8'),
-                snap_latitude = photo.latitude,
-                snap_longitude = photo.longitude,
-                snap_photo_id = bytes(photo.id, 'utf8')
-                )
-            conn = db.connect()
-            conn.execute(ins)
-        return photos
     except HTTPError as error:
         sys.exit(
             'Encountered HTTP error {0} on {1}:\n {2}\nAbort program.'.format(

@@ -52,6 +52,12 @@ a:hover, a:visited, a:link, a:active {
   margin-bottom: 5rem;
 }
 
+.page-section-1 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
 .section-heading {
   text-transform: uppercase;
 }
@@ -307,17 +313,79 @@ a:hover, a:visited, a:link, a:active {
 .model-links {
 	width: 100%;
 	text-align: center;
-
 }
 
-.model-links p{
+.model-links .btn{
 	display: inline-block;
-	padding: 30px;
+	padding: 10px;
+  margin-left: 2rem;
+  margin-right: 2rem;
 	font-size:1rem;
 	font-weight:800;
 	font-family:Raleway;
+  color: rgba(255,255,255,.4)
 }
 
-.model-links p a{
-	color: rgba(255,255,255,.4)
+input[type=text] {
+    margin:0 auto;
+    text-align: center;
+    width: 400px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    /* background-image: url('../img/searchicon.png'); */
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    /* -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out; */
+}
+
+.search {
+    margin:0 auto;
+}
+
+.page-section-instance {
+  display:inline-flex;
+}
+
+span.picTextInstance {
+  font-family: Raleway;
+  font-weight: 300;
+  font-size: 1rem;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+  cursor: pointer;
+  display: table;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+    border-radius: 5px;
+}
+
+span.picTextInstance span {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 18em
+}
+
+ul.img-list li:hover span.picTextInstance {
+  opacity: 2;
+  text-align: center;
+}
+
+.work {
+  margin: auto;
+  display: block;
 }
