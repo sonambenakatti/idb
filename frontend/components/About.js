@@ -88,13 +88,13 @@ render() {
             <div className="intro-text left-0 text-center bg-faded p-5 rounded">
               <h2 className="section-heading mb-4">
                 <span className="section-heading-lower">Amrutha</span>
-                <span className="section-heading-upper">Focus: Scenic Locations</span>
+                <span className="section-heading-upper">Focus: Backend</span>
               </h2>
               <p className="mb-3">Amrutha's coffee of choice is a soy vanilla latte. In her spare time, she likes playing with her dogs, eating, and planning events. Her software interests include web development, security, and mobile applications.</p>
               <p className="mb-3" id="amrutha">
                 <b>Commits:</b> {commits['AmruthaSreedharane']} <br />
                 <b>Issues:</b> {issues['AmruthaSreedharane']} <br />
-                <b>Unit Tests:</b> 8
+                <b>Unit Tests:</b> 12
               </p>
             </div>
           </div>
@@ -108,7 +108,7 @@ render() {
             <div className="intro-text left-0 text-center bg-faded p-5 rounded">
               <h2 className="section-heading mb-4">
                 <span className="section-heading-lower">Jaemin</span>
-                <span className="section-heading-upper">Focus: Coffee Shops</span>
+                <span className="section-heading-upper">Focus: Backend</span>
               </h2>
               <p className="mb-3">Jaemin is interested in VR, web apps, and mobile apps. In his free time he likes to play guitar and piano, and draw (you can follow him at @godrawjae). His favorite coffee is an americano with sweetener.</p>
               <p className="mb-3" id="jaemin">
@@ -128,13 +128,13 @@ render() {
             <div className="intro-text left-0 text-center bg-faded p-5 rounded">
               <h2 className="section-heading mb-4">
                 <span className="section-heading-lower">Jenni</span>
-                <span className="section-heading-upper">Focus: Snapshots</span>
+                <span className="section-heading-upper">Focus: Frontend</span>
               </h2>
               <p className="mb-3">Jenni enjoys reading, trying new food, and watching youtubers. She's into web development and her coffee of choice is cold brew.</p>
               <p className="mb-3" id="jenni">
                 <b>Commits:</b> {commits['jenniferrethi']} <br />
                 <b>Issues:</b> {issues['jenniferrethi']} <br />
-                <b>Unit Tests:</b> 13
+                <b>Unit Tests:</b> 22
               </p>
             </div>
           </div>
@@ -148,14 +148,14 @@ render() {
             <div className="intro-text left-0 text-center bg-faded p-5 rounded">
               <h2 className="section-heading mb-4">
                 <span className="section-heading-lower">Ruchi</span>
-                <span className="section-heading-upper">Focus: Home, AWS</span>
+                <span className="section-heading-upper">Focus: Frontend</span>
               </h2>
               <p className="mb-3">Ruchi is a fellow coffee enthusiast and guilty Starbucks fanatic. Her go to coffee drink is plain coffee with a little vanilla and a splash of coconut milk. In her spare time she likes to try new foods, do yoga, and binge watch TV shows. She's excited to get out in the real world and start off her career as a software engineer!
               </p>
               <p className="mb-3" id="ruchi">
                 <b>Commits:</b> {commits['ruchi-shekar']} <br />
                 <b>Issues:</b> {issues['ruchi-shekar']} <br />
-                <b>Unit Tests:</b> 9
+                <b>Unit Tests:</b> 16
               </p>
             </div>
           </div>
@@ -169,7 +169,7 @@ render() {
             <div className="intro-text left-0 text-center bg-faded p-5 rounded">
               <h2 className="section-heading mb-4">
                 <span className="section-heading-lower">Sonam</span>
-                <span className="section-heading-upper">Focus: About</span>
+                <span className="section-heading-upper">Focus: Frontend</span>
               </h2>
               <p className="mb-3">Sonam likes all types of coffee, although her go-to is an iced coffee with one pump of vanilla syrup. In her free time, she loves to eat and attempt to convince herself that running is fun. She hopes one day she can make an impact as a software engineer.</p>
               <p className="mb-3" id="sonam">
@@ -193,7 +193,7 @@ render() {
                 <p className="mb-4">
                   Commits: {commits['total']} <br />
                   Issues: {issues['total']} <br />
-                  Unit Tests: 41
+                  Unit Tests: 59
                 </p>
                 <h3 className="mb-4">DATA SOURCES</h3>
                 <p className="mb-4">
@@ -220,6 +220,9 @@ render() {
                   <b>Unittests:</b> to test our backend python code<br />
                   <b>Selenium:</b> to test our GUI<br />
                   <b>Mocha:</b> to test our javascript code<br />
+                  <b>Reach-Highlight-Words:</b>to highlight words in search results<br/ >
+                  <b>Reach-Select:</b>to filter and sort on model pages<br/ >
+                  <b>SQL-Alchemy:</b>to use mysql with python<br/ >
                 </p>
                 <h3 className="mb-4"><a href="https://github.com/sonambenakatti/idb">Github</a></h3>
                 <h3 className="mb-4"><a href="https://sonambenakatti.gitbooks.io/espresso-yoself/content/">Gitbook</a></h3>

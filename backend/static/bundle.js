@@ -6739,7 +6739,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Scenic Locations"
+                      "Focus: Backend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6773,7 +6773,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 8"
+                    " 12"
                   )
                 )
               )
@@ -6803,7 +6803,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Coffee Shops"
+                      "Focus: Backend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6867,7 +6867,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Snapshots"
+                      "Focus: Frontend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6901,7 +6901,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 13"
+                    " 22"
                   )
                 )
               )
@@ -6931,7 +6931,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Home, AWS"
+                      "Focus: Frontend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6965,7 +6965,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 9"
+                    " 16"
                   )
                 )
               )
@@ -6995,7 +6995,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: About"
+                      "Focus: Frontend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -7075,7 +7075,7 @@ var About = function (_Component) {
                       issues['total'],
                       " ",
                       _react2["default"].createElement("br", null),
-                      "Unit Tests: 41"
+                      "Unit Tests: 59"
                     ),
                     _react2["default"].createElement(
                       "h3",
@@ -7226,6 +7226,27 @@ var About = function (_Component) {
                         "Mocha:"
                       ),
                       " to test our javascript code",
+                      _react2["default"].createElement("br", null),
+                      _react2["default"].createElement(
+                        "b",
+                        null,
+                        "Reach-Highlight-Words:"
+                      ),
+                      "to highlight words in search results",
+                      _react2["default"].createElement("br", null),
+                      _react2["default"].createElement(
+                        "b",
+                        null,
+                        "Reach-Select:"
+                      ),
+                      "to filter and sort on model pages",
+                      _react2["default"].createElement("br", null),
+                      _react2["default"].createElement(
+                        "b",
+                        null,
+                        "SQL-Alchemy:"
+                      ),
+                      "to use mysql with python",
                       _react2["default"].createElement("br", null)
                     ),
                     _react2["default"].createElement(
@@ -10097,7 +10118,7 @@ var Snapshot = function (_Component) {
             _react2['default'].createElement(
               'button',
               { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.go_to_instance },
-              'Learn More about this place!'
+              'LEARN MORE ABOUT THIS PLACE'
             )
           )
         );
