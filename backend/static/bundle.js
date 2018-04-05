@@ -8030,7 +8030,7 @@ var CoffeeShops = function (_Component) {
             { className: 'filters-and-grid' },
             _react2['default'].createElement(
               'div',
-              { className: 'filter-container' },
+              { className: 'filter-container-shops' },
               _react2['default'].createElement(
                 'div',
                 { className: 'filter' },
@@ -9073,7 +9073,7 @@ var Locations = function (_Component) {
             { className: 'filters-and-grid' },
             _react2['default'].createElement(
               'div',
-              { className: 'filter-container' },
+              { className: 'filter-container-locs' },
               _react2['default'].createElement(
                 'div',
                 { className: 'filter' },
@@ -10392,7 +10392,7 @@ var SnapshotsMain = function (_Component) {
             { className: 'filters-and-grid' },
             _react2['default'].createElement(
               'div',
-              { className: 'filter-container' },
+              { className: 'filter-container-snaps' },
               _react2['default'].createElement(
                 'div',
                 { className: 'filter' },

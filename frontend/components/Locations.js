@@ -234,7 +234,7 @@ render() {
       <div>
         {/*location dropdown*/}
         <div className="filters-and-grid">
-        <div className="filter-container">
+        <div className="filter-container-locs">
           <div className="filter">
             <h6>Choose a City to Explore</h6>
             <Select
