@@ -299,6 +299,11 @@ render() {
         <div className="col-md-12 text-center">
         <ul className="page-list">
         <li
+          id="<<"
+          style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+          onClick={this.handleClick.bind(this, 1, concat_locs)}> &lt;&lt;
+        </li>
+        <li
           id="prev"
           style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
           onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_locs)}> &lt;prev
@@ -308,6 +313,11 @@ render() {
             id="next"
             style={this.state.currentPage >= Math.ceil(concat_locs.length / this.state.locationsPerPage) ? {visibility:'hidden'} : {}}
             onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_locs)}> next&gt;
+          </li>
+          <li
+            id=">>"
+            style={this.state.currentPage  >= Math.ceil(concat_locs.length / this.state.locationsPerPage) ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, Math.ceil(concat_locs.length / this.state.locationsPerPage), concat_locs)}> &gt;&gt;
           </li>
         </ul>
         </div>

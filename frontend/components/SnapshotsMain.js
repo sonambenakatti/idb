@@ -274,6 +274,11 @@ class SnapshotsMain extends Component {
           <div className="col-md-12 text-center">
           <ul className="page-list">
           <li
+            id="<<"
+            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+            onClick={this.handleClick.bind(this, 1, concat_photos)}> &lt;&lt;
+          </li>
+          <li
             id="prev"
             style = {{visibility: "hidden"}}
             style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
@@ -284,6 +289,11 @@ class SnapshotsMain extends Component {
               id="next"
               style={this.state.currentPage >= Math.ceil(concat_photos.length / this.state.photosPerPage) ? {visibility:'hidden'} : {}}
               onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_photos)}> next&gt;
+            </li>
+            <li
+              id=">>"
+              style={this.state.currentPage  >= Math.ceil(concat_photos.length / this.state.photosPerPage) ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, Math.ceil(concat_photos.length / this.state.photosPerPage), concat_photos)}> &gt;&gt;
             </li>
           </ul>
           </div>

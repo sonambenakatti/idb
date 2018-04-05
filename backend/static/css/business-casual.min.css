@@ -23,14 +23,35 @@ ul.page-list {
 ul.page-list li {
   display: inline-block;
   color: white;
+  background-color: rgba(150, 150, 150, 0.3);
   font-size: 24px;
-  padding: 32px;
+  padding: 16px;
 }
+ul.page-list #prev li {
+  border-radius: 30px, 0px, 0px, 30px;
+  display: inline-block;
+  color: white;
+  background-color: rgba(150, 150, 150, 0.3);
+  font-size: 24px;
+  padding: 16px;
+}
+
+ul.page-list #next li {
+  border-radius: 0px, 30px, 30px, 0px;
+  display: inline-block;
+  color: white;
+  background-color: rgba(150, 150, 150, 0.3);
+  font-size: 24px;
+  padding: 16px;
+}
+
 ul.page-list li:hover {
-  color:brown
+  color:brown;
+  background-color: rgba(190, 190, 190, 0.5);
 }
 ul.page-list li:active {
-  color:orange
+  color:orange;
+  background-color: rgba(250, 250, 250, 0.8);
 }
 
 ul.img-list li img {
@@ -166,6 +187,14 @@ p{
 	#mainNav .navbar-nav .nav-item.active .nav-link:hover{
 		color:#e6a756
 	}
+}
+
+#prev .page-item{
+  border-radius: 30px, 0px, 0px, 30px
+}
+
+#next .page-item{
+  border-radius: 0px, 30px, 30px, 0px
 }
 
 .btn-xl{

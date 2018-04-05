@@ -29,7 +29,8 @@ class Search extends Component {
 
   search() {
     this.setState({searchResults: []});
-    console.log("Value of search value after clicking Search: " + this.state.searchValue);
+    this.setState({currentPage: 1});
+    console.log("Value of page value after clicking Search: " + this.state.currentPage);
     fetch('/search/' + this.state.searchValue).then(results => {
       return results.json();
     }).then(data => {
@@ -51,7 +52,6 @@ class Search extends Component {
       }
       this.setState({searchResults: results});
     })
-
   }
 
   returnCoffeeShop(result) {
@@ -215,6 +215,11 @@ class Search extends Component {
           <div className="col-md-12 text-center">
           <ul className="page-list">
             <li
+              id="<<"
+              style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, 1)}> &lt;&lt;
+            </li>
+            <li
               id="prev"
               style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
               onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
@@ -224,6 +229,11 @@ class Search extends Component {
               id="next"
               style={this.state.currentPage >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage) ? {visibility:'hidden'} : {}}
               onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+            </li>
+            <li
+              id=">>"
+              style={this.state.currentPage  >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage) ? {visibility:'hidden'} : {}}
+              onClick={this.handleClick.bind(this, Math.ceil(this.state.searchResults.length / this.state.resultsPerPage))}> &gt;&gt;
             </li>
           </ul>
           </div>
