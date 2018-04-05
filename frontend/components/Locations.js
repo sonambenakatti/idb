@@ -252,6 +252,7 @@ render() {
           <div className="filter">
             <h6>Choose a City to Explore</h6>
             <Select
+                id="cityfilter"
                 name="form-field-name"
                 value={cityValue}
                 onChange={this.handleCityChange.bind(this)}
@@ -261,6 +262,7 @@ render() {
           <div className="filter">
             <h6>Filter by Rating</h6>
             <Select
+                id="ratingfilter"
                 name="form-field-name"
                 value={ratingValue}
                 onChange={this.handleRatingChange.bind(this)}
@@ -276,6 +278,7 @@ render() {
           <div className="filter">
             <h6>Sort by Rating</h6>
             <Select
+                id="ratingsort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleSortChange.bind(this)}
@@ -288,6 +291,7 @@ render() {
           <div className="filter">
             <h6>Sort Alphabetically</h6>
             <Select
+                id="namesort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleSortChange.bind(this)}

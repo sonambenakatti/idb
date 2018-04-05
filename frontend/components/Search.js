@@ -196,7 +196,7 @@ class Search extends Component {
       <div>
         <section className="page-section-1">
           <div className="search">
-            <input value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
+            <input className = "search-input" value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
             <button type="button" className="btn" onClick={this.search}>Search</button>
           </div>
         </section>

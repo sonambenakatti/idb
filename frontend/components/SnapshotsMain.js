@@ -240,6 +240,7 @@ class SnapshotsMain extends Component {
             <div className="filter">
               <h6>Choose a City to Explore</h6>
               <Select
+                  id="cityfilter"
                   name="form-field-name"
                   value={cityValue}
                   onChange={this.handleCityChange.bind(this)}
@@ -249,6 +250,7 @@ class SnapshotsMain extends Component {
             <div className="filter">
               <h6>Filter by Faves</h6>
               <Select
+                  id="favsfilter"
                   name="form-field-name"
                   value={favsValue}
                   onChange={this.handleFavChange.bind(this)}
@@ -262,6 +264,7 @@ class SnapshotsMain extends Component {
             <div className="filter">
               <h6>Sort by Favorites</h6>
               <Select
+                id="favssort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleFaveSortChange.bind(this)}

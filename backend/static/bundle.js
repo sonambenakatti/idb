@@ -8088,6 +8088,7 @@ var CoffeeShops = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -8103,6 +8104,7 @@ var CoffeeShops = function (_Component) {
                   'Filter by Price Range'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'pricefilter',
                   name: 'form-field-name',
                   value: priceValue,
                   onChange: this.handlePriceChange.bind(this),
@@ -8118,6 +8120,7 @@ var CoffeeShops = function (_Component) {
                   'Filter by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingfilter',
                   name: 'form-field-name',
                   value: ratingValue,
                   onChange: this.handleRatingChange.bind(this),
@@ -8133,6 +8136,7 @@ var CoffeeShops = function (_Component) {
                   'Sort by Price'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'pricesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8148,6 +8152,7 @@ var CoffeeShops = function (_Component) {
                   'Sort by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingsort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8163,6 +8168,7 @@ var CoffeeShops = function (_Component) {
                   'Sort Alphabetically'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'namesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -9153,6 +9159,7 @@ var Locations = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -9168,6 +9175,7 @@ var Locations = function (_Component) {
                   'Filter by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingfilter',
                   name: 'form-field-name',
                   value: ratingValue,
                   onChange: this.handleRatingChange.bind(this),
@@ -9183,6 +9191,7 @@ var Locations = function (_Component) {
                   'Sort by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingsort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -9198,6 +9207,7 @@ var Locations = function (_Component) {
                   'Sort Alphabetically'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'namesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -9823,7 +9833,7 @@ var Search = function (_Component) {
             _react2['default'].createElement(
               'div',
               { className: 'search' },
-              _react2['default'].createElement('input', { value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
+              _react2['default'].createElement('input', { className: 'search-input', value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
                   function onChange(evt) {
                     return _this6.updateInputValue(evt);
                   }
@@ -10529,6 +10539,7 @@ var SnapshotsMain = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -10544,6 +10555,7 @@ var SnapshotsMain = function (_Component) {
                   'Filter by Faves'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'favsfilter',
                   name: 'form-field-name',
                   value: favsValue,
                   onChange: this.handleFavChange.bind(this),
@@ -10559,6 +10571,7 @@ var SnapshotsMain = function (_Component) {
                   'Sort by Favorites'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'favssort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleFaveSortChange.bind(this),
