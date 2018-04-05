@@ -7555,36 +7555,31 @@ var CoffeeInstance = function (_Component) {
             'div',
             { className: 'model-links' },
             _react2['default'].createElement(
-              'button',
-              { id: 'scenic_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_scenic },
-              'SCENIC LOCATIONS NEARBY'
-            ),
-            _react2['default'].createElement(
-              'button',
-              { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
-              'MORE SNAPS'
-            )
-          ),
-          _react2['default'].createElement(
-            'div',
-            null,
-            _react2['default'].createElement(
-              'section',
-              { className: 'page-section-instance' },
+              'div',
+              { 'class': 'row' },
               _react2['default'].createElement(
                 'div',
-                { className: 'container' },
+                { className: 'col-md-6' },
                 _react2['default'].createElement(
                   'div',
-                  { className: 'row' },
+                  { className: 'text-center' },
                   _react2['default'].createElement(
-                    'ul',
-                    { className: 'img-list' },
-                    _react2['default'].createElement(
-                      'div',
-                      { className: 'row' },
-                      this.state.scenic_list
-                    )
+                    'button',
+                    { id: 'scenic_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_scenic },
+                    'SCENIC LOCATIONS NEARBY'
+                  )
+                )
+              ),
+              _react2['default'].createElement(
+                'div',
+                { className: 'col-md-6' },
+                _react2['default'].createElement(
+                  'div',
+                  { className: 'text-center' },
+                  _react2['default'].createElement(
+                    'button',
+                    { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                    'MORE SNAPS'
                   )
                 )
               )
@@ -7592,25 +7587,30 @@ var CoffeeInstance = function (_Component) {
           ),
           _react2['default'].createElement(
             'div',
-            null,
+            { 'class': 'row justify-content-center' },
             _react2['default'].createElement(
               'section',
-              { className: 'page-section-instance' },
+              { className: 'col-md-6' },
               _react2['default'].createElement(
                 'div',
-                { className: 'container' },
+                { 'class': 'container text-center' },
                 _react2['default'].createElement(
-                  'div',
-                  { className: 'row' },
-                  _react2['default'].createElement(
-                    'ul',
-                    { className: 'img-list' },
-                    _react2['default'].createElement(
-                      'div',
-                      { className: 'row' },
-                      this.state.snaps_list
-                    )
-                  )
+                  'ul',
+                  { className: 'text-center img-list' },
+                  this.state.scenic_list
+                )
+              )
+            ),
+            _react2['default'].createElement(
+              'section',
+              { className: 'col-md-6' },
+              _react2['default'].createElement(
+                'div',
+                { 'class': 'container text-center' },
+                _react2['default'].createElement(
+                  'ul',
+                  { className: 'text-center img-list' },
+                  this.state.snaps_list
                 )
               )
             )
@@ -8031,7 +8031,7 @@ var CoffeeShops = function (_Component) {
             { className: 'filters-and-grid' },
             _react2['default'].createElement(
               'div',
-              { className: 'filter-container' },
+              { className: 'filter-container-shops' },
               _react2['default'].createElement(
                 'div',
                 { className: 'filter' },
@@ -8540,7 +8540,7 @@ var Location = function (_Component) {
           _react2['default'].createElement(
             'span',
             { className: 'section-heading-upper text-center' },
-            'There are no more snaps for this view'
+            'There are no snaps for this view'
           )
         );
       }
@@ -8667,56 +8667,56 @@ var Location = function (_Component) {
                 'div',
                 { className: 'col-md-6' },
                 _react2['default'].createElement(
-                  'button',
-                  { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
-                  'COFFEESHOPS NEARBY'
+                  'div',
+                  { className: 'text-center' },
+                  _react2['default'].createElement(
+                    'button',
+                    { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
+                    'COFFEESHOPS NEARBY'
+                  )
                 )
               ),
               _react2['default'].createElement(
                 'div',
                 { className: 'col-md-6' },
                 _react2['default'].createElement(
-                  'button',
-                  { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
-                  'MORE SNAPS'
+                  'div',
+                  { className: 'text-center' },
+                  _react2['default'].createElement(
+                    'button',
+                    { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                    'MORE SNAPS'
+                  )
                 )
               )
             )
           ),
           _react2['default'].createElement(
             'div',
-            { 'class': 'row' },
+            { 'class': 'row justify-content-center' },
             _react2['default'].createElement(
               'section',
-              { className: 'page-section-instance col-md-6' },
+              { className: 'col-md-6' },
               _react2['default'].createElement(
                 'div',
-                { className: 'row' },
+                { 'class': 'container text-center' },
                 _react2['default'].createElement(
                   'ul',
-                  { className: 'img-list' },
-                  _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    this.state.shops_list
-                  )
+                  { className: 'text-center img-list' },
+                  this.state.shops_list
                 )
               )
             ),
             _react2['default'].createElement(
               'section',
-              { className: 'page-section-instance col-md-6' },
+              { className: 'col-md-6' },
               _react2['default'].createElement(
                 'div',
-                { className: 'row' },
+                { 'class': 'container text-center' },
                 _react2['default'].createElement(
                   'ul',
-                  { className: 'img-list' },
-                  _react2['default'].createElement(
-                    'div',
-                    { className: 'row' },
-                    this.state.snaps_list
-                  )
+                  { className: 'text-center img-list' },
+                  this.state.snaps_list
                 )
               )
             )
@@ -9090,7 +9090,7 @@ var Locations = function (_Component) {
             { className: 'filters-and-grid' },
             _react2['default'].createElement(
               'div',
-              { className: 'filter-container' },
+              { className: 'filter-container-locs' },
               _react2['default'].createElement(
                 'div',
                 { className: 'filter' },
@@ -10442,7 +10442,7 @@ var SnapshotsMain = function (_Component) {
             { className: 'filters-and-grid' },
             _react2['default'].createElement(
               'div',
-              { className: 'filter-container' },
+              { className: 'filter-container-snaps' },
               _react2['default'].createElement(
                 'div',
                 { className: 'filter' },

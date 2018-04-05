@@ -347,13 +347,8 @@ input[type=text] {
     margin:0 auto;
 }
 
-<<<<<<< HEAD
-.page-section-instance-1 {
-  text-align: right;
-=======
 .page-section-instance {
   display:inline-flex;
->>>>>>> 6f0d63f585d8762f9a0f8a7d9b2f5e0dd75d712a
 }
 
 span.picTextInstance {
@@ -387,4 +382,10 @@ span.picTextInstance span {
 
 ul.img-list li:hover span.picTextInstance {
   opacity: 2;
+  text-align: center;
+}
+
+.work {
+  margin: auto;
+  display: block;
 }

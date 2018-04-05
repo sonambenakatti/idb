@@ -346,18 +346,53 @@ p{
 	font-weight:100!important
 }
 
-.filter-container {
-  display: inline-flex;
-  margin: 5rem;
+.filter-container-shops {
+  width: 100%;
+  display: inline-flex;;
+  margin-left: 100px;
+  margin-right: 100px;
   font-family: 'Roboto';
   color: white;
-  text-align: center;
 }
 
-.filter-container h6 {
+.filter-container-shops h6 {
   font-family: 'Raleway'
 }
 
-.filter-container .filter {
-  margin-left: 5rem;
+.filter-container-shops .filter {
+  margin: 2rem;
+}
+
+.filter-container-locs {
+  width: 100%;
+  display: inline-flex;;
+  margin-left: 300px;
+  margin-right: 300px;
+  font-family: 'Roboto';
+  color: white;
+}
+
+.filter-container-locs h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container-locs .filter {
+  margin: 2rem;
+}
+
+.filter-container-snaps {
+  width: 100%;
+  display: inline-flex;;
+  margin-left: 400px;
+  margin-right: 400px;
+  font-family: 'Roboto';
+  color: white;
+}
+
+.filter-container-snaps h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container-snaps .filter {
+  margin: 2rem;
 }

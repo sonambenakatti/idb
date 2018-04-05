@@ -122,36 +122,39 @@ returnNoResults() {
         </div>
       </div>
       <div className="model-links">
-          <button id="scenic_nearby" className="btn btn-primary" type="button" onClick={this.get_scenic}>SCENIC LOCATIONS NEARBY</button>
-          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
+        <div class="row">
+          <div className="col-md-6">
+            <div className="text-center">
+              <button id="scenic_nearby" className="btn btn-primary" type="button" onClick={this.get_scenic}>SCENIC LOCATIONS NEARBY</button>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="text-center">
+              <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        </div>
-        <div>
-         <section className="page-section-instance">
-          <div className="container">
-            <div className="row">
-              <ul className="img-list">
-                <div className="row">
+      <div class="row justify-content-center">
+
+         <section className="col-md-6">
+           <div class="container text-center">
+              <ul className="text-center img-list">
                   {this.state.scenic_list}
-                </div>
               </ul>
             </div>
-          </div>
         </section>
-        </div>
-        <div>
-         <section className="page-section-instance">
-          <div className="container">
-            <div className="row">
-              <ul className="img-list">
-                <div className="row">
+
+         <section className="col-md-6">
+           <div class="container text-center">
+              <ul className="text-center img-list">
                   {this.state.snaps_list}
-                </div>
               </ul>
-            </div>
           </div>
         </section>
-        </div>
+
+      </div>
     </div>
 
       );

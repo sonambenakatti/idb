@@ -256,7 +256,7 @@ render() {
     return (
       <div>
         <div className="filters-and-grid">
-        <div className="filter-container">
+        <div className="filter-container-shops">
         <div className="filter">
           <h6>Choose a City to Explore</h6>
           <Select

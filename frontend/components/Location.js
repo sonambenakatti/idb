@@ -65,7 +65,7 @@ class Location extends Component {
       console.log(data)
       let snapshots = data.map((snapshot) =>{
         return(
-          
+
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
@@ -85,7 +85,7 @@ class Location extends Component {
  returnNoResults() {
     return (
       <div className="intro-text text-center bg-faded p-5 rounded">
-          <span className="section-heading-upper text-center">There are no more snaps for this view</span>
+          <span className="section-heading-upper text-center">There are no snaps for this view</span>
       </div>
     )
   }
@@ -139,34 +139,34 @@ class Location extends Component {
         <div className="model-links">
           <div class="row">
             <div className="col-md-6">
-              <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>COFFEESHOPS NEARBY</button>
+              <div className="text-center">
+                <button id="coffee_nearby" className="btn btn-primary" type="button" onClick={this.get_coffeeshops}>COFFEESHOPS NEARBY</button>
+              </div>
             </div>
             <div className="col-md-6">
-              <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
+              <div className="text-center">
+                <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
+              </div>
             </div>
           </div>
         </div>
 
-          <div class="row">
+          <div class="row justify-content-center">
 
-             <section className="page-section-instance col-md-6">
-                <div className="row">
-                  <ul className="img-list">
-                    <div className="row">
+             <section className="col-md-6">
+               <div class="container text-center">
+                  <ul className="text-center img-list">
                       {this.state.shops_list}
-                    </div>
                   </ul>
                 </div>
             </section>
 
-             <section className="page-section-instance col-md-6">
-                <div className="row">
-                  <ul className="img-list">
-                    <div className="row">
+             <section className="col-md-6">
+               <div class="container text-center">
+                  <ul className="text-center img-list">
                       {this.state.snaps_list}
-                    </div>
                   </ul>
-                </div>
+              </div>
             </section>
 
           </div>
