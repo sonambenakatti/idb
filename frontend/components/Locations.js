@@ -9,7 +9,6 @@ class Locations extends Component {
 constructor (props) {
     super(props);
     this.state = {
-      full_data: [],
       locations: [],
       navigate: false,
       navigateTo: '',
@@ -19,9 +18,20 @@ constructor (props) {
       currentPage: 1,
       locationsPerPage: 9,
       cities_list: [],
-      selectedCity: '',
-      selectedRating: '',
-      selectedSort: ''
+      selectedCity: {
+        value: undefined,
+        label: undefined
+      },
+      selectedRating: {
+        value: undefined,
+        label: undefined
+      },
+      selectedSort: {
+        value: undefined,
+        label: undefined,
+      },
+      sort_by: undefined,
+      sort_attr: undefined
     };
 };
 
@@ -31,7 +41,6 @@ componentDidMount(props) {
       return results.json();
     }).then(data =>{
       console.log(data)
-      this.setState({full_data: data})
       let views = data.map((scenicloc) =>{
         return(
         <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
@@ -68,115 +77,83 @@ getCities() {
 }
 
 handleCityChange(selectedCity){
-  console.log("INSIDE HANDLE CITY");
-  this.setState({ selectedCity });
-  //console.log(`Selected: ${selectedCity.label}`);
-  if (selectedCity === null) {
-    this.resetToAllData();
-  } else if (selectedCity) {
-    var value = selectedCity.value;
-    console.log(value);
-    let views = this.state.full_data.map((scenicloc) =>{
-      if (scenicloc.city_id === value) {
-        return(
-          <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
-            <li className="col">
-                <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText">
-                  <span><b>{scenicloc.scenic_name}</b>
-                  <br /><br />{scenicloc.scenic_address}
-                  <br />{scenicloc.scenic_rating + "/5"}
-                  </span>
-                </span>
-            </li>
-          </div>
-        )
-      }
-    })
-    this.setState({locations: views});
+  if (selectedCity == null) {
+    this.state.selectedCity = {
+      value: undefined,
+      label: undefined
+    };
+  } else if (selectedCity){
+    this.state.selectedCity = selectedCity;
+    this.setState({selectedCity: selectedCity});
   }
-  this.setState({currentPage: 1})
+  this.update();
 }
 
 handleSortChange(selectedSort) {
-  this.setState({ selectedSort });
-  if(selectedSort === null) {
-    this.resetToAllData();
-  } else if (selectedSort) {
-      var value = selectedSort.value;
-        fetch('/sceniclocations/sort/' + value).then(results => {
-          return results.json();
-        }).then(data => {
-            let views = data.map((scenicloc) => {
-              return(
-                <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
-                  <li className="col">
-                      <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                      <span className="picText">
-                        <span><b>{scenicloc.scenic_name}</b>
-                        <br /><br />{scenicloc.scenic_address}
-                        <br />{scenicloc.scenic_rating + "/5"}
-                        </span>
-                      </span>
-                  </li>
-                </div>
-              );
-            })
-          this.setState({locations: views})
-        })
-    }
-}
-
-handleRatingChange(selectedRating){
-  console.log("INSIDE HANDLE CITY");
-  this.setState({ selectedRating });
-  //console.log(`Selected: ${selectedCity.label}`);
-  if (selectedRating === null) {
-    this.resetToAllData();
-  } else if (selectedRating) {
-    var value = selectedRating.value;
-    console.log(value);
-    let views = this.state.full_data.map((scenicloc) =>{
-      if (scenicloc.scenic_rating >= value) {
-        return(
-          <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
-            <li className="col">
-                <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText">
-                  <span><b>{scenicloc.scenic_name}</b>
-                  <br /><br />{scenicloc.scenic_address}
-                  <br />{scenicloc.scenic_rating + "/5"}
-                  </span>
-                </span>
-            </li>
-          </div>
-        )
-      }
-    })
-    this.setState({locations: views});
+  if (selectedSort == null) {
+    this.state.selectedSort = {
+      value: undefined,
+      label: undefined
+    };
+    this.state.sort_attr = undefined
+    this.state.sort_by = undefined;
+    this.setState({selectedSortBy: undefined});
+  } else if (selectedSort){
+    var sortArray = selectedSort.value.split("/");
+    var sort = sortArray[0];
+    var sortby = sortArray[1];
+    this.state.sort_attr = sort;
+    this.state.sort_by = sortby;
+    this.setState({sort_attr: sort});
+    this.setState({sort_by: sortby});
+    this.setState({ selectedSort });
   }
-  this.setState({currentPage: 1})
+  this.update();
 }
 
-resetToAllData() {
-  let views = this.state.full_data.map((scenicloc) =>{
-    return(
-    <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
-      <li className="col">
-          <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-          <span className="picText">
-            <span><b>{scenicloc.scenic_name}</b>
-            <br /><br />{scenicloc.scenic_address}
-            <br />{scenicloc.scenic_rating + "/5"}
-            </span>
-          </span>
-      </li>
-    </div>
-    )
-  })
-  this.setState({locations: views});
-  this.setState({currentPage: 1})
+handleRatingChange (selectedRating){
 
+  if (selectedRating == null) {
+    this.state.selectedRating = {
+      value: undefined,
+      label: undefined
+    };
+  } else if (selectedRating) {
+    this.state.selectedRating = selectedRating;
+    this.setState({selectedRating: selectedRating});
+  }
+  this.update();
+}
+
+update () {
+  var cityfilter = this.state.selectedCity.value;
+  var sort = this.state.sort_attr;
+  var sortby = this.state.sort_by;
+  var ratfilter = this.state.selectedRating.value;
+
+  fetch('/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
+    ).then(results => {
+    console.log(results)
+    return results.json();
+  }).then(data => {
+    let views = data.map((scenicloc) =>{
+      return(
+      <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+        <li className="col">
+            <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+            <span className="picText">
+              <span><b>{scenicloc.scenic_name}</b>
+              <br /><br />{scenicloc.scenic_address}
+              <br />{scenicloc.scenic_rating + "/5"}
+              </span>
+            </span>
+        </li>
+      </div>
+    )
+    })
+    this.setState({locations: views})
+  })
+  this.setState({currentPage: 1})
 }
 
 handleClick(pageNumber, arr, event) {
@@ -289,20 +266,20 @@ render() {
                 value={sortValue}
                 onChange={this.handleSortChange.bind(this)}
                 options={[
-                  {value: 'ratingasc', label: 'Low - High'},
-                  {value: 'ratingdesc', label: 'High - Low'},
+                  {value: 'rating/asc', label: 'Low - High'},
+                  {value: 'rating/desc', label: 'High - Low'},
                 ]}
             />
           </div>
           <div className="filter">
-            <h6>Sort alphabetically</h6>
+            <h6>Sort Alphabetically</h6>
             <Select
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleSortChange.bind(this)}
                 options={[
-                  {value: 'atoz', label: 'A - Z'},
-                  {value: 'ztoa', label: 'Z - A'},
+                  {value: 'name/asc', label: 'A - Z'},
+                  {value: 'name/desc', label: 'Z - A'},
                 ]}
             />
           </div>

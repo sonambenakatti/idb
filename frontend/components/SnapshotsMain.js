@@ -8,7 +8,6 @@ class SnapshotsMain extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        full_data: [],
         photos: [],
         navigate: false,
         selectedSnapshot: [],
@@ -17,10 +16,20 @@ class SnapshotsMain extends Component {
         currentPage: 1,
         photosPerPage: 9,
         cities_list: [],
-        selectedCity: '',
-        selectedFavs: '',
-        selectedTag: '',
-        selectedSort: '',
+        selectedCity: {
+          value: undefined,
+          label: undefined
+        },
+        selectedFavs: {
+          value: undefined,
+          label: undefined
+        },
+        selectedSort: {
+          value: undefined,
+          label: undefined,
+        },
+        sort_by: undefined,
+        sort_attr: undefined
       };
     };
 
@@ -60,122 +69,78 @@ class SnapshotsMain extends Component {
     };
 
     handleCityChange(selectedCity){
-      this.setState({ selectedCity });
-      if (selectedCity === null) {
-        this.resetToAllData();
-      } else if (selectedCity) {
-        var value = selectedCity.value;
-        let snapshots = this.state.full_data.map((snapshot) =>{
-          if (snapshot.city_id === value)
-            return(
-              <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                <li className="col">
-                    <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                    <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                    {snapshot.snap_tags}<br />
-                    {snapshot.snap_favs+" Faves"}</span></span>
-                </li>
-              </div>
-            );
-        });
-        this.setState({photos: snapshots});
+      if (selectedCity == null) {
+        this.state.selectedCity = {
+          value: undefined,
+          label: undefined
+        };
+      } else if (selectedCity){
+        this.state.selectedCity = selectedCity;
+        this.setState({selectedCity: selectedCity});
       }
-      this.setState({currentPage: 1})
+      this.update();
     }
 
     handleFaveSortChange(selectedSort) {
-      this.setState({ selectedSort });
-      if(selectedSort === null) {
-        this.resetToAllData();
-      } else if (selectedSort) {
-          var value = selectedSort.value;
-            fetch('/snapshots/sort/' + value).then(results => {
-              return results.json();
-            }).then(data => {
-                let snapshots = data.map((snapshot) => {
-                  if(this.state.selectedCity) {
-                    if (snapshot.city_id === value) {
-                      return(
-                        <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                          <li className="col">
-                              <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                              <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                              {snapshot.snap_tags}<br />
-                              {snapshot.snap_favs+" Faves"}</span></span>
-                          </li>
-                        </div>
-                      );
-                    }
-                  } else if(this.state.selectedFavs) {
-                    if (snapshot.snap_favs >= value) {
-                      return(
-                        <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                          <li className="col">
-                              <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                              <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                              {snapshot.snap_tags}<br />
-                              {snapshot.snap_favs+" Faves"}</span></span>
-                          </li>
-                        </div>
-                      );
-                    }
-                  } else {
-                    return(
-                      <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                        <li className="col">
-                            <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                            <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                            {snapshot.snap_tags}<br />
-                            {snapshot.snap_favs+" Faves"}</span></span>
-                        </li>
-                      </div>
-                    );
-                  }
-                  })
-
-              this.setState({photos: snapshots})
-            })
-        }
-    }
-
-    handleFavChange(selectedFavs){
-      this.setState({ selectedFavs });
-      if (selectedFavs === null) {
-        this.resetToAllData();
-      } else if (selectedFavs) {
-        var value = selectedFavs.value;
-        let snapshots = this.state.full_data.map((snapshot) =>{
-          if (snapshot.snap_favs >= value)
-            return(
-              <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                <li className="col">
-                    <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                    <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                    {snapshot.snap_tags}<br />
-                    {snapshot.snap_favs+" Faves"}</span></span>
-                </li>
-              </div>
-            );
-        });
-        this.setState({photos: snapshots});
+      if (selectedSort == null) {
+        this.state.selectedSort = {
+          value: undefined,
+          label: undefined
+        };
+        this.state.sort_attr = undefined
+        this.state.sort_by = undefined;
+        this.setState({selectedSortBy: undefined});
+      } else if (selectedSort){
+        var sortArray = selectedSort.value.split("/");
+        var sort = sortArray[0];
+        var sortby = sortArray[1];
+        this.state.sort_attr = sort;
+        this.state.sort_by = sortby;
+        this.setState({sort_attr: sort});
+        this.setState({sort_by: sortby});
+        this.setState({ selectedSort });
       }
-      this.setState({currentPage: 1})
+      this.update();
     }
 
-    resetToAllData() {
-      let snapshots = this.state.full_data.map((snapshot) =>{
-        return(
-          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-            <li className="col">
-                <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                {snapshot.snap_tags}<br />
-                {snapshot.snap_favs+" Faves"}</span></span>
-            </li>
-          </div>
-        );
-      });
-      this.setState({photos: snapshots});
+    handleFavChange (selectedFavs){
+      if (selectedFavs == null) {
+        this.state.selectedFavs = {
+          value: undefined,
+          label: undefined
+        };
+      } else if (selectedFavs) {
+        this.state.selectedFavs = selectedFavs;
+        this.setState({selectedFavs: selectedFavs});
+      }
+      this.update();
+    }
+
+    update () {
+      var cityfilter = this.state.selectedCity.value;
+      var sort = this.state.sort_attr;
+      var sortby = this.state.sort_by;
+      var favsfilter = this.state.selectedFavs.value;
+
+      fetch('/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter
+        ).then(results => {
+        console.log(results)
+        return results.json();
+      }).then(data => {
+        let snapshots = data.map((snapshot) =>{
+          return(
+            <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+              <li className="col">
+                  <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
+                  <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                  {snapshot.snap_tags}<br />
+                  {snapshot.snap_favs+" Faves"}</span></span>
+              </li>
+            </div>
+          );
+        });
+        this.setState({photos: snapshots})
+      })
       this.setState({currentPage: 1})
     }
 
@@ -251,9 +216,8 @@ class SnapshotsMain extends Component {
 
       const cityValue = selectedCity && selectedCity.value;
       const favsValue = selectedFavs && selectedFavs.value;
-      const tagValue = selectedTag && selectedTag.value;
-      const sortValue = selectedSort && selectedSort.value;
-      console.log("STATE LENGTH" +this.state.photos.length);
+      const sortValue = selectedSort && selectedSort.value
+
       return (
         <div>
           <div className="filters-and-grid">
@@ -283,14 +247,14 @@ class SnapshotsMain extends Component {
               />
             </div>
             <div className="filter">
-              <h6>Sort by favorites</h6>
+              <h6>Sort by Favorites</h6>
               <Select
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleFaveSortChange.bind(this)}
                 options={[
-                  {value: 'favsasc', label: 'Low-High'},
-                  {value: 'favsdesc', label: 'High-Low'}
+                  {value: 'favs/asc', label: 'Low-High'},
+                  {value: 'favs/desc', label: 'High-Low'}
                 ]}
               />
             </div>

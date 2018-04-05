@@ -4,7 +4,7 @@
 from __future__ import print_function
 import sys
 import flask
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import sqlalchemy
 from sqlalchemy import *
 import pymysql
@@ -212,116 +212,96 @@ def search(searchkey):
 
     return jsonRes
 
-
-#COFFEE SHOPS SORTING
-
-@APP.route('/coffeeshops2/',  methods=['GET'])
+@APP.route('/coffeeshops_filter_sort/',  methods=['GET'])
 def sort_coffeeshops():
     sort = request.args.get('sort')
     sortby = request.args.get('sortby')
     cf = request.args.get('cityfilter')
+    rf = request.args.get('ratfilter')
+    pf = request.args.get('pricefilter')
     print(sort)
     print(sortby)
     print(cf)
-    citywhere = 'WHERE city_id = ' + str(cf)
-    if(cf == ""):
-        citywhere = ""
+    print(str(pf))
+    query = 'SELECT * FROM Shops '
+    query += 'WHERE '
 
-    if(sortby == 'asc'):
-        if cf == "": #If all filters empty
-            return sort_coffeeshops_price_ascending()
-        else: #only city, only rating, only price, city + rating, city + price, 
-            query = 'SELECT * FROM Shops WHERE city_id = %(city)s ORDER BY %(sort)s asc'
-            data = {
-                'sort': sort,
-                'city': int(city_id),
-            }
-            shops = engine.execute(query, data)
-            jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
-            return jsonShops
+    if cf != "undefined":
+        citywhere = 'city_id = ' + str(cf) + ' AND '
+        query += citywhere
+    if rf != "undefined":
+        rating = 'shop_rating >= ' + str(rf) + ' AND '
+        query += rating
+    if pf != "undefined":
+        price = 'shop_price = "' + str(pf) +  '" AND '
+        query += price
 
-@APP.route('/coffeeshops/sort/priceasc',  methods=['GET'])
-def sort_coffeeshops_price_ascending():
-    shops = engine.execute('SELECT * FROM Shops ORDER BY shop_price asc').fetchall()
+    query = query[:-4]
+
+    if sort != "shop_undefined":
+        query += ' ORDER BY ' + sort + ' ' + sortby
+
+    shops = engine.execute(query)
     jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
     return jsonShops
 
+@APP.route('/locations_filter_sort/',  methods=['GET'])
+def sort_scenic_locations():
+    sort = request.args.get('sort')
+    sortby = request.args.get('sortby')
+    cf = request.args.get('cityfilter')
+    rf = request.args.get('ratfilter')
+    print(sort)
+    print(sortby)
+    print(cf)
+    query = 'SELECT * FROM Scenic '
 
-@APP.route('/coffeeshops/sort/pricedesc',  methods=['GET'])
-def sort_coffeeshops_price_descending():
-    shops = engine.execute('SELECT * FROM Shops ORDER BY shop_price desc').fetchall()
-    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
-    return jsonShops
+    query += 'WHERE '
 
+    if cf != "undefined":
+        citywhere = 'city_id = ' + str(cf) + ' AND '
+        query += citywhere
+    if rf != "undefined":
+        rating = 'scenic_rating >= ' + str(rf) + ' AND '
+        query += rating
 
-@APP.route('/coffeeshops/sort/ratingasc',  methods=['GET'])
-def sort_coffeeshops_rating_ascending():
-    shops = engine.execute('SELECT * FROM Shops ORDER BY shop_rating asc').fetchall()
-    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
-    return jsonShops
+    query = query[:-4]
 
+    if sort != "scenic_undefined":
+        query += ' ORDER BY ' + sort + ' ' + sortby
 
-@APP.route('/coffeeshops/sort/ratingdesc',  methods=['GET'])
-def sort_coffeeshops_rating_descending():
-    shops = engine.execute('SELECT * FROM Shops ORDER BY shop_rating desc').fetchall()
-    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
-    return jsonShops
-
-
-@APP.route('/coffeeshops/sort/atoz',  methods=['GET'])
-def sort_coffeeshops_name_ascending():
-    shops = engine.execute('SELECT * FROM Shops ORDER BY shop_name asc').fetchall()
-    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
-    return jsonShops
-
-@APP.route('/coffeeshops/sort/ztoa',  methods=['GET'])
-def sort_coffeeshops_name_descending():
-    shops = engine.execute('SELECT * FROM Shops ORDER BY shop_name desc').fetchall()
-    jsonShops = json.dumps([dict(shop) for shop in shops], default=alchemyencoder)
-    return jsonShops
-
-
-#SCENIC LOCATIONS SORTING
-@APP.route('/sceniclocations/sort/ratingasc',  methods=['GET'])
-def sort_sceniclocations_rating_ascending():
-    scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_rating asc').fetchall()
+    scenic = engine.execute(query)
     jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
     return jsonScenic
 
+@APP.route('/snapshots_filter_sort/',  methods=['GET'])
+def sort_snapshots():
+    sort = request.args.get('sort')
+    sortby = request.args.get('sortby')
+    cf = request.args.get('cityfilter')
+    ff = request.args.get('favsfilter')
+    print(sort)
+    print(sortby)
+    print(cf)
+    query = 'SELECT * FROM Snapshots '
 
-@APP.route('/sceniclocations/sort/ratingdesc',  methods=['GET'])
-def sort_sceniclocations_ratng_descending():
-    scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_rating desc').fetchall()
-    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
-    return jsonScenic
+    query += 'WHERE '
 
+    if cf != "undefined":
+        citywhere = 'city_id = ' + str(cf) + ' AND '
+        query += citywhere
+    if ff != "undefined":
+        favs = 'snap_favs >= ' + str(ff) + ' AND '
+        query += favs
 
-@APP.route('/sceniclocations/sort/atoz',  methods=['GET'])
-def sort_sceniclocations_name_ascending():
-    scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_name asc').fetchall()
-    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
-    return jsonScenic
+    query = query[:-4]
 
-@APP.route('/sceniclocations/sort/ztoa',  methods=['GET'])
-def sort_sceniclocations_name_descending():
-    scenic = engine.execute('SELECT * FROM Scenic ORDER BY scenic_name desc').fetchall()
-    jsonScenic = json.dumps([dict(sc) for sc in scenic], default=alchemyencoder)
-    return jsonScenic
+    if sort != "snap_undefined":
+        query += ' ORDER BY ' + sort + ' ' + sortby
 
-#SNAPSHOTS SORTING
-@APP.route('/snapshots/sort/favsasc',  methods=['GET'])
-def sort_snapshots_favs_ascending():
-    snaps = engine.execute('SELECT * FROM Snapshots ORDER BY snap_favs asc').fetchall()
+    snaps = engine.execute(query)
     jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
     return jsonSnaps
-
-
-@APP.route('/snapshots/sort/favsdesc',  methods=['GET'])
-def sort_snapshots_favs_descending():
-    snaps = engine.execute('SELECT * FROM Snapshots ORDER BY snap_favs desc').fetchall()
-    jsonSnaps = json.dumps([dict(snap) for snap in snaps], default=alchemyencoder)
-    return jsonSnaps
-
 
 #NEARBY SEARCHES
 @APP.route('/nearby_scenic_from_shops/<shop_id>',  methods=['GET'])

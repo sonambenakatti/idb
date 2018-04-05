@@ -17,7 +17,7 @@ class Snapshot extends Component {
     this.go_to_instance = this.go_to_instance.bind(this);
   };
 
-  
+
   go_to_instance(){
     if(this.state.snapshot.shop_id != null){
       fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(results =>{
@@ -30,7 +30,7 @@ class Snapshot extends Component {
 
         })
       })
-        
+
     }
 
     else if(this.state.snapshot.scenic_id != null){
@@ -44,7 +44,7 @@ class Snapshot extends Component {
 
         })
       })
-        
+
     }
   }
 
@@ -92,7 +92,7 @@ class Snapshot extends Component {
             <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.snapshot.snap_picture} alt style={{width: 500, height: 500, marginTop: 50}} />
           </div>
         </div>
-        <div>
+        <div className="model-links">
           <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.go_to_instance}>Learn More about this place!</button>
         </div>
         </div>

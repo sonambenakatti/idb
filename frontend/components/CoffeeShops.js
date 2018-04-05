@@ -9,7 +9,6 @@ constructor (props) {
   console.log(props);
   super(props);
   this.state = {
-    full_data: [],
     coffeeshops: [],
     navigate: false,
     selectedShop: [],
@@ -19,10 +18,24 @@ constructor (props) {
     shopsPerPage: 9,
     totalPages: 1,
     cities_list: [],
-    selectedCity: '',
-    selectedPrice: '',
-    selectedRating: '',
-    selectedSort: ''
+    selectedCity: {
+      value: undefined,
+      label: undefined
+    },
+    selectedPrice: {
+      value: undefined,
+      label: undefined
+    },
+    selectedRating: {
+      value: undefined,
+      label: undefined
+    },
+    selectedSort: {
+      value: undefined,
+      label: undefined,
+    },
+    sort_by: undefined,
+    sort_attr: undefined
   };
 };
 
@@ -34,7 +47,6 @@ componentDidMount(props) {
   }).then(data=>{
     console.log("DATA")
     console.log(data)
-    this.setState({full_data: data})
     let shops = data.map((shop) =>{
       return(
         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
@@ -67,111 +79,81 @@ getCities() {
 }
 
 handleCityChange(selectedCity){
-  console.log("INSIDE HANDLE CITY");
-  this.setState({ selectedCity });
-  //console.log(`Selected: ${selectedCity.label}`);
-  if (selectedCity === null) {
-    this.resetToAllData();
-  } else if (selectedCity) {
-    var value = selectedCity.value;
-    console.log(value);
-    let shops = this.state.full_data.map((shop) =>{
-      if (shop.city_id === value) {
-        return(
-          <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
-            <li className="col">
-                <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText">
-                <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
-            </li>
-          </div>
-        )
-      }
-    })
-    this.setState({coffeeshops: shops});
+  if (selectedCity == null) {
+    this.state.selectedCity = {
+      value: undefined,
+      label: undefined
+    };
+  } else if (selectedCity){
+    this.state.selectedCity = selectedCity;
+    this.setState({selectedCity: selectedCity});
   }
-  this.setState({currentPage: 1})
+  this.update();
 }
 
 handleSortChange(selectedSort) {
-  this.setState({ selectedSort });
-  if(selectedSort === null) {
-    this.resetToAllData();
-  } else if (selectedSort) {
-      var value = selectedSort.value;
-      fetch('/coffeeshops/sort/' + value).then(results => {
-        return results.json();
-      }).then(data => {
-          let shops = data.map((shop) => {
-            return(
-              <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
-                <li className="col">
-                    <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                    <span className="picText">
-                    <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
-                </li>
-              </div>
-            );
-          })
-        this.setState({coffeeshops: shops})
-      })
-    }
+  if (selectedSort == null) {
+    this.state.selectedSort = {
+      value: undefined,
+      label: undefined
+    };
+    this.state.sort_attr = undefined
+    this.state.sort_by = undefined;
+    this.setState({selectedSortBy: undefined});
+  } else if (selectedSort){
+    var sortArray = selectedSort.value.split("/");
+    var sort = sortArray[0];
+    var sortby = sortArray[1];
+    this.state.sort_attr = sort;
+    this.state.sort_by = sortby;
+    this.setState({sort_attr: sort});
+    this.setState({sort_by: sortby});
+    this.setState({ selectedSort });
+  }
+  this.update();
 }
 
 handlePriceChange(selectedPrice){
-  this.setState({ selectedPrice });
-  //console.log(`Selected: ${selectedPrice.label}`);
-
   if (selectedPrice == null) {
-    this.resetToAllData();
+    this.state.selectedPrice = {
+      value: undefined,
+      label: undefined
+    };
   } else if (selectedPrice) {
-    var value = selectedPrice.value;
-    let shops = this.state.full_data.map((shop) =>{
-      if (shop.shop_price === value) {
-        return(
-          <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
-            <li className="col">
-                <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText">
-                <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
-            </li>
-          </div>
-        )
-      }
-    })
-    this.setState({coffeeshops: shops});
+    this.state.selectedPrice = selectedPrice;
+    this.setState({selectedPrice: selectedPrice});
   }
-  this.setState({currentPage: 1})
+  this.update();
 }
 
-handleRatingChange(selectedRating){
-  this.setState({ selectedRating });
-  //console.log(`Selected: ${selectedRating.label}`);
+handleRatingChange (selectedRating){
 
   if (selectedRating == null) {
-    this.resetToAllData();
+    this.state.selectedRating = {
+      value: undefined,
+      label: undefined
+    };
   } else if (selectedRating) {
-    var value = selectedRating.value;
-    let shops = this.state.full_data.map((shop) =>{
-      if (shop.shop_rating >= value) {
-        return(
-          <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
-            <li className="col">
-                <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                <span className="picText">
-                <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
-            </li>
-          </div>
-        )
-      }
-    })
-    this.setState({coffeeshops: shops});
+    this.state.selectedRating = selectedRating;
+    this.setState({selectedRating: selectedRating});
   }
-  this.setState({currentPage: 1})
+  this.update();
+
 }
 
-resetToAllData() {
-  let shops = this.state.full_data.map((shop) =>{
+update () {
+  var cityfilter = this.state.selectedCity.value;
+  var sort = this.state.sort_attr;
+  var sortby = this.state.sort_by;
+  var ratfilter = this.state.selectedRating.value;
+  var pricefilter = this.state.selectedPrice.value;
+
+  fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
+    + '&pricefilter=' + pricefilter).then(results => {
+    console.log(results)
+    return results.json();
+  }).then(data => {
+    let shops = data.map((shop) => {
       return(
         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
           <li className="col">
@@ -180,11 +162,11 @@ resetToAllData() {
               <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
           </li>
         </div>
-      )
+      );
+    })
+    this.setState({coffeeshops: shops})
   })
-  this.setState({coffeeshops: shops});
   this.setState({currentPage: 1})
-
 }
 
 // invoked when user clicks a page number on the bottom.
@@ -266,7 +248,9 @@ render() {
     const cityValue = selectedCity && selectedCity.value;
     const priceValue = selectedPrice && selectedPrice.value;
     const ratingValue = selectedRating && selectedRating.value;
-    const sortValue = selectedSort && selectedSort.value
+    const sortValue = selectedSort && selectedSort.value;
+
+    console.log(this.state.selectedCity);
 
     return (
       <div>
@@ -311,38 +295,38 @@ render() {
           />
         </div>
         <div className="filter">
-          <h6>Sort by price</h6>
+          <h6>Sort by Price</h6>
           <Select
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
               options={[
-                {value: 'priceasc', label: 'Low - High'},
-                {value: 'pricedesc', label: 'High - Low'},
+                {value: 'price/asc', label: 'Low - High'},
+                {value: 'price/desc', label: 'High - Low'},
               ]}
           />
         </div>
         <div className="filter">
-          <h6>Sort by rating</h6>
+          <h6>Sort by Rating</h6>
           <Select
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
               options={[
-                {value: 'ratingasc', label: 'Low - High'},
-                {value: 'ratingdesc', label: 'High - Low'},
+                {value: 'rating/asc', label: 'Low - High'},
+                {value: 'rating/desc', label: 'High - Low'},
               ]}
           />
         </div>
         <div className="filter">
-          <h6>Sort alphabetically</h6>
+          <h6>Sort Alphabetically</h6>
           <Select
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
               options={[
-                {value: 'atoz', label: 'A - Z'},
-                {value: 'ztoa', label: 'Z - A'},
+                {value: 'name/asc', label: 'A - Z'},
+                {value: 'name/desc', label: 'Z - A'},
               ]}
           />
         </div>
