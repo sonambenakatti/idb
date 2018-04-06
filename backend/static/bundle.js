@@ -7029,7 +7029,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 11"
+                    " 20"
                   )
                 )
               )

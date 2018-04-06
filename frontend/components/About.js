@@ -175,7 +175,7 @@ render() {
               <p className="mb-3" id="sonam">
                 <b>Commits:</b> {commits['sonambenakatti']} <br />
                 <b>Issues:</b> {issues['sonambenakatti']} <br />
-                <b>Unit Tests:</b> 11
+                <b>Unit Tests:</b> 20
               </p>
             </div>
           </div>
