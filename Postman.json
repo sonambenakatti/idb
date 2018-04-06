@@ -65,7 +65,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9c6332cd-4828-438b-b443-29da46aa7874",
+						"id": "38bc93b9-1e19-4637-8ec7-d9dcf5ec888d",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -74,18 +74,7 @@
 							"",
 							"// test to check all snapshots in response ",
 							"pm.test(\"Response body is correct\", function () {",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 181');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 182');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 183');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 184')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 185')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 186')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 187')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 188')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 189')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 190')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 191')",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 192')",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 1491');",
 							"});"
 						]
 					}
@@ -107,41 +96,6 @@
 					]
 				},
 				"description": "Snapshots API data \n\nA snapshot should have a: \nsnap_name \nsnap_photographer\nsnap_username\nsnap_tags\nsnap_favs\nsnap_picture\nsnap_latitude\nsnap_longitude\nshop_loc_id\nscenic_loc_id\nsnap_photo_id"
-			},
-			"response": []
-		},
-		{
-			"name": "/api.espressoyoself.me/about",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "69fb66ec-234b-4683-bd65-75d2b7480258",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "api.espressoyoself.me/about",
-					"host": [
-						"api",
-						"espressoyoself",
-						"me"
-					],
-					"path": [
-						"about"
-					]
-				},
-				"description": "API for commits\n\nA get request should return \n\ncommits\nissues"
 			},
 			"response": []
 		},
@@ -199,12 +153,12 @@
 			"response": []
 		},
 		{
-			"name": "api.espressoyoself.me/snapshot/181",
+			"name": "api.espressoyoself.me/snapshot/1000",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "5aafef06-5f5e-4dc2-ab07-b8fcce6d467c",
+						"id": "72172888-eeb8-4945-b623-a92f2c6fe43d",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -212,14 +166,13 @@
 							"});",
 							"",
 							"pm.test(\"Response body is correct\", function () {",
-							"    pm.expect(pm.response.text()).to.include('\"snap_photographer\": \"Don Mason\"');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_username\": \"-Dons\"');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_picture\": \"https://farm5.staticflickr.com/4605/25036430577_0f11597674.jpg\"');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 181');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_photo_id\": \"25036430577\"');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_longitude\": -97.743');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_latitude\": 30.2662');",
-							"    pm.expect(pm.response.text()).to.include('\"snap_name\": \"A Great Start to the Day\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_photographer\": \"unknown\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_username\": \"moonwatcher13\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_picture\": \"https:\\/\\/farm8.staticflickr.com\\/7566\\/15638365349_b1d1d737f4.jpg\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 1000');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_longitude\": -77.0322');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_latitude\": 38.9134');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_name\": \"Soy mocha at Peregrine\"');",
 							"});"
 						]
 					}
@@ -230,7 +183,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "api.espressoyoself.me/snapshot/181",
+					"raw": "api.espressoyoself.me/snapshot/1000",
 					"host": [
 						"api",
 						"espressoyoself",
@@ -238,10 +191,10 @@
 					],
 					"path": [
 						"snapshot",
-						"181"
+						"1000"
 					]
 				},
-				"description": "Get snapshot with ID 181"
+				"description": "Get snapshot with ID 1000"
 			},
 			"response": []
 		},
@@ -324,7 +277,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c38c4d20-1383-4068-8186-e7e91fced952",
+						"id": "0bff3b5d-82d2-4ec7-a071-13d4cd5896b4",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -332,15 +285,13 @@
 							"});",
 							"",
 							"pm.test(\"Response body is correct\", function () {",
-							"    pm.expect(pm.response.text()).to.include('\"shop_yelp_id\": \"summermoon-coffee-bar-austin-5\"');",
 							"    pm.expect(pm.response.text()).to.include('\"shop_price\": \"$\"');",
-							"    pm.expect(pm.response.text()).to.include('\"shop_name\": \"Summermoon Coffee Bar\"');",
-							"    pm.expect(pm.response.text()).to.include('\"shop_contact\": \"(737) 300-1265\"');",
-							"    pm.expect(pm.response.text()).to.include('\"shop_latitude\": 30.3944');",
-							"    pm.expect(pm.response.text()).to.include('\"shop_longitude\": -97.7202');",
-							"    pm.expect(pm.response.text()).to.include('\"shop_rating\": 4.5');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_contact\": \"No Contact Info\"');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_latitude\": 45.5123');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_longitude\": -122.632');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_rating\": 5');",
 							"    pm.expect(pm.response.text()).to.include('\"shop_id\": 1');",
-							"    pm.expect(pm.response.text()).to.include('\"shop_address\": \"11005 Burnet RdSte 112Austin, TX 78758\"');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_address\": \"3207 SE Hawthorne BlvdPortland, OR 97214\"');",
 							"});"
 						]
 					}
@@ -445,7 +396,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "29a1088d-3c57-4386-b7bf-5c6b138c05a6",
+						"id": "6cfbcfec-922b-4f04-9ffb-621d577d0d7c",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -453,13 +404,12 @@
 							"});",
 							"",
 							"pm.test(\"Response body is correct\", function () {",
-							"    pm.expect(pm.response.text()).to.include('\"scenic_place_id\": \"ChIJva0k12-1RIYRWWvusUoiw_4\"');",
-							"    pm.expect(pm.response.text()).to.include('\"scenic_longitude\": -97.7541');",
-							"    pm.expect(pm.response.text()).to.include('\"scenic_name\": \"Pease District Park\"');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_longitude\": -122.497');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_name\": \"Powell Butte Nature Park\"');",
 							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 1');",
-							"    pm.expect(pm.response.text()).to.include('\"scenic_address\": \"1100 Kingsbury St, Austin, TX 78705, USA\"');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_address\": \"16160 SE Powell Blvd, Portland, OR 97236, USA\"');",
 							"    pm.expect(pm.response.text()).to.include('\"scenic_rating\": 4.6');",
-							"    pm.expect(pm.response.text()).to.include('\"scenic_latitude\": 30.2845');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_latitude\": 45.4907');",
 							"});"
 						]
 					}
@@ -554,6 +504,1021 @@
 					]
 				},
 				"description": "Checking 500 response for invalid id type"
+			},
+			"response": []
+		},
+		{
+			"name": "City data correct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae4cde4e-9cd6-41ec-b3d2-a0fffd8e9241",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//test to check all of the shops are in response",
+							"pm.test(\"Response body is correct\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 1');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 2');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 3');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 4');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 5');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 6');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 8');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 9');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 10');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 11');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 12');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 13');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 14');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 15');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 16');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 17');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 18');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 19');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 20');",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 21');",
+							"}",
+							")"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/getcities",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"getcities"
+					]
+				},
+				"description": "Get all the cities we use to get snapshots, coffeeshops and scenic locations "
+			},
+			"response": []
+		},
+		{
+			"name": "Search with int",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e567859-8906-4833-a37a-8a245072c517",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Search contains the\", function (){",
+							"    pm.expect(pm.response.text()).to.include('0');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/search/0",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"search",
+						"0"
+					]
+				},
+				"description": "Searching with a number"
+			},
+			"response": []
+		},
+		{
+			"name": "Seach with 1 letter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "87764d28-8317-414f-b2eb-139e359687ed",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Search contains the\", function (){",
+							"    pm.expect(pm.response.text()).to.include('e');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/search/e",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"search",
+						"e"
+					]
+				},
+				"description": "Searching for a string with 1 letter"
+			},
+			"response": []
+		},
+		{
+			"name": "Search with common word",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a895e92e-49cd-4574-a7eb-423dbf8cf476",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Search contains 'the'\", function (){",
+							"    pm.expect(pm.response.text()).to.include('the');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/search/the",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"search",
+						"the"
+					]
+				},
+				"description": "searching for a commonly found string"
+			},
+			"response": []
+		},
+		{
+			"name": "Search with empty string",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6fe59f7e-85ee-4878-8ac6-ddb3a0d924fb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"No results found for empty string\", function () {",
+							"    pm.response.to.have.jsonBody([]);",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/search/\"  \"",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"search",
+						"\"  \""
+					]
+				},
+				"description": "Searching on an empty string"
+			},
+			"response": []
+		},
+		{
+			"name": "Search with large number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea10a654-180f-4410-9e94-e39d985cae9e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"No results found for large number\", function () {",
+							"    pm.response.to.have.jsonBody([]);",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/search/10000000000",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"search",
+						"10000000000"
+					]
+				},
+				"description": "Testing a large number for input into search query"
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Sort on coffeeshops all valid params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a725c26-af2d-4254-8cde-ba9bbccee75e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Correct data recieved\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 1');",
+							"    pm.expect(pm.response.text()).to.not.include('\"city_id: 2\"');",
+							"    pm.expect(pm.response.text()).to.include('\"shop_price\": \"$\"');",
+							"    pm.expect(pm.response.text()).to.not.include('\"shop_price\": \"$$\"');",
+							"    pm.expect(pm.response.text()).to.not.include('\"shop_price\": \"$$$\"');",
+							"    pm.expect(pm.response.text()).to.not.include('\"shop_price\": \"$$$$\"');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/coffeeshops_filter_sort?sort=shop_price&sortby=asc&cityfilter=1&ratfilter=0&pricefilter=$",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"coffeeshops_filter_sort"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "shop_price"
+						},
+						{
+							"key": "sortby",
+							"value": "asc"
+						},
+						{
+							"key": "cityfilter",
+							"value": "1"
+						},
+						{
+							"key": "ratfilter",
+							"value": "0"
+						},
+						{
+							"key": "pricefilter",
+							"value": "$"
+						}
+					]
+				},
+				"description": "Sort coffeeshops by price ascending, apply a city filter with id 1, with a rating of 0+ stars and pricefilter of $\n\n'/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter\n    + '&pricefilter=' + pricefilter"
+			},
+			"response": []
+		},
+		{
+			"name": "Filter sort on coffeeshops- invalid params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "538d721a-5680-4dea-a1ee-e46fc2b9ff04",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/coffeeshops_filter_sort/?sort=1234&sortby=129485&cityfilter=093u803u5&ratfilter=7kjnviuew&pricefilter=983u5982u5238",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"coffeeshops_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "1234"
+						},
+						{
+							"key": "sortby",
+							"value": "129485"
+						},
+						{
+							"key": "cityfilter",
+							"value": "093u803u5"
+						},
+						{
+							"key": "ratfilter",
+							"value": "7kjnviuew"
+						},
+						{
+							"key": "pricefilter",
+							"value": "983u5982u5238"
+						}
+					]
+				},
+				"description": "Testing filtering and sorting on coffeeshops with a random string of characters"
+			},
+			"response": []
+		},
+		{
+			"name": "Filter sort on locations - sort by defined but sort value undefined",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c3c8a84-aaf6-4328-a1cf-d36bd0cdbba8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/locations_filter_sort/?sort=undefined&sortby=desc&cityfilter=10&ratfilter=undefined",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"locations_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "undefined"
+						},
+						{
+							"key": "sortby",
+							"value": "desc"
+						},
+						{
+							"key": "cityfilter",
+							"value": "10"
+						},
+						{
+							"key": "ratfilter",
+							"value": "undefined"
+						}
+					]
+				},
+				"description": "testing with an undefined sort value and a defined sortby value -- should return 500\n\n'/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter"
+			},
+			"response": []
+		},
+		{
+			"name": "Filter sort on locations with all parameters undefined",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "582d8706-992e-4739-ac3b-aeee4a402766",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"All scenic locations present\", function() {",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_id\": 334');",
+							"})",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/locations_filter_sort/?sort=scenic_undefined&sortby=undefined&cityfilter=undefined&ratfilter=undefined",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"locations_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "scenic_undefined"
+						},
+						{
+							"key": "sortby",
+							"value": "undefined"
+						},
+						{
+							"key": "cityfilter",
+							"value": "undefined"
+						},
+						{
+							"key": "ratfilter",
+							"value": "undefined"
+						}
+					]
+				},
+				"description": "Testing locations_filter_sort with all parameters as undefined"
+			},
+			"response": []
+		},
+		{
+			"name": "Filter sort on locations - all valid params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cea34f64-7eca-47dd-be73-4e18594f05a3",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Correct data recieved\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 21');",
+							"    pm.expect(pm.response.text()).to.not.include('\"city_id: 10\"');",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_rating\": 4');",
+							"    pm.expect(pm.response.text()).to.not.include('\"scenic_rating\": 2');",
+							"    pm.expect(pm.response.text()).to.not.include('\"scenic_rating\": 1');",
+							"    pm.expect(pm.response.text()).to.not.include('\"scenic_rating\": 3');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/locations_filter_sort/?sort=scenic_rating&sortby=asc&cityfilter=21&ratfilter=3",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"locations_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "scenic_rating"
+						},
+						{
+							"key": "sortby",
+							"value": "asc"
+						},
+						{
+							"key": "cityfilter",
+							"value": "21"
+						},
+						{
+							"key": "ratfilter",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FIlter sort by location - all invalid params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89d0fe5f-9341-4277-aa26-524f211e17b2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/locations_filter_sort/?sort=scenic_187y35&sortby=iuiuh&cityfilter=nfwjfe&ratfilter=kjnfkjwnekewf",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"locations_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "scenic_187y35"
+						},
+						{
+							"key": "sortby",
+							"value": "iuiuh"
+						},
+						{
+							"key": "cityfilter",
+							"value": "nfwjfe"
+						},
+						{
+							"key": "ratfilter",
+							"value": "kjnfkjwnekewf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter sort on snapshots with all params defined correct data recieved",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed604710-9d18-4cbd-a656-6410c4d89fbc",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Correct data recieved\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"city_id\": 5');",
+							"    pm.expect(pm.response.text()).to.not.include('\"city_id: 10\"');",
+							"    pm.expect(pm.response.text()).to.include('\"snap_favs\": 10');",
+							"    pm.expect(pm.response.text()).to.not.include('\"snap_favs\": 5');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshots_filter_sort/?sort=snap_favs&sortby=desc&cityfilter=5&favsfilter=10",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshots_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "snap_favs"
+						},
+						{
+							"key": "sortby",
+							"value": "desc"
+						},
+						{
+							"key": "cityfilter",
+							"value": "5"
+						},
+						{
+							"key": "favsfilter",
+							"value": "10"
+						}
+					]
+				},
+				"description": "'/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter\n\nTesting snapshots filter sort with all params defined - should return correct data "
+			},
+			"response": []
+		},
+		{
+			"name": "filter sort on snapshots params random strings of numbers/characters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22fb8ba7-d4f2-40dc-98f3-1811ac0d91a0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshots_filter_sort/?sort=snap_8178374&sortby=138454&cityfilter=09394&favsfilter=njvnwnjvw",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshots_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "snap_8178374"
+						},
+						{
+							"key": "sortby",
+							"value": "138454"
+						},
+						{
+							"key": "cityfilter",
+							"value": "09394"
+						},
+						{
+							"key": "favsfilter",
+							"value": "njvnwnjvw"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter sort on snapshots all params undefined",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d43e9c9e-149a-4e7e-9de4-637bd1de1eca",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"All snapshots in DB returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"snap_id\": 1491');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshots_filter_sort/?sort=snap_undefined&sortby=undefined&cityfilter=undefined&favsfilter=undefined",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshots_filter_sort",
+						""
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "snap_undefined"
+						},
+						{
+							"key": "sortby",
+							"value": "undefined"
+						},
+						{
+							"key": "cityfilter",
+							"value": "undefined"
+						},
+						{
+							"key": "favsfilter",
+							"value": "undefined"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Neaby shops from scenic - valid shop id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55d96152-2ac0-46f8-a78f-5839c1a63280",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Correct data returned, based on lat and long\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"scenic_longitude\": -122.41');",
+							"    pm.expect(pm.response.text()).to.not.include('\"scenic_longitude\": -123');",
+							"    pm.expect(pm.response.text()).to.include('\"distance\": 1');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/nearby_scenic_from_shops/100",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"nearby_scenic_from_shops",
+						"100"
+					]
+				},
+				"description": "'/nearby_scenic_from_shops/<shop_id>"
+			},
+			"response": []
+		},
+		{
+			"name": "Nearby shops from scenic invalid id - string",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2850477-c550-4f45-8c58-b7984af39863",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/nearby_scenic_from_shops/91824u982y35",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"nearby_scenic_from_shops",
+						"91824u982y35"
+					]
+				},
+				"description": "Shop Id is a random string"
+			},
+			"response": []
+		},
+		{
+			"name": "Nearby shops from scenic - invalid id int",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "214d4c4e-b8ad-4e10-9339-e73bf5b740f6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://api.espressoyoself.me/nearby_shops_from_scenic/0",
+					"protocol": "http",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"nearby_shops_from_scenic",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nearby snaps from shop - valid id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd1321b6-8a1c-4191-b253-ee1a65c519a2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Correct data returned, based on lat and long\", function () {",
+							"    pm.expect(pm.response.text()).to.include('\"snap_latitude\": 38');",
+							"    pm.expect(pm.response.text()).to.not.include('\"scenic_longitude\": -77');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshots_shop/199",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshots_shop",
+						"199"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nearby  snaps from scenic - invalid id string",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1fa84e3-bd0e-495b-81b3-1b4a50e9e63d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshots_scenic/hello",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshots_scenic",
+						"hello"
+					]
+				},
+				"description": "/snapshots_shop/<shop_id>"
+			},
+			"response": []
+		},
+		{
+			"name": "Nearby snaps from scenic - invalid id int",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5754bfaf-50a6-494d-b3da-55b1e9bb9ae0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"No results found for empty string\", function () {",
+							"    pm.response.to.have.jsonBody([]);",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/snapshots_scenic/-1",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"snapshots_scenic",
+						"-1"
+					]
+				}
 			},
 			"response": []
 		}
