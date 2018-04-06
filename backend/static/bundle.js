@@ -7232,21 +7232,21 @@ var About = function (_Component) {
                         null,
                         "Reach-Highlight-Words:"
                       ),
-                      "to highlight words in search results",
+                      " to highlight words in search results",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
                         "Reach-Select:"
                       ),
-                      "to filter and sort on model pages",
+                      " to filter and sort on model pages",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
                         "SQL-Alchemy:"
                       ),
-                      "to use mysql with python",
+                      " to use mysql with python",
                       _react2["default"].createElement("br", null)
                     ),
                     _react2["default"].createElement(

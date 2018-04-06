@@ -220,9 +220,9 @@ render() {
                   <b>Unittests:</b> to test our backend python code<br />
                   <b>Selenium:</b> to test our GUI<br />
                   <b>Mocha:</b> to test our javascript code<br />
-                  <b>Reach-Highlight-Words:</b>to highlight words in search results<br/ >
-                  <b>Reach-Select:</b>to filter and sort on model pages<br/ >
-                  <b>SQL-Alchemy:</b>to use mysql with python<br/ >
+                  <b>Reach-Highlight-Words:</b> to highlight words in search results<br />
+                  <b>Reach-Select:</b> to filter and sort on model pages<br />
+                  <b>SQL-Alchemy:</b> to use mysql with python<br />
                 </p>
                 <h3 className="mb-4"><a href="https://github.com/sonambenakatti/idb">Github</a></h3>
                 <h3 className="mb-4"><a href="https://sonambenakatti.gitbooks.io/espresso-yoself/content/">Gitbook</a></h3>
