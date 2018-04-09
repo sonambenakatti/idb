@@ -48,20 +48,24 @@ componentDidMount(props) {
   }).then(data=>{
     console.log("DATA")
     console.log(data)
-    let shops = data.map((shop) =>{
-      return(
-        <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
-          <li className="col">
-              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-              <span className="picText">
-              <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
-          </li>
-        </div>
-      )
-    })
-    this.setState({coffeeshops: shops});
+    this.fetchData(data);
     this.getCities();
   })
+}
+
+fetchData(data) {
+  let shops = data.map((shop) =>{
+    return(
+      <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
+        <li className="col">
+            <img src={shop.shop_picture} style={{width: 300, height: 300}} alt={shop.shop_name}/>
+            <span className="picText">
+            <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
+        </li>
+      </div>
+    )
+  })
+  this.setState({coffeeshops: shops});
 }
 
 getCities() {
@@ -154,18 +158,13 @@ update () {
     console.log(results)
     return results.json();
   }).then(data => {
-    let shops = data.map((shop) => {
-      return(
-        <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
-          <li className="col">
-              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-              <span className="picText">
-              <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
-          </li>
-        </div>
-      );
-    })
-    this.setState({coffeeshops: shops})
+    console.log(data.length)
+    this.fetchData(data);
+    console.log(data.length)
+    if(data.length == 0) {
+        console.log("No results!");
+        shops = [<div></div>, this.returnNoResults()];
+    }
   })
   this.setState({currentPage: 1})
 }
@@ -196,6 +195,10 @@ render() {
 
   const { coffeeshops, currentPage, shopsPerPage } = this.state;
   console.log(coffeeshops)
+<<<<<<< Updated upstream
+=======
+  console.log(this.state.coffeeshops.length)
+>>>>>>> Stashed changes
 
   const concat_shops = [];
   const shops = this.state.coffeeshops.map((coffeeshops, index) => {
@@ -297,6 +300,7 @@ render() {
           />
         </div>
         <div className="filter">
+<<<<<<< Updated upstream
           <h6>Sort by Price</h6>
           <Select
               name="form-field-name"
@@ -323,12 +327,21 @@ render() {
         <div className="filter">
           <h6>Sort Alphabetically</h6>
           <Select
+=======
+          <h6>Sort By</h6>
+          <Select
+              id="sort"
+>>>>>>> Stashed changes
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
               options={[
-                {value: 'name/asc', label: 'A - Z'},
-                {value: 'name/desc', label: 'Z - A'},
+                {value: 'name/asc', label: 'Name: A - Z'},
+                {value: 'name/desc', label: 'Name: Z - A'},
+                {value: 'price/asc', label: 'Price: Low - High'},
+                {value: 'price/desc', label: 'Price: High - Low'},
+                {value: 'rating/asc', label: 'Rating: Low - High'},
+                {value: 'rating/desc', label: 'Rating: High - Low'},
               ]}
           />
         </div>

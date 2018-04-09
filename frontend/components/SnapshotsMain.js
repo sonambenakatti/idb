@@ -39,23 +39,26 @@ class SnapshotsMain extends Component {
       fetch('/getsnapshots').then(results =>{
         return results.json();
       }).then(data=>{
-        this.setState({full_data: data})
-          let snapshots = data.map((snapshot) =>{
-            return(
-              <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-                <li className="col">
-                    <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                    <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                    {snapshot.snap_tags}<br />
-                    {snapshot.snap_favs+" Faves"}</span></span>
-                </li>
-              </div>
-            );
-          });
-          this.setState({photos: snapshots});
-        });
-        this.getCities();
+        this.fetchData(data)
+      });
+      this.getCities();
     };
+
+    fetchData(data) {
+      let snapshots = data.map((snapshot) =>{
+        return(
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+            <li className="col">
+                <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt={snapshot.snap_name}/>
+                <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
+                {snapshot.snap_tags}<br />
+                {snapshot.snap_favs+" Faves"}</span></span>
+            </li>
+          </div>
+        );
+      });
+      this.setState({photos: snapshots});
+    }
 
     getCities() {
       fetch('/getcities').then(results =>{
@@ -137,24 +140,11 @@ class SnapshotsMain extends Component {
         console.log(results)
         return results.json();
       }).then(data => {
-        let snapshots = data.map((snapshot) =>{
-          return(
-            <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
-              <li className="col">
-                  <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-                  <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />
-                  {snapshot.snap_tags}<br />
-                  {snapshot.snap_favs+" Faves"}</span></span>
-              </li>
-            </div>
-          );
-        });
-
+        this.fetchData(data);
         if(data.length == 0) {
           console.log("No results!");
           snapshots = [<div></div>, this.returnNoResults()];
         }
-        this.setState({photos: snapshots})
       })
       this.setState({currentPage: 1})
     }
@@ -262,15 +252,15 @@ class SnapshotsMain extends Component {
               />
             </div>
             <div className="filter">
-              <h6>Sort by Favorites</h6>
+              <h6>Sort By</h6>
               <Select
                 id="favssort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleFaveSortChange.bind(this)}
                 options={[
-                  {value: 'favs/asc', label: 'Low-High'},
-                  {value: 'favs/desc', label: 'High-Low'}
+                  {value: 'favs/asc', label: 'Faves: Low - High'},
+                  {value: 'favs/desc', label: 'Faves: High - Low'}
                 ]}
               />
             </div>

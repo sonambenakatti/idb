@@ -42,24 +42,28 @@ componentDidMount(props) {
       return results.json();
     }).then(data =>{
       console.log(data)
-      let views = data.map((scenicloc) =>{
-        return(
-        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
-          <li className="col">
-              <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-              <span className="picText">
-                <span><b>{scenicloc.scenic_name}</b>
-                <br /><br />{scenicloc.scenic_address}
-                <br />{scenicloc.scenic_rating + "/5"}
-                </span>
-              </span>
-          </li>
-        </div>
-      )
+      this.fetchData(data);
     })
-    this.setState({locations: views});
-  })
   this.getCities();
+}
+
+fetchData(data) {
+  let views = data.map((scenicloc) =>{
+    return(
+      <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+        <li className="col">
+            <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt={scenicloc.scenic_name}/>
+            <span className="picText">
+              <span><b>{scenicloc.scenic_name}</b>
+              <br /><br />{scenicloc.scenic_address}
+              <br />{scenicloc.scenic_rating + "/5"}
+              </span>
+            </span>
+        </li>
+      </div>
+    )
+  })
+  this.setState({locations: views});
 }
 
 getCities() {
@@ -146,26 +150,11 @@ update () {
     console.log(results)
     return results.json();
   }).then(data => {
-    let views = data.map((scenicloc) =>{
-      return(
-      <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
-        <li className="col">
-            <img src={scenicloc.scenic_picture} style={{width: 300, height: 300}} alt="Photo1"/>
-            <span className="picText">
-              <span><b>{scenicloc.scenic_name}</b>
-              <br /><br />{scenicloc.scenic_address}
-              <br />{scenicloc.scenic_rating + "/5"}
-              </span>
-            </span>
-        </li>
-      </div>
-    )
-    })
-     if(data.length == 0) {
-        console.log("No results!");
-        locations = [<div></div>, this.returnNoResults()];
-      }
-    this.setState({locations: views})
+    this.fetchData(data);
+    if(data.length == 0) {
+      console.log("No results!");
+      locations = [<div></div>, this.returnNoResults()];
+    }
   })
   this.setState({currentPage: 1})
 }
@@ -276,28 +265,17 @@ render() {
             />
           </div>
           <div className="filter">
-            <h6>Sort by Rating</h6>
+            <h6>Sort By</h6>
             <Select
-                id="ratingsort"
+                id="sort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleSortChange.bind(this)}
                 options={[
-                  {value: 'rating/asc', label: 'Low - High'},
-                  {value: 'rating/desc', label: 'High - Low'},
-                ]}
-            />
-          </div>
-          <div className="filter">
-            <h6>Sort Alphabetically</h6>
-            <Select
-                id="namesort"
-                name="form-field-name"
-                value={sortValue}
-                onChange={this.handleSortChange.bind(this)}
-                options={[
-                  {value: 'name/asc', label: 'A - Z'},
-                  {value: 'name/desc', label: 'Z - A'},
+                  {value: 'name/asc', label: 'Name: A - Z'},
+                  {value: 'name/desc', label: 'Name: Z - A'},
+                  {value: 'rating/asc', label: 'Rating: Low - High'},
+                  {value: 'rating/desc', label: 'Rating: High - Low'},
                 ]}
             />
           </div>
