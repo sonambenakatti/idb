@@ -6739,7 +6739,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Scenic Locations"
+                      "Focus: Backend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6773,7 +6773,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 8"
+                    " 12"
                   )
                 )
               )
@@ -6803,7 +6803,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Coffee Shops"
+                      "Focus: Backend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6867,7 +6867,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Snapshots"
+                      "Focus: Frontend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6901,7 +6901,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 13"
+                    " 22"
                   )
                 )
               )
@@ -6931,7 +6931,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: Home, AWS"
+                      "Focus: Frontend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -6965,7 +6965,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 9"
+                    " 16"
                   )
                 )
               )
@@ -6995,7 +6995,7 @@ var About = function (_Component) {
                     _react2["default"].createElement(
                       "span",
                       { className: "section-heading-upper" },
-                      "Focus: About"
+                      "Focus: Frontend"
                     )
                   ),
                   _react2["default"].createElement(
@@ -7029,7 +7029,7 @@ var About = function (_Component) {
                       null,
                       "Unit Tests:"
                     ),
-                    " 11"
+                    " 20"
                   )
                 )
               )
@@ -7075,7 +7075,7 @@ var About = function (_Component) {
                       issues['total'],
                       " ",
                       _react2["default"].createElement("br", null),
-                      "Unit Tests: 41"
+                      "Unit Tests: 59"
                     ),
                     _react2["default"].createElement(
                       "h3",
@@ -7226,6 +7226,27 @@ var About = function (_Component) {
                         "Mocha:"
                       ),
                       " to test our javascript code",
+                      _react2["default"].createElement("br", null),
+                      _react2["default"].createElement(
+                        "b",
+                        null,
+                        "Reach-Highlight-Words:"
+                      ),
+                      " to highlight words in search results",
+                      _react2["default"].createElement("br", null),
+                      _react2["default"].createElement(
+                        "b",
+                        null,
+                        "Reach-Select:"
+                      ),
+                      " to filter and sort on model pages",
+                      _react2["default"].createElement("br", null),
+                      _react2["default"].createElement(
+                        "b",
+                        null,
+                        "SQL-Alchemy:"
+                      ),
+                      " to use mysql with python",
                       _react2["default"].createElement("br", null)
                     ),
                     _react2["default"].createElement(
@@ -7697,6 +7718,7 @@ var CoffeeShops = function (_Component) {
       sort_by: undefined,
       sort_attr: undefined
     };
+    _this.returnNoResults = _this.returnNoResults.bind(_this);
     return _this;
   }
 
@@ -7860,6 +7882,23 @@ var CoffeeShops = function (_Component) {
       return handleRatingChange;
     }()
   }, {
+    key: 'returnNoResults',
+    value: function () {
+      function returnNoResults() {
+        return _react2['default'].createElement(
+          'div',
+          { className: 'intro-text text-center bg-faded p-5 rounded' },
+          _react2['default'].createElement(
+            'span',
+            { className: 'section-heading-upper text-center' },
+            'No Results'
+          )
+        );
+      }
+
+      return returnNoResults;
+    }()
+  }, {
     key: 'update',
     value: function () {
       function update() {
@@ -7871,10 +7910,12 @@ var CoffeeShops = function (_Component) {
         var ratfilter = this.state.selectedRating.value;
         var pricefilter = this.state.selectedPrice.value;
 
-        fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
+        fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
           console.log(results);
+
           return results.json();
         }).then(function (data) {
+          console.log(data.length);
           var shops = data.map(function (shop) {
             return _react2['default'].createElement(
               'div',
@@ -7912,6 +7953,12 @@ var CoffeeShops = function (_Component) {
               )
             );
           });
+          console.log(data.length);
+          if (data.length == 0) {
+            console.log("No results!");
+            shops = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+          }
+
           _this4.setState({ coffeeshops: shops });
         });
         this.setState({ currentPage: 1 });
@@ -7960,6 +8007,7 @@ var CoffeeShops = function (_Component) {
             shopsPerPage = _state.shopsPerPage;
 
         console.log(coffeeshops);
+        console.log(this.state.coffeeshops.length);
 
         var concat_shops = [];
         var shops = this.state.coffeeshops.map(function (coffeeshops, index) {
@@ -8000,7 +8048,6 @@ var CoffeeShops = function (_Component) {
             {
               key: number,
               id: number,
-              className: 'page-item',
               style: _this5.state.currentPage === number ? { color: 'orange' } : {},
               onClick: _this5.handleClick.bind(_this5, number, concat_shops)
             },
@@ -8041,6 +8088,7 @@ var CoffeeShops = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -8056,6 +8104,7 @@ var CoffeeShops = function (_Component) {
                   'Filter by Price Range'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'pricefilter',
                   name: 'form-field-name',
                   value: priceValue,
                   onChange: this.handlePriceChange.bind(this),
@@ -8071,6 +8120,7 @@ var CoffeeShops = function (_Component) {
                   'Filter by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingfilter',
                   name: 'form-field-name',
                   value: ratingValue,
                   onChange: this.handleRatingChange.bind(this),
@@ -8086,6 +8136,7 @@ var CoffeeShops = function (_Component) {
                   'Sort by Price'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'pricesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8101,6 +8152,7 @@ var CoffeeShops = function (_Component) {
                   'Sort by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingsort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8116,6 +8168,7 @@ var CoffeeShops = function (_Component) {
                   'Sort Alphabetically'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'namesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8153,14 +8206,6 @@ var CoffeeShops = function (_Component) {
                 _react2['default'].createElement(
                   'li',
                   {
-                    id: '<<',
-                    style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, 1, concat_shops) },
-                  ' <<'
-                ),
-                _react2['default'].createElement(
-                  'li',
-                  {
                     id: 'prev',
                     style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
                     onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_shops) },
@@ -8174,14 +8219,6 @@ var CoffeeShops = function (_Component) {
                     style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
                     onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_shops) },
                   ' next>'
-                ),
-                _react2['default'].createElement(
-                  'li',
-                  {
-                    id: '>>',
-                    style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops) },
-                  ' >>'
                 )
               )
             )
@@ -8793,6 +8830,7 @@ var Locations = function (_Component) {
       value: undefined,
       label: undefined
     }), _defineProperty(_this$state, 'sort_by', undefined), _defineProperty(_this$state, 'sort_attr', undefined), _this$state);
+    _this.returnNoResults = _this.returnNoResults.bind(_this);
     return _this;
   }
 
@@ -8934,6 +8972,23 @@ var Locations = function (_Component) {
       return handleRatingChange;
     }()
   }, {
+    key: 'returnNoResults',
+    value: function () {
+      function returnNoResults() {
+        return _react2['default'].createElement(
+          'div',
+          { className: 'intro-text text-center bg-faded p-5 rounded' },
+          _react2['default'].createElement(
+            'span',
+            { className: 'section-heading-upper text-center' },
+            'No Results'
+          )
+        );
+      }
+
+      return returnNoResults;
+    }()
+  }, {
     key: 'update',
     value: function () {
       function update() {
@@ -8944,7 +8999,7 @@ var Locations = function (_Component) {
         var sortby = this.state.sort_by;
         var ratfilter = this.state.selectedRating.value;
 
-        fetch('/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter).then(function (results) {
+        fetch('//api.espressoyoself.me/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
@@ -8983,6 +9038,10 @@ var Locations = function (_Component) {
               )
             );
           });
+          if (data.length == 0) {
+            console.log("No results!");
+            locations = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+          }
           _this4.setState({ locations: views });
         });
         this.setState({ currentPage: 1 });
@@ -9100,6 +9159,7 @@ var Locations = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -9115,6 +9175,7 @@ var Locations = function (_Component) {
                   'Filter by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingfilter',
                   name: 'form-field-name',
                   value: ratingValue,
                   onChange: this.handleRatingChange.bind(this),
@@ -9130,6 +9191,7 @@ var Locations = function (_Component) {
                   'Sort by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingsort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -9145,6 +9207,7 @@ var Locations = function (_Component) {
                   'Sort Alphabetically'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'namesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -9770,7 +9833,7 @@ var Search = function (_Component) {
             _react2['default'].createElement(
               'div',
               { className: 'search' },
-              _react2['default'].createElement('input', { value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
+              _react2['default'].createElement('input', { className: 'search-input', value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
                   function onChange(evt) {
                     return _this6.updateInputValue(evt);
                   }
@@ -10065,7 +10128,7 @@ var Snapshot = function (_Component) {
             _react2['default'].createElement(
               'button',
               { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.go_to_instance },
-              'Learn More about this place!'
+              'LEARN MORE ABOUT THIS PLACE'
             )
           )
         );
@@ -10145,6 +10208,8 @@ var SnapshotsMain = function (_Component) {
       sort_by: undefined,
       sort_attr: undefined
     };
+    _this.returnNoResults = _this.returnNoResults.bind(_this);
+
     return _this;
   }
 
@@ -10282,6 +10347,23 @@ var SnapshotsMain = function (_Component) {
       return handleFavChange;
     }()
   }, {
+    key: 'returnNoResults',
+    value: function () {
+      function returnNoResults() {
+        return _react2['default'].createElement(
+          'div',
+          { className: 'intro-text text-center bg-faded p-5 rounded' },
+          _react2['default'].createElement(
+            'span',
+            { className: 'section-heading-upper text-center' },
+            'No Results'
+          )
+        );
+      }
+
+      return returnNoResults;
+    }()
+  }, {
     key: 'update',
     value: function () {
       function update() {
@@ -10292,7 +10374,7 @@ var SnapshotsMain = function (_Component) {
         var sortby = this.state.sort_by;
         var favsfilter = this.state.selectedFavs.value;
 
-        fetch('/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter).then(function (results) {
+        fetch('//api.espressoyoself.me/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
@@ -10331,6 +10413,11 @@ var SnapshotsMain = function (_Component) {
               )
             );
           });
+
+          if (data.length == 0) {
+            console.log("No results!");
+            snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+          }
           _this4.setState({ photos: snapshots });
         });
         this.setState({ currentPage: 1 });
@@ -10452,6 +10539,7 @@ var SnapshotsMain = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -10467,10 +10555,11 @@ var SnapshotsMain = function (_Component) {
                   'Filter by Faves'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'favsfilter',
                   name: 'form-field-name',
                   value: favsValue,
                   onChange: this.handleFavChange.bind(this),
-                  options: [{ value: '0', label: '0+' }, { value: '5', label: '5+' }, { value: '10', label: '10+' }, { value: '15', label: '15+' }, { value: '20', label: '20+' }]
+                  options: [{ value: '0', label: '0+' }, { value: '5', label: '5+' }, { value: '10', label: '10+' }]
                 })
               ),
               _react2['default'].createElement(
@@ -10482,6 +10571,7 @@ var SnapshotsMain = function (_Component) {
                   'Sort by Favorites'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'favssort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleFaveSortChange.bind(this),

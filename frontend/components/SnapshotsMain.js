@@ -31,6 +31,8 @@ class SnapshotsMain extends Component {
         sort_by: undefined,
         sort_attr: undefined
       };
+    this.returnNoResults = this.returnNoResults.bind(this);
+
     };
 
     componentDidMount() {
@@ -116,13 +118,21 @@ class SnapshotsMain extends Component {
       this.update();
     }
 
+    returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">No Results</span>
+      </div>
+    )
+  }
+
     update () {
       var cityfilter = this.state.selectedCity.value;
       var sort = this.state.sort_attr;
       var sortby = this.state.sort_by;
       var favsfilter = this.state.selectedFavs.value;
 
-      fetch('/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter
+      fetch('//api.espressoyoself.me/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter
         ).then(results => {
         console.log(results)
         return results.json();
@@ -139,6 +149,11 @@ class SnapshotsMain extends Component {
             </div>
           );
         });
+
+        if(data.length == 0) {
+          console.log("No results!");
+          snapshots = [<div></div>, this.returnNoResults()];
+        }
         this.setState({photos: snapshots})
       })
       this.setState({currentPage: 1})
@@ -225,6 +240,7 @@ class SnapshotsMain extends Component {
             <div className="filter">
               <h6>Choose a City to Explore</h6>
               <Select
+                  id="cityfilter"
                   name="form-field-name"
                   value={cityValue}
                   onChange={this.handleCityChange.bind(this)}
@@ -234,6 +250,7 @@ class SnapshotsMain extends Component {
             <div className="filter">
               <h6>Filter by Faves</h6>
               <Select
+                  id="favsfilter"
                   name="form-field-name"
                   value={favsValue}
                   onChange={this.handleFavChange.bind(this)}
@@ -241,14 +258,13 @@ class SnapshotsMain extends Component {
                     {value: '0', label: '0+'},
                     {value: '5', label: '5+'},
                     {value: '10', label: '10+'},
-                    {value: '15', label: '15+'},
-                    {value: '20', label: '20+'},
                   ]}
               />
             </div>
             <div className="filter">
               <h6>Sort by Favorites</h6>
               <Select
+                id="favssort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleFaveSortChange.bind(this)}

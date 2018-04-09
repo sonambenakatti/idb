@@ -16,12 +16,7 @@ class TestStringMethods(unittest.TestCase):
     def test_site_home(self):
         r = self.APP.get('/')
         self.assertEqual(r.status_code, 200)
-
-    def test_about(self):
-        r = self.APP.get('/getabout')
-        self.assertEqual(r.status_code, 302)
-        self.assertEqual(r.location, 'http://api.espressoyoself.me/about')
-
+    
 
     def test_shops_api_exists(self):
         r = self.APP.get('/getcoffeeshops')
@@ -33,7 +28,7 @@ class TestStringMethods(unittest.TestCase):
         str_data = r.data.decode('utf-8')
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r.location, 'http://api.espressoyoself.me/coffeeshop/1')
-
+       
 
     def test_scenic_api_exists(self):
         r = self.APP.get('/getsceniclocations')
@@ -44,7 +39,7 @@ class TestStringMethods(unittest.TestCase):
         r = self.APP.get('/getsceniclocation/2')
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r.location, 'http://api.espressoyoself.me/sceniclocation/2')
-
+       
 
     def test_snapshots_api_exists(self):
         r = self.APP.get('/getsnapshots')
@@ -52,9 +47,37 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshots')
 
     def test_snapshots_api_one(self):
-        r = self.APP.get('/getsnapshot/181')
+        r = self.APP.get('/getsnapshot/1')
         self.assertEqual(r.status_code, 302)
-        self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshot/181')
+        self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshot/1')
+
+    #New (Phase 3)backend tests
+
+    def test_search_api_exists(self):
+        r = self.APP.get('/search/coffee')
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.location, 'http://api.espressoyoself.me/search/coffee')
+
+    def test_nearby_scenic_api_exists(self):
+        r = self.APP.get('/nearby_scenic_from_shops/1')
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.location, 'http://api.espressoyoself.me/nearby_scenic_from_shops/1')
+
+    def test_nearby_scenic_api_exists(self):
+        r = self.APP.get('/nearby_shops_from_scenic/1')
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.location, 'http://api.espressoyoself.me/nearby_shops_from_scenic/1')
+
+
+    def test_snapshots_shop_api_exists(self):
+        r = self.APP.get('/snapshots_shop/1')
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshots_shop/1')
+
+    def test_snapshots_scenic_api_exists(self):
+        r = self.APP.get('/snapshots_scenic/1')
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshots_scenic/1')
 
     
 

@@ -37,6 +37,7 @@ constructor (props) {
     sort_by: undefined,
     sort_attr: undefined
   };
+  this.returnNoResults = this.returnNoResults.bind(this);
 };
 
 componentDidMount(props) {
@@ -140,6 +141,13 @@ handleRatingChange (selectedRating){
   this.update();
 
 }
+returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">No Results</span>
+      </div>
+    )
+  }
 
 update () {
   var cityfilter = this.state.selectedCity.value;
@@ -148,11 +156,13 @@ update () {
   var ratfilter = this.state.selectedRating.value;
   var pricefilter = this.state.selectedPrice.value;
 
-  fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
+  fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
     + '&pricefilter=' + pricefilter).then(results => {
     console.log(results)
+
     return results.json();
   }).then(data => {
+    console.log(data.length)
     let shops = data.map((shop) => {
       return(
         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
@@ -164,10 +174,17 @@ update () {
         </div>
       );
     })
+    console.log(data.length)
+     if(data.length == 0) {
+        console.log("No results!");
+        shops = [<div></div>, this.returnNoResults()];
+    }
+
     this.setState({coffeeshops: shops})
   })
   this.setState({currentPage: 1})
 }
+
 
 // invoked when user clicks a page number on the bottom.
 handleClick(pageNumber, arr, event) {
@@ -195,7 +212,8 @@ render() {
 
   const { coffeeshops, currentPage, shopsPerPage } = this.state;
   console.log(coffeeshops)
-
+  console.log(this.state.coffeeshops.length)
+ 
   const concat_shops = [];
   const shops = this.state.coffeeshops.map((coffeeshops, index) => {
     if (coffeeshops) {
@@ -230,7 +248,6 @@ render() {
         <li
           key={number}
           id={number}
-          className='page-item'
           style={this.state.currentPage === number ? {color:'orange'} : {}}
           onClick={this.handleClick.bind(this, number, concat_shops)}
         >
@@ -260,6 +277,7 @@ render() {
         <div className="filter">
           <h6>Choose a City to Explore</h6>
           <Select
+              id = "cityfilter"
               name="form-field-name"
               value={cityValue}
               onChange={this.handleCityChange.bind(this)}
@@ -269,6 +287,7 @@ render() {
         <div className="filter">
           <h6>Filter by Price Range</h6>
           <Select
+              id="pricefilter"
               name="form-field-name"
               value={priceValue}
               onChange={this.handlePriceChange.bind(this)}
@@ -283,6 +302,7 @@ render() {
         <div className="filter">
           <h6>Filter by Rating</h6>
           <Select
+              id="ratingfilter"
               name="form-field-name"
               value={ratingValue}
               onChange={this.handleRatingChange.bind(this)}
@@ -298,6 +318,7 @@ render() {
         <div className="filter">
           <h6>Sort by Price</h6>
           <Select
+              id="pricesort"
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
@@ -310,6 +331,7 @@ render() {
         <div className="filter">
           <h6>Sort by Rating</h6>
           <Select
+              id="ratingsort"
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
@@ -322,6 +344,7 @@ render() {
         <div className="filter">
           <h6>Sort Alphabetically</h6>
           <Select
+              id="namesort"
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
@@ -346,11 +369,6 @@ render() {
         <div className="col-md-12 text-center">
         <ul className="page-list">
           <li
-            id="<<"
-            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
-            onClick={this.handleClick.bind(this, 1, concat_shops)}> &lt;&lt;
-          </li>
-          <li
             id="prev"
             style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
             onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_shops)}> &lt;prev
@@ -360,11 +378,6 @@ render() {
             id="next"
             style={this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
             onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_shops)}> next&gt;
-          </li>
-          <li
-            id=">>"
-            style={this.state.currentPage  >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
-            onClick={this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops)}> &gt;&gt;
           </li>
         </ul>
         </div>

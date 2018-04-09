@@ -33,6 +33,7 @@ constructor (props) {
       sort_by: undefined,
       sort_attr: undefined
     };
+    this.returnNoResults = this.returnNoResults.bind(this);
 };
 
 componentDidMount(props) {
@@ -125,13 +126,22 @@ handleRatingChange (selectedRating){
   this.update();
 }
 
+returnNoResults() {
+    return (
+      <div className="intro-text text-center bg-faded p-5 rounded">
+          <span className="section-heading-upper text-center">No Results</span>
+      </div>
+    )
+  }
+
+
 update () {
   var cityfilter = this.state.selectedCity.value;
   var sort = this.state.sort_attr;
   var sortby = this.state.sort_by;
   var ratfilter = this.state.selectedRating.value;
 
-  fetch('/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
+  fetch('//api.espressoyoself.me/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
     ).then(results => {
     console.log(results)
     return results.json();
@@ -151,6 +161,10 @@ update () {
       </div>
     )
     })
+     if(data.length == 0) {
+        console.log("No results!");
+        locations = [<div></div>, this.returnNoResults()];
+      }
     this.setState({locations: views})
   })
   this.setState({currentPage: 1})
@@ -238,6 +252,7 @@ render() {
           <div className="filter">
             <h6>Choose a City to Explore</h6>
             <Select
+                id="cityfilter"
                 name="form-field-name"
                 value={cityValue}
                 onChange={this.handleCityChange.bind(this)}
@@ -247,6 +262,7 @@ render() {
           <div className="filter">
             <h6>Filter by Rating</h6>
             <Select
+                id="ratingfilter"
                 name="form-field-name"
                 value={ratingValue}
                 onChange={this.handleRatingChange.bind(this)}
@@ -262,6 +278,7 @@ render() {
           <div className="filter">
             <h6>Sort by Rating</h6>
             <Select
+                id="ratingsort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleSortChange.bind(this)}
@@ -274,6 +291,7 @@ render() {
           <div className="filter">
             <h6>Sort Alphabetically</h6>
             <Select
+                id="namesort"
                 name="form-field-name"
                 value={sortValue}
                 onChange={this.handleSortChange.bind(this)}
