@@ -9527,6 +9527,7 @@ var Search = function (_Component) {
         console.log(this.state.searchValue.split(" "));
         return _react2['default'].createElement(_reactHighlightWords2['default'], {
           highlightClassName: _highlighter2['default'].Highlight,
+          highlightStyle: { color: 'white' },
           searchWords: this.state.searchValue.split(" "),
           autoEscape: false,
           textToHighlight: text
@@ -10721,7 +10722,7 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, ".Header {\n  margin: 0 0 .5rem;\n  font-size: 1.25em;\n  font-weight: normal;\n}\n\n.Input {\n  width: 100%;\n  border: 1px solid #78909c;\n  line-height: 1.4;\n  padding: .3em .5em;\n  border-radius: .3em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n\n.Highlight {\n  background-color: #ffd54f;\n}\n\n.Active {\n  background-color: #f48f42;\n}\n\n.Footer {\n  margin-bottom: 0;\n}\n\n.Row {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  justify-content: space-between;\n}\n\n.FirstColumn,\n.SecondColumn {\n  flex: 1 1 auto;\n}\n\n.FirstColumn {\n  margin-right: 0.5rem;\n}\n\n.SecondColumn {\n  margin-left: 0.5rem;\n}\n", ""]);
+exports.push([module.i, ".Highlight {\n  background-color: #ffd54f;\n}\n", ""]);
 
 // exports
 

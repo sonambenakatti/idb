@@ -76,6 +76,7 @@ class Search extends Component {
     return (
       <Highlighter
          highlightClassName={styles.Highlight}
+         highlightStyle={{ color: 'white' }}
          searchWords = {this.state.searchValue.split(" ")}
          autoEscape={false}
          textToHighlight= {text}
