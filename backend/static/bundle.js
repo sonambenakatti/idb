@@ -7735,44 +7735,7 @@ var CoffeeShops = function (_Component) {
         }).then(function (data) {
           console.log("DATA");
           console.log(data);
-          var shops = data.map(function (shop) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'shop_instance', key: shop.shop_name, onClick: function () {
-                  function onClick() {
-                    _this2.setState({ navigate: true, navigateTo: "/shop", selectedShop: shop });
-                  }
-
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: shop.shop_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picText' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      shop.shop_name
-                    ),
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement('br', null),
-                    shop.shop_address,
-                    _react2['default'].createElement('br', null),
-                    shop.shop_price,
-                    _react2['default'].createElement('br', null),
-                    shop.shop_rating + "/5"
-                  )
-                )
-              )
-            );
-          });
-          _this2.setState({ coffeeshops: shops });
+          _this2.fetchData(data);
           _this2.getCities();
         });
       }
@@ -7780,10 +7743,58 @@ var CoffeeShops = function (_Component) {
       return componentDidMount;
     }()
   }, {
+    key: 'fetchData',
+    value: function () {
+      function fetchData(data) {
+        var _this3 = this;
+
+        var shops = data.map(function (shop) {
+          return _react2['default'].createElement(
+            'div',
+            { id: 'shop_instance', key: shop.shop_name, onClick: function () {
+                function onClick() {
+                  _this3.setState({ navigate: true, navigateTo: "/shop", selectedShop: shop });
+                }
+
+                return onClick;
+              }() },
+            _react2['default'].createElement(
+              'li',
+              { className: 'col' },
+              _react2['default'].createElement('img', { src: shop.shop_picture, style: { width: 300, height: 300 }, alt: shop.shop_name }),
+              _react2['default'].createElement(
+                'span',
+                { className: 'picText' },
+                _react2['default'].createElement(
+                  'span',
+                  null,
+                  _react2['default'].createElement(
+                    'b',
+                    null,
+                    shop.shop_name
+                  ),
+                  _react2['default'].createElement('br', null),
+                  _react2['default'].createElement('br', null),
+                  shop.shop_address,
+                  _react2['default'].createElement('br', null),
+                  shop.shop_price,
+                  _react2['default'].createElement('br', null),
+                  shop.shop_rating + "/5"
+                )
+              )
+            )
+          );
+        });
+        this.setState({ coffeeshops: shops });
+      }
+
+      return fetchData;
+    }()
+  }, {
     key: 'getCities',
     value: function () {
       function getCities() {
-        var _this3 = this;
+        var _this4 = this;
 
         fetch('/getcities').then(function (results) {
           console.log(results);
@@ -7793,7 +7804,7 @@ var CoffeeShops = function (_Component) {
           var cities = data.map(function (city) {
             return { value: city.city_id, label: city.city_name };
           });
-          _this3.setState({ cities_list: cities });
+          _this4.setState({ cities_list: cities });
         });
       }
 
@@ -7885,7 +7896,7 @@ var CoffeeShops = function (_Component) {
     key: 'update',
     value: function () {
       function update() {
-        var _this4 = this;
+        var _this5 = this;
 
         var cityfilter = this.state.selectedCity.value;
         var sort = this.state.sort_attr;
@@ -7897,44 +7908,13 @@ var CoffeeShops = function (_Component) {
           console.log(results);
           return results.json();
         }).then(function (data) {
-          var shops = data.map(function (shop) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'shop_instance', key: shop.shop_name, onClick: function () {
-                  function onClick() {
-                    _this4.setState({ navigate: true, navigateTo: "/shop", selectedShop: shop });
-                  }
-
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: shop.shop_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picText' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      shop.shop_name
-                    ),
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement('br', null),
-                    shop.shop_address,
-                    _react2['default'].createElement('br', null),
-                    shop.shop_price,
-                    _react2['default'].createElement('br', null),
-                    shop.shop_rating + "/5"
-                  )
-                )
-              )
-            );
-          });
-          _this4.setState({ coffeeshops: shops });
+          console.log(data.length);
+          _this5.fetchData(data);
+          console.log(data.length);
+          if (data.length == 0) {
+            console.log("No results!");
+            shops = [_react2['default'].createElement('div', null), _this5.returnNoResults()];
+          }
         });
         this.setState({ currentPage: 1 });
       }
@@ -7972,7 +7952,7 @@ var CoffeeShops = function (_Component) {
     key: 'render',
     value: function () {
       function render() {
-        var _this5 = this;
+        var _this6 = this;
 
         console.log("INSIDE RENDER");
 
@@ -8023,8 +8003,8 @@ var CoffeeShops = function (_Component) {
               key: number,
               id: number,
               className: 'page-item',
-              style: _this5.state.currentPage === number ? { color: 'orange' } : {},
-              onClick: _this5.handleClick.bind(_this5, number, concat_shops)
+              style: _this6.state.currentPage === number ? { color: 'orange' } : {},
+              onClick: _this6.handleClick.bind(_this6, number, concat_shops)
             },
             number
           );
@@ -8063,6 +8043,7 @@ var CoffeeShops = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -8078,6 +8059,7 @@ var CoffeeShops = function (_Component) {
                   'Filter by Price Range'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'pricefilter',
                   name: 'form-field-name',
                   value: priceValue,
                   onChange: this.handlePriceChange.bind(this),
@@ -8093,6 +8075,7 @@ var CoffeeShops = function (_Component) {
                   'Filter by Rating'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'ratingfilter',
                   name: 'form-field-name',
                   value: ratingValue,
                   onChange: this.handleRatingChange.bind(this),
@@ -8101,47 +8084,18 @@ var CoffeeShops = function (_Component) {
               ),
               _react2['default'].createElement(
                 'div',
-                { className: 'filter' },
+                null,
                 _react2['default'].createElement(
                   'h6',
                   null,
-                  'Sort by Price'
+                  'Sort By'
                 ),
                 _react2['default'].createElement(Select, {
+                  id: 'sort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
-                  options: [{ value: 'price/asc', label: 'Low - High' }, { value: 'price/desc', label: 'High - Low' }]
-                })
-              ),
-              _react2['default'].createElement(
-                'div',
-                { className: 'filter' },
-                _react2['default'].createElement(
-                  'h6',
-                  null,
-                  'Sort by Rating'
-                ),
-                _react2['default'].createElement(Select, {
-                  name: 'form-field-name',
-                  value: sortValue,
-                  onChange: this.handleSortChange.bind(this),
-                  options: [{ value: 'rating/asc', label: 'Low - High' }, { value: 'rating/desc', label: 'High - Low' }]
-                })
-              ),
-              _react2['default'].createElement(
-                'div',
-                { className: 'filter' },
-                _react2['default'].createElement(
-                  'h6',
-                  null,
-                  'Sort Alphabetically'
-                ),
-                _react2['default'].createElement(Select, {
-                  name: 'form-field-name',
-                  value: sortValue,
-                  onChange: this.handleSortChange.bind(this),
-                  options: [{ value: 'name/asc', label: 'A - Z' }, { value: 'name/desc', label: 'Z - A' }]
+                  options: [{ value: 'name/asc', label: 'Name: A - Z' }, { value: 'name/desc', label: 'Name: Z - A' }, { value: 'price/asc', label: 'Price: Low - High' }, { value: 'price/desc', label: 'Price: High - Low' }, { value: 'rating/asc', label: 'Rating: Low - High' }, { value: 'rating/desc', label: 'Rating: High - Low' }]
                 })
               )
             ),
@@ -8830,42 +8784,7 @@ var Locations = function (_Component) {
           return results.json();
         }).then(function (data) {
           console.log(data);
-          var views = data.map(function (scenicloc) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
-                  function onClick() {
-                    _this2.setState({ navigate: true, navigateTo: "/location", selectedLocation: scenicloc });
-                  }
-
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: scenicloc.scenic_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picText' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      scenicloc.scenic_name
-                    ),
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement('br', null),
-                    scenicloc.scenic_address,
-                    _react2['default'].createElement('br', null),
-                    scenicloc.scenic_rating + "/5"
-                  )
-                )
-              )
-            );
-          });
-          _this2.setState({ locations: views });
+          _this2.fetchData(data);
         });
         this.getCities();
       }
@@ -8873,10 +8792,56 @@ var Locations = function (_Component) {
       return componentDidMount;
     }()
   }, {
+    key: 'fetchData',
+    value: function () {
+      function fetchData(data) {
+        var _this3 = this;
+
+        var views = data.map(function (scenicloc) {
+          return _react2['default'].createElement(
+            'div',
+            { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
+                function onClick() {
+                  _this3.setState({ navigate: true, navigateTo: "/location", selectedLocation: scenicloc });
+                }
+
+                return onClick;
+              }() },
+            _react2['default'].createElement(
+              'li',
+              { className: 'col' },
+              _react2['default'].createElement('img', { src: scenicloc.scenic_picture, style: { width: 300, height: 300 }, alt: scenicloc.scenic_name }),
+              _react2['default'].createElement(
+                'span',
+                { className: 'picText' },
+                _react2['default'].createElement(
+                  'span',
+                  null,
+                  _react2['default'].createElement(
+                    'b',
+                    null,
+                    scenicloc.scenic_name
+                  ),
+                  _react2['default'].createElement('br', null),
+                  _react2['default'].createElement('br', null),
+                  scenicloc.scenic_address,
+                  _react2['default'].createElement('br', null),
+                  scenicloc.scenic_rating + "/5"
+                )
+              )
+            )
+          );
+        });
+        this.setState({ locations: views });
+      }
+
+      return fetchData;
+    }()
+  }, {
     key: 'getCities',
     value: function () {
       function getCities() {
-        var _this3 = this;
+        var _this4 = this;
 
         fetch('/getcities').then(function (results) {
           console.log(results);
@@ -8886,7 +8851,7 @@ var Locations = function (_Component) {
           var cities = data.map(function (city) {
             return { value: city.city_id, label: city.city_name };
           });
-          _this3.setState({ cities_list: cities });
+          _this4.setState({ cities_list: cities });
         });
       }
 
@@ -8977,7 +8942,7 @@ var Locations = function (_Component) {
     key: 'update',
     value: function () {
       function update() {
-        var _this4 = this;
+        var _this5 = this;
 
         var cityfilter = this.state.selectedCity.value;
         var sort = this.state.sort_attr;
@@ -8988,46 +8953,11 @@ var Locations = function (_Component) {
           console.log(results);
           return results.json();
         }).then(function (data) {
-          var views = data.map(function (scenicloc) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
-                  function onClick() {
-                    _this4.setState({ navigate: true, navigateTo: "/location", selectedLocation: scenicloc });
-                  }
-
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: scenicloc.scenic_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picText' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      scenicloc.scenic_name
-                    ),
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement('br', null),
-                    scenicloc.scenic_address,
-                    _react2['default'].createElement('br', null),
-                    scenicloc.scenic_rating + "/5"
-                  )
-                )
-              )
-            );
-          });
+          _this5.fetchData(data);
           if (data.length == 0) {
             console.log("No results!");
-            locations = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+            locations = [_react2['default'].createElement('div', null), _this5.returnNoResults()];
           }
-          _this4.setState({ locations: views });
         });
         this.setState({ currentPage: 1 });
       }
@@ -9061,7 +8991,7 @@ var Locations = function (_Component) {
     key: 'render',
     value: function () {
       function render() {
-        var _this5 = this;
+        var _this6 = this;
 
         var _state = this.state,
             locations = _state.locations,
@@ -9108,8 +9038,8 @@ var Locations = function (_Component) {
             {
               key: number,
               id: number,
-              style: _this5.state.currentPage === number ? { color: 'orange' } : {},
-              onClick: _this5.handleClick.bind(_this5, number, concat_locs)
+              style: _this6.state.currentPage === number ? { color: 'orange' } : {},
+              onClick: _this6.handleClick.bind(_this6, number, concat_locs)
             },
             number
           );
@@ -9173,30 +9103,14 @@ var Locations = function (_Component) {
                 _react2['default'].createElement(
                   'h6',
                   null,
-                  'Sort by Rating'
+                  'Sort By'
                 ),
                 _react2['default'].createElement(Select, {
-                  id: 'ratingsort',
+                  id: 'sort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
-                  options: [{ value: 'rating/asc', label: 'Low - High' }, { value: 'rating/desc', label: 'High - Low' }]
-                })
-              ),
-              _react2['default'].createElement(
-                'div',
-                { className: 'filter' },
-                _react2['default'].createElement(
-                  'h6',
-                  null,
-                  'Sort Alphabetically'
-                ),
-                _react2['default'].createElement(Select, {
-                  id: 'namesort',
-                  name: 'form-field-name',
-                  value: sortValue,
-                  onChange: this.handleSortChange.bind(this),
-                  options: [{ value: 'name/asc', label: 'A - Z' }, { value: 'name/desc', label: 'Z - A' }]
+                  options: [{ value: 'name/asc', label: 'Name: A - Z' }, { value: 'name/desc', label: 'Name: Z - A' }, { value: 'rating/asc', label: 'Rating: Low - High' }, { value: 'rating/desc', label: 'Rating: High - Low' }]
                 })
               )
             ),
@@ -10208,43 +10122,7 @@ var SnapshotsMain = function (_Component) {
         fetch('/getsnapshots').then(function (results) {
           return results.json();
         }).then(function (data) {
-          _this2.setState({ full_data: data });
-          var snapshots = data.map(function (snapshot) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
-                  function onClick() {
-                    _this2.setState({ navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
-                  }
-
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picText' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      snapshot.snap_name
-                    ),
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement('br', null),
-                    snapshot.snap_tags,
-                    _react2['default'].createElement('br', null),
-                    snapshot.snap_favs + " Faves"
-                  )
-                )
-              )
-            );
-          });
-          _this2.setState({ photos: snapshots });
+          _this2.fetchData(data);
         });
         this.getCities();
       }
@@ -10252,10 +10130,56 @@ var SnapshotsMain = function (_Component) {
       return componentDidMount;
     }()
   }, {
+    key: 'fetchData',
+    value: function () {
+      function fetchData(data) {
+        var _this3 = this;
+
+        var snapshots = data.map(function (snapshot) {
+          return _react2['default'].createElement(
+            'div',
+            { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
+                function onClick() {
+                  _this3.setState({ navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
+                }
+
+                return onClick;
+              }() },
+            _react2['default'].createElement(
+              'li',
+              { className: 'col' },
+              _react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 300, height: 300 }, alt: snapshot.snap_name }),
+              _react2['default'].createElement(
+                'span',
+                { className: 'picText' },
+                _react2['default'].createElement(
+                  'span',
+                  null,
+                  _react2['default'].createElement(
+                    'b',
+                    null,
+                    snapshot.snap_name
+                  ),
+                  _react2['default'].createElement('br', null),
+                  _react2['default'].createElement('br', null),
+                  snapshot.snap_tags,
+                  _react2['default'].createElement('br', null),
+                  snapshot.snap_favs + " Faves"
+                )
+              )
+            )
+          );
+        });
+        this.setState({ photos: snapshots });
+      }
+
+      return fetchData;
+    }()
+  }, {
     key: 'getCities',
     value: function () {
       function getCities() {
-        var _this3 = this;
+        var _this4 = this;
 
         fetch('/getcities').then(function (results) {
           return results.json();
@@ -10263,7 +10187,7 @@ var SnapshotsMain = function (_Component) {
           var cities = data.map(function (city) {
             return { value: city.city_id, label: city.city_name };
           });
-          _this3.setState({ cities_list: cities });
+          _this4.setState({ cities_list: cities });
         });
       }
 
@@ -10353,7 +10277,7 @@ var SnapshotsMain = function (_Component) {
     key: 'update',
     value: function () {
       function update() {
-        var _this4 = this;
+        var _this5 = this;
 
         var cityfilter = this.state.selectedCity.value;
         var sort = this.state.sort_attr;
@@ -10364,47 +10288,11 @@ var SnapshotsMain = function (_Component) {
           console.log(results);
           return results.json();
         }).then(function (data) {
-          var snapshots = data.map(function (snapshot) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
-                  function onClick() {
-                    _this4.setState({ navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
-                  }
-
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 300, height: 300 }, alt: 'Photo1' }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picText' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      snapshot.snap_name
-                    ),
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement('br', null),
-                    snapshot.snap_tags,
-                    _react2['default'].createElement('br', null),
-                    snapshot.snap_favs + " Faves"
-                  )
-                )
-              )
-            );
-          });
-
+          _this5.fetchData(data);
           if (data.length == 0) {
             console.log("No results!");
-            snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+            snapshots = [_react2['default'].createElement('div', null), _this5.returnNoResults()];
           }
-          _this4.setState({ photos: snapshots });
         });
         this.setState({ currentPage: 1 });
       }
@@ -10440,7 +10328,7 @@ var SnapshotsMain = function (_Component) {
     key: 'render',
     value: function () {
       function render() {
-        var _this5 = this,
+        var _this6 = this,
             _React$createElement;
 
         var _state = this.state,
@@ -10487,8 +10375,8 @@ var SnapshotsMain = function (_Component) {
             {
               key: number,
               id: number,
-              style: _this5.state.currentPage === number ? { color: 'orange' } : {},
-              onClick: _this5.handleClick.bind(_this5, number, concat_photos)
+              style: _this6.state.currentPage === number ? { color: 'orange' } : {},
+              onClick: _this6.handleClick.bind(_this6, number, concat_photos)
             },
             number
           );
@@ -10554,14 +10442,14 @@ var SnapshotsMain = function (_Component) {
                 _react2['default'].createElement(
                   'h6',
                   null,
-                  'Sort by Favorites'
+                  'Sort By'
                 ),
                 _react2['default'].createElement(Select, {
                   id: 'favssort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleFaveSortChange.bind(this),
-                  options: [{ value: 'favs/asc', label: 'Low-High' }, { value: 'favs/desc', label: 'High-Low' }]
+                  options: [{ value: 'favs/asc', label: 'Faves: Low - High' }, { value: 'favs/desc', label: 'Faves: High - Low' }]
                 })
               )
             ),
