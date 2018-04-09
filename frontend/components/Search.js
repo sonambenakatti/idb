@@ -143,6 +143,11 @@ class Search extends Component {
       });
     }
 
+  handleSearch(event) {
+    event.preventDefault();
+    this.search();
+  }
+
   render() {
      const{searchResults, currentPage, resultsPerPage} = this.state;
 
@@ -198,8 +203,10 @@ class Search extends Component {
       <div>
         <section className="page-section-1">
           <div className="search">
-            <input className = "search-input" value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
-            <button type="button" className="btn" onClick={this.search}>Search</button>
+            <form>
+              <input className = "search-input" value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
+              <button type="submit" className="btn" onClick={this.handleSearch.bind(this)}>Search</button>
+            </form>
           </div>
         </section>
         <section className="page-section-1">

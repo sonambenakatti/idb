@@ -9663,6 +9663,16 @@ var Search = function (_Component) {
       return handleClick;
     }()
   }, {
+    key: 'handleSearch',
+    value: function () {
+      function handleSearch(event) {
+        event.preventDefault();
+        this.search();
+      }
+
+      return handleSearch;
+    }()
+  }, {
     key: 'render',
     value: function () {
       function render() {
@@ -9735,17 +9745,21 @@ var Search = function (_Component) {
             _react2['default'].createElement(
               'div',
               { className: 'search' },
-              _react2['default'].createElement('input', { className: 'search-input', value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
-                  function onChange(evt) {
-                    return _this6.updateInputValue(evt);
-                  }
-
-                  return onChange;
-                }() }),
               _react2['default'].createElement(
-                'button',
-                { type: 'button', className: 'btn', onClick: this.search },
-                'Search'
+                'form',
+                null,
+                _react2['default'].createElement('input', { className: 'search-input', value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
+                    function onChange(evt) {
+                      return _this6.updateInputValue(evt);
+                    }
+
+                    return onChange;
+                  }() }),
+                _react2['default'].createElement(
+                  'button',
+                  { type: 'submit', className: 'btn', onClick: this.handleSearch.bind(this) },
+                  'Search'
+                )
               )
             )
           ),
