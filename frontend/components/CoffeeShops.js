@@ -298,7 +298,7 @@ render() {
               ]}
           />
         </div>
-        <div>
+        <div className="filter">
           <h6>Sort By</h6>
           <Select
               id="sort"
