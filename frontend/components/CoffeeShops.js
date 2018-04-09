@@ -195,10 +195,6 @@ render() {
 
   const { coffeeshops, currentPage, shopsPerPage } = this.state;
   console.log(coffeeshops)
-<<<<<<< Updated upstream
-=======
-  console.log(this.state.coffeeshops.length)
->>>>>>> Stashed changes
 
   const concat_shops = [];
   const shops = this.state.coffeeshops.map((coffeeshops, index) => {
@@ -264,6 +260,7 @@ render() {
         <div className="filter">
           <h6>Choose a City to Explore</h6>
           <Select
+              id="cityfilter"
               name="form-field-name"
               value={cityValue}
               onChange={this.handleCityChange.bind(this)}
@@ -273,6 +270,7 @@ render() {
         <div className="filter">
           <h6>Filter by Price Range</h6>
           <Select
+              id="pricefilter"
               name="form-field-name"
               value={priceValue}
               onChange={this.handlePriceChange.bind(this)}
@@ -287,6 +285,7 @@ render() {
         <div className="filter">
           <h6>Filter by Rating</h6>
           <Select
+              id="ratingfilter"
               name="form-field-name"
               value={ratingValue}
               onChange={this.handleRatingChange.bind(this)}
@@ -299,39 +298,10 @@ render() {
               ]}
           />
         </div>
-        <div className="filter">
-<<<<<<< Updated upstream
-          <h6>Sort by Price</h6>
-          <Select
-              name="form-field-name"
-              value={sortValue}
-              onChange={this.handleSortChange.bind(this)}
-              options={[
-                {value: 'price/asc', label: 'Low - High'},
-                {value: 'price/desc', label: 'High - Low'},
-              ]}
-          />
-        </div>
-        <div className="filter">
-          <h6>Sort by Rating</h6>
-          <Select
-              name="form-field-name"
-              value={sortValue}
-              onChange={this.handleSortChange.bind(this)}
-              options={[
-                {value: 'rating/asc', label: 'Low - High'},
-                {value: 'rating/desc', label: 'High - Low'},
-              ]}
-          />
-        </div>
-        <div className="filter">
-          <h6>Sort Alphabetically</h6>
-          <Select
-=======
+        <div>
           <h6>Sort By</h6>
           <Select
               id="sort"
->>>>>>> Stashed changes
               name="form-field-name"
               value={sortValue}
               onChange={this.handleSortChange.bind(this)}
