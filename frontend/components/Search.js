@@ -206,7 +206,7 @@ class Search extends Component {
           <div className="search">
             <form>
               <input className = "search-input" value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
-              <button type="submit" className="btn" onClick={this.handleSearch.bind(this)}>Search</button>
+              <button type="submit" className="btn-lg" onClick={this.handleSearch.bind(this)}>Search</button>
             </form>
           </div>
         </section>

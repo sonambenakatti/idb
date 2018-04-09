@@ -9758,7 +9758,7 @@ var Search = function (_Component) {
                   }() }),
                 _react2['default'].createElement(
                   'button',
-                  { type: 'submit', className: 'btn', onClick: this.handleSearch.bind(this) },
+                  { type: 'submit', className: 'btn-lg', onClick: this.handleSearch.bind(this) },
                   'Search'
                 )
               )

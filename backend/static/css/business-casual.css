@@ -351,8 +351,9 @@ input[type=text] {
   font-family: 'Roboto';
 }
 
-.search .btn {
+.search .btn-lg {
   font-family: 'Roboto';
+  margin-left: 15px;
 }
 
 .page-section-instance {
