@@ -10,14 +10,25 @@ import pprint
 import random
 #import githubstats
 from photo import Photo
+from configparser import SafeConfigParser
 
 pymysql.install_as_MySQLdb()
 
-user = 'TheCoolBeans'
-pwd = 'riley5143'
-host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
-db = 'beansdbdev'
+# read congig file for secrets
+parser = SafeConfigParser()
+parser.read('config.ini')
+
+# wrapper function for parsing config file
+def my_parser(section, option):
+    return str(parser.get(section, option).encode('ascii','ignore').decode('utf-8'))
+
+# get DB creds
+user = my_parser('database', 'user')
+pwd = my_parser('database', 'pwd')
+host = my_parser('database', 'host')
+db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
+
 # Database variable that is connected to database.
 engine = create_engine(uri)
 # Metadata for database.
@@ -116,7 +127,7 @@ def search(searchkey):
         jsonRes = json.dumps([dict(r) for r in results], default=alchemyencoder)
         return jsonRes
 
-        
+
 
     shops_query = 'SELECT DISTINCT * FROM Shops WHERE'
     scenic_query = 'SELECT DISTINCT * FROM Scenic WHERE'
@@ -124,7 +135,7 @@ def search(searchkey):
     for i in search_by:
         i_search =  '"%%' + str(i) + '%%"'
         i_search = str(i_search)
-   
+
         print(i_search)
         shops_query += ' shop_name LIKE ' + i_search + '  OR shop_address LIKE ' + i_search + ' OR shop_contact LIKE ' + i_search + ' OR shop_price LIKE ' + i_search + ' OR shop_hours LIKE '+i_search+' OR shop_rating LIKE ' + i_search + ' OR'
         scenic_query += ' scenic_name LIKE ' + i_search + ' OR scenic_address LIKE ' + i_search + ' OR scenic_rating LIKE ' + i_search + ' OR'

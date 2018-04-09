@@ -16,6 +16,7 @@ import sqlalchemy
 from sqlalchemy import *
 import pymysql
 from coffeeshop import CoffeeShop
+from configparser import SafeConfigParser
 
 pymysql.install_as_MySQLdb()
 
@@ -32,19 +33,25 @@ except ImportError:
     from urllib import quote
     from urllib import urlencode
 
+# read congig file for secrets
+parser = SafeConfigParser()
+parser.read('config.ini')
+
+# wrapper function for parsing config file
+def my_parser(section, option):
+    return str(parser.get(section, option).encode('ascii','ignore').decode('utf-8'))
+
 # Yelp Fusion no longer uses OAuth as of December 7, 2017.
 # You no longer need to provide Client ID to fetch Data
 # It now uses private keys to authenticate requests (API Key)
 # You can find it on
 # https://www.yelp.com/developers/v3/manage_app
-API_KEY= '1t54qajbOLK-eXDY2rtywLC9aefjxfsZM6T12Vf2aeoTQuWvwt3B6clW_2ORAavpZY9T4GrrNvJWwly37Sp-iRrSfHN8NX6xjW-ysVzzENi91CC8ZCtE4IKnrk17WnYx'
-
+API_KEY = my_parser('coffeeshops', 'API_KEY')
 
 # API constants, you shouldn't have to change these.
 API_HOST = 'https://api.yelp.com'
 SEARCH_PATH = '/v3/businesses/search'
 BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
-
 
 # Defaults for our simple example.
 DEFAULT_TERM = 'coffee'
@@ -69,9 +76,6 @@ def request(host, path, api_key, url_params=None):
     headers = {
         'Authorization': 'Bearer %s' % api_key,
     }
-
-    #print(u'Querying {0} ...'.format(url))
-
     response = requests.request('GET', url, headers=headers, params=url_params)
 
     return response.json()
@@ -124,11 +128,7 @@ def coffee_shop_results(response):
     list_shops = []
 
     for obj in response["businesses"] :
-        #print (obj, "next \n\n")
-        #address = obj["location"]["display_address"]
         if(obj is not None) :
-            print("OBJECT BEING PRINTED: " + str(obj))
-
             price = "Price Not Found"
             if(('price' in obj)) :
                 price = obj["price"]
@@ -148,7 +148,7 @@ def coffee_shop_results(response):
             rating,
             img_url,
             "n/a")
-            #coffeeshop.location = address
+
             get_business(coffeeshop.id, coffeeshop)
             list_shops.append(coffeeshop)
 
@@ -171,7 +171,6 @@ def search(api_key, term, location):
     }
     return request(API_HOST, SEARCH_PATH, api_key, url_params=url_params)
 
-
 #2
 def query_api(term, location):
     """Queries the API by the input values from the user.
@@ -181,23 +180,18 @@ def query_api(term, location):
     """
     response = search(API_KEY, term, location)
     businesses = response.get('businesses')
-    #pprint.pprint(response, indent=2)
     if not businesses:
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
     coffee_shops = coffee_shop_results(response)
     return coffee_shops
 
-
-user = 'TheCoolBeans'
-pwd = 'riley5143'
-host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
-db = 'beansdbdev'
+# get DB creds
+user = my_parser('database', 'user')
+pwd = my_parser('database', 'pwd')
+host = my_parser('database', 'host')
+db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
-#app.config['SQLALCHEMY_DATABASE_URI'] = uri
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#db = SQLAlchemy(app)
-#db.echo = False
 
 #1
 def main():
