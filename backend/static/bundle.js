@@ -7718,7 +7718,6 @@ var CoffeeShops = function (_Component) {
       sort_by: undefined,
       sort_attr: undefined
     };
-    _this.returnNoResults = _this.returnNoResults.bind(_this);
     return _this;
   }
 
@@ -7882,23 +7881,6 @@ var CoffeeShops = function (_Component) {
       return handleRatingChange;
     }()
   }, {
-    key: 'returnNoResults',
-    value: function () {
-      function returnNoResults() {
-        return _react2['default'].createElement(
-          'div',
-          { className: 'intro-text text-center bg-faded p-5 rounded' },
-          _react2['default'].createElement(
-            'span',
-            { className: 'section-heading-upper text-center' },
-            'No Results'
-          )
-        );
-      }
-
-      return returnNoResults;
-    }()
-  }, {
     key: 'update',
     value: function () {
       function update() {
@@ -7910,12 +7892,10 @@ var CoffeeShops = function (_Component) {
         var ratfilter = this.state.selectedRating.value;
         var pricefilter = this.state.selectedPrice.value;
 
-        fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
+        fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
           console.log(results);
-
           return results.json();
         }).then(function (data) {
-          console.log(data.length);
           var shops = data.map(function (shop) {
             return _react2['default'].createElement(
               'div',
@@ -7953,12 +7933,6 @@ var CoffeeShops = function (_Component) {
               )
             );
           });
-          console.log(data.length);
-          if (data.length == 0) {
-            console.log("No results!");
-            shops = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
-          }
-
           _this4.setState({ coffeeshops: shops });
         });
         this.setState({ currentPage: 1 });
@@ -8007,7 +7981,6 @@ var CoffeeShops = function (_Component) {
             shopsPerPage = _state.shopsPerPage;
 
         console.log(coffeeshops);
-        console.log(this.state.coffeeshops.length);
 
         var concat_shops = [];
         var shops = this.state.coffeeshops.map(function (coffeeshops, index) {
@@ -8048,6 +8021,7 @@ var CoffeeShops = function (_Component) {
             {
               key: number,
               id: number,
+              className: 'page-item',
               style: _this5.state.currentPage === number ? { color: 'orange' } : {},
               onClick: _this5.handleClick.bind(_this5, number, concat_shops)
             },
@@ -8088,7 +8062,6 @@ var CoffeeShops = function (_Component) {
                   'Choose a City to Explore'
                 ),
                 _react2['default'].createElement(Select, {
-                  id: 'cityfilter',
                   name: 'form-field-name',
                   value: cityValue,
                   onChange: this.handleCityChange.bind(this),
@@ -8104,7 +8077,6 @@ var CoffeeShops = function (_Component) {
                   'Filter by Price Range'
                 ),
                 _react2['default'].createElement(Select, {
-                  id: 'pricefilter',
                   name: 'form-field-name',
                   value: priceValue,
                   onChange: this.handlePriceChange.bind(this),
@@ -8120,7 +8092,6 @@ var CoffeeShops = function (_Component) {
                   'Filter by Rating'
                 ),
                 _react2['default'].createElement(Select, {
-                  id: 'ratingfilter',
                   name: 'form-field-name',
                   value: ratingValue,
                   onChange: this.handleRatingChange.bind(this),
@@ -8136,7 +8107,6 @@ var CoffeeShops = function (_Component) {
                   'Sort by Price'
                 ),
                 _react2['default'].createElement(Select, {
-                  id: 'pricesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8152,7 +8122,6 @@ var CoffeeShops = function (_Component) {
                   'Sort by Rating'
                 ),
                 _react2['default'].createElement(Select, {
-                  id: 'ratingsort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8168,7 +8137,6 @@ var CoffeeShops = function (_Component) {
                   'Sort Alphabetically'
                 ),
                 _react2['default'].createElement(Select, {
-                  id: 'namesort',
                   name: 'form-field-name',
                   value: sortValue,
                   onChange: this.handleSortChange.bind(this),
@@ -8206,6 +8174,14 @@ var CoffeeShops = function (_Component) {
                 _react2['default'].createElement(
                   'li',
                   {
+                    id: '<<',
+                    style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
+                    onClick: this.handleClick.bind(this, 1, concat_shops) },
+                  ' <<'
+                ),
+                _react2['default'].createElement(
+                  'li',
+                  {
                     id: 'prev',
                     style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
                     onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_shops) },
@@ -8219,6 +8195,14 @@ var CoffeeShops = function (_Component) {
                     style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
                     onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_shops) },
                   ' next>'
+                ),
+                _react2['default'].createElement(
+                  'li',
+                  {
+                    id: '>>',
+                    style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
+                    onClick: this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops) },
+                  ' >>'
                 )
               )
             )
