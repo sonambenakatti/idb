@@ -59,12 +59,12 @@ class Search extends Component {
         <div id="shop_instance" onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result, instanceType: "CoffeeInstance"})}}>
           <li className="col">
               <img src={result.shop_picture} style={{width: 300, height: 300}}/>
-              <span class="picText">
-                <span><nobr>{this.highlightText(result.shop_name)}</nobr>
+              <div class="centered">
+                <span><nobr><b>{this.highlightText(result.shop_name)}</b></nobr>
                 <br /><br />{this.highlightText(result.shop_address)}
                 <br />{this.highlightText(result.shop_price)}<br />
                 {this.highlightText(result.shop_rating + "/5")}</span>
-              </span>
+              </div>
           </li>
         </div>
     );
@@ -91,12 +91,12 @@ class Search extends Component {
       <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location"})}}>
         <li className="col">
             <img src={result.scenic_picture} style={{width: 300, height: 300}}/>
-            <span className="picText">
+            <div class="centered">
               <span><b>{this.highlightText(result.scenic_name)}</b>
               <br /><br />{this.highlightText(result.scenic_address)}
               <br />{this.highlightText(result.scenic_rating + "/5")}
               </span>
-            </span>
+            </div>
         </li>
       </div>
     );
@@ -107,9 +107,11 @@ class Search extends Component {
       <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result, instanceType: "Snapshot"})}}>
         <li className="col">
             <img src={result.snap_picture} style={{width: 300, height: 300}}/>
-            <span className="picText"><span><b>{this.highlightText(result.snap_name)}</b><br /><br />
-            {this.highlightText(result.snap_tags)}<br />
-            {this.highlightText(result.snap_favs + " Faves")}</span></span>
+            <div class="centered">
+            <span><b>{this.highlightText(result.snap_name)}</b><br /><br />
+            {/* {this.highlightText(result.snap_tags)}<br /> */}
+            {this.highlightText(result.snap_favs + " Faves")}</span>
+            </div>
         </li>
       </div>
     );
