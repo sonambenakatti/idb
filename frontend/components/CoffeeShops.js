@@ -37,6 +37,7 @@ constructor (props) {
     sort_by: undefined,
     sort_attr: undefined
   };
+
 };
 
 componentDidMount(props) {
@@ -78,13 +79,13 @@ getCities() {
   })
 }
 
-handleCityChange(selectedCity){
+handleCityChange(selectedCity) {
   if (selectedCity == null) {
     this.state.selectedCity = {
       value: undefined,
       label: undefined
     };
-  } else if (selectedCity){
+  } else if (selectedCity) {
     this.state.selectedCity = selectedCity;
     this.setState({selectedCity: selectedCity});
   }
@@ -113,7 +114,7 @@ handleSortChange(selectedSort) {
   this.update();
 }
 
-handlePriceChange(selectedPrice){
+handlePriceChange(selectedPrice) {
   if (selectedPrice == null) {
     this.state.selectedPrice = {
       value: undefined,
@@ -126,7 +127,7 @@ handlePriceChange(selectedPrice){
   this.update();
 }
 
-handleRatingChange (selectedRating){
+handleRatingChange (selectedRating) {
 
   if (selectedRating == null) {
     this.state.selectedRating = {

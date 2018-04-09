@@ -7718,6 +7718,7 @@ var CoffeeShops = function (_Component) {
       sort_by: undefined,
       sort_attr: undefined
     };
+
     return _this;
   }
 
@@ -9330,8 +9331,9 @@ var Navbar = function (_Component) {
     key: 'render',
     value: function () {
       function render() {
-        console.log("NAV" + this.state.currentPage);
+        console.log("NAV HERE" + window.location.href);
         //  console.log("CURRENT"+ this.context.router.getCurrentPathname());
+        var pathname = window.location.href;
         return _react2['default'].createElement(
           'div',
           { id: 'navbar' },
@@ -9373,7 +9375,7 @@ var Navbar = function (_Component) {
                       _reactRouterDom.NavLink,
                       { exact: true, id: 'home', className: 'nav-link text-uppercase text-expanded', to: '/',
                         activeClassName: 'active',
-                        style: this.state.currentPage === "home" ? { color: 'orange' } : {},
+                        style: !pathname.includes("shop") && !pathname.includes("location") && !pathname.includes("snaps") && !pathname.includes("about") && !pathname.includes("search") ? { color: 'orange' } : {},
                         onClick: this.handleClick.bind(this) },
                       'Home'
                     )
@@ -9385,7 +9387,7 @@ var Navbar = function (_Component) {
                       _reactRouterDom.NavLink,
                       { id: 'shops', className: 'nav-link text-uppercase text-expanded', to: '/shops',
                         activeClassName: 'active',
-                        style: this.state.currentPage === "shops" ? { color: 'orange' } : {},
+                        style: pathname.includes("shop") ? { color: 'orange' } : {},
                         onClick: this.handleClick.bind(this) },
                       'Coffee Shops'
                     )
@@ -9397,7 +9399,7 @@ var Navbar = function (_Component) {
                       _reactRouterDom.NavLink,
                       { id: 'scenicloc', className: 'nav-link text-uppercase text-expanded', to: '/locations',
                         activeClassName: 'active',
-                        style: this.state.currentPage === "scenicloc" ? { color: 'orange' } : {},
+                        style: pathname.includes("location") ? { color: 'orange' } : {},
                         onClick: this.handleClick.bind(this) },
                       'Scenic Locations'
                     )
@@ -9409,7 +9411,7 @@ var Navbar = function (_Component) {
                       _reactRouterDom.NavLink,
                       { id: 'snaps', className: 'nav-link text-uppercase text-expanded', to: '/snapshots',
                         activeClassName: 'active',
-                        style: this.state.currentPage === "snaps" ? { color: 'orange' } : {},
+                        style: pathname.includes("snaps") ? { color: 'orange' } : {},
                         onClick: this.handleClick.bind(this) },
                       'Snapshots'
                     )
@@ -9421,7 +9423,7 @@ var Navbar = function (_Component) {
                       _reactRouterDom.NavLink,
                       { id: 'about', className: 'nav-link text-uppercase text-expanded', to: '/about',
                         activeClassName: 'active',
-                        style: this.state.currentPage === "about" ? { color: 'orange' } : {},
+                        style: pathname.includes("about") ? { color: 'orange' } : {},
                         onClick: this.handleClick.bind(this) },
                       'About'
                     )
@@ -9433,7 +9435,7 @@ var Navbar = function (_Component) {
                       _reactRouterDom.NavLink,
                       { id: 'search', className: 'nav-link text-uppercase text-expanded', to: '/search',
                         activeClassName: 'active',
-                        style: this.state.currentPage === "search" ? { color: 'orange' } : {},
+                        style: pathname.includes("search") ? { color: 'orange' } : {},
                         onClick: this.handleClick.bind(this) },
                       'Search'
                     )
