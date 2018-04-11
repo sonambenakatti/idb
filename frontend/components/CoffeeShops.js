@@ -55,6 +55,9 @@ componentDidMount(props) {
 
 fetchData(data) {
   let shops = data.map((shop) =>{
+    if(shop.shop_picture === "") {
+      shop.shop_picture = "/static/img/noCoffeeImage.png"
+    }
     return(
       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedShop: shop})}}>
         <li className="col">

@@ -49,6 +49,9 @@ componentDidMount(props) {
 
 fetchData(data) {
   let views = data.map((scenicloc) =>{
+    if(scenicloc.scenic_picture === "") {
+      scenicloc.scenic_picture = "/static/img/noLocationImage.png"
+    }
     return(
       <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
         <li className="col">
