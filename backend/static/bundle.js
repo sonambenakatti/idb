@@ -6669,119 +6669,187 @@ var About = function (_Component) {
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Github:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://github.com" },
+                          "Github:"
+                        )
                       ),
                       " for code storage and collaboration",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "React:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://reactjs.org" },
+                          "React:"
+                        )
                       ),
                       " for our front-end component based javascript code",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "MySQL:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.mysql.com" },
+                          "MySQL:"
+                        )
                       ),
                       " for database queries",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "AWS RDS:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://aws.amazon.com/rds/" },
+                          "AWS RDS:"
+                        )
                       ),
                       " as our relational database storage",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Bootstrap:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://getbootstrap.com" },
+                          "Bootstrap:"
+                        )
                       ),
                       " to beautify our UI",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Flask:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "http://flask.pocoo.org" },
+                          "Flask:"
+                        )
                       ),
                       " for our backend framework ",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Amazon Web Services:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://aws.amazon.com" },
+                          "Amazon Web Services:"
+                        )
                       ),
                       " to host our website",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Postman:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.getpostman.com" },
+                          "Postman:"
+                        )
                       ),
                       " to help test our REST API endpoints",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Namecheap:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.namecheap.com" },
+                          "Namecheap:"
+                        )
                       ),
                       " to obtain a free domain name",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "GitBook:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.gitbook.com" },
+                          "GitBook:"
+                        )
                       ),
                       " holds our REST API",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "flickrapi:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.flickr.com/services/api/" },
+                          "flickrapi:"
+                        )
                       ),
                       " to easily scrape data from the Flickr API",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Unittests:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://docs.python.org/3/library/unittest.html" },
+                          "Unittests:"
+                        )
                       ),
                       " to test our backend python code",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Selenium:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.seleniumhq.org" },
+                          "Selenium:"
+                        )
                       ),
                       " to test our GUI",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Mocha:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://mochajs.org" },
+                          "Mocha:"
+                        )
                       ),
                       " to test our javascript code",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Reach-Highlight-Words:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://bvaughn.github.io/react-highlight-words/" },
+                          "Reach-Highlight-Words:"
+                        )
                       ),
                       " to highlight words in search results",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Reach-Select:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://github.com/JedWatson/react-select" },
+                          "React-Select:"
+                        )
                       ),
                       " to filter and sort on model pages",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "SQL-Alchemy:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "http://www.sqlalchemy.org" },
+                          "SQL-Alchemy:"
+                        )
                       ),
                       " to use mysql with python",
                       _react2["default"].createElement("br", null)
