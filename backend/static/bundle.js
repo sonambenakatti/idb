@@ -7655,7 +7655,7 @@ var CoffeeInstance = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'scenic_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_scenic },
+                    { id: 'scenic_nearby', className: 'btn', type: 'button', onClick: this.get_scenic },
                     'SCENIC LOCATIONS NEARBY'
                   )
                 )
@@ -7668,7 +7668,7 @@ var CoffeeInstance = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                    { id: 'more_snaps', className: 'btn', type: 'button', onClick: this.get_snaps },
                     'MORE SNAPS'
                   )
                 )
@@ -7976,7 +7976,7 @@ var CoffeeShops = function (_Component) {
         var ratfilter = this.state.selectedRating.value;
         var pricefilter = this.state.selectedPrice.value;
 
-        fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
+        fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
@@ -8719,7 +8719,7 @@ var Location = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
+                    { id: 'coffee_nearby', className: 'btn', type: 'button', onClick: this.get_coffeeshops },
                     'COFFEESHOPS NEARBY'
                   )
                 )
@@ -8732,7 +8732,7 @@ var Location = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                    { id: 'more_snaps', className: 'btn', type: 'button', onClick: this.get_snaps },
                     'MORE SNAPS'
                   )
                 )
@@ -10119,7 +10119,7 @@ var Snapshot = function (_Component) {
             { className: 'model-links' },
             _react2['default'].createElement(
               'button',
-              { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.go_to_instance },
+              { id: 'more_snaps', className: 'btn', type: 'button', onClick: this.go_to_instance },
               'LEARN MORE ABOUT THIS PLACE'
             )
           )

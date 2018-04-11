@@ -125,12 +125,12 @@ returnNoResults() {
         <div class="row">
           <div className="col-md-6">
             <div className="text-center">
-              <button id="scenic_nearby" className="btn btn-primary" type="button" onClick={this.get_scenic}>SCENIC LOCATIONS NEARBY</button>
+              <button id="scenic_nearby" className="btn" type="button" onClick={this.get_scenic}>SCENIC LOCATIONS NEARBY</button>
             </div>
           </div>
           <div className="col-md-6">
             <div className="text-center">
-              <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
+              <button id="more_snaps" className="btn" type="button" onClick={this.get_snaps}>MORE SNAPS</button>
             </div>
           </div>
         </div>
