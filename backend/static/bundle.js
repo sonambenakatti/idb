@@ -7818,6 +7818,9 @@ var CoffeeShops = function (_Component) {
         var _this3 = this;
 
         var shops = data.map(function (shop) {
+          if (shop.shop_picture === "") {
+            shop.shop_picture = "/static/img/noCoffeeImage.png";
+          }
           return _react2['default'].createElement(
             'div',
             { id: 'shop_instance', key: shop.shop_name, onClick: function () {
@@ -8867,6 +8870,9 @@ var Locations = function (_Component) {
         var _this3 = this;
 
         var views = data.map(function (scenicloc) {
+          if (scenicloc.scenic_picture === "") {
+            scenicloc.scenic_picture = "/static/img/noLocationImage.png";
+          }
           return _react2['default'].createElement(
             'div',
             { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
