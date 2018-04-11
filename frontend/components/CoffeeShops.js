@@ -331,7 +331,7 @@ render() {
           </div>
         </section>
         <div className="col-md-12 text-center">
-        <ul className="page-list">
+        <ul className="page-list hidden-xs">
           <li
             id="<<"
             style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
