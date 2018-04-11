@@ -205,7 +205,7 @@ class Search extends Component {
         <section className="page-section-1">
           <div className="search">
             <form>
-              <input className = "search-input" value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
+              <input className = "search-input" value={this.state.inputValue} type="text" name="search" onChange={evt => this.updateInputValue(evt) } autoFocus/>
               <button type="submit" className="btn-lg" onClick={this.handleSearch.bind(this)}>Search</button>
             </form>
           </div>
