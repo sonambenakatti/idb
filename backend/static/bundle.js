@@ -6649,9 +6649,10 @@ var About = function (_Component) {
       function loadIssues() {
         var _this3 = this;
 
-        fetch('https://api.github.com/repos/sonambenakatti/idb/issues').then(function (response) {
+        fetch('https://api.github.com/repos/sonambenakatti/idb/issues?state=all&per_page=100').then(function (response) {
           return response.json();
         }).then(function (data) {
+          console.log(data);
           var actualIssues = { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 };
           var total = 0;
           for (var i = 0; i < data.length; i++) {
