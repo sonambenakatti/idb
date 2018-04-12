@@ -21,9 +21,6 @@ class Photo:
         self.__id = id
         self.tags = tags
         self.secret = secret
-        # self.shopId = shopId
-        # self.scenicId = scenicId
-
 
     @property
     def id(self) :
@@ -104,19 +101,3 @@ class Photo:
     @imageUrl.setter
     def imageUrl(self, img) :
         self.__imageUrl = img
-
-    # @property
-    # def shopId(self) :
-    #     return self.__shopId
-    #
-    # @shopId.setter
-    # def shopId(self, shopId) :
-    #     self.__shopId = shopId
-    #
-    # @property
-    # def scenicId(self) :
-    #     return self.__scenicId
-    #
-    # @scenicId.setter
-    # def scenicId(self, scenicId) :
-    #     self.__scenicId = scenicId

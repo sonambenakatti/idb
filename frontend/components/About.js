@@ -39,9 +39,10 @@ loadCommits() {
 }
 
 loadIssues() {
-  fetch('https://api.github.com/repos/sonambenakatti/idb/issues')
+  fetch('https://api.github.com/repos/sonambenakatti/idb/issues?state=all&per_page=100')
   			.then(response => response.json())
   			.then(data => {
+          console.log(data);
           let actualIssues = {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0};
           let total = 0;
           for (let i = 0; i < data.length; i++) {
@@ -206,23 +207,23 @@ render() {
                 </p>
                 <h3 className="mb-4">TOOLS</h3>
                 <p className="mb-4">
-                  <b>Github:</b> for code storage and collaboration<br />
-                  <b>React:</b> for our front-end component based javascript code<br />
-                  <b>MySQL:</b> for database queries<br />
-                  <b>AWS RDS:</b> as our relational database storage<br />
-                  <b>Bootstrap:</b> to beautify our UI<br />
-                  <b>Flask:</b> for our backend framework <br />
-                  <b>Amazon Web Services:</b> to host our website<br />
-                  <b>Postman:</b> to help test our REST API endpoints<br />
-                  <b>Namecheap:</b> to obtain a free domain name<br />
-                  <b>GitBook:</b> holds our REST API<br />
-                  <b>flickrapi:</b> to easily scrape data from the Flickr API<br />
-                  <b>Unittests:</b> to test our backend python code<br />
-                  <b>Selenium:</b> to test our GUI<br />
-                  <b>Mocha:</b> to test our javascript code<br />
-                  <b>Reach-Highlight-Words:</b> to highlight words in search results<br />
-                  <b>Reach-Select:</b> to filter and sort on model pages<br />
-                  <b>SQL-Alchemy:</b> to use mysql with python<br />
+                  <b><a href="https://github.com">Github:</a></b> for code storage and collaboration<br />
+                  <b><a href="https://reactjs.org">React:</a></b> for our front-end component based javascript code<br />
+                  <b><a href="https://www.mysql.com">MySQL:</a></b> for database queries<br />
+                  <b><a href="https://aws.amazon.com/rds/">AWS RDS:</a></b> as our relational database storage<br />
+                  <b><a href="https://getbootstrap.com">Bootstrap:</a></b> to beautify our UI<br />
+                  <b><a href="http://flask.pocoo.org">Flask:</a></b> for our backend framework <br />
+                  <b><a href="https://aws.amazon.com">Amazon Web Services:</a></b> to host our website<br />
+                  <b><a href="https://www.getpostman.com">Postman:</a></b> to help test our REST API endpoints<br />
+                  <b><a href="https://www.namecheap.com">Namecheap:</a></b> to obtain a free domain name<br />
+                  <b><a href="https://www.gitbook.com">GitBook:</a></b> holds our REST API<br />
+                  <b><a href="https://www.flickr.com/services/api/">flickrapi:</a></b> to easily scrape data from the Flickr API<br />
+                  <b><a href="https://docs.python.org/3/library/unittest.html">Unittests:</a></b> to test our backend python code<br />
+                  <b><a href="https://www.seleniumhq.org">Selenium:</a></b> to test our GUI<br />
+                  <b><a href="https://mochajs.org">Mocha:</a></b> to test our javascript code<br />
+                  <b><a href="https://bvaughn.github.io/react-highlight-words/">Reach-Highlight-Words:</a></b> to highlight words in search results<br />
+                  <b><a href="https://github.com/JedWatson/react-select">React-Select:</a></b> to filter and sort on model pages<br />
+                  <b><a href="http://www.sqlalchemy.org">SQL-Alchemy:</a></b> to use mysql with python<br />
                 </p>
                 <h3 className="mb-4"><a href="https://github.com/sonambenakatti/idb">Github</a></h3>
                 <h3 className="mb-4"><a href="https://sonambenakatti.gitbooks.io/espresso-yoself/content/">Gitbook</a></h3>

@@ -6649,9 +6649,10 @@ var About = function (_Component) {
       function loadIssues() {
         var _this3 = this;
 
-        fetch('https://api.github.com/repos/sonambenakatti/idb/issues').then(function (response) {
+        fetch('https://api.github.com/repos/sonambenakatti/idb/issues?state=all&per_page=100').then(function (response) {
           return response.json();
         }).then(function (data) {
+          console.log(data);
           var actualIssues = { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 };
           var total = 0;
           for (var i = 0; i < data.length; i++) {
@@ -7132,119 +7133,187 @@ var About = function (_Component) {
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Github:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://github.com" },
+                          "Github:"
+                        )
                       ),
                       " for code storage and collaboration",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "React:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://reactjs.org" },
+                          "React:"
+                        )
                       ),
                       " for our front-end component based javascript code",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "MySQL:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.mysql.com" },
+                          "MySQL:"
+                        )
                       ),
                       " for database queries",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "AWS RDS:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://aws.amazon.com/rds/" },
+                          "AWS RDS:"
+                        )
                       ),
                       " as our relational database storage",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Bootstrap:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://getbootstrap.com" },
+                          "Bootstrap:"
+                        )
                       ),
                       " to beautify our UI",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Flask:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "http://flask.pocoo.org" },
+                          "Flask:"
+                        )
                       ),
                       " for our backend framework ",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Amazon Web Services:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://aws.amazon.com" },
+                          "Amazon Web Services:"
+                        )
                       ),
                       " to host our website",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Postman:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.getpostman.com" },
+                          "Postman:"
+                        )
                       ),
                       " to help test our REST API endpoints",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Namecheap:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.namecheap.com" },
+                          "Namecheap:"
+                        )
                       ),
                       " to obtain a free domain name",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "GitBook:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.gitbook.com" },
+                          "GitBook:"
+                        )
                       ),
                       " holds our REST API",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "flickrapi:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.flickr.com/services/api/" },
+                          "flickrapi:"
+                        )
                       ),
                       " to easily scrape data from the Flickr API",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Unittests:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://docs.python.org/3/library/unittest.html" },
+                          "Unittests:"
+                        )
                       ),
                       " to test our backend python code",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Selenium:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://www.seleniumhq.org" },
+                          "Selenium:"
+                        )
                       ),
                       " to test our GUI",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Mocha:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://mochajs.org" },
+                          "Mocha:"
+                        )
                       ),
                       " to test our javascript code",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Reach-Highlight-Words:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://bvaughn.github.io/react-highlight-words/" },
+                          "Reach-Highlight-Words:"
+                        )
                       ),
                       " to highlight words in search results",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "Reach-Select:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "https://github.com/JedWatson/react-select" },
+                          "React-Select:"
+                        )
                       ),
                       " to filter and sort on model pages",
                       _react2["default"].createElement("br", null),
                       _react2["default"].createElement(
                         "b",
                         null,
-                        "SQL-Alchemy:"
+                        _react2["default"].createElement(
+                          "a",
+                          { href: "http://www.sqlalchemy.org" },
+                          "SQL-Alchemy:"
+                        )
                       ),
                       " to use mysql with python",
                       _react2["default"].createElement("br", null)
@@ -7605,7 +7674,7 @@ var CoffeeInstance = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'scenic_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_scenic },
+                    { id: 'scenic_nearby', className: 'btn', type: 'button', onClick: this.get_scenic },
                     'SCENIC LOCATIONS NEARBY'
                   )
                 )
@@ -7618,7 +7687,7 @@ var CoffeeInstance = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                    { id: 'more_snaps', className: 'btn', type: 'button', onClick: this.get_snaps },
                     'MORE SNAPS'
                   )
                 )
@@ -7768,6 +7837,9 @@ var CoffeeShops = function (_Component) {
         var _this3 = this;
 
         var shops = data.map(function (shop) {
+          if (shop.shop_picture === "") {
+            shop.shop_picture = "/static/img/noCoffeeImage.png";
+          }
           return _react2['default'].createElement(
             'div',
             { id: 'shop_instance', key: shop.shop_name, onClick: function () {
@@ -7996,8 +8068,8 @@ var CoffeeShops = function (_Component) {
 
         // Logic for displaying page numbers
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(concat_shops.length / shopsPerPage) ? currentPage + 7 : Math.ceil(concat_shops.length / shopsPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(concat_shops.length / shopsPerPage) ? currentPage + 2 : Math.ceil(concat_shops.length / shopsPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
@@ -8141,42 +8213,46 @@ var CoffeeShops = function (_Component) {
             ),
             _react2['default'].createElement(
               'div',
-              { className: 'col-md-12 text-center' },
+              { className: 'container xsmall' },
               _react2['default'].createElement(
-                'ul',
-                { className: 'page-list' },
+                'div',
+                { className: 'col-md-12 text-center' },
                 _react2['default'].createElement(
-                  'li',
-                  {
-                    id: '<<',
-                    style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, 1, concat_shops) },
-                  ' <<'
-                ),
-                _react2['default'].createElement(
-                  'li',
-                  {
-                    id: 'prev',
-                    style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_shops) },
-                  ' <prev'
-                ),
-                renderPageNumbers,
-                _react2['default'].createElement(
-                  'li',
-                  {
-                    id: 'next',
-                    style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_shops) },
-                  ' next>'
-                ),
-                _react2['default'].createElement(
-                  'li',
-                  {
-                    id: '>>',
-                    style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops) },
-                  ' >>'
+                  'ul',
+                  { className: 'page-list xsmall' },
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: '<<',
+                      style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, 1, concat_shops) },
+                    ' <<'
+                  ),
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: 'prev',
+                      style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_shops) },
+                    ' <'
+                  ),
+                  renderPageNumbers,
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: 'next',
+                      style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_shops) },
+                    ' >'
+                  ),
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: '>>',
+                      style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops) },
+                    ' >>'
+                  )
                 )
               )
             )
@@ -8671,7 +8747,7 @@ var Location = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'coffee_nearby', className: 'btn btn-primary', type: 'button', onClick: this.get_coffeeshops },
+                    { id: 'coffee_nearby', className: 'btn', type: 'button', onClick: this.get_coffeeshops },
                     'COFFEESHOPS NEARBY'
                   )
                 )
@@ -8684,7 +8760,7 @@ var Location = function (_Component) {
                   { className: 'text-center' },
                   _react2['default'].createElement(
                     'button',
-                    { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.get_snaps },
+                    { id: 'more_snaps', className: 'btn', type: 'button', onClick: this.get_snaps },
                     'MORE SNAPS'
                   )
                 )
@@ -8822,6 +8898,9 @@ var Locations = function (_Component) {
         var _this3 = this;
 
         var views = data.map(function (scenicloc) {
+          if (scenicloc.scenic_picture === "") {
+            scenicloc.scenic_picture = "/static/img/noLocationImage.png";
+          }
           return _react2['default'].createElement(
             'div',
             { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
@@ -9035,8 +9114,8 @@ var Locations = function (_Component) {
         var currentLocations = concat_locs.slice(indexOfFirstLocation, indexOfLastLocation);
 
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(concat_locs.length / locationsPerPage) ? currentPage + 7 : Math.ceil(concat_locs.length / locationsPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(concat_locs.length / locationsPerPage) ? currentPage + 2 : Math.ceil(concat_locs.length / locationsPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
@@ -9551,6 +9630,7 @@ var Search = function (_Component) {
         console.log(this.state.searchValue.split(" "));
         return _react2['default'].createElement(_reactHighlightWords2['default'], {
           highlightClassName: _highlighter2['default'].Highlight,
+          highlightStyle: { color: 'white' },
           searchWords: this.state.searchValue.split(" "),
           autoEscape: false,
           textToHighlight: text
@@ -9687,6 +9767,16 @@ var Search = function (_Component) {
       return handleClick;
     }()
   }, {
+    key: 'handleSearch',
+    value: function () {
+      function handleSearch(event) {
+        event.preventDefault();
+        this.search();
+      }
+
+      return handleSearch;
+    }()
+  }, {
     key: 'render',
     value: function () {
       function render() {
@@ -9706,8 +9796,8 @@ var Search = function (_Component) {
         var currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(searchResults.length / resultsPerPage) ? currentPage + 7 : Math.ceil(searchResults.length / resultsPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(searchResults.length / resultsPerPage) ? currentPage + 2 : Math.ceil(searchResults.length / resultsPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
@@ -9759,17 +9849,21 @@ var Search = function (_Component) {
             _react2['default'].createElement(
               'div',
               { className: 'search' },
-              _react2['default'].createElement('input', { className: 'search-input', value: this.state.inputValue, type: 'text', name: 'search' /*placeholder="Search..."*/, onChange: function () {
-                  function onChange(evt) {
-                    return _this6.updateInputValue(evt);
-                  }
-
-                  return onChange;
-                }() }),
               _react2['default'].createElement(
-                'button',
-                { type: 'button', className: 'btn', onClick: this.search },
-                'Search'
+                'form',
+                null,
+                _react2['default'].createElement('input', { className: 'search-input', value: this.state.inputValue, type: 'text', name: 'search', onChange: function () {
+                    function onChange(evt) {
+                      return _this6.updateInputValue(evt);
+                    }
+
+                    return onChange;
+                  }(), autoFocus: true }),
+                _react2['default'].createElement(
+                  'button',
+                  { type: 'submit', className: 'btn-lg', onClick: this.handleSearch.bind(this) },
+                  'Search'
+                )
               )
             )
           ),
@@ -10053,7 +10147,7 @@ var Snapshot = function (_Component) {
             { className: 'model-links' },
             _react2['default'].createElement(
               'button',
-              { id: 'more_snaps', className: 'btn btn-primary', type: 'button', onClick: this.go_to_instance },
+              { id: 'more_snaps', className: 'btn', type: 'button', onClick: this.go_to_instance },
               'LEARN MORE ABOUT THIS PLACE'
             )
           )
@@ -10375,8 +10469,8 @@ var SnapshotsMain = function (_Component) {
         var currentPhotos = concat_photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(concat_photos.length / photosPerPage) ? currentPage + 7 : Math.ceil(concat_photos.length / photosPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(concat_photos.length / photosPerPage) ? currentPage + 2 : Math.ceil(concat_photos.length / photosPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
@@ -10731,7 +10825,7 @@ exports = module.exports = __webpack_require__(25)(false);
 
 
 // module
-exports.push([module.i, ".Header {\n  margin: 0 0 .5rem;\n  font-size: 1.25em;\n  font-weight: normal;\n}\n\n.Input {\n  width: 100%;\n  border: 1px solid #78909c;\n  line-height: 1.4;\n  padding: .3em .5em;\n  border-radius: .3em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n\n.Highlight {\n  background-color: #ffd54f;\n}\n\n.Active {\n  background-color: #f48f42;\n}\n\n.Footer {\n  margin-bottom: 0;\n}\n\n.Row {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  justify-content: space-between;\n}\n\n.FirstColumn,\n.SecondColumn {\n  flex: 1 1 auto;\n}\n\n.FirstColumn {\n  margin-right: 0.5rem;\n}\n\n.SecondColumn {\n  margin-left: 0.5rem;\n}\n", ""]);
+exports.push([module.i, ".Highlight {\n  background-color: #ffd54f;\n}\n", ""]);
 
 // exports
 

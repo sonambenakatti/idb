@@ -55,6 +55,9 @@ componentDidMount(props) {
 
 fetchData(data) {
   let shops = data.map((shop) =>{
+    if(shop.shop_picture === "") {
+      shop.shop_picture = "/static/img/noCoffeeImage.png"
+    }
     return(
       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop})}}>
         <li className="col">
@@ -210,8 +213,8 @@ render() {
 
   // Logic for displaying page numbers
   const pageNumbers = [];
-  const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_shops.length / shopsPerPage)? currentPage + 7 : Math.ceil(concat_shops.length / shopsPerPage)
-  const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+  const nextPageNumbers = currentPage + 2 <= Math.ceil(concat_shops.length / shopsPerPage)? currentPage + 2 : Math.ceil(concat_shops.length / shopsPerPage)
+  const prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1: 1
   for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
     pageNumbers.push(i);
   }
@@ -282,39 +285,39 @@ render() {
               ]}
           />
         </div>
-        <div className="filter">
-          <h6>Filter by Rating</h6>
-          <Select
-              id="ratingfilter"
-              name="form-field-name"
-              value={ratingValue}
-              onChange={this.handleRatingChange.bind(this)}
-              options={[
-                {value: '0', label: '0+'},
-                {value: '1', label: '1+'},
-                {value: '2', label: '2+'},
-                {value: '3', label: '3+'},
-                {value: '4', label: '4+'},
-              ]}
-          />
-        </div>
-        <div className="filter">
-          <h6>Sort By</h6>
-          <Select
-              id="sort"
-              name="form-field-name"
-              value={sortValue}
-              onChange={this.handleSortChange.bind(this)}
-              options={[
-                {value: 'name/asc', label: 'Name: A - Z'},
-                {value: 'name/desc', label: 'Name: Z - A'},
-                {value: 'price/asc', label: 'Price: Low - High'},
-                {value: 'price/desc', label: 'Price: High - Low'},
-                {value: 'rating/asc', label: 'Rating: Low - High'},
-                {value: 'rating/desc', label: 'Rating: High - Low'},
-              ]}
-          />
-        </div>
+          <div className="filter">
+            <h6>Filter by Rating</h6>
+            <Select
+                id="ratingfilter"
+                name="form-field-name"
+                value={ratingValue}
+                onChange={this.handleRatingChange.bind(this)}
+                options={[
+                  {value: '0', label: '0+'},
+                  {value: '1', label: '1+'},
+                  {value: '2', label: '2+'},
+                  {value: '3', label: '3+'},
+                  {value: '4', label: '4+'},
+                ]}
+            />
+          </div>
+          <div className="filter">
+            <h6>Sort By</h6>
+            <Select
+                id="sort"
+                name="form-field-name"
+                value={sortValue}
+                onChange={this.handleSortChange.bind(this)}
+                options={[
+                  {value: 'name/asc', label: 'Name: A - Z'},
+                  {value: 'name/desc', label: 'Name: Z - A'},
+                  {value: 'price/asc', label: 'Price: Low - High'},
+                  {value: 'price/desc', label: 'Price: High - Low'},
+                  {value: 'rating/asc', label: 'Rating: Low - High'},
+                  {value: 'rating/desc', label: 'Rating: High - Low'},
+                ]}
+            />
+          </div>
         </div>
         <section className="page-section">
           <div className="container">
@@ -327,30 +330,32 @@ render() {
             </div>
           </div>
         </section>
-        <div className="col-md-12 text-center">
-        <ul className="page-list">
-          <li
-            id="<<"
-            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
-            onClick={this.handleClick.bind(this, 1, concat_shops)}> &lt;&lt;
-          </li>
-          <li
-            id="prev"
-            style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
-            onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_shops)}> &lt;prev
-          </li>
-            {renderPageNumbers}
-          <li
-            id="next"
-            style={this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
-            onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_shops)}> next&gt;
-          </li>
-          <li
-            id=">>"
-            style={this.state.currentPage  >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
-            onClick={this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops)}> &gt;&gt;
-          </li>
-        </ul>
+        <div className="container xsmall">
+          <div className="col-md-12 text-center">
+            <ul className="page-list xsmall">
+              <li
+                id="<<"
+                style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+                onClick={this.handleClick.bind(this, 1, concat_shops)}> &lt;&lt;
+              </li>
+              <li
+                id="prev"
+                style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
+                onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_shops)}> &lt;
+              </li>
+                {renderPageNumbers}
+              <li
+                id="next"
+                style={this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
+                onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_shops)}> &gt;
+              </li>
+              <li
+                id=">>"
+                style={this.state.currentPage  >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? {visibility:'hidden'} : {}}
+                onClick={this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops)}> &gt;&gt;
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

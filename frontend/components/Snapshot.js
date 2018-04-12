@@ -93,7 +93,7 @@ class Snapshot extends Component {
           </div>
         </div>
         <div className="model-links">
-          <button id="more_snaps" className="btn btn-primary" type="button" onClick={this.go_to_instance}>LEARN MORE ABOUT THIS PLACE</button>
+          <button id="more_snaps" className="btn" type="button" onClick={this.go_to_instance}>LEARN MORE ABOUT THIS PLACE</button>
         </div>
         </div>
 

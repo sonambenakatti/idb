@@ -49,6 +49,9 @@ componentDidMount(props) {
 
 fetchData(data) {
   let views = data.map((scenicloc) =>{
+    if(scenicloc.scenic_picture === "") {
+      scenicloc.scenic_picture = "/static/img/noLocationImage.png"
+    }
     return(
       <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
         <li className="col">
@@ -193,8 +196,8 @@ render() {
   const currentLocations = concat_locs.slice(indexOfFirstLocation, indexOfLastLocation);
 
   const pageNumbers = [];
-  const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_locs.length / locationsPerPage)? currentPage + 7 : Math.ceil(concat_locs.length / locationsPerPage)
-  const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+  const nextPageNumbers = currentPage + 2 <= Math.ceil(concat_locs.length / locationsPerPage)? currentPage + 2 : Math.ceil(concat_locs.length / locationsPerPage)
+  const prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1: 1
   for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
     pageNumbers.push(i);
   }

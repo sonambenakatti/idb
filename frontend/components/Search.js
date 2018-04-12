@@ -76,6 +76,7 @@ class Search extends Component {
     return (
       <Highlighter
          highlightClassName={styles.Highlight}
+         highlightStyle={{ color: 'white' }}
          searchWords = {this.state.searchValue.split(" ")}
          autoEscape={false}
          textToHighlight= {text}
@@ -143,6 +144,11 @@ class Search extends Component {
       });
     }
 
+  handleSearch(event) {
+    event.preventDefault();
+    this.search();
+  }
+
   render() {
      const{searchResults, currentPage, resultsPerPage} = this.state;
 
@@ -154,8 +160,8 @@ class Search extends Component {
      const currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
      const pageNumbers = [];
-     const nextPageNumbers = currentPage + 7 <= Math.ceil(searchResults.length / resultsPerPage)? currentPage + 7 : Math.ceil(searchResults.length / resultsPerPage)
-     const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+     const nextPageNumbers = currentPage + 2 <= Math.ceil(searchResults.length / resultsPerPage)? currentPage + 2 : Math.ceil(searchResults.length / resultsPerPage)
+     const prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1: 1
      for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
        pageNumbers.push(i);
      }
@@ -198,8 +204,10 @@ class Search extends Component {
       <div>
         <section className="page-section-1">
           <div className="search">
-            <input className = "search-input" value={this.state.inputValue} type="text" name="search" /*placeholder="Search..."*/ onChange={evt => this.updateInputValue(evt)}/>
-            <button type="button" className="btn" onClick={this.search}>Search</button>
+            <form>
+              <input className = "search-input" value={this.state.inputValue} type="text" name="search" onChange={evt => this.updateInputValue(evt) } autoFocus/>
+              <button type="submit" className="btn-lg" onClick={this.handleSearch.bind(this)}>Search</button>
+            </form>
           </div>
         </section>
         <section className="page-section-1">
