@@ -56,7 +56,7 @@ class Search extends Component {
 
   returnCoffeeShop(result) {
     return(
-        <div id="shop_instance" onClick={() =>{this.setState({navigate: true, navigateTo: "/shop", selectedInstance: result, instanceType: "CoffeeInstance"})}}>
+        <div id="shop_instance" onClick={() =>{this.setState({navigate: true, navigateTo: "/shop/" + result.shop_id, selectedInstance: result, instanceType: "CoffeeInstance"})}}>
           <li className="col">
               <img src={result.shop_picture} style={{width: 300, height: 300}}/>
               <div class="centered">
@@ -89,7 +89,7 @@ class Search extends Component {
       result.scenic_picture = "/static/img/noLocationImage.png"
     }
     return(
-      <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location"})}}>
+      <div id="location_instance" key={result.scenic_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/location/" + result.scenic_id, selectedInstance: result, instanceType: "Location"})}}>
         <li className="col">
             <img src={result.scenic_picture} style={{width: 300, height: 300}}/>
             <div class="centered">
@@ -105,7 +105,7 @@ class Search extends Component {
 
   returnSnapshot(result) {
     return(
-      <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedInstance: result, instanceType: "Snapshot"})}}>
+      <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot/" + result.snap_id, selectedInstance: result, instanceType: "Snapshot"})}}>
         <li className="col">
             <img src={result.snap_picture} style={{width: 300, height: 300}}/>
             <div class="centered">

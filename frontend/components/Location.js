@@ -8,9 +8,9 @@ class Location extends Component {
 
   constructor (props) {
       super(props);
-      console.log(this.props.location.state.selectedLocation.scenic_address);
       this.state = {
         scenicloc: [],
+        id: props.match.params.scenicId,
         shops_list: [],
         selectedShop: [],
         snaps_list: [],
@@ -24,23 +24,26 @@ class Location extends Component {
   };
 
   componentDidMount(props) {
-     id = this.props.location.query
+    console.log(this.state.id)
 
-    fetch('/getsceniclocation/' + id).then(results =>{
+    fetch('/getsceniclocation/' + this.state.id).then(results =>{
       console.log(results)
       return results.json();
     }).then(data=>{
       console.log("DATA")
       console.log(data)
+      let views = data.map((scenic) =>{
+        this.setState({scenicloc: scenic});
+      
+      })
     })
-    this.setState({scenicloc: data});
+    
 
 
   }
 
   get_coffeeshops(){
-    console.log(this.state.scenic_id)
-    fetch('/nearby_shops_from_scenic/' + this.state.scenic_id).then(results =>{
+    fetch('/nearby_shops_from_scenic/' + this.state.scenicloc.scenic_id).then(results =>{
     console.log("Results:" + results)
     return results.json();
   }).then(data=>{
@@ -63,7 +66,7 @@ class Location extends Component {
 
   get_snaps(){
     console.log("IN SNAPS JS")
-    fetch('/snapshots_scenic/'+ this.state.scenic_id).then(results =>{
+    fetch('/snapshots_scenic/'+ this.state.scenicloc.scenic_id).then(results =>{
     return results.json();
   }).then(data=>{
       console.log("This is the data")
@@ -71,7 +74,7 @@ class Location extends Component {
       let snapshots = data.map((snapshot) =>{
         return(
 
-          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
                 <span className="picTextInstance"><span><b>{snapshot.snap_name}</b></span></span>
@@ -138,7 +141,7 @@ class Location extends Component {
           </div>
         </div>
         <div className="col-sm-5 instance-pic">
-          <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.scenicloc.scenic_photo} alt={this.state.scenicloc.scenic_name} style={{width: 500, height: 500, marginTop: 50}} />
+          <img className="product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0" src={this.state.scenicloc.scenic_picture} alt={this.state.scenicloc.scenic_name} style={{width: 500, height: 500, marginTop: 50}} />
         </div>
         </div>
         <div className="model-links">

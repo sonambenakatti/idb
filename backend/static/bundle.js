@@ -7411,10 +7411,12 @@ var CoffeeInstance = function (_Component) {
 
     _this.state = {
       shop: [],
+      id: props.match.params.shopId,
       scenic_list: [],
       selectedLocation: [],
       snaps_list: [],
       selectedSnapshot: []
+
     };
     _this.get_scenic = _this.get_scenic.bind(_this);
     _this.get_snaps = _this.get_snaps.bind(_this);
@@ -7426,17 +7428,21 @@ var CoffeeInstance = function (_Component) {
     key: 'componentDidMount',
     value: function () {
       function componentDidMount(props) {
-        var id = new URLSearchParams(search);
-        console.log(id);
+        var _this2 = this;
 
-        fetch('/getcoffeeshop/' + id).then(function (results) {
+        console.log(this.state.id);
+
+        fetch('/getcoffeeshop/' + this.state.id).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
           console.log("DATA");
           console.log(data);
+          var shops = data.map(function (shop) {
+            _this2.setState({ shop: shop });
+          });
+          console.log(_this2.state.shop);
         });
-        this.setState({ shop: data });
       }
 
       return componentDidMount;
@@ -7445,7 +7451,7 @@ var CoffeeInstance = function (_Component) {
     key: 'get_scenic',
     value: function () {
       function get_scenic() {
-        var _this2 = this;
+        var _this3 = this;
 
         fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(function (results) {
           console.log("Results:" + results);
@@ -7457,7 +7463,7 @@ var CoffeeInstance = function (_Component) {
               'div',
               { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
                   function onClick() {
-                    _this2.setState({ navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
+                    _this3.setState({ navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
                   }
 
                   return onClick;
@@ -7483,7 +7489,7 @@ var CoffeeInstance = function (_Component) {
               )
             );
           });
-          _this2.setState({ scenic_list: views });
+          _this3.setState({ scenic_list: views });
         });
       }
 
@@ -7510,7 +7516,7 @@ var CoffeeInstance = function (_Component) {
     key: 'get_snaps',
     value: function () {
       function get_snaps() {
-        var _this3 = this;
+        var _this4 = this;
 
         console.log("IN SNAPS JS");
         fetch('/snapshots_shop/' + this.state.shop.shop_id).then(function (results) {
@@ -7523,7 +7529,7 @@ var CoffeeInstance = function (_Component) {
               'div',
               { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
                   function onClick() {
-                    _this3.setState({ navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
+                    _this4.setState({ navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
                   }
 
                   return onClick;
@@ -7551,9 +7557,9 @@ var CoffeeInstance = function (_Component) {
           });
           if (data.length == 0) {
             console.log("No results!");
-            snapshots = [_react2['default'].createElement('div', null), _this3.returnNoResults()];
+            snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
           }
-          _this3.setState({ snaps_list: snapshots });
+          _this4.setState({ snaps_list: snapshots });
         });
       }
 
@@ -8471,9 +8477,9 @@ var Location = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Location.__proto__ || Object.getPrototypeOf(Location)).call(this, props));
 
-    console.log(_this.props.location.state.selectedLocation.scenic_address);
     _this.state = {
       scenicloc: [],
+      id: props.match.params.scenicId,
       shops_list: [],
       selectedShop: [],
       snaps_list: [],
@@ -8491,16 +8497,20 @@ var Location = function (_Component) {
     key: 'componentDidMount',
     value: function () {
       function componentDidMount(props) {
-        id = this.props.location.query;
+        var _this2 = this;
 
-        fetch('/getsceniclocation/' + id).then(function (results) {
+        console.log(this.state.id);
+
+        fetch('/getsceniclocation/' + this.state.id).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
           console.log("DATA");
           console.log(data);
+          var views = data.map(function (scenic) {
+            _this2.setState({ scenicloc: scenic });
+          });
         });
-        this.setState({ scenicloc: data });
       }
 
       return componentDidMount;
@@ -8509,10 +8519,9 @@ var Location = function (_Component) {
     key: 'get_coffeeshops',
     value: function () {
       function get_coffeeshops() {
-        var _this2 = this;
+        var _this3 = this;
 
-        console.log(this.state.scenic_id);
-        fetch('/nearby_shops_from_scenic/' + this.state.scenic_id).then(function (results) {
+        fetch('/nearby_shops_from_scenic/' + this.state.scenicloc.scenic_id).then(function (results) {
           console.log("Results:" + results);
           return results.json();
         }).then(function (data) {
@@ -8522,7 +8531,7 @@ var Location = function (_Component) {
               'div',
               { id: 'shop_instance', key: shop.shop_name, onClick: function () {
                   function onClick() {
-                    _this2.setState({ navigateShop: true, navigateTo: "/shop" + shop.shop_id, selectedShop: shop });
+                    _this3.setState({ navigateShop: true, navigateTo: "/shop" + shop.shop_id, selectedShop: shop });
                   }
 
                   return onClick;
@@ -8548,7 +8557,7 @@ var Location = function (_Component) {
               )
             );
           });
-          _this2.setState({ shops_list: shops });
+          _this3.setState({ shops_list: shops });
         });
       }
 
@@ -8558,10 +8567,10 @@ var Location = function (_Component) {
     key: 'get_snaps',
     value: function () {
       function get_snaps() {
-        var _this3 = this;
+        var _this4 = this;
 
         console.log("IN SNAPS JS");
-        fetch('/snapshots_scenic/' + this.state.scenic_id).then(function (results) {
+        fetch('/snapshots_scenic/' + this.state.scenicloc.scenic_id).then(function (results) {
           return results.json();
         }).then(function (data) {
           console.log("This is the data");
@@ -8571,7 +8580,7 @@ var Location = function (_Component) {
               'div',
               { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
                   function onClick() {
-                    _this3.setState({ navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
+                    _this4.setState({ navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
                   }
 
                   return onClick;
@@ -8598,9 +8607,9 @@ var Location = function (_Component) {
           });
           if (data.length == 0) {
             console.log("No results!");
-            snapshots = [_react2['default'].createElement('div', null), _this3.returnNoResults()];
+            snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
           }
-          _this3.setState({ snaps_list: snapshots });
+          _this4.setState({ snaps_list: snapshots });
         });
       }
 
@@ -8730,7 +8739,7 @@ var Location = function (_Component) {
             _react2['default'].createElement(
               'div',
               { className: 'col-sm-5 instance-pic' },
-              _react2['default'].createElement('img', { className: 'product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0', src: this.state.scenicloc.scenic_photo, alt: this.state.scenicloc.scenic_name, style: { width: 500, height: 500, marginTop: 50 } })
+              _react2['default'].createElement('img', { className: 'product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0', src: this.state.scenicloc.scenic_picture, alt: this.state.scenicloc.scenic_name, style: { width: 500, height: 500, marginTop: 50 } })
             )
           ),
           _react2['default'].createElement(
@@ -9583,7 +9592,7 @@ var Search = function (_Component) {
           'div',
           { id: 'shop_instance', onClick: function () {
               function onClick() {
-                _this3.setState({ navigate: true, navigateTo: "/shop", selectedInstance: result, instanceType: "CoffeeInstance" });
+                _this3.setState({ navigate: true, navigateTo: "/shop/" + result.shop_id, selectedInstance: result, instanceType: "CoffeeInstance" });
               }
 
               return onClick;
@@ -9652,7 +9661,7 @@ var Search = function (_Component) {
           'div',
           { id: 'location_instance', key: result.scenic_name, onClick: function () {
               function onClick() {
-                _this4.setState({ navigate: true, navigateTo: "/location", selectedInstance: result, instanceType: "Location" });
+                _this4.setState({ navigate: true, navigateTo: "/location/" + result.scenic_id, selectedInstance: result, instanceType: "Location" });
               }
 
               return onClick;
@@ -9695,7 +9704,7 @@ var Search = function (_Component) {
           'div',
           { id: 'snap_instance', key: result.snap_name, onClick: function () {
               function onClick() {
-                _this5.setState({ navigate: true, navigateTo: "/snapshot", selectedInstance: result, instanceType: "Snapshot" });
+                _this5.setState({ navigate: true, navigateTo: "/snapshot/" + result.snap_id, selectedInstance: result, instanceType: "Snapshot" });
               }
 
               return onClick;
@@ -9992,7 +10001,8 @@ var Snapshot = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Snapshot.__proto__ || Object.getPrototypeOf(Snapshot)).call(this, props));
 
     _this.state = {
-      snapshot: _this.props.location.state.snapshot,
+      snapshot: [],
+      id: props.match.params.snapshotId,
       selectedShop: [],
       shop: []
 
@@ -10004,10 +10014,33 @@ var Snapshot = function (_Component) {
   }
 
   _createClass(Snapshot, [{
+    key: 'componentDidMount',
+    value: function () {
+      function componentDidMount(props) {
+        var _this2 = this;
+
+        console.log(this.state.id);
+
+        fetch('/getsnapshot/' + this.state.id).then(function (results) {
+          console.log(results);
+          return results.json();
+        }).then(function (data) {
+          console.log("DATA");
+          console.log(data);
+          var snaps = data.map(function (snap) {
+            _this2.setState({ snapshot: snap });
+          });
+          console.log(_this2.state.snapshot);
+        });
+      }
+
+      return componentDidMount;
+    }()
+  }, {
     key: 'go_to_instance',
     value: function () {
       function go_to_instance() {
-        var _this2 = this;
+        var _this3 = this;
 
         if (this.state.snapshot.shop_id != null) {
           fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(function (results) {
@@ -10016,7 +10049,7 @@ var Snapshot = function (_Component) {
           }).then(function (data) {
             console.log(data);
             var shops = data.map(function (shop) {
-              _this2.setState({ navigateShop: true, navigateTo: "/shop", selectedShop: shop });
+              _this3.setState({ navigateShop: true, navigateTo: "/shop/" + _this3.state.snapshot.shop_id, selectedShop: shop });
             });
           });
         } else if (this.state.snapshot.scenic_id != null) {
@@ -10026,7 +10059,7 @@ var Snapshot = function (_Component) {
           }).then(function (data) {
             console.log(data);
             var views = data.map(function (scenicloc) {
-              _this2.setState({ navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc });
+              _this3.setState({ navigateScenic: true, navigateTo: "/location/" + _this3.state.snapshot.scenic_id, selectedLocation: scenicloc });
             });
           });
         }
@@ -10260,7 +10293,7 @@ var SnapshotsMain = function (_Component) {
             'div',
             { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
                 function onClick() {
-                  _this3.setState({ navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot });
+                  _this3.setState({ navigate: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
                 }
 
                 return onClick;

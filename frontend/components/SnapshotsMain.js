@@ -47,7 +47,7 @@ class SnapshotsMain extends Component {
     fetchData(data) {
       let snapshots = data.map((snapshot) =>{
         return(
-          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 300, height: 300}} alt={snapshot.snap_name}/>
                 <span className="picText"><span><b>{snapshot.snap_name}</b><br /><br />

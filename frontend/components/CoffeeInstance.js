@@ -9,10 +9,13 @@ class CoffeeInstance extends Component {
     super(props);
     this.state = {
       shop: [],
+      id: props.match.params.shopId,
       scenic_list: [],
       selectedLocation: [],
       snaps_list: [],
       selectedSnapshot:[],
+
+     
     };
     this.get_scenic = this.get_scenic.bind(this);
     this.get_snaps = this.get_snaps.bind(this);
@@ -20,17 +23,20 @@ class CoffeeInstance extends Component {
   }
 
 componentDidMount(props) {
-  var id = new URLSearchParams(search);
-  console.log(id)
+  console.log(this.state.id)
 
-  fetch('/getcoffeeshop/' + id).then(results =>{
+  fetch('/getcoffeeshop/' + this.state.id).then(results =>{
     console.log(results)
     return results.json();
   }).then(data=>{
     console.log("DATA")
     console.log(data)
+    let shops = data.map((shop) =>{
+      this.setState({shop: shop});
+      
+    })
+    console.log(this.state.shop)
   })
-  this.setState({shop: data});
 
 }
 
@@ -75,7 +81,7 @@ returnNoResults() {
       console.log(data)
       let snapshots = data.map((snapshot) =>{
         return(
-          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot", selectedSnapshot: snapshot})}}>
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
             <li className="col">
                 <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
                 <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>

@@ -7,7 +7,8 @@ class Snapshot extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      snapshot: this.props.location.state.snapshot,
+      snapshot: [],
+      id: props.match.params.snapshotId,
       selectedShop: [],
       shop:[],
 
@@ -16,6 +17,25 @@ class Snapshot extends Component {
     console.log(this.state.snapshot)
     this.go_to_instance = this.go_to_instance.bind(this);
   };
+
+  componentDidMount(props) {
+  console.log(this.state.id)
+
+  fetch('/getsnapshot/' + this.state.id).then(results =>{
+    console.log(results)
+    return results.json();
+  }).then(data=>{
+    console.log("DATA")
+    console.log(data)
+    let snaps = data.map((snap) =>{
+      this.setState({snapshot: snap});
+      
+    })
+    console.log(this.state.snapshot)
+  })
+
+}
+
 
 
   go_to_instance(){
@@ -26,7 +46,7 @@ class Snapshot extends Component {
        }).then(data=>{
         console.log(data)
         let shops = data.map((shop) =>{
-          this.setState({navigateShop: true, navigateTo: "/shop", selectedShop: shop})
+          this.setState({navigateShop: true, navigateTo: "/shop/" + this.state.snapshot.shop_id, selectedShop: shop})
 
         })
       })
@@ -40,7 +60,7 @@ class Snapshot extends Component {
        }).then(data=>{
         console.log(data)
         let views = data.map((scenicloc) =>{
-          this.setState({navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc})
+          this.setState({navigateScenic: true, navigateTo: "/location/" + this.state.snapshot.scenic_id, selectedLocation: scenicloc})
 
         })
       })
