@@ -7976,7 +7976,7 @@ var CoffeeShops = function (_Component) {
         var ratfilter = this.state.selectedRating.value;
         var pricefilter = this.state.selectedPrice.value;
 
-        fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
+        fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
@@ -8049,8 +8049,8 @@ var CoffeeShops = function (_Component) {
 
         // Logic for displaying page numbers
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(concat_shops.length / shopsPerPage) ? currentPage + 7 : Math.ceil(concat_shops.length / shopsPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(concat_shops.length / shopsPerPage) ? currentPage + 2 : Math.ceil(concat_shops.length / shopsPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
@@ -8194,42 +8194,46 @@ var CoffeeShops = function (_Component) {
             ),
             _react2['default'].createElement(
               'div',
-              { className: 'col-md-12 text-center' },
+              { className: 'container xsmall' },
               _react2['default'].createElement(
-                'ul',
-                { className: 'page-list' },
+                'div',
+                { className: 'col-md-12 text-center' },
                 _react2['default'].createElement(
-                  'li',
-                  {
-                    id: '<<',
-                    style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, 1, concat_shops) },
-                  ' <<'
-                ),
-                _react2['default'].createElement(
-                  'li',
-                  {
-                    id: 'prev',
-                    style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_shops) },
-                  ' <prev'
-                ),
-                renderPageNumbers,
-                _react2['default'].createElement(
-                  'li',
-                  {
-                    id: 'next',
-                    style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_shops) },
-                  ' next>'
-                ),
-                _react2['default'].createElement(
-                  'li',
-                  {
-                    id: '>>',
-                    style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
-                    onClick: this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops) },
-                  ' >>'
+                  'ul',
+                  { className: 'page-list xsmall' },
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: '<<',
+                      style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, 1, concat_shops) },
+                    ' <<'
+                  ),
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: 'prev',
+                      style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_shops) },
+                    ' <'
+                  ),
+                  renderPageNumbers,
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: 'next',
+                      style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_shops) },
+                    ' >'
+                  ),
+                  _react2['default'].createElement(
+                    'li',
+                    {
+                      id: '>>',
+                      style: this.state.currentPage >= Math.ceil(concat_shops.length / this.state.shopsPerPage) ? { visibility: 'hidden' } : {},
+                      onClick: this.handleClick.bind(this, Math.ceil(concat_shops.length / this.state.shopsPerPage), concat_shops) },
+                    ' >>'
+                  )
                 )
               )
             )
@@ -9086,8 +9090,8 @@ var Locations = function (_Component) {
         var currentLocations = concat_locs.slice(indexOfFirstLocation, indexOfLastLocation);
 
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(concat_locs.length / locationsPerPage) ? currentPage + 7 : Math.ceil(concat_locs.length / locationsPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(concat_locs.length / locationsPerPage) ? currentPage + 2 : Math.ceil(concat_locs.length / locationsPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
@@ -9768,8 +9772,8 @@ var Search = function (_Component) {
         var currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(searchResults.length / resultsPerPage) ? currentPage + 7 : Math.ceil(searchResults.length / resultsPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(searchResults.length / resultsPerPage) ? currentPage + 2 : Math.ceil(searchResults.length / resultsPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }
@@ -10441,8 +10445,8 @@ var SnapshotsMain = function (_Component) {
         var currentPhotos = concat_photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
         var pageNumbers = [];
-        var nextPageNumbers = currentPage + 7 <= Math.ceil(concat_photos.length / photosPerPage) ? currentPage + 7 : Math.ceil(concat_photos.length / photosPerPage);
-        var prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2 : 1;
+        var nextPageNumbers = currentPage + 2 <= Math.ceil(concat_photos.length / photosPerPage) ? currentPage + 2 : Math.ceil(concat_photos.length / photosPerPage);
+        var prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1 : 1;
         for (var i = prevPageNumber; i <= nextPageNumbers; i++) {
           pageNumbers.push(i);
         }

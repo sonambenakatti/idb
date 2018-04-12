@@ -182,8 +182,8 @@ class SnapshotsMain extends Component {
       const currentPhotos = concat_photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
 
       const pageNumbers = [];
-      const nextPageNumbers = currentPage + 7 <= Math.ceil(concat_photos.length / photosPerPage)? currentPage + 7 : Math.ceil(concat_photos.length / photosPerPage)
-      const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+      const nextPageNumbers = currentPage + 2 <= Math.ceil(concat_photos.length / photosPerPage)? currentPage + 2 : Math.ceil(concat_photos.length / photosPerPage)
+      const prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1: 1
       for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
         pageNumbers.push(i);
       }

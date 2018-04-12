@@ -160,8 +160,8 @@ class Search extends Component {
      const currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
      const pageNumbers = [];
-     const nextPageNumbers = currentPage + 7 <= Math.ceil(searchResults.length / resultsPerPage)? currentPage + 7 : Math.ceil(searchResults.length / resultsPerPage)
-     const prevPageNumber = currentPage - 2 >= 1 ? currentPage - 2: 1
+     const nextPageNumbers = currentPage + 2 <= Math.ceil(searchResults.length / resultsPerPage)? currentPage + 2 : Math.ceil(searchResults.length / resultsPerPage)
+     const prevPageNumber = currentPage - 1 >= 1 ? currentPage - 1: 1
      for (let i = prevPageNumber; i <= nextPageNumbers; i++) {
        pageNumbers.push(i);
      }
