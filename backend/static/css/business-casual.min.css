@@ -80,7 +80,7 @@ ul.page-list li:active {
   }
 }
 
-@media (max-width:370px){
+@media (max-width:380px){
   ul.page-list {
     list-style-type: none;
     text-align: center;
