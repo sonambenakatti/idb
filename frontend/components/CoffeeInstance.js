@@ -8,7 +8,7 @@ class CoffeeInstance extends Component {
 
     super(props);
     this.state = {
-      shop: this.props.location.state.shop,
+      shop: [],
       scenic_list: [],
       selectedLocation: [],
       snaps_list: [],
@@ -19,6 +19,21 @@ class CoffeeInstance extends Component {
     this.returnNoResults = this.returnNoResults.bind(this);
   }
 
+componentDidMount(props) {
+  var id = new URLSearchParams(search);
+  console.log(id)
+
+  fetch('/getcoffeeshop/' + id).then(results =>{
+    console.log(results)
+    return results.json();
+  }).then(data=>{
+    console.log("DATA")
+    console.log(data)
+  })
+  this.setState({shop: data});
+
+}
+
 get_scenic(){
     fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(results =>{
     console.log("Results:" + results)
@@ -27,7 +42,7 @@ get_scenic(){
       console.log(data)
       let views = data.map((scenicloc) =>{
         return(
-        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc})}}>
+        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
           <li className="col">
               <img src={scenicloc.scenic_picture} style={{width: 200, height: 200}} alt="Photo1"
               />

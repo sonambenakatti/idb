@@ -6545,12 +6545,12 @@ var App = function (_Component) {
                 null,
                 _react2['default'].createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2['default'] }),
                 _react2['default'].createElement(_reactRouterDom.Route, { path: '/shops', component: _CoffeeShops2['default'] }),
-                _react2['default'].createElement(_reactRouterDom.Route, { path: '/shop', component: _CoffeeInstance2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/shop/:shopId', component: _CoffeeInstance2['default'] }),
                 _react2['default'].createElement(_reactRouterDom.Route, { path: '/about', component: _About2['default'] }),
                 _react2['default'].createElement(_reactRouterDom.Route, { path: '/snapshots', component: _SnapshotsMain2['default'] }),
-                _react2['default'].createElement(_reactRouterDom.Route, { path: '/snapshot', component: _Snapshot2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/snapshot/:snapshotId', component: _Snapshot2['default'] }),
                 _react2['default'].createElement(_reactRouterDom.Route, { path: '/locations', component: _Locations2['default'] }),
-                _react2['default'].createElement(_reactRouterDom.Route, { path: '/location', component: _Location2['default'] }),
+                _react2['default'].createElement(_reactRouterDom.Route, { path: '/location/:scenicId', component: _Location2['default'] }),
                 _react2['default'].createElement(_reactRouterDom.Route, { path: '/search', component: _Search2['default'] })
               )
             )
@@ -7341,7 +7341,7 @@ var CoffeeInstance = function (_Component) {
     var _this = _possibleConstructorReturn(this, (CoffeeInstance.__proto__ || Object.getPrototypeOf(CoffeeInstance)).call(this, props));
 
     _this.state = {
-      shop: _this.props.location.state.shop,
+      shop: [],
       scenic_list: [],
       selectedLocation: [],
       snaps_list: [],
@@ -7354,6 +7354,25 @@ var CoffeeInstance = function (_Component) {
   }
 
   _createClass(CoffeeInstance, [{
+    key: 'componentDidMount',
+    value: function () {
+      function componentDidMount(props) {
+        var id = new URLSearchParams(search);
+        console.log(id);
+
+        fetch('/getcoffeeshop/' + id).then(function (results) {
+          console.log(results);
+          return results.json();
+        }).then(function (data) {
+          console.log("DATA");
+          console.log(data);
+        });
+        this.setState({ shop: data });
+      }
+
+      return componentDidMount;
+    }()
+  }, {
     key: 'get_scenic',
     value: function () {
       function get_scenic() {
@@ -7369,7 +7388,7 @@ var CoffeeInstance = function (_Component) {
               'div',
               { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
                   function onClick() {
-                    _this2.setState({ navigateScenic: true, navigateTo: "/location", selectedLocation: scenicloc });
+                    _this2.setState({ navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
                   }
 
                   return onClick;
@@ -7753,7 +7772,7 @@ var CoffeeShops = function (_Component) {
             'div',
             { id: 'shop_instance', key: shop.shop_name, onClick: function () {
                 function onClick() {
-                  _this3.setState({ navigate: true, navigateTo: "/shop", selectedShop: shop });
+                  _this3.setState({ navigate: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop });
                 }
 
                 return onClick;
@@ -8378,13 +8397,7 @@ var Location = function (_Component) {
 
     console.log(_this.props.location.state.selectedLocation.scenic_address);
     _this.state = {
-      address: _this.props.location.state.selectedLocation.scenic_address,
-      name: _this.props.location.state.selectedLocation.scenic_name,
-      photo: _this.props.location.state.selectedLocation.scenic_picture,
-      rating: _this.props.location.state.selectedLocation.scenic_rating,
-      review1: _this.props.location.state.selectedLocation.scenic_review1,
-      review2: _this.props.location.state.selectedLocation.scenic_review2,
-      scenic_id: _this.props.location.state.selectedLocation.scenic_id,
+      scenicloc: [],
       shops_list: [],
       selectedShop: [],
       snaps_list: [],
@@ -8401,7 +8414,18 @@ var Location = function (_Component) {
   _createClass(Location, [{
     key: 'componentDidMount',
     value: function () {
-      function componentDidMount(props) {}
+      function componentDidMount(props) {
+        id = this.props.location.query;
+
+        fetch('/getsceniclocation/' + id).then(function (results) {
+          console.log(results);
+          return results.json();
+        }).then(function (data) {
+          console.log("DATA");
+          console.log(data);
+        });
+        this.setState({ scenicloc: data });
+      }
 
       return componentDidMount;
     }()
@@ -8422,7 +8446,7 @@ var Location = function (_Component) {
               'div',
               { id: 'shop_instance', key: shop.shop_name, onClick: function () {
                   function onClick() {
-                    _this2.setState({ navigateShop: true, navigateTo: "/shop", selectedShop: shop });
+                    _this2.setState({ navigateShop: true, navigateTo: "/shop" + shop.shop_id, selectedShop: shop });
                   }
 
                   return onClick;
@@ -8571,7 +8595,7 @@ var Location = function (_Component) {
                       _react2['default'].createElement(
                         'span',
                         { className: 'section-heading-lower' },
-                        this.state.name
+                        this.state.scenicloc.scenic_name
                       )
                     )
                   )
@@ -8591,7 +8615,7 @@ var Location = function (_Component) {
                       null,
                       'Address: '
                     ),
-                    this.state.address
+                    this.state.scenicloc.scenic_address
                   ),
                   _react2['default'].createElement(
                     'p',
@@ -8601,7 +8625,7 @@ var Location = function (_Component) {
                       null,
                       'Rating: '
                     ),
-                    this.state.rating,
+                    this.state.scenicloc.scenic_rating,
                     '/5'
                   ),
                   _react2['default'].createElement(
@@ -8616,13 +8640,13 @@ var Location = function (_Component) {
                   _react2['default'].createElement(
                     'p',
                     { className: 'mb-0' },
-                    this.state.review1
+                    this.state.scenicloc.scenic_review1
                   ),
                   _react2['default'].createElement('p', { className: 'mb-0' }),
                   _react2['default'].createElement(
                     'p',
                     { className: 'mb-0' },
-                    this.state.review2
+                    this.state.scenicloc.scenic_review2
                   )
                 )
               )
@@ -8630,7 +8654,7 @@ var Location = function (_Component) {
             _react2['default'].createElement(
               'div',
               { className: 'col-sm-5 instance-pic' },
-              _react2['default'].createElement('img', { className: 'product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0', src: this.state.photo, alt: this.state.name, style: { width: 500, height: 500, marginTop: 50 } })
+              _react2['default'].createElement('img', { className: 'product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0', src: this.state.scenicloc.scenic_photo, alt: this.state.scenicloc.scenic_name, style: { width: 500, height: 500, marginTop: 50 } })
             )
           ),
           _react2['default'].createElement(
@@ -8802,7 +8826,7 @@ var Locations = function (_Component) {
             'div',
             { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
                 function onClick() {
-                  _this3.setState({ navigate: true, navigateTo: "/location", selectedLocation: scenicloc });
+                  _this3.setState({ navigate: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
                 }
 
                 return onClick;

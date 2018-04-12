@@ -31,12 +31,12 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/shops' component={CoffeeShops} />
-          <Route path='/shop' component={CoffeeInstance} />
+          <Route path='/shop/:shopId' component={CoffeeInstance} />
           <Route path='/about' component={About} />
           <Route path='/snapshots' component={SnapshotsMain} />
-          <Route path='/snapshot' component={Snapshot} />
+          <Route path='/snapshot/:snapshotId' component={Snapshot} />
           <Route path='/locations' component={Locations} />
-          <Route path='/location' component={Location} />
+          <Route path='/location/:scenicId' component={Location} />
           <Route path='/search' component={Search} />
         </Switch>
       </div>
