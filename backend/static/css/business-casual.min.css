@@ -16,10 +16,36 @@ ul.img-list li {
   margin-bottom: 70px;
 }
 
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  ul.img-list {
+    justify-content: center;
+  }
+
+  ul.img-list li {
+    display: inline;
+    vertical-align: middle;
+    margin: 0 auto 70px auto;
+  }
+
+  ul.img-list li::after {
+    clear: both;
+  }
+
+  ul.img-list li img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+  }
+
+}
+
 ul.page-list {
   list-style-type: none;
   text-align: center;
-  font-family: 'Roboto'
+  font-family: 'Roboto';
 }
 
 ul.page-list li {
@@ -61,7 +87,7 @@ ul.page-list li:active {
   ul.page-list {
     list-style-type: none;
     text-align: center;
-    font-family: 'Roboto'
+    font-family: 'Roboto';
   }
 
   ul.page-list li {
