@@ -23,10 +23,10 @@ def my_parser(section, option):
     return str(parser.get(section, option).encode('ascii','ignore').decode('utf-8'))
 
 # get DB creds
-user = 'TheCoolBeans'
-pwd = 'riley5143'
-host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
-db = 'beansdbdev'
+user = my_parser('database', 'user')
+pwd = my_parser('database', 'pwd')
+host = my_parser('database', 'host')	
+db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
 # Database variable that is connected to database.
