@@ -6,7 +6,6 @@ import 'react-select/dist/react-select.css';
 class CoffeeShops extends Component {
 
 constructor (props) {
-  console.log(props);
   super(props);
   this.state = {
     coffeeshops: [],
@@ -41,13 +40,10 @@ constructor (props) {
 };
 
 componentDidMount(props) {
-  console.log(document.domain)
   fetch('/getcoffeeshops').then(results =>{
-    console.log(results)
+    //console.log(results)
     return results.json();
   }).then(data=>{
-    console.log("DATA")
-    console.log(data)
     this.fetchData(data);
     this.getCities();
   })
@@ -73,10 +69,9 @@ fetchData(data) {
 
 getCities() {
   fetch('/getcities').then(results =>{
-    console.log(results)
     return results.json();
   }).then(data=>{
-    console.log(data)
+    //console.log(data)
     let cities = data.map((city) =>{
       return(
         {value: city.city_id, label: city.city_name}
@@ -158,14 +153,11 @@ update () {
 
   fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
     + '&pricefilter=' + pricefilter).then(results => {
-    console.log(results)
     return results.json();
   }).then(data => {
-    console.log(data.length)
+    //console.log(data.length)
     this.fetchData(data);
-    console.log(data.length)
     if(data.length == 0) {
-        console.log("No results!");
         shops = [<div></div>, this.returnNoResults()];
     }
   })
@@ -174,8 +166,6 @@ update () {
 
 // invoked when user clicks a page number on the bottom.
 handleClick(pageNumber, arr, event) {
-  console.log(event.target.id)
-  console.log(pageNumber)
     if(pageNumber <= 1) {
       document.getElementById("prev").style.visibility="hidden";
     } else {
@@ -186,19 +176,13 @@ handleClick(pageNumber, arr, event) {
     } else {
       document.getElementById("next").style.visibility="visible";
     }
-    console.log("set state")
     this.setState({
       currentPage: pageNumber
     });
   }
 
 render() {
-
-  console.log("INSIDE RENDER")
-
   const { coffeeshops, currentPage, shopsPerPage } = this.state;
-  console.log(coffeeshops)
-
   const concat_shops = [];
   const shops = this.state.coffeeshops.map((coffeeshops, index) => {
     if (coffeeshops) {
@@ -220,7 +204,6 @@ render() {
   }
 
     if (this.state.navigate) {
-      console.log("REDIRCT" + this.state.selectedShop.shop_name)
       return <Redirect to={{pathname: this.state.navigateTo, state: {shop: this.state.selectedShop}}} push={true} />;
     }
 
@@ -253,8 +236,6 @@ render() {
     const priceValue = selectedPrice && selectedPrice.value;
     const ratingValue = selectedRating && selectedRating.value;
     const sortValue = selectedSort && selectedSort.value;
-
-    console.log(this.state.selectedCity);
 
     return (
       <div>

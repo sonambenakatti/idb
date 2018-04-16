@@ -15,7 +15,7 @@ class CoffeeInstance extends Component {
       snaps_list: [],
       selectedSnapshot:[],
 
-     
+
     };
     this.get_scenic = this.get_scenic.bind(this);
     this.get_snaps = this.get_snaps.bind(this);
@@ -23,29 +23,23 @@ class CoffeeInstance extends Component {
   }
 
 componentDidMount(props) {
-  console.log(this.state.id)
-
   fetch('/getcoffeeshop/' + this.state.id).then(results =>{
-    console.log(results)
     return results.json();
   }).then(data=>{
-    console.log("DATA")
-    console.log(data)
+    //console.log(data)
     let shops = data.map((shop) =>{
       this.setState({shop: shop});
-      
+
     })
-    console.log(this.state.shop)
   })
 
 }
 
 get_scenic(){
     fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(results =>{
-    console.log("Results:" + results)
     return results.json();
-  }).then(data =>{
-      console.log(data)
+  }).then(data => {
+      //console.log(data)
       let views = data.map((scenicloc) =>{
         return(
         <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
@@ -73,12 +67,10 @@ returnNoResults() {
 
 
   get_snaps(){
-    console.log("IN SNAPS JS")
     fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
     return results.json();
   }).then(data=>{
-      console.log("This is the data")
-      console.log(data)
+      //console.log(data)
       let snapshots = data.map((snapshot) =>{
         return(
           <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
@@ -90,7 +82,7 @@ returnNoResults() {
         );
       });
       if(data.length == 0) {
-        console.log("No results!");
+        //console.log("No results!");
         snapshots= [<div></div>, this.returnNoResults()];
       }
       this.setState({snaps_list: snapshots});
@@ -99,14 +91,11 @@ returnNoResults() {
 
   render() {
     if (this.state.navigateScenic) {
-      console.log("IN METHOD")
        var instance_state = {};
        instance_state = {selectedLocation: this.state.selectedLocation};
-
        return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
     }
     if (this.state.navigateSnap) {
-      console.log("IN METHOD")
        var instance_state = {};
        instance_state = {snapshot: this.state.selectedSnapshot};
 
@@ -158,7 +147,6 @@ returnNoResults() {
       </div>
 
       <div class="row justify-content-center">
-
          <section className="col-md-6">
            <div class="container text-center">
               <ul className="text-center img-list">
@@ -166,7 +154,6 @@ returnNoResults() {
               </ul>
             </div>
         </section>
-
          <section className="col-md-6">
            <div class="container text-center">
               <ul className="text-center img-list">
@@ -174,7 +161,6 @@ returnNoResults() {
               </ul>
           </div>
         </section>
-
       </div>
     </div>
 

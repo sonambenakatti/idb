@@ -7430,18 +7430,13 @@ var CoffeeInstance = function (_Component) {
       function componentDidMount(props) {
         var _this2 = this;
 
-        console.log(this.state.id);
-
         fetch('/getcoffeeshop/' + this.state.id).then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log("DATA");
-          console.log(data);
+          //console.log(data)
           var shops = data.map(function (shop) {
             _this2.setState({ shop: shop });
           });
-          console.log(_this2.state.shop);
         });
       }
 
@@ -7454,10 +7449,9 @@ var CoffeeInstance = function (_Component) {
         var _this3 = this;
 
         fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(function (results) {
-          console.log("Results:" + results);
           return results.json();
         }).then(function (data) {
-          console.log(data);
+          //console.log(data)
           var views = data.map(function (scenicloc) {
             return _react2['default'].createElement(
               'div',
@@ -7518,12 +7512,10 @@ var CoffeeInstance = function (_Component) {
       function get_snaps() {
         var _this4 = this;
 
-        console.log("IN SNAPS JS");
         fetch('/snapshots_shop/' + this.state.shop.shop_id).then(function (results) {
           return results.json();
         }).then(function (data) {
-          console.log("This is the data");
-          console.log(data);
+          //console.log(data)
           var snapshots = data.map(function (snapshot) {
             return _react2['default'].createElement(
               'div',
@@ -7556,7 +7548,7 @@ var CoffeeInstance = function (_Component) {
             );
           });
           if (data.length == 0) {
-            console.log("No results!");
+            //console.log("No results!");
             snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
           }
           _this4.setState({ snaps_list: snapshots });
@@ -7570,14 +7562,11 @@ var CoffeeInstance = function (_Component) {
     value: function () {
       function render() {
         if (this.state.navigateScenic) {
-          console.log("IN METHOD");
           var instance_state = {};
           instance_state = { selectedLocation: this.state.selectedLocation };
-
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
         }
         if (this.state.navigateSnap) {
-          console.log("IN METHOD");
           var instance_state = {};
           instance_state = { snapshot: this.state.selectedSnapshot };
 
@@ -7779,8 +7768,6 @@ var CoffeeShops = function (_Component) {
   function CoffeeShops(props) {
     _classCallCheck(this, CoffeeShops);
 
-    console.log(props);
-
     var _this = _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).call(this, props));
 
     _this.state = {
@@ -7822,13 +7809,10 @@ var CoffeeShops = function (_Component) {
       function componentDidMount(props) {
         var _this2 = this;
 
-        console.log(document.domain);
         fetch('/getcoffeeshops').then(function (results) {
-          console.log(results);
+          //console.log(results)
           return results.json();
         }).then(function (data) {
-          console.log("DATA");
-          console.log(data);
           _this2.fetchData(data);
           _this2.getCities();
         });
@@ -7894,10 +7878,9 @@ var CoffeeShops = function (_Component) {
         var _this4 = this;
 
         fetch('/getcities').then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log(data);
+          //console.log(data)
           var cities = data.map(function (city) {
             return { value: city.city_id, label: city.city_name };
           });
@@ -8002,14 +7985,11 @@ var CoffeeShops = function (_Component) {
         var pricefilter = this.state.selectedPrice.value;
 
         fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log(data.length);
+          //console.log(data.length)
           _this5.fetchData(data);
-          console.log(data.length);
           if (data.length == 0) {
-            console.log("No results!");
             shops = [_react2['default'].createElement('div', null), _this5.returnNoResults()];
           }
         });
@@ -8025,8 +8005,6 @@ var CoffeeShops = function (_Component) {
     key: 'handleClick',
     value: function () {
       function handleClick(pageNumber, arr, event) {
-        console.log(event.target.id);
-        console.log(pageNumber);
         if (pageNumber <= 1) {
           document.getElementById("prev").style.visibility = "hidden";
         } else {
@@ -8037,7 +8015,6 @@ var CoffeeShops = function (_Component) {
         } else {
           document.getElementById("next").style.visibility = "visible";
         }
-        console.log("set state");
         this.setState({
           currentPage: pageNumber
         });
@@ -8051,14 +8028,10 @@ var CoffeeShops = function (_Component) {
       function render() {
         var _this6 = this;
 
-        console.log("INSIDE RENDER");
-
         var _state = this.state,
             coffeeshops = _state.coffeeshops,
             currentPage = _state.currentPage,
             shopsPerPage = _state.shopsPerPage;
-
-        console.log(coffeeshops);
 
         var concat_shops = [];
         var shops = this.state.coffeeshops.map(function (coffeeshops, index) {
@@ -8081,7 +8054,6 @@ var CoffeeShops = function (_Component) {
         }
 
         if (this.state.navigate) {
-          console.log("REDIRCT" + this.state.selectedShop.shop_name);
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: { shop: this.state.selectedShop } }, push: true });
         }
 
@@ -8119,8 +8091,6 @@ var CoffeeShops = function (_Component) {
         var priceValue = selectedPrice && selectedPrice.value;
         var ratingValue = selectedRating && selectedRating.value;
         var sortValue = selectedSort && selectedSort.value;
-
-        console.log(this.state.selectedCity);
 
         return _react2['default'].createElement(
           'div',
