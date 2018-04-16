@@ -76,14 +76,14 @@ class Snapshot extends Component {
        var instance_state = {};
        instance_state = {shop: this.state.selectedShop};
 
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+       window.open(this.state.navigateTo, "_blank");
     }
      if (this.state.navigateScenic) {
       console.log("IN METHOD")
        var instance_state = {};
        instance_state = {selectedLocation: this.state.selectedLocation};
 
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+       window.open(this.state.navigateTo, "_blank");
     }
       return (
       <div>

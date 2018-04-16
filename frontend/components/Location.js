@@ -50,7 +50,7 @@ class Location extends Component {
     console.log(data)
     let shops = data.map((shop) =>{
       return(
-       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop})}}>
+       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateToShop: "/shop/" + shop.shop_id, selectedShop: shop})}}>
           <li className="col">
               <img src={shop.shop_picture} style={{width: 200, height: 200}} alt="Photo1"
               />
@@ -69,24 +69,25 @@ class Location extends Component {
     fetch('/snapshots_scenic/'+ this.state.scenicloc.scenic_id).then(results =>{
     return results.json();
   }).then(data=>{
-      console.log("This is the data")
-      console.log(data)
-      let snapshots = data.map((snapshot) =>{
-        return(
-
-          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
-            <li className="col">
-                <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
-                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b></span></span>
-            </li>
-          </div>
-        );
-      });
       if(data.length == 0) {
         console.log("No results!");
-        snapshots = [<div></div>, this.returnNoResults()];
+        let snapshots = [<div></div>, this.returnNoResults()];
+        this.setState({snaps_list: snapshots});
       }
+      else {
+        let snapshots = data.map((snapshot) =>{
+          return(
+            <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToScenic: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
+              <li className="col">
+                  <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                  <span className="picTextInstance"><span><b>{snapshot.snap_name}</b></span></span>
+              </li>
+            </div>
+          );
+        });
       this.setState({snaps_list: snapshots});
+      }
+     
       });
     };
 
@@ -105,14 +106,16 @@ class Location extends Component {
        var instance_state = {};
        instance_state = {shop: this.state.selectedShop};
 
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+       window.open(this.state.navigateToShop, "_blank");
+       this.setState({navigateShop: false})
     }
-    if (this.state.navigateSnap) {
+    else if (this.state.navigateSnap) {
       console.log("IN METHOD")
        var instance_state = {};
        instance_state = {snapshot: this.state.selectedSnapshot};
 
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+       window.open(this.state.navigateToScenic, "_blank");
+       this.setState({navigateSnap: false})
     }
 
     return (

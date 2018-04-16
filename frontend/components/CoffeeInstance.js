@@ -48,7 +48,7 @@ get_scenic(){
       console.log(data)
       let views = data.map((scenicloc) =>{
         return(
-        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
+        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
           <li className="col">
               <img src={scenicloc.scenic_picture} style={{width: 200, height: 200}} alt="Photo1"
               />
@@ -77,23 +77,27 @@ returnNoResults() {
     fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
     return results.json();
   }).then(data=>{
-      console.log("This is the data")
-      console.log(data)
-      let snapshots = data.map((snapshot) =>{
-        return(
-          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
-            <li className="col">
-                <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
-                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
-            </li>
-          </div>
-        );
-      });
-      if(data.length == 0) {
+    let snapshots= "";
+     if(data.length == 0) {
         console.log("No results!");
-        snapshots= [<div></div>, this.returnNoResults()];
+        let snapshots= [<div></div>, this.returnNoResults()];
+        this.setState({snaps_list: snapshots});
       }
-      this.setState({snaps_list: snapshots});
+      else {
+        console.log("This is the data")
+        console.log(data)
+        let snapshots = data.map((snapshot) =>{
+          return(
+            <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
+              <li className="col">
+                  <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                  <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
+              </li>
+            </div>
+          );
+        });
+        this.setState({snaps_list: snapshots});
+      }
       });
     };
 
@@ -102,15 +106,17 @@ returnNoResults() {
       console.log("IN METHOD")
        var instance_state = {};
        instance_state = {selectedLocation: this.state.selectedLocation};
+       window.open(this.state.navigateToScenic, "_blank");
+       this.setState({navigateScenic: false})
 
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
     }
-    if (this.state.navigateSnap) {
+    else if (this.state.navigateSnap) {
       console.log("IN METHOD")
        var instance_state = {};
        instance_state = {snapshot: this.state.selectedSnapshot};
 
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+       window.open(this.state.navigateToSnap, "_blank");
+       this.setState({navigateSnap: false})
     }
 
     return (
