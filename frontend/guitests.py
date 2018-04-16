@@ -11,8 +11,8 @@ class TestSuite(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         driver = self.driver
-        driver.url = "http://espressoyoself.me/"
-        #driver.url = "http://127.0.0.1:5000/"
+        #driver.url = "http://espressoyoself.me/"
+        driver.url = "http://127.0.0.1:5000/"
         driver.get(driver.url)
         self.assertEqual(driver.url, driver.current_url)
 

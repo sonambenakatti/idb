@@ -8001,7 +8001,7 @@ var CoffeeShops = function (_Component) {
         var ratfilter = this.state.selectedRating.value;
         var pricefilter = this.state.selectedPrice.value;
 
-        fetch('/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
+        fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
           console.log(results);
           return results.json();
         }).then(function (data) {
