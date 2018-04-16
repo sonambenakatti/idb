@@ -15,7 +15,7 @@ class CoffeeInstance extends Component {
       snaps_list: [],
       selectedSnapshot:[],
 
-     
+
     };
     this.get_scenic = this.get_scenic.bind(this);
     this.get_snaps = this.get_snaps.bind(this);
@@ -33,7 +33,7 @@ componentDidMount(props) {
     console.log(data)
     let shops = data.map((shop) =>{
       this.setState({shop: shop});
-      
+
     })
     console.log(this.state.shop)
   })

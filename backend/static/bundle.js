@@ -8531,7 +8531,7 @@ var Location = function (_Component) {
               'div',
               { id: 'shop_instance', key: shop.shop_name, onClick: function () {
                   function onClick() {
-                    _this3.setState({ navigateShop: true, navigateTo: "/shop" + shop.shop_id, selectedShop: shop });
+                    _this3.setState({ navigateShop: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop });
                   }
 
                   return onClick;

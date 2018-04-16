@@ -34,10 +34,10 @@ class Location extends Component {
       console.log(data)
       let views = data.map((scenic) =>{
         this.setState({scenicloc: scenic});
-      
+
       })
     })
-    
+
 
 
   }
@@ -50,7 +50,7 @@ class Location extends Component {
     console.log(data)
     let shops = data.map((shop) =>{
       return(
-       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateTo: "/shop" + shop.shop_id, selectedShop: shop})}}>
+       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop})}}>
           <li className="col">
               <img src={shop.shop_picture} style={{width: 200, height: 200}} alt="Photo1"
               />
