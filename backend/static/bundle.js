@@ -756,19 +756,6 @@ var durationWeek = 6048e5;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return map; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return slice; });
-var array = Array.prototype;
-
-var map = array.map;
-var slice = array.slice;
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MemoryRouter__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Prompt__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redirect__ = __webpack_require__(117);
@@ -804,6 +791,19 @@ var slice = array.slice;
 
 
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_8__withRouter__["a"]; });
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return map; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return slice; });
+var array = Array.prototype;
+
+var map = array.map;
+var slice = array.slice;
 
 
 /***/ },
@@ -3925,7 +3925,7 @@ var createPath = function createPath(location) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3_interpolate__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__array__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__array__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constant__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__number__ = __webpack_require__(85);
 /* harmony export (immutable) */ exports["b"] = deinterpolateLinear;
@@ -7065,7 +7065,7 @@ function one(b) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_collection__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return implicit; });
 /* harmony export (immutable) */ exports["a"] = ordinal;
 
@@ -7125,7 +7125,7 @@ function ordinal(range) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3_interpolate__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3_time__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_d3_time_format__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__array__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__array__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__continuous__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nice__ = __webpack_require__(84);
 /* harmony export (immutable) */ exports["b"] = calendar;
@@ -11424,7 +11424,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -11499,7 +11499,7 @@ var CoffeeInstance = function (_Component) {
               'div',
               { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
                   function onClick() {
-                    _this3.setState({ navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
+                    _this3.setState({ navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
                   }
 
                   return onClick;
@@ -11804,7 +11804,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 var _reactSelect = __webpack_require__(14);
 
@@ -12544,7 +12544,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12623,7 +12623,7 @@ var Location = function (_Component) {
               'div',
               { id: 'shop_instance', key: shop.shop_name, onClick: function () {
                   function onClick() {
-                    _this3.setState({ navigateShop: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop });
+                    _this3.setState({ navigateShop: true, navigateToShop: "/shop/" + shop.shop_id, selectedShop: shop });
                   }
 
                   return onClick;
@@ -12966,7 +12966,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 var _reactSelect = __webpack_require__(14);
 
@@ -13652,7 +13652,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 var _reactHighlightWords = __webpack_require__(290);
 
@@ -14153,7 +14153,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -14387,7 +14387,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 var _reactSelect = __webpack_require__(14);
 
@@ -14894,7 +14894,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(11);
+var _reactRouter = __webpack_require__(10);
 
 var _reactD3Cloud = __webpack_require__(279);
 
@@ -17299,7 +17299,7 @@ function point() {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__linear__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__number__ = __webpack_require__(85);
 /* harmony export (immutable) */ exports["a"] = identity;
@@ -17525,7 +17525,7 @@ function sqrt() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
 /* harmony export (immutable) */ exports["a"] = quantile;
 
 
@@ -17586,7 +17586,7 @@ function quantile() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__linear__ = __webpack_require__(19);
 /* harmony export (immutable) */ exports["a"] = quantize;
 
@@ -17710,7 +17710,7 @@ function sequential(interpolator) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
 /* harmony export (immutable) */ exports["a"] = threshold;
 
 

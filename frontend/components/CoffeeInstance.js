@@ -43,7 +43,7 @@ class CoffeeInstance extends Component {
       console.log(data)
       let views = data.map((scenicloc) =>{
         return(
-          <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
+          <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
             <li className="col">
                 <img src={scenicloc.scenic_picture} style={{width: 200, height: 200}} alt="Photo1"
                 />
