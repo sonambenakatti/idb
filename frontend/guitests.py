@@ -3,16 +3,19 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.options import Options
 import unittest
 import time
 
 class TestSuite(unittest.TestCase):
     # Test Driver Setup #
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        chromeOptions = Options()
+        chromeOptions.add_argument("--start-maximized")
+        self.driver = webdriver.Chrome("", chrome_options=chromeOptions)
         driver = self.driver
-        driver.url = "http://espressoyoself.me/"
-        #driver.url = "http://127.0.0.1:5000/"
+        #driver.url = "http://espressoyoself.me/"
+        driver.url = "http://127.0.0.1:5000/"
         driver.get(driver.url)
         self.assertEqual(driver.url, driver.current_url)
 

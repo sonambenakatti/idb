@@ -1,29 +1,66 @@
-#.DEFAULT_GOAL := all
+# Makefile specification
+# ----------------------
 
-# uncomment these three lines when you've created those files
-# you must replace GitHubID with your GitHubID
-#    .travis.yml                           \
-#    collatz-tests/GitHubID-RunCollatz.in  \
-#    collatz-tests/GitHubID-RunCollatz.out \
+GithubID = sonambenakatti
+RepoName = idb
+SHA      = 30a68ea7bb9d1fbed2ec9f2e79cd5f226dce96ca
 
-selenium: ./frontend/guitests.py
-	-python3 ./frontend/guitests.py
+githubid:
+	@echo "${GithubID}"
 
-mocha: ./frontend/tests.js
-	npm install --global mocha
-	npm ./frontend/tests.js
+reponame:
+	@echo "${RepoName}"
 
-unittest: ./backend/tests.py
-	-python3 ./backend/tests.py
+sha:
+	@echo "${SHA}"
 
+# The Makefile should be present in the root of the project.
+# There should be the following commands written:
+
+# make github   - prints link to github repo
 github:
-	@echo "https://github.com/sonambenakatti/idb"
+	@echo "http://www.github.com/${GithubID}/${RepoName}"
 
-web:
+# make issues   - prints link to current phase's issues
+issues:
+	@echo "http://www.github.com/${GithubID}/${RepoName}/issues"
+
+# make stories  - prints link to current phase's stories
+stories:
+	@echo "https://github.com/${GithubID}/idb/projects/1"
+
+# make uml      - prints link to uml diagram
+uml:
+	@echo "https://${GithubID}.gitbooks.io/espresso-yoself/content/uml-diagram.html"
+
+# make selenium - runs selenium tests
+selenium:
+	python3 frontend/guitests.py
+
+# make mocha - runs frontend tests
+mocha:
+	@(cd frontend; npm test)
+
+# make unittest  - runs backend tests
+unittest:
+	@(cd backend; python3 tests.py)
+
+# make website  - prints link to a website
+website:
 	@echo "http://www.espressoyoself.me"
 
+# make report   - prints link to technical report
 report:
-	@echo "https://legacy.gitbook.com/book/sonambenakatti/espresso-yoself/details"
+	@echo "https://sonambenakatti.gitbooks.io/espresso-yoself/content/"
 
-api:
-	@echo "https://legacy.gitbook.com/book/sonambenakatti/api/details"
+# make apidoc   - prints link to api documentation
+apidoc:
+	@echo "https://sonambenakatti.gitbooks.io/api/content/"
+
+# make self     - prints link to self critique
+self:
+	@echo "https://sonambenakatti.gitbooks.io/espresso-yoself/content/self-critique.html"
+
+# make other    - prints link to other critique
+other:
+	@echo "https://sonambenakatti.gitbooks.io/espresso-yoself/content/other-critique.html"
