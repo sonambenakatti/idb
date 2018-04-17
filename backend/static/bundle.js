@@ -756,6 +756,19 @@ var durationWeek = 6048e5;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return map; });
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return slice; });
+var array = Array.prototype;
+
+var map = array.map;
+var slice = array.slice;
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MemoryRouter__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Prompt__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Redirect__ = __webpack_require__(117);
@@ -791,19 +804,6 @@ var durationWeek = 6048e5;
 
 
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_8__withRouter__["a"]; });
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return map; });
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return slice; });
-var array = Array.prototype;
-
-var map = array.map;
-var slice = array.slice;
 
 
 /***/ },
@@ -3925,7 +3925,7 @@ var createPath = function createPath(location) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3_interpolate__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__array__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__array__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constant__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__number__ = __webpack_require__(85);
 /* harmony export (immutable) */ exports["b"] = deinterpolateLinear;
@@ -7065,7 +7065,7 @@ function one(b) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_collection__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
 /* harmony export (binding) */ __webpack_require__.d(exports, "b", function() { return implicit; });
 /* harmony export (immutable) */ exports["a"] = ordinal;
 
@@ -7125,7 +7125,7 @@ function ordinal(range) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_d3_interpolate__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3_time__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_d3_time_format__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__array__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__array__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__continuous__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__nice__ = __webpack_require__(84);
 /* harmony export (immutable) */ exports["b"] = calendar;
@@ -10638,6 +10638,9 @@ var About = function (_Component) {
     return _this;
   }
 
+  // Load commits and issues from Github
+
+
   _createClass(About, [{
     key: "componentDidMount",
     value: function () {
@@ -11421,7 +11424,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -11446,13 +11449,14 @@ var CoffeeInstance = function (_Component) {
       selectedLocation: [],
       snaps_list: [],
       selectedSnapshot: []
-
     };
     _this.get_scenic = _this.get_scenic.bind(_this);
     _this.get_snaps = _this.get_snaps.bind(_this);
     _this.returnNoResults = _this.returnNoResults.bind(_this);
     return _this;
   }
+  // Initial load of data from individual coffeeshop
+
 
   _createClass(CoffeeInstance, [{
     key: 'componentDidMount',
@@ -11461,7 +11465,6 @@ var CoffeeInstance = function (_Component) {
         var _this2 = this;
 
         console.log(this.state.id);
-
         fetch('/getcoffeeshop/' + this.state.id).then(function (results) {
           console.log(results);
           return results.json();
@@ -11477,6 +11480,9 @@ var CoffeeInstance = function (_Component) {
 
       return componentDidMount;
     }()
+
+    // Get scenic locations nearby the coffeeshop
+
   }, {
     key: 'get_scenic',
     value: function () {
@@ -11493,7 +11499,7 @@ var CoffeeInstance = function (_Component) {
               'div',
               { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
                   function onClick() {
-                    _this3.setState({ navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
+                    _this3.setState({ navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
                   }
 
                   return onClick;
@@ -11525,6 +11531,9 @@ var CoffeeInstance = function (_Component) {
 
       return get_scenic;
     }()
+
+    // If not scenic locations nearby or associated snapshots
+
   }, {
     key: 'returnNoResults',
     value: function () {
@@ -11542,6 +11551,9 @@ var CoffeeInstance = function (_Component) {
 
       return returnNoResults;
     }()
+
+    // Get associated snapshots with coffeshop
+
   }, {
     key: 'get_snaps',
     value: function () {
@@ -11792,7 +11804,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 var _reactSelect = __webpack_require__(14);
 
@@ -11821,7 +11833,6 @@ var CoffeeShops = function (_Component) {
       navigate: false,
       selectedShop: [],
       navigateTo: "",
-      item: "",
       currentPage: 1,
       shopsPerPage: 9,
       totalPages: 1,
@@ -11845,12 +11856,15 @@ var CoffeeShops = function (_Component) {
       sort_by: undefined,
       sort_attr: undefined
     };
-
+    _this.returnNoResults = _this.returnNoResults.bind(_this);
     return _this;
   }
 
   _createClass(CoffeeShops, [{
     key: 'componentDidMount',
+
+
+    // Initial load of data into page
     value: function () {
       function componentDidMount(props) {
         var _this2 = this;
@@ -11869,6 +11883,9 @@ var CoffeeShops = function (_Component) {
 
       return componentDidMount;
     }()
+
+    // Method that performs the rendering of the data once the data has been fetched
+
   }, {
     key: 'fetchData',
     value: function () {
@@ -11920,6 +11937,9 @@ var CoffeeShops = function (_Component) {
 
       return fetchData;
     }()
+
+    // Gets the list of possible cities for the city filter
+
   }, {
     key: 'getCities',
     value: function () {
@@ -11940,6 +11960,9 @@ var CoffeeShops = function (_Component) {
 
       return getCities;
     }()
+
+    // Sets state to selected city from filter
+
   }, {
     key: 'handleCityChange',
     value: function () {
@@ -11958,6 +11981,9 @@ var CoffeeShops = function (_Component) {
 
       return handleCityChange;
     }()
+
+    // Sets state to selected method to sort by
+
   }, {
     key: 'handleSortChange',
     value: function () {
@@ -11985,6 +12011,9 @@ var CoffeeShops = function (_Component) {
 
       return handleSortChange;
     }()
+
+    // Set state to the selected price value
+
   }, {
     key: 'handlePriceChange',
     value: function () {
@@ -12003,11 +12032,13 @@ var CoffeeShops = function (_Component) {
 
       return handlePriceChange;
     }()
+
+    // Set state to the selected rating cutoff
+
   }, {
     key: 'handleRatingChange',
     value: function () {
       function handleRatingChange(selectedRating) {
-
         if (selectedRating == null) {
           this.state.selectedRating = {
             value: undefined,
@@ -12022,6 +12053,9 @@ var CoffeeShops = function (_Component) {
 
       return handleRatingChange;
     }()
+
+    // Sends a new fetch call to the API with selected filters and sorts applied
+
   }, {
     key: 'update',
     value: function () {
@@ -12052,7 +12086,27 @@ var CoffeeShops = function (_Component) {
       return update;
     }()
 
-    // invoked when user clicks a page number on the bottom.
+    // If no data is return from fetch call, print No Results message
+
+  }, {
+    key: 'returnNoResults',
+    value: function () {
+      function returnNoResults() {
+        return _react2['default'].createElement(
+          'div',
+          { className: 'intro-text text-center bg-faded p-5 rounded' },
+          _react2['default'].createElement(
+            'span',
+            { className: 'section-heading-upper text-center' },
+            'No Results'
+          )
+        );
+      }
+
+      return returnNoResults;
+    }()
+
+    // Invoked when user clicks a page number on the bottom.
 
   }, {
     key: 'handleClick',
@@ -12490,7 +12544,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12528,12 +12582,14 @@ var Location = function (_Component) {
 
   _createClass(Location, [{
     key: 'componentDidMount',
+
+
+    // Initial load of the data for the individual location instance
     value: function () {
       function componentDidMount(props) {
         var _this2 = this;
 
         console.log(this.state.id);
-
         fetch('/getsceniclocation/' + this.state.id).then(function (results) {
           console.log(results);
           return results.json();
@@ -12548,6 +12604,9 @@ var Location = function (_Component) {
 
       return componentDidMount;
     }()
+
+    // Get coffeshops nearby to the scenic location
+
   }, {
     key: 'get_coffeeshops',
     value: function () {
@@ -12564,7 +12623,7 @@ var Location = function (_Component) {
               'div',
               { id: 'shop_instance', key: shop.shop_name, onClick: function () {
                   function onClick() {
-                    _this3.setState({ navigateShop: true, navigateToShop: "/shop/" + shop.shop_id, selectedShop: shop });
+                    _this3.setState({ navigateShop: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop });
                   }
 
                   return onClick;
@@ -12596,6 +12655,9 @@ var Location = function (_Component) {
 
       return get_coffeeshops;
     }()
+
+    // Get snapshots associated with the scenic location
+
   }, {
     key: 'get_snaps',
     value: function () {
@@ -12606,12 +12668,44 @@ var Location = function (_Component) {
         fetch('/snapshots_scenic/' + this.state.scenicloc.scenic_id).then(function (results) {
           return results.json();
         }).then(function (data) {
+          console.log("This is the data");
+          console.log(data);
+          var snapshots = data.map(function (snapshot) {
+            return _react2['default'].createElement(
+              'div',
+              { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
+                  function onClick() {
+                    _this4.setState({ navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
+                  }
+
+                  return onClick;
+                }() },
+              _react2['default'].createElement(
+                'li',
+                { className: 'col' },
+                _react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 200, height: 200 }, alt: 'Photo1' }),
+                _react2['default'].createElement(
+                  'span',
+                  { className: 'picTextInstance' },
+                  _react2['default'].createElement(
+                    'span',
+                    null,
+                    _react2['default'].createElement(
+                      'b',
+                      null,
+                      snapshot.snap_name
+                    )
+                  )
+                )
+              )
+            );
+          });
           if (data.length == 0) {
             console.log("No results!");
-            var snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
-            _this4.setState({ snaps_list: snapshots });
+            var _snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+            _this4.setState({ snaps_list: _snapshots });
           } else {
-            var _snapshots = data.map(function (snapshot) {
+            var _snapshots2 = data.map(function (snapshot) {
               return _react2['default'].createElement(
                 'div',
                 { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
@@ -12641,8 +12735,8 @@ var Location = function (_Component) {
                 )
               );
             });
-            _this4.setState({ snaps_list: _snapshots });
-          }
+            _this4.setState({ snaps_list: _snapshots2 });
+          };
         });
       }
 
@@ -12650,6 +12744,9 @@ var Location = function (_Component) {
     }()
   }, {
     key: 'returnNoResults',
+
+
+    // If no results are found for coffeeshops nearby or associated snapshots
     value: function () {
       function returnNoResults() {
         return _react2['default'].createElement(
@@ -12869,7 +12966,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 var _reactSelect = __webpack_require__(14);
 
@@ -12884,8 +12981,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//import chunk from 'lodash.chunk';
-
 
 var Locations = function (_Component) {
   _inherits(Locations, _Component);
@@ -12902,7 +12997,7 @@ var Locations = function (_Component) {
       navigate: false,
       navigateTo: '',
       selectedLocation: []
-    }, _defineProperty(_this$state, 'navigateTo', ""), _defineProperty(_this$state, 'item', ""), _defineProperty(_this$state, 'currentPage', 1), _defineProperty(_this$state, 'locationsPerPage', 9), _defineProperty(_this$state, 'cities_list', []), _defineProperty(_this$state, 'selectedCity', {
+    }, _defineProperty(_this$state, 'navigateTo', ""), _defineProperty(_this$state, 'currentPage', 1), _defineProperty(_this$state, 'locationsPerPage', 9), _defineProperty(_this$state, 'cities_list', []), _defineProperty(_this$state, 'selectedCity', {
       value: undefined,
       label: undefined
     }), _defineProperty(_this$state, 'selectedRating', {
@@ -12918,6 +13013,9 @@ var Locations = function (_Component) {
 
   _createClass(Locations, [{
     key: 'componentDidMount',
+
+
+    // Initial load of data into page
     value: function () {
       function componentDidMount(props) {
         var _this2 = this;
@@ -12934,6 +13032,9 @@ var Locations = function (_Component) {
 
       return componentDidMount;
     }()
+
+    // Renders data after fetch call
+
   }, {
     key: 'fetchData',
     value: function () {
@@ -12983,6 +13084,9 @@ var Locations = function (_Component) {
 
       return fetchData;
     }()
+
+    // Gets the list of possible cities for the city filter
+
   }, {
     key: 'getCities',
     value: function () {
@@ -13003,6 +13107,9 @@ var Locations = function (_Component) {
 
       return getCities;
     }()
+
+    // Sets state to selected city from filter
+
   }, {
     key: 'handleCityChange',
     value: function () {
@@ -13021,6 +13128,9 @@ var Locations = function (_Component) {
 
       return handleCityChange;
     }()
+
+    // Sets state to selected method to sort by
+
   }, {
     key: 'handleSortChange',
     value: function () {
@@ -13048,6 +13158,9 @@ var Locations = function (_Component) {
 
       return handleSortChange;
     }()
+
+    // Set state to the selected rating cutoff
+
   }, {
     key: 'handleRatingChange',
     value: function () {
@@ -13067,6 +13180,9 @@ var Locations = function (_Component) {
 
       return handleRatingChange;
     }()
+
+    // If no data is return from fetch call, print No Results message
+
   }, {
     key: 'returnNoResults',
     value: function () {
@@ -13378,6 +13494,9 @@ var Navbar = function (_Component) {
 
   _createClass(Navbar, [{
     key: 'handleClick',
+
+
+    // Handle clicks on the navbar
     value: function () {
       function handleClick(event) {
         this.setState({
@@ -13533,7 +13652,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 var _reactHighlightWords = __webpack_require__(290);
 
@@ -13582,6 +13701,9 @@ var Search = function (_Component) {
 
       return componentDidMount;
     }()
+
+    // Performs search by sending fetch call to API and rendering results of data
+
   }, {
     key: 'search',
     value: function () {
@@ -13616,6 +13738,9 @@ var Search = function (_Component) {
 
       return search;
     }()
+
+    // Returns all coffeshops from results of search
+
   }, {
     key: 'returnCoffeeShop',
     value: function () {
@@ -13665,6 +13790,9 @@ var Search = function (_Component) {
 
       return returnCoffeeShop;
     }()
+
+    // Highlights the text searched by
+
   }, {
     key: 'highlightText',
     value: function () {
@@ -13682,6 +13810,9 @@ var Search = function (_Component) {
 
       return highlightText;
     }()
+
+    // Returns scenic locations from results of search
+
   }, {
     key: 'returnScenicLocation',
     value: function () {
@@ -13728,6 +13859,9 @@ var Search = function (_Component) {
 
       return returnScenicLocation;
     }()
+
+    // Returns snapshots from results of search
+
   }, {
     key: 'returnSnapshot',
     value: function () {
@@ -13769,6 +13903,9 @@ var Search = function (_Component) {
 
       return returnSnapshot;
     }()
+
+    // If no data is return from fetch call, print No Results message
+
   }, {
     key: 'returnNoResults',
     value: function () {
@@ -14016,7 +14153,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -14041,20 +14178,20 @@ var Snapshot = function (_Component) {
       shop: []
 
     };
-    console.log("This is photo");
-    console.log(_this.state.snapshot);
     _this.go_to_instance = _this.go_to_instance.bind(_this);
     return _this;
   }
 
   _createClass(Snapshot, [{
     key: 'componentDidMount',
+
+
+    // Initial load of the data for individual snapshot instance
     value: function () {
       function componentDidMount(props) {
         var _this2 = this;
 
         console.log(this.state.id);
-
         fetch('/getsnapshot/' + this.state.id).then(function (results) {
           console.log(results);
           return results.json();
@@ -14070,6 +14207,9 @@ var Snapshot = function (_Component) {
 
       return componentDidMount;
     }()
+
+    // Go to the coffeeshop or scenic location associated with the snapshot
+
   }, {
     key: 'go_to_instance',
     value: function () {
@@ -14247,7 +14387,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 var _reactSelect = __webpack_require__(14);
 
@@ -14276,7 +14416,6 @@ var SnapshotsMain = function (_Component) {
       navigate: false,
       selectedSnapshot: [],
       navigateTo: "",
-      item: "",
       currentPage: 1,
       photosPerPage: 9,
       cities_list: [],
@@ -14296,12 +14435,14 @@ var SnapshotsMain = function (_Component) {
       sort_attr: undefined
     };
     _this.returnNoResults = _this.returnNoResults.bind(_this);
-
     return _this;
   }
 
   _createClass(SnapshotsMain, [{
     key: 'componentDidMount',
+
+
+    // Initial load of data into page
     value: function () {
       function componentDidMount() {
         var _this2 = this;
@@ -14318,6 +14459,9 @@ var SnapshotsMain = function (_Component) {
     }()
   }, {
     key: 'fetchData',
+
+
+    // Renders data after fetch call
     value: function () {
       function fetchData(data) {
         var _this3 = this;
@@ -14362,6 +14506,9 @@ var SnapshotsMain = function (_Component) {
 
       return fetchData;
     }()
+
+    // Gets the list of possible cities for the city filter
+
   }, {
     key: 'getCities',
     value: function () {
@@ -14382,6 +14529,9 @@ var SnapshotsMain = function (_Component) {
     }()
   }, {
     key: 'handleCityChange',
+
+
+    // Sets state to selected city from filter
     value: function () {
       function handleCityChange(selectedCity) {
         if (selectedCity == null) {
@@ -14398,6 +14548,9 @@ var SnapshotsMain = function (_Component) {
 
       return handleCityChange;
     }()
+
+    // Sets state to selected method to sort by
+
   }, {
     key: 'handleFaveSortChange',
     value: function () {
@@ -14425,6 +14578,9 @@ var SnapshotsMain = function (_Component) {
 
       return handleFaveSortChange;
     }()
+
+    // Set state to the selected fav value
+
   }, {
     key: 'handleFavChange',
     value: function () {
@@ -14443,6 +14599,9 @@ var SnapshotsMain = function (_Component) {
 
       return handleFavChange;
     }()
+
+    // If no data is return from fetch call, print No Results message
+
   }, {
     key: 'returnNoResults',
     value: function () {
@@ -14460,6 +14619,9 @@ var SnapshotsMain = function (_Component) {
 
       return returnNoResults;
     }()
+
+    // Sends a new fetch call to the API with selected filters and sorts applied
+
   }, {
     key: 'update',
     value: function () {
@@ -14732,7 +14894,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(10);
+var _reactRouter = __webpack_require__(11);
 
 var _reactD3Cloud = __webpack_require__(279);
 
@@ -17137,7 +17299,7 @@ function point() {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__array__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__linear__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__number__ = __webpack_require__(85);
 /* harmony export (immutable) */ exports["a"] = identity;
@@ -17363,7 +17525,7 @@ function sqrt() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
 /* harmony export (immutable) */ exports["a"] = quantile;
 
 
@@ -17424,7 +17586,7 @@ function quantile() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__linear__ = __webpack_require__(19);
 /* harmony export (immutable) */ exports["a"] = quantize;
 
@@ -17548,7 +17710,7 @@ function sequential(interpolator) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_d3_array__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array__ = __webpack_require__(10);
 /* harmony export (immutable) */ exports["a"] = threshold;
 
 

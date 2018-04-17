@@ -11,6 +11,7 @@ class Navbar extends Component {
       };
   };
 
+  // Handle clicks on the navbar
   handleClick(event) {
       this.setState({
         currentPage: event.target.id

@@ -2,60 +2,61 @@ import React, { Component } from 'react';
 
 class About extends Component {
 
-constructor(props) {
-  super(props)
+  constructor(props) {
+    super(props)
 
-  this.state = {
-    commits: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
-    issues: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
-    ready: false
-  };
-}
+    this.state = {
+      commits: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
+      issues: {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0},
+      ready: false
+    };
+  }
 
-componentDidMount() {
-  this.loadCommits();
-  this.loadIssues();
-}
+  // Load commits and issues from Github
+  componentDidMount() {
+    this.loadCommits();
+    this.loadIssues();
+  }
 
 loadCommits() {
   fetch('https://api.github.com/repos/sonambenakatti/idb/stats/contributors')
-  			.then(response => response.json())
-  			.then(data => {
-          let actualCommits = {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0};
-          let total = 0;
-          for (let i = 0; i < data.length; i++) {
-            actualCommits[data[i].author.login] = data[i].total;
-            total += data[i].total;
-          }
-          actualCommits["total"] = total;
-          this.setState(
-            {commits: actualCommits}
-          );
-          this.setState(
-            {ready: true}
-          );
-        })
-  			.catch(err => console.error(this.props.url, err.toString()));
-}
+    .then(response => response.json())
+    .then(data => {
+      let actualCommits = {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0};
+      let total = 0;
+      for (let i = 0; i < data.length; i++) {
+        actualCommits[data[i].author.login] = data[i].total;
+        total += data[i].total;
+      }
+      actualCommits["total"] = total;
+      this.setState(
+        {commits: actualCommits}
+      );
+      this.setState(
+        {ready: true}
+      );
+    })
+  	.catch(err => console.error(this.props.url, err.toString()));
+  }
 
-loadIssues() {
-  fetch('https://api.github.com/repos/sonambenakatti/idb/issues?state=all&per_page=100')
-  			.then(response => response.json())
-  			.then(data => {
-          console.log(data);
-          let actualIssues = {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0};
-          let total = 0;
-          for (let i = 0; i < data.length; i++) {
-            actualIssues[data[i].user.login] += 1;
-            total += 1;
-          }
-          actualIssues["total"] = total;
-          this.setState(
-            {issues: actualIssues}
-          );
-        })
-  			.catch(err => console.error(this.props.url, err.toString()));
-}
+  loadIssues() {
+    fetch('https://api.github.com/repos/sonambenakatti/idb/issues?state=all&per_page=100')
+  		.then(response => response.json())
+  		.then(data => {
+        console.log(data);
+        let actualIssues = {"sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0};
+        let total = 0;
+        for (let i = 0; i < data.length; i++) {
+          actualIssues[data[i].user.login] += 1;
+          total += 1;
+        }
+        actualIssues["total"] = total;
+        this.setState(
+          {issues: actualIssues}
+        );
+      })
+    .catch(err => console.error(this.props.url, err.toString()));
+  }
 
 render() {
   let commits  = this.state.commits;

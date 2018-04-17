@@ -5,7 +5,6 @@ import {Router, Route, Link, RouteHandler, Redirect} from 'react-router';
 class CoffeeInstance extends Component {
 
   constructor(props) {
-
     super(props);
     this.state = {
       shop: [],
@@ -14,56 +13,53 @@ class CoffeeInstance extends Component {
       selectedLocation: [],
       snaps_list: [],
       selectedSnapshot:[],
-
-
     };
     this.get_scenic = this.get_scenic.bind(this);
     this.get_snaps = this.get_snaps.bind(this);
     this.returnNoResults = this.returnNoResults.bind(this);
   }
-
-componentDidMount(props) {
-  console.log(this.state.id)
-
-  fetch('/getcoffeeshop/' + this.state.id).then(results =>{
-    console.log(results)
-    return results.json();
-  }).then(data=>{
-    console.log("DATA")
-    console.log(data)
-    let shops = data.map((shop) =>{
-      this.setState({shop: shop});
-
+  // Initial load of data from individual coffeeshop
+  componentDidMount(props) {
+    console.log(this.state.id)
+    fetch('/getcoffeeshop/' + this.state.id).then(results =>{
+      console.log(results)
+      return results.json();
+    }).then(data=>{
+      console.log("DATA")
+      console.log(data)
+      let shops = data.map((shop) =>{
+        this.setState({shop: shop});
+      })
+      console.log(this.state.shop)
     })
-    console.log(this.state.shop)
-  })
+  }
 
-}
-
-get_scenic(){
+  // Get scenic locations nearby the coffeeshop
+  get_scenic(){
     fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(results =>{
-    console.log("Results:" + results)
-    return results.json();
-  }).then(data =>{
+      console.log("Results:" + results)
+      return results.json();
+    }).then(data =>{
       console.log(data)
       let views = data.map((scenicloc) =>{
         return(
-        <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
-          <li className="col">
-              <img src={scenicloc.scenic_picture} style={{width: 200, height: 200}} alt="Photo1"
-              />
-              <span className="picTextInstance">
-                <span><b>{scenicloc.scenic_name}</b></span>
-              </span>
-          </li>
-        </div>
-      )
+          <div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateTo: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
+            <li className="col">
+                <img src={scenicloc.scenic_picture} style={{width: 200, height: 200}} alt="Photo1"
+                />
+                <span className="picTextInstance">
+                  <span><b>{scenicloc.scenic_name}</b></span>
+                </span>
+            </li>
+          </div>
+        )
+      })
+      this.setState({scenic_list: views});
     })
-    this.setState({scenic_list: views});
-  })
-}
+  }
 
-returnNoResults() {
+  // If not scenic locations nearby or associated snapshots
+  returnNoResults() {
     return (
       <div className="intro-text text-center bg-faded p-5 rounded">
           <span className="section-heading-upper text-center">There are no more snaps for this shop</span>
@@ -71,35 +67,35 @@ returnNoResults() {
     )
   }
 
-
+  // Get associated snapshots with coffeshop
   get_snaps(){
     console.log("IN SNAPS JS")
     fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
-    return results.json();
-  }).then(data=>{
-    let snapshots= "";
-     if(data.length == 0) {
-        console.log("No results!");
-        let snapshots= [<div></div>, this.returnNoResults()];
-        this.setState({snaps_list: snapshots});
+      return results.json();
+    }).then(data=>{
+      let snapshots= "";
+       if(data.length == 0) {
+          console.log("No results!");
+          let snapshots= [<div></div>, this.returnNoResults()];
+          this.setState({snaps_list: snapshots});
+        }
+        else {
+          console.log("This is the data")
+          console.log(data)
+          let snapshots = data.map((snapshot) =>{
+            return(
+              <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
+                <li className="col">
+                    <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                    <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
+                </li>
+              </div>
+            );
+          });
+          this.setState({snaps_list: snapshots});
       }
-      else {
-        console.log("This is the data")
-        console.log(data)
-        let snapshots = data.map((snapshot) =>{
-          return(
-            <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
-              <li className="col">
-                  <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
-                  <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
-              </li>
-            </div>
-          );
-        });
-        this.setState({snaps_list: snapshots});
-      }
-      });
-    };
+    });
+  };
 
   render() {
     if (this.state.navigateScenic) {
@@ -184,8 +180,8 @@ returnNoResults() {
       </div>
     </div>
 
-      );
-    }
+    );
+  }
 }
 
 export default CoffeeInstance;
