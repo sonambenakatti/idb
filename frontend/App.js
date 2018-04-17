@@ -12,6 +12,7 @@ import Locations from './components/Locations';
 import SnapshotsMain from './components/SnapshotsMain';
 import Snapshot from './components/Snapshot';
 import Search from './components/Search';
+import Visualization from './components/Visualization';
 
 class App extends Component {
 
@@ -38,6 +39,7 @@ class App extends Component {
           <Route path='/locations' component={Locations} />
           <Route path='/location/:scenicId' component={Location} />
           <Route path='/search' component={Search} />
+          <Route path='/visualization' component={Visualization} />
         </Switch>
       </div>
     </Router>
