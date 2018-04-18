@@ -11417,7 +11417,7 @@ exports["default"] = About;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -11437,339 +11437,339 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CoffeeInstance = function (_Component) {
-  _inherits(CoffeeInstance, _Component);
+	_inherits(CoffeeInstance, _Component);
 
-  function CoffeeInstance(props) {
-    _classCallCheck(this, CoffeeInstance);
+	function CoffeeInstance(props) {
+		_classCallCheck(this, CoffeeInstance);
 
-    var _this = _possibleConstructorReturn(this, (CoffeeInstance.__proto__ || Object.getPrototypeOf(CoffeeInstance)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (CoffeeInstance.__proto__ || Object.getPrototypeOf(CoffeeInstance)).call(this, props));
 
-    _this.state = {
-      shop: [],
-      id: props.match.params.shopId,
-      scenic_list: [],
-      selectedLocation: [],
-      snaps_list: [],
-      selectedSnapshot: []
-    };
-    _this.get_scenic = _this.get_scenic.bind(_this);
-    _this.get_snaps = _this.get_snaps.bind(_this);
-    _this.returnNoResults = _this.returnNoResults.bind(_this);
-    return _this;
-  }
+		_this.state = {
+			shop: [],
+			id: props.match.params.shopId,
+			scenic_list: [],
+			selectedLocation: [],
+			snaps_list: [],
+			selectedSnapshot: []
+		};
+		_this.get_scenic = _this.get_scenic.bind(_this);
+		_this.get_snaps = _this.get_snaps.bind(_this);
+		_this.returnNoResults = _this.returnNoResults.bind(_this);
+		return _this;
+	}
 
-  _createClass(CoffeeInstance, [{
-    key: 'componentDidMount',
-    value: function () {
-      function componentDidMount(props) {
-        var _this2 = this;
+	_createClass(CoffeeInstance, [{
+		key: 'componentDidMount',
+		value: function () {
+			function componentDidMount(props) {
+				var _this2 = this;
 
-        fetch('/getcoffeeshop/' + this.state.id).then(function (results) {
-          return results.json();
-        }).then(function (data) {
-          //console.log(data)
-          var shops = data.map(function (shop) {
-            _this2.setState({ shop: shop });
-          });
-        });
-      }
+				fetch('/getcoffeeshop/' + this.state.id).then(function (results) {
+					return results.json();
+				}).then(function (data) {
+					//console.log(data)
+					var shops = data.map(function (shop) {
+						_this2.setState({ shop: shop });
+					});
+				});
+			}
 
-      return componentDidMount;
-    }()
+			return componentDidMount;
+		}()
 
-    // Get scenic locations nearby the coffeeshop
+		// Get scenic locations nearby the coffeeshop
 
-  }, {
-    key: 'get_scenic',
-    value: function () {
-      function get_scenic() {
-        var _this3 = this;
+	}, {
+		key: 'get_scenic',
+		value: function () {
+			function get_scenic() {
+				var _this3 = this;
 
-        fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(function (results) {
-          return results.json();
-        }).then(function (data) {
-          //console.log(data)
-          var views = data.map(function (scenicloc) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
-                  function onClick() {
-                    _this3.setState({ navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
-                  }
+				fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(function (results) {
+					return results.json();
+				}).then(function (data) {
+					//console.log(data)
+					var views = data.map(function (scenicloc) {
+						return _react2['default'].createElement(
+							'div',
+							{ id: 'location_instance', key: scenicloc.scenic_name, onClick: function () {
+									function onClick() {
+										_this3.setState({ navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc });
+									}
 
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: scenicloc.scenic_picture, style: { width: 200, height: 200 }, alt: 'Photo1'
-                }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picTextInstance' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      scenicloc.scenic_name
-                    )
-                  )
-                )
-              )
-            );
-          });
-          _this3.setState({ scenic_list: views });
-        });
-      }
+									return onClick;
+								}() },
+							_react2['default'].createElement(
+								'li',
+								{ className: 'col' },
+								_react2['default'].createElement('img', { src: scenicloc.scenic_picture, style: { width: 200, height: 200 }, alt: 'Photo1'
+								}),
+								_react2['default'].createElement(
+									'span',
+									{ className: 'picTextInstance' },
+									_react2['default'].createElement(
+										'span',
+										null,
+										_react2['default'].createElement(
+											'b',
+											null,
+											scenicloc.scenic_name
+										)
+									)
+								)
+							)
+						);
+					});
+					_this3.setState({ scenic_list: views });
+				});
+			}
 
-      return get_scenic;
-    }()
+			return get_scenic;
+		}()
 
-    // If not scenic locations nearby or associated snapshots
+		// If not scenic locations nearby or associated snapshots
 
-  }, {
-    key: 'returnNoResults',
-    value: function () {
-      function returnNoResults() {
-        return _react2['default'].createElement(
-          'div',
-          { className: 'intro-text text-center bg-faded p-5 rounded' },
-          _react2['default'].createElement(
-            'span',
-            { className: 'section-heading-upper text-center' },
-            'There are no more snaps for this shop'
-          )
-        );
-      }
+	}, {
+		key: 'returnNoResults',
+		value: function () {
+			function returnNoResults() {
+				return _react2['default'].createElement(
+					'div',
+					{ className: 'intro-text text-center bg-faded p-5 rounded' },
+					_react2['default'].createElement(
+						'span',
+						{ className: 'section-heading-upper text-center' },
+						'There are no more snaps for this shop'
+					)
+				);
+			}
 
-      return returnNoResults;
-    }()
+			return returnNoResults;
+		}()
 
-    // Get associated snapshots with coffeshop
+		// Get associated snapshots with coffeshop
 
-  }, {
-    key: 'get_snaps',
-    value: function () {
-      function get_snaps() {
-        var _this4 = this;
+	}, {
+		key: 'get_snaps',
+		value: function () {
+			function get_snaps() {
+				var _this4 = this;
 
-        fetch('/snapshots_shop/' + this.state.shop.shop_id).then(function (results) {
-          return results.json();
-        }).then(function (data) {
-          //console.log(data)
-          var snapshots = data.map(function (snapshot) {
-            return _react2['default'].createElement(
-              'div',
-              { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
-                  function onClick() {
-                    _this4.setState({ navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
-                  }
+				fetch('/snapshots_shop/' + this.state.shop.shop_id).then(function (results) {
+					return results.json();
+				}).then(function (data) {
+					//console.log(data)
+					var snapshots = data.map(function (snapshot) {
+						return _react2['default'].createElement(
+							'div',
+							{ id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
+									function onClick() {
+										_this4.setState({ navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
+									}
 
-                  return onClick;
-                }() },
-              _react2['default'].createElement(
-                'li',
-                { className: 'col' },
-                _react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 200, height: 200 }, alt: 'Photo1' }),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'picTextInstance' },
-                  _react2['default'].createElement(
-                    'span',
-                    null,
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      snapshot.snap_name
-                    ),
-                    _react2['default'].createElement('br', null)
-                  )
-                )
-              )
-            );
-          });
-          if (data.length == 0) {
-            //console.log("No results!");
-            snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
-          }
-        });
-      }
+									return onClick;
+								}() },
+							_react2['default'].createElement(
+								'li',
+								{ className: 'col' },
+								_react2['default'].createElement('img', { src: snapshot.snap_picture, style: { width: 200, height: 200 }, alt: 'Photo1' }),
+								_react2['default'].createElement(
+									'span',
+									{ className: 'picTextInstance' },
+									_react2['default'].createElement(
+										'span',
+										null,
+										_react2['default'].createElement(
+											'b',
+											null,
+											snapshot.snap_name
+										),
+										_react2['default'].createElement('br', null)
+									)
+								)
+							)
+						);
+					});
+					if (data.length == 0) {
+						//console.log("No results!");
+						snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+					}
+				});
+			}
 
-      return get_snaps;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        if (this.state.navigateScenic) {
-          var instance_state = {};
-          instance_state = { selectedLocation: this.state.selectedLocation };
-          return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
-        }
-        if (this.state.navigateSnap) {
-          var instance_state = {};
-          instance_state = { snapshot: this.state.selectedSnapshot };
+			return get_snaps;
+		}()
+	}, {
+		key: 'render',
+		value: function () {
+			function render() {
+				if (this.state.navigateScenic) {
+					var instance_state = {};
+					instance_state = { selectedLocation: this.state.selectedLocation };
+					return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
+				}
+				if (this.state.navigateSnap) {
+					var instance_state = {};
+					instance_state = { snapshot: this.state.selectedSnapshot };
 
-          window.open(this.state.navigateToSnap, "_blank");
-          this.setState({ navigateSnap: false });
-        }
+					window.open(this.state.navigateToSnap, "_blank");
+					this.setState({ navigateSnap: false });
+				}
 
-        return _react2['default'].createElement(
-          'div',
-          null,
-          _react2['default'].createElement(
-            'div',
-            { className: 'content' },
-            _react2['default'].createElement(
-              'div',
-              { className: 'col-sm-5 instance-details' },
-              _react2['default'].createElement(
-                'div',
-                { className: 'product-item' },
-                _react2['default'].createElement(
-                  'div',
-                  { className: 'product-item-title' },
-                  _react2['default'].createElement(
-                    'div',
-                    { className: 'bg-faded p-5 d-flex ml-auto rounded' },
-                    _react2['default'].createElement(
-                      'h2',
-                      { className: 'section-heading mb-0' },
-                      _react2['default'].createElement(
-                        'span',
-                        { className: 'section-heading-upper' },
-                        'Local Shop:'
-                      ),
-                      _react2['default'].createElement(
-                        'span',
-                        { className: 'section-heading-lower' },
-                        this.state.shop.shop_name
-                      )
-                    )
-                  )
-                )
-              ),
-              _react2['default'].createElement(
-                'div',
-                { className: 'product-item-description mr-auto' },
-                _react2['default'].createElement(
-                  'div',
-                  { className: 'bg-faded p-5 rounded' },
-                  _react2['default'].createElement(
-                    'span',
-                    { className: 'mb-0' },
-                    _react2['default'].createElement(
-                      'b',
-                      { id: 'address' },
-                      'Address: '
-                    ),
-                    this.state.shop.shop_address,
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      'Contact: '
-                    ),
-                    this.state.shop.shop_contact,
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      'Price: '
-                    ),
-                    this.state.shop.shop_price,
-                    _react2['default'].createElement('br', null),
-                    _react2['default'].createElement(
-                      'b',
-                      null,
-                      'Rating: '
-                    ),
-                    this.state.shop.shop_rating,
-                    _react2['default'].createElement('br', null)
-                  )
-                )
-              )
-            ),
-            _react2['default'].createElement(
-              'div',
-              { className: 'col-sm-5 instance-pic' },
-              _react2['default'].createElement('img', { className: 'product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0', src: this.state.shop.shop_picture, alt: true, style: { width: 500, height: 500, marginTop: 50 } })
-            )
-          ),
-          _react2['default'].createElement(
-            'div',
-            { className: 'model-links' },
-            _react2['default'].createElement(
-              'div',
-              { className: 'row' },
-              _react2['default'].createElement(
-                'div',
-                { className: 'col-md-6' },
-                _react2['default'].createElement(
-                  'div',
-                  { className: 'text-center' },
-                  _react2['default'].createElement(
-                    'button',
-                    { id: 'scenic_nearby', className: 'btn', type: 'button', onClick: this.get_scenic },
-                    'SCENIC LOCATIONS NEARBY'
-                  )
-                )
-              ),
-              _react2['default'].createElement(
-                'div',
-                { className: 'col-md-6' },
-                _react2['default'].createElement(
-                  'div',
-                  { className: 'text-center' },
-                  _react2['default'].createElement(
-                    'button',
-                    { id: 'more_snaps', className: 'btn', type: 'button', onClick: this.get_snaps },
-                    'MORE SNAPS'
-                  )
-                )
-              )
-            )
-          ),
-          _react2['default'].createElement(
-            'div',
-            { className: 'row justify-content-center' },
-            _react2['default'].createElement(
-              'section',
-              { className: 'col-md-6' },
-              _react2['default'].createElement(
-                'div',
-                { className: 'container text-center' },
-                _react2['default'].createElement(
-                  'ul',
-                  { className: 'text-center img-list' },
-                  this.state.scenic_list
-                )
-              )
-            ),
-            _react2['default'].createElement(
-              'section',
-              { className: 'col-md-6' },
-              _react2['default'].createElement(
-                'div',
-                { className: 'container text-center' },
-                _react2['default'].createElement(
-                  'ul',
-                  { className: 'text-center img-list' },
-                  this.state.snaps_list
-                )
-              )
-            )
-          )
-        );
-      }
+				return _react2['default'].createElement(
+					'div',
+					null,
+					_react2['default'].createElement(
+						'div',
+						{ className: 'content' },
+						_react2['default'].createElement(
+							'div',
+							{ className: 'col-sm-5 instance-details' },
+							_react2['default'].createElement(
+								'div',
+								{ className: 'product-item' },
+								_react2['default'].createElement(
+									'div',
+									{ className: 'product-item-title' },
+									_react2['default'].createElement(
+										'div',
+										{ className: 'bg-faded p-5 d-flex ml-auto rounded' },
+										_react2['default'].createElement(
+											'h2',
+											{ className: 'section-heading mb-0' },
+											_react2['default'].createElement(
+												'span',
+												{ className: 'section-heading-upper' },
+												'Local Shop:'
+											),
+											_react2['default'].createElement(
+												'span',
+												{ className: 'section-heading-lower' },
+												this.state.shop.shop_name
+											)
+										)
+									)
+								)
+							),
+							_react2['default'].createElement(
+								'div',
+								{ className: 'product-item-description mr-auto' },
+								_react2['default'].createElement(
+									'div',
+									{ className: 'bg-faded p-5 rounded' },
+									_react2['default'].createElement(
+										'span',
+										{ className: 'mb-0' },
+										_react2['default'].createElement(
+											'b',
+											{ id: 'address' },
+											'Address: '
+										),
+										this.state.shop.shop_address,
+										_react2['default'].createElement('br', null),
+										_react2['default'].createElement(
+											'b',
+											null,
+											'Contact: '
+										),
+										this.state.shop.shop_contact,
+										_react2['default'].createElement('br', null),
+										_react2['default'].createElement(
+											'b',
+											null,
+											'Price: '
+										),
+										this.state.shop.shop_price,
+										_react2['default'].createElement('br', null),
+										_react2['default'].createElement(
+											'b',
+											null,
+											'Rating: '
+										),
+										this.state.shop.shop_rating,
+										_react2['default'].createElement('br', null)
+									)
+								)
+							)
+						),
+						_react2['default'].createElement(
+							'div',
+							{ className: 'col-sm-5 instance-pic' },
+							_react2['default'].createElement('img', { className: 'product-item-img mx-auto rounded img-fluid mb-3 mb-lg-0', src: this.state.shop.shop_picture, alt: true, style: { width: 500, height: 500, marginTop: 50 } })
+						)
+					),
+					_react2['default'].createElement(
+						'div',
+						{ className: 'model-links' },
+						_react2['default'].createElement(
+							'div',
+							{ className: 'row' },
+							_react2['default'].createElement(
+								'div',
+								{ className: 'col-md-6' },
+								_react2['default'].createElement(
+									'div',
+									{ className: 'text-center' },
+									_react2['default'].createElement(
+										'button',
+										{ id: 'scenic_nearby', className: 'btn', type: 'button', onClick: this.get_scenic },
+										'SCENIC LOCATIONS NEARBY'
+									)
+								)
+							),
+							_react2['default'].createElement(
+								'div',
+								{ className: 'col-md-6' },
+								_react2['default'].createElement(
+									'div',
+									{ className: 'text-center' },
+									_react2['default'].createElement(
+										'button',
+										{ id: 'more_snaps', className: 'btn', type: 'button', onClick: this.get_snaps },
+										'MORE SNAPS'
+									)
+								)
+							)
+						)
+					),
+					_react2['default'].createElement(
+						'div',
+						{ className: 'row justify-content-center' },
+						_react2['default'].createElement(
+							'section',
+							{ className: 'col-md-6' },
+							_react2['default'].createElement(
+								'div',
+								{ className: 'container text-center' },
+								_react2['default'].createElement(
+									'ul',
+									{ className: 'text-center img-list' },
+									this.state.scenic_list
+								)
+							)
+						),
+						_react2['default'].createElement(
+							'section',
+							{ className: 'col-md-6' },
+							_react2['default'].createElement(
+								'div',
+								{ className: 'container text-center' },
+								_react2['default'].createElement(
+									'ul',
+									{ className: 'text-center img-list' },
+									this.state.snaps_list
+								)
+							)
+						)
+					)
+				);
+			}
 
-      return render;
-    }()
-  }]);
+			return render;
+		}()
+	}]);
 
-  return CoffeeInstance;
+	return CoffeeInstance;
 }(_react.Component);
 
 exports['default'] = CoffeeInstance;
