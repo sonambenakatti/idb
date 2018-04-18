@@ -185,7 +185,8 @@ class Search extends Component {
        } else {
          instance_state = {snapshot: this.state.selectedInstance};
        }
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+       window.open(this.state.navigateTo, "_blank");
+       this.setState({navigate: false})
      }
 
     const renderResults = currentResults.map((res, index) => {

@@ -69,6 +69,10 @@ class CoffeeShops extends Component {
         </div>
       )
     })
+    if(data.length == 0) {
+        console.log("No results!");
+        shops = [<div></div>, this.returnNoResults()];
+    }
     this.setState({coffeeshops: shops});
   }
 
@@ -161,18 +165,19 @@ class CoffeeShops extends Component {
     var sortby = this.state.sort_by;
     var ratfilter = this.state.selectedRating.value;
     var pricefilter = this.state.selectedPrice.value;
-  fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
-    + '&pricefilter=' + pricefilter).then(results => {
-    return results.json();
-  }).then(data => {
-    //console.log(data.length)
-    this.fetchData(data);
-    if(data.length == 0) {
-        shops = [<div></div>, this.returnNoResults()];
-    }
-  })
-  this.setState({currentPage: 1})
-}
+
+    fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
+      + '&pricefilter=' + pricefilter).then(results => {
+      console.log(results)
+      return results.json();
+    }).then(data => {
+      console.log(data.length)
+      this.fetchData(data);
+      console.log(data.length)
+    })
+    this.setState({currentPage: 1})
+  }
+
   // If no data is return from fetch call, print No Results message
   returnNoResults() {
     return (

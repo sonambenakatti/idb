@@ -57,6 +57,10 @@ class SnapshotsMain extends Component {
         </div>
       );
     });
+    if(data.length == 0) {
+      console.log("No results!");
+      snapshots = [<div></div>, this.returnNoResults()];
+    }
     this.setState({photos: snapshots});
   }
 
@@ -147,10 +151,6 @@ class SnapshotsMain extends Component {
       return results.json();
     }).then(data => {
       this.fetchData(data);
-      if(data.length == 0) {
-        console.log("No results!");
-        snapshots = [<div></div>, this.returnNoResults()];
-      }
     })
     this.setState({currentPage: 1})
   }

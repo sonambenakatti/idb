@@ -66,6 +66,10 @@ class Locations extends Component {
         </div>
       )
     })
+    if(data.length == 0) {
+      console.log("No results!");
+      views = [<div></div>, this.returnNoResults()];
+    }
     this.setState({locations: views});
   }
 
@@ -158,10 +162,6 @@ class Locations extends Component {
       return results.json();
     }).then(data => {
       this.fetchData(data);
-      if(data.length == 0) {
-        console.log("No results!");
-        locations = [<div></div>, this.returnNoResults()];
-      }
     })
     this.setState({currentPage: 1})
   }

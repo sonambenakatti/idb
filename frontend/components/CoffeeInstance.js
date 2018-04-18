@@ -63,39 +63,46 @@ componentDidMount(props) {
 			</div>
 		)
 	}
+  // Get associated snapshots with coffeshop
+  get_snaps(){
+      console.log("IN SNAPS JS")
+      fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
+        return results.json();
+      }).then(data=>{
+        let snapshots= "";
+         if(data.length == 0) {
+            console.log("No results!");
+            let snapshots= [<div></div>, this.returnNoResults()];
+            this.setState({snaps_list: snapshots});
+          }
+          else {
+            console.log("This is the data")
+            console.log(data)
+            let snapshots = data.map((snapshot) =>{
+              return(
+                <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
+                  <li className="col">
+                      <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                      <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
+                  </li>
+                </div>
+              );
+            });
+            this.setState({snaps_list: snapshots});
+        }
+      });
+    };
+  render() {
+    if (this.state.navigateScenic) {
+       var instance_state = {};
+       instance_state = {selectedLocation: this.state.selectedLocation};
 
-	// Get associated snapshots with coffeshop
-	get_snaps(){
-		fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
-		return results.json();
-	}).then(data=>{
-			//console.log(data)
-			let snapshots = data.map((snapshot) =>{
-				return(
-					<div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
-						<li className="col">
-								<img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
-								<span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
-						</li>
-					</div>
-				);
-			});
-			if(data.length == 0) {
-				//console.log("No results!");
-				snapshots= [<div></div>, this.returnNoResults()];
-			}
-		});
-	};
-
-	render() {
-		if (this.state.navigateScenic) {
-			 var instance_state = {};
-			 instance_state = {selectedLocation: this.state.selectedLocation};
-			 return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
-		}
-		if (this.state.navigateSnap) {
-			 var instance_state = {};
-			 instance_state = {snapshot: this.state.selectedSnapshot};
+       window.open(this.state.navigateToScenic, "_blank");
+       this.setState({navigateScenic: false})
+    }
+    if (this.state.navigateSnap) {
+       var instance_state = {};
+       instance_state = {snapshot: this.state.selectedSnapshot};
 
 			 window.open(this.state.navigateToSnap, "_blank");
 			 this.setState({navigateSnap: false})
