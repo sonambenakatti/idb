@@ -32,6 +32,6 @@
 
 *make other* - prints link to other critique
 
-# Secrets
+### Secrets
 
 Add config.ini file into the backend directory for API and DB secrets
