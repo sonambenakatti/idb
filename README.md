@@ -1,6 +1,6 @@
 # Espressoyoself website repo
 
-## Make file commands (NOTE: `make frontend` and `make backend` have to be changed to `make mocha` and `make unittest` respectively):
+### Make file commands (NOTE: `make frontend` and `make backend` have been changed to `make mocha` and `make unittest` respectively):
 
 *make githubid*
 
@@ -8,7 +8,7 @@
 
 *make sha*
 
-*make github*   - prints link to github rep
+*make github*   - prints link to github repo
 
 *make issues*   - prints link to current phase's issues
 
@@ -30,4 +30,4 @@
 
 *make self*     - prints link to self critique
 
-*make other*    - prints link to other critique
+*make other* - prints link to other critique
