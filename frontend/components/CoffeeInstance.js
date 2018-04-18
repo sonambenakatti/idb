@@ -66,27 +66,33 @@ componentDidMount(props) {
 
   // Get associated snapshots with coffeshop
   get_snaps(){
-    fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
-    return results.json();
-  }).then(data=>{
-      //console.log(data)
-      let snapshots = data.map((snapshot) =>{
-        return(
-          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
-            <li className="col">
-                <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
-                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
-            </li>
-          </div>
-        );
+      console.log("IN SNAPS JS")
+      fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
+        return results.json();
+      }).then(data=>{
+        let snapshots= "";
+         if(data.length == 0) {
+            console.log("No results!");
+            let snapshots= [<div></div>, this.returnNoResults()];
+            this.setState({snaps_list: snapshots});
+          }
+          else {
+            console.log("This is the data")
+            console.log(data)
+            let snapshots = data.map((snapshot) =>{
+              return(
+                <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
+                  <li className="col">
+                      <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                      <span className="picTextInstance"><span><b>{snapshot.snap_name}</b><br /></span></span>
+                  </li>
+                </div>
+              );
+            });
+            this.setState({snaps_list: snapshots});
+        }
       });
-      if(data.length == 0) {
-        //console.log("No results!");
-        snapshots= [<div></div>, this.returnNoResults()];
-      }
-    });
-  };
-
+    };
   render() {
     if (this.state.navigateScenic) {
        var instance_state = {};
