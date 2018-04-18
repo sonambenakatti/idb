@@ -16,7 +16,6 @@ class Location extends Component {
         snaps_list: [],
         selectedSnapshot:[],
       };
-      console.log(this.state);
       this.get_coffeeshops = this.get_coffeeshops.bind(this);
       this.get_snaps = this.get_snaps.bind(this);
       this.returnNoResults = this.returnNoResults.bind(this);
@@ -25,13 +24,9 @@ class Location extends Component {
 
   // Initial load of the data for the individual location instance
   componentDidMount(props) {
-    console.log(this.state.id)
     fetch('/getsceniclocation/' + this.state.id).then(results =>{
-      console.log(results)
       return results.json();
     }).then(data=>{
-      console.log("DATA")
-      console.log(data)
       let views = data.map((scenic) =>{
         this.setState({scenicloc: scenic});
       })
@@ -41,10 +36,8 @@ class Location extends Component {
   // Get coffeshops nearby to the scenic location
   get_coffeeshops(){
     fetch('/nearby_shops_from_scenic/' + this.state.scenicloc.scenic_id).then(results =>{
-      console.log("Results:" + results)
       return results.json();
     }).then(data=>{
-      console.log(data)
       let shops = data.map((shop) =>{
         return(
          <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateToShop: "/shop/" + shop.shop_id, selectedShop: shop})}}>
@@ -63,12 +56,9 @@ class Location extends Component {
 
   // Get snapshots associated with the scenic location
   get_snaps(){
-    console.log("IN SNAPS JS")
     fetch('/snapshots_scenic/'+ this.state.scenicloc.scenic_id).then(results =>{
       return results.json();
     }).then(data=>{
-      console.log("This is the data")
-      console.log(data)
       let snapshots = data.map((snapshot) =>{
         return(
 
@@ -81,7 +71,6 @@ class Location extends Component {
         );
       });
       if(data.length == 0) {
-        console.log("No results!");
         let snapshots = [<div></div>, this.returnNoResults()];
         this.setState({snaps_list: snapshots});
       }
@@ -112,7 +101,6 @@ class Location extends Component {
 
   render() {
     if (this.state.navigateShop) {
-      console.log("IN METHOD")
        var instance_state = {};
        instance_state = {shop: this.state.selectedShop};
 
@@ -120,7 +108,6 @@ class Location extends Component {
        this.setState({navigateShop: false})
     }
     else if (this.state.navigateSnap) {
-      console.log("IN METHOD")
        var instance_state = {};
        instance_state = {snapshot: this.state.selectedSnapshot};
 

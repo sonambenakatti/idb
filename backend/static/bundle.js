@@ -1144,11 +1144,13 @@ var durationWeek = 6048e5;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_color__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_lab__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_cubehelix__ = __webpack_require__(222);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__src_color__["g"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__src_color__["f"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__src_color__["h"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__src_color__["g"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__src_lab__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "e", function() { return __WEBPACK_IMPORTED_MODULE_1__src_lab__["b"]; });
+/* unused harmony reexport lch */
+/* unused harmony reexport gray */
 /* harmony reexport (binding) */ __webpack_require__.d(exports, "f", function() { return __WEBPACK_IMPORTED_MODULE_2__src_cubehelix__["a"]; });
 
 
@@ -14135,7 +14137,6 @@ var About = function (_Component) {
         fetch('https://api.github.com/repos/sonambenakatti/idb/issues?state=all&per_page=100').then(function (response) {
           return response.json();
         }).then(function (data) {
-          console.log(data);
           var actualIssues = { "sonambenakatti": 0, "AmruthaSreedharane": 0, "jenniferrethi": 0, "GohJazn": 0, "ruchi-shekar": 0, "total": 0 };
           var total = 0;
           for (var i = 0; i < data.length; i++) {
@@ -14915,7 +14916,6 @@ var CoffeeInstance = function (_Component) {
 				fetch('/getcoffeeshop/' + this.state.id).then(function (results) {
 					return results.json();
 				}).then(function (data) {
-					//console.log(data)
 					var shops = data.map(function (shop) {
 						_this2.setState({ shop: shop });
 					});
@@ -14936,7 +14936,6 @@ var CoffeeInstance = function (_Component) {
 				fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(function (results) {
 					return results.json();
 				}).then(function (data) {
-					//console.log(data)
 					var views = data.map(function (scenicloc) {
 						return _react2['default'].createElement(
 							'div',
@@ -15002,18 +15001,14 @@ var CoffeeInstance = function (_Component) {
 			function get_snaps() {
 				var _this4 = this;
 
-				console.log("IN SNAPS JS");
 				fetch('/snapshots_shop/' + this.state.shop.shop_id).then(function (results) {
 					return results.json();
 				}).then(function (data) {
 					var snapshots = "";
 					if (data.length == 0) {
-						console.log("No results!");
 						var _snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
 						_this4.setState({ snaps_list: _snapshots });
 					} else {
-						console.log("This is the data");
-						console.log(data);
 						var _snapshots2 = data.map(function (snapshot) {
 							return _react2['default'].createElement(
 								'div',
@@ -15266,8 +15261,6 @@ var CoffeeShops = function (_Component) {
   function CoffeeShops(props) {
     _classCallCheck(this, CoffeeShops);
 
-    console.log(props);
-
     var _this = _possibleConstructorReturn(this, (CoffeeShops.__proto__ || Object.getPrototypeOf(CoffeeShops)).call(this, props));
 
     _this.state = {
@@ -15311,13 +15304,9 @@ var CoffeeShops = function (_Component) {
       function componentDidMount(props) {
         var _this2 = this;
 
-        console.log(document.domain);
         fetch('/getcoffeeshops').then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log("DATA");
-          console.log(data);
           _this2.fetchData(data);
           _this2.getCities();
         });
@@ -15375,7 +15364,6 @@ var CoffeeShops = function (_Component) {
           );
         });
         if (data.length == 0) {
-          console.log("No results!");
           shops = [_react2['default'].createElement('div', null), this.returnNoResults()];
         }
         this.setState({ coffeeshops: shops });
@@ -15393,10 +15381,8 @@ var CoffeeShops = function (_Component) {
         var _this4 = this;
 
         fetch('/getcities').then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log(data);
           var cities = data.map(function (city) {
             return { value: city.city_id, label: city.city_name };
           });
@@ -15515,12 +15501,9 @@ var CoffeeShops = function (_Component) {
         var pricefilter = this.state.selectedPrice.value;
 
         fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter + '&pricefilter=' + pricefilter).then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log(data.length);
           _this5.fetchData(data);
-          console.log(data.length);
         });
         this.setState({ currentPage: 1 });
       }
@@ -16004,7 +15987,6 @@ var Location = function (_Component) {
       snaps_list: [],
       selectedSnapshot: []
     };
-    console.log(_this.state);
     _this.get_coffeeshops = _this.get_coffeeshops.bind(_this);
     _this.get_snaps = _this.get_snaps.bind(_this);
     _this.returnNoResults = _this.returnNoResults.bind(_this);
@@ -16021,13 +16003,9 @@ var Location = function (_Component) {
       function componentDidMount(props) {
         var _this2 = this;
 
-        console.log(this.state.id);
         fetch('/getsceniclocation/' + this.state.id).then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log("DATA");
-          console.log(data);
           var views = data.map(function (scenic) {
             _this2.setState({ scenicloc: scenic });
           });
@@ -16046,10 +16024,8 @@ var Location = function (_Component) {
         var _this3 = this;
 
         fetch('/nearby_shops_from_scenic/' + this.state.scenicloc.scenic_id).then(function (results) {
-          console.log("Results:" + results);
           return results.json();
         }).then(function (data) {
-          console.log(data);
           var shops = data.map(function (shop) {
             return _react2['default'].createElement(
               'div',
@@ -16096,12 +16072,9 @@ var Location = function (_Component) {
       function get_snaps() {
         var _this4 = this;
 
-        console.log("IN SNAPS JS");
         fetch('/snapshots_scenic/' + this.state.scenicloc.scenic_id).then(function (results) {
           return results.json();
         }).then(function (data) {
-          console.log("This is the data");
-          console.log(data);
           var snapshots = data.map(function (snapshot) {
             return _react2['default'].createElement(
               'div',
@@ -16133,7 +16106,6 @@ var Location = function (_Component) {
             );
           });
           if (data.length == 0) {
-            console.log("No results!");
             var _snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
             _this4.setState({ snaps_list: _snapshots });
           } else {
@@ -16199,14 +16171,12 @@ var Location = function (_Component) {
     value: function () {
       function render() {
         if (this.state.navigateShop) {
-          console.log("IN METHOD");
           var instance_state = {};
           instance_state = { shop: this.state.selectedShop };
 
           window.open(this.state.navigateToShop, "_blank");
           this.setState({ navigateShop: false });
         } else if (this.state.navigateSnap) {
-          console.log("IN METHOD");
           var instance_state = {};
           instance_state = { snapshot: this.state.selectedSnapshot };
 
@@ -16453,10 +16423,8 @@ var Locations = function (_Component) {
         var _this2 = this;
 
         fetch('/getsceniclocations').then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log(data);
           _this2.fetchData(data);
         });
         this.getCities();
@@ -16512,7 +16480,6 @@ var Locations = function (_Component) {
           );
         });
         if (data.length == 0) {
-          console.log("No results!");
           views = [_react2['default'].createElement('div', null), this.returnNoResults()];
         }
         this.setState({ locations: views });
@@ -16530,10 +16497,8 @@ var Locations = function (_Component) {
         var _this4 = this;
 
         fetch('/getcities').then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log(data);
           var cities = data.map(function (city) {
             return { value: city.city_id, label: city.city_name };
           });
@@ -16648,7 +16613,6 @@ var Locations = function (_Component) {
         var ratfilter = this.state.selectedRating.value;
 
         fetch('//api.espressoyoself.me/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter).then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
           _this5.fetchData(data);
@@ -16712,7 +16676,6 @@ var Locations = function (_Component) {
         }
 
         if (this.state.navigate) {
-          console.log("REDIRCT" + this.state.selectedLocation);
           return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: { selectedLocation: this.state.selectedLocation } }, push: true });
         }
 
@@ -16942,8 +16905,6 @@ var Navbar = function (_Component) {
     key: 'render',
     value: function () {
       function render() {
-        console.log("NAV HERE" + window.location.href);
-        //  console.log("CURRENT"+ this.context.router.getCurrentPathname());
         var pathname = window.location.href;
         return _react2['default'].createElement(
           'div',
@@ -17144,7 +17105,6 @@ var Search = function (_Component) {
 
         this.setState({ searchResults: [] });
         this.setState({ currentPage: 1 });
-        console.log("Value of page value after clicking Search: " + this.state.currentPage);
         fetch('/search/' + this.state.searchValue).then(function (results) {
           return results.json();
         }).then(function (data) {
@@ -17161,7 +17121,6 @@ var Search = function (_Component) {
             }
           });
           if (data.length == 0) {
-            console.log("No results!");
             results = [_react2['default'].createElement('div', null), _this2.returnNoResults()];
           }
           _this2.setState({ searchResults: results });
@@ -17229,8 +17188,6 @@ var Search = function (_Component) {
     key: 'highlightText',
     value: function () {
       function highlightText(text) {
-        console.log(text);
-        console.log(this.state.searchValue.split(" "));
         return _react2['default'].createElement(_reactHighlightWords2['default'], {
           highlightClassName: _highlighter2['default'].Highlight,
           highlightStyle: { color: 'white' },
@@ -17373,7 +17330,6 @@ var Search = function (_Component) {
         } else {
           document.getElementById("next").style.visibility = "visible";
         }
-        console.log("set state");
         this.setState({
           currentPage: pageNumber
         });
@@ -17402,12 +17358,8 @@ var Search = function (_Component) {
             currentPage = _state.currentPage,
             resultsPerPage = _state.resultsPerPage;
 
-
-        console.log(searchResults);
-
         var indexOfLastResult = currentPage * resultsPerPage;
         var indexOfFirstResult = indexOfLastResult - resultsPerPage;
-        console.log("THE RES" + searchResults);
         var currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
         var pageNumbers = [];
@@ -17419,13 +17371,11 @@ var Search = function (_Component) {
 
         if (this.state.navigate) {
           var instanceType = this.state.instanceType;
-          console.log("instanceType: " + instanceType);
           var instance_state = {};
 
           // Need to account for different variable names within the instance pages
           if (instanceType === "CoffeeInstance") {
             instance_state = { shop: this.state.selectedInstance };
-            console.log(instance_state);
           } else if (instanceType === "Location") {
             instance_state = { selectedLocation: this.state.selectedInstance };
           } else {
@@ -17627,17 +17577,12 @@ var Snapshot = function (_Component) {
       function componentDidMount(props) {
         var _this2 = this;
 
-        console.log(this.state.id);
         fetch('/getsnapshot/' + this.state.id).then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
-          console.log("DATA");
-          console.log(data);
           var snaps = data.map(function (snap) {
             _this2.setState({ snapshot: snap });
           });
-          console.log(_this2.state.snapshot);
         });
       }
 
@@ -17654,20 +17599,16 @@ var Snapshot = function (_Component) {
 
         if (this.state.snapshot.shop_id != null) {
           fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(function (results) {
-            console.log("Results:" + results);
             return results.json();
           }).then(function (data) {
-            console.log(data);
             var shops = data.map(function (shop) {
               _this3.setState({ navigateShop: true, navigateTo: "/shop/" + _this3.state.snapshot.shop_id, selectedShop: shop });
             });
           });
         } else if (this.state.snapshot.scenic_id != null) {
           fetch("/getsceniclocation/" + this.state.snapshot.scenic_id).then(function (results) {
-            console.log("Results:" + results);
             return results.json();
           }).then(function (data) {
-            console.log(data);
             var views = data.map(function (scenicloc) {
               _this3.setState({ navigateScenic: true, navigateTo: "/location/" + _this3.state.snapshot.scenic_id, selectedLocation: scenicloc });
             });
@@ -17682,17 +17623,13 @@ var Snapshot = function (_Component) {
     value: function () {
       function render() {
         if (this.state.navigateShop) {
-          console.log("IN METHOD");
           var instance_state = {};
           instance_state = { shop: this.state.selectedShop };
-
           window.open(this.state.navigateTo, "_blank");
         }
         if (this.state.navigateScenic) {
-          console.log("IN METHOD");
           var instance_state = {};
           instance_state = { selectedLocation: this.state.selectedLocation };
-
           window.open(this.state.navigateTo, "_blank");
         }
         return _react2['default'].createElement(
@@ -17938,7 +17875,6 @@ var SnapshotsMain = function (_Component) {
           );
         });
         if (data.length == 0) {
-          console.log("No results!");
           snapshots = [_react2['default'].createElement('div', null), this.returnNoResults()];
         }
         this.setState({ photos: snapshots });
@@ -18074,7 +18010,6 @@ var SnapshotsMain = function (_Component) {
         var favsfilter = this.state.selectedFavs.value;
 
         fetch('//api.espressoyoself.me/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby + '&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter).then(function (results) {
-          console.log(results);
           return results.json();
         }).then(function (data) {
           _this5.fetchData(data);
@@ -19810,8 +19745,10 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__define__["a" /* default */])(
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__define__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__color__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__math__ = __webpack_require__(102);
+/* unused harmony export gray */
 /* harmony export (immutable) */ exports["a"] = lab;
 /* unused harmony export Lab */
+/* unused harmony export lch */
 /* harmony export (immutable) */ exports["b"] = hcl;
 /* unused harmony export Hcl */
 
@@ -19845,6 +19782,10 @@ function labConvert(o) {
     z = xyz2lab((0.0139322 * r + 0.0971045 * g + 0.7141733 * b) / Zn);
   }
   return new Lab(116 * y - 16, 500 * (x - y), 200 * (y - z), o.opacity);
+}
+
+function gray(l, opacity) {
+  return new Lab(l, 0, 0, opacity == null ? 1 : opacity);
 }
 
 function lab(l, a, b, opacity) {
@@ -19903,6 +19844,10 @@ function hclConvert(o) {
   if (o.a === 0 && o.b === 0) return new Hcl(NaN, 0, o.l, o.opacity);
   var h = Math.atan2(o.b, o.a) * __WEBPACK_IMPORTED_MODULE_2__math__["b" /* rad2deg */];
   return new Hcl(h < 0 ? h + 360 : h, Math.sqrt(o.a * o.a + o.b * o.b), o.l, o.opacity);
+}
+
+function lch(l, c, h, opacity) {
+  return arguments.length === 1 ? hclConvert(l) : new Hcl(h, c, l, opacity == null ? 1 : opacity);
 }
 
 function hcl(h, c, l, opacity) {

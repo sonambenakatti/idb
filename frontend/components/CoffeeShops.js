@@ -6,7 +6,6 @@ import 'react-select/dist/react-select.css';
 class CoffeeShops extends Component {
 
   constructor (props) {
-    console.log(props);
     super(props);
     this.state = {
       coffeeshops: [],
@@ -41,13 +40,9 @@ class CoffeeShops extends Component {
 
   // Initial load of data into page
   componentDidMount(props) {
-    console.log(document.domain)
     fetch('/getcoffeeshops').then(results =>{
-      console.log(results)
       return results.json();
     }).then(data=>{
-      console.log("DATA")
-      console.log(data)
       this.fetchData(data);
       this.getCities();
     })
@@ -70,7 +65,6 @@ class CoffeeShops extends Component {
       )
     })
     if(data.length == 0) {
-        console.log("No results!");
         shops = [<div></div>, this.returnNoResults()];
     }
     this.setState({coffeeshops: shops});
@@ -79,10 +73,8 @@ class CoffeeShops extends Component {
   // Gets the list of possible cities for the city filter
   getCities() {
     fetch('/getcities').then(results =>{
-      console.log(results)
       return results.json();
     }).then(data=>{
-      console.log(data)
       let cities = data.map((city) =>{
         return(
           {value: city.city_id, label: city.city_name}
@@ -168,12 +160,9 @@ class CoffeeShops extends Component {
 
     fetch('//api.espressoyoself.me/coffeeshops_filter_sort/?sort=shop_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
       + '&pricefilter=' + pricefilter).then(results => {
-      console.log(results)
       return results.json();
     }).then(data => {
-      console.log(data.length)
       this.fetchData(data);
-      console.log(data.length)
     })
     this.setState({currentPage: 1})
   }

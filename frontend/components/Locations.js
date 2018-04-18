@@ -37,10 +37,8 @@ class Locations extends Component {
   // Initial load of data into page
   componentDidMount(props) {
       fetch('/getsceniclocations').then(results =>{
-        console.log(results)
         return results.json();
       }).then(data =>{
-        console.log(data)
         this.fetchData(data);
       })
     this.getCities();
@@ -67,7 +65,6 @@ class Locations extends Component {
       )
     })
     if(data.length == 0) {
-      console.log("No results!");
       views = [<div></div>, this.returnNoResults()];
     }
     this.setState({locations: views});
@@ -76,10 +73,8 @@ class Locations extends Component {
   // Gets the list of possible cities for the city filter
   getCities() {
     fetch('/getcities').then(results =>{
-      console.log(results)
       return results.json();
     }).then(data=>{
-      console.log(data)
       let cities = data.map((city) =>{
         return(
           {value: city.city_id, label: city.city_name}
@@ -158,7 +153,6 @@ class Locations extends Component {
 
     fetch('//api.espressoyoself.me/locations_filter_sort/?sort=scenic_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&ratfilter=' + ratfilter
       ).then(results => {
-      console.log(results)
       return results.json();
     }).then(data => {
       this.fetchData(data);
@@ -207,7 +201,6 @@ class Locations extends Component {
     }
 
     if (this.state.navigate) {
-      console.log("REDIRCT" + this.state.selectedLocation);
       return <Redirect to={{pathname: this.state.navigateTo, state: {selectedLocation: this.state.selectedLocation}}} push={true} />;
     }
 

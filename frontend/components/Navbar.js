@@ -19,8 +19,6 @@ class Navbar extends Component {
     }
 
   render() {
-    console.log("NAV HERE" + window.location.href);
-    //  console.log("CURRENT"+ this.context.router.getCurrentPathname());
     const pathname = window.location.href
     return (
       <div id="navbar">

@@ -23,7 +23,6 @@ componentDidMount(props) {
 	fetch('/getcoffeeshop/' + this.state.id).then(results =>{
 		return results.json();
 	}).then(data=>{
-		//console.log(data)
 		let shops = data.map((shop) =>{
 			this.setState({shop: shop});
 
@@ -37,7 +36,6 @@ componentDidMount(props) {
 		fetch('/nearby_scenic_from_shops/' + this.state.shop.shop_id).then(results =>{
 		return results.json();
 	}).then(data => {
-			//console.log(data)
 			let views = data.map((scenicloc) =>{
 				return(
 					<div id="location_instance" key={scenicloc.scenic_name} onClick={() =>{this.setState({navigateScenic: true, navigateToScenic: "/location/" + scenicloc.scenic_id, selectedLocation: scenicloc})}}>
@@ -65,19 +63,15 @@ componentDidMount(props) {
 	}
   // Get associated snapshots with coffeshop
   get_snaps(){
-      console.log("IN SNAPS JS")
       fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
         return results.json();
       }).then(data=>{
         let snapshots= "";
          if(data.length == 0) {
-            console.log("No results!");
             let snapshots= [<div></div>, this.returnNoResults()];
             this.setState({snaps_list: snapshots});
           }
           else {
-            console.log("This is the data")
-            console.log(data)
             let snapshots = data.map((snapshot) =>{
               return(
                 <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>

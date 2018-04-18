@@ -18,18 +18,12 @@ class Snapshot extends Component {
 
   // Initial load of the data for individual snapshot instance
   componentDidMount(props) {
-    console.log(this.state.id)
     fetch('/getsnapshot/' + this.state.id).then(results =>{
-      console.log(results)
       return results.json();
     }).then(data=>{
-      console.log("DATA")
-      console.log(data)
       let snaps = data.map((snap) =>{
         this.setState({snapshot: snap});
-
       })
-      console.log(this.state.snapshot)
     })
   }
 
@@ -37,10 +31,8 @@ class Snapshot extends Component {
   go_to_instance(){
     if(this.state.snapshot.shop_id != null){
       fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(results =>{
-      console.log("Results:" + results)
       return results.json();
        }).then(data=>{
-        console.log(data)
         let shops = data.map((shop) =>{
           this.setState({navigateShop: true, navigateTo: "/shop/" + this.state.snapshot.shop_id, selectedShop: shop})
         })
@@ -48,10 +40,8 @@ class Snapshot extends Component {
     }
     else if(this.state.snapshot.scenic_id != null){
       fetch("/getsceniclocation/" + this.state.snapshot.scenic_id).then(results =>{
-      console.log("Results:" + results)
       return results.json();
        }).then(data=>{
-        console.log(data)
         let views = data.map((scenicloc) =>{
           this.setState({navigateScenic: true, navigateTo: "/location/" + this.state.snapshot.scenic_id, selectedLocation: scenicloc})
 
@@ -62,17 +52,13 @@ class Snapshot extends Component {
 
   render() {
     if (this.state.navigateShop) {
-      console.log("IN METHOD")
        var instance_state = {};
        instance_state = {shop: this.state.selectedShop};
-
        window.open(this.state.navigateTo, "_blank");
     }
      if (this.state.navigateScenic) {
-      console.log("IN METHOD")
        var instance_state = {};
        instance_state = {selectedLocation: this.state.selectedLocation};
-
        window.open(this.state.navigateTo, "_blank");
     }
       return (

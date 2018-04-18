@@ -58,7 +58,6 @@ class SnapshotsMain extends Component {
       );
     });
     if(data.length == 0) {
-      console.log("No results!");
       snapshots = [<div></div>, this.returnNoResults()];
     }
     this.setState({photos: snapshots});
@@ -147,7 +146,6 @@ class SnapshotsMain extends Component {
 
     fetch('//api.espressoyoself.me/snapshots_filter_sort/?sort=snap_' + sort + '&sortby=' + sortby +'&cityfilter=' + cityfilter + '&favsfilter=' + favsfilter
       ).then(results => {
-      console.log(results)
       return results.json();
     }).then(data => {
       this.fetchData(data);

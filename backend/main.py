@@ -25,7 +25,7 @@ def my_parser(section, option):
 # get DB creds
 user = my_parser('database', 'user')
 pwd = my_parser('database', 'pwd')
-host = my_parser('database', 'host')	
+host = my_parser('database', 'host')
 db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
@@ -87,15 +87,6 @@ def get_snapshots() :
 def get_snapshot(snapshotId) :
 
     return redirect('//api.espressoyoself.me/snapshot/' + snapshotId, code=302)
-'''
-
-@APP.route('/search/<searchkey>',  methods=['GET'])
-def search(searchkey):
-    print(searchkey)
-
-    return redirect('//api.espressoyoself.me/search/' + searchkey, code=302)
-'''
-
 
 #NEARBY SEARCHES
 @APP.route('/nearby_scenic_from_shops/<shop_id>',  methods=['GET'])
@@ -121,7 +112,6 @@ def snapshots_scenic(scenic_id):
 @APP.route('/search/<searchkey>',  methods=['GET'])
 def search(searchkey):
     search_by = searchkey.split(" ")
-    print("searchkey: " + searchkey)
     if len(search_by) == 0:
         results = []
         jsonRes = json.dumps([dict(r) for r in results], default=alchemyencoder)
@@ -136,7 +126,6 @@ def search(searchkey):
         i_search =  '"%%' + str(i) + '%%"'
         i_search = str(i_search)
 
-        print(i_search)
         shops_query += ' shop_name LIKE ' + i_search + '  OR shop_address LIKE ' + i_search + ' OR shop_contact LIKE ' + i_search + ' OR shop_price LIKE ' + i_search + ' OR shop_hours LIKE '+i_search+' OR shop_rating LIKE ' + i_search + ' OR'
         scenic_query += ' scenic_name LIKE ' + i_search + ' OR scenic_address LIKE ' + i_search + ' OR scenic_rating LIKE ' + i_search + ' OR'
         snapshot_query += ' snap_name LIKE ' + i_search + ' OR snap_photographer LIKE ' + i_search + ' OR snap_username LIKE ' + i_search + ' OR'
@@ -152,9 +141,6 @@ def search(searchkey):
     results = results + snapshots
     random.shuffle(results)
     jsonRes = json.dumps([dict(r) for r in results], default=alchemyencoder)
-
-    print(jsonRes)
-
 
     return jsonRes
 

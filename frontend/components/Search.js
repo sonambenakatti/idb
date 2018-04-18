@@ -31,7 +31,6 @@ class Search extends Component {
   search() {
     this.setState({searchResults: []});
     this.setState({currentPage: 1});
-    console.log("Value of page value after clicking Search: " + this.state.currentPage);
     fetch('/search/' + this.state.searchValue).then(results => {
       return results.json();
     }).then(data => {
@@ -48,7 +47,6 @@ class Search extends Component {
         }
       })
       if(data.length == 0) {
-        console.log("No results!");
         results = [<div></div>, this.returnNoResults()];
       }
       this.setState({searchResults: results});
@@ -74,8 +72,6 @@ class Search extends Component {
 
   // Highlights the text searched by
   highlightText(text) {
-    console.log(text)
-    console.log(this.state.searchValue.split(" "))
     return (
       <Highlighter
          highlightClassName={styles.Highlight}
@@ -143,7 +139,6 @@ class Search extends Component {
       } else {
         document.getElementById("next").style.visibility="visible";
       }
-      console.log("set state")
       this.setState({
         currentPage: pageNumber
       });
@@ -156,12 +151,8 @@ class Search extends Component {
 
   render() {
      const{searchResults, currentPage, resultsPerPage} = this.state;
-
-     console.log(searchResults);
-
      const indexOfLastResult = currentPage * resultsPerPage;
      const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-     console.log("THE RES" +searchResults);
      const currentResults = searchResults.slice(indexOfFirstResult, indexOfLastResult);
 
      const pageNumbers = [];
@@ -173,13 +164,11 @@ class Search extends Component {
 
      if (this.state.navigate) {
        var instanceType = this.state.instanceType;
-       console.log("instanceType: " + instanceType)
        var instance_state = {};
 
        // Need to account for different variable names within the instance pages
        if(instanceType === "CoffeeInstance") {
          instance_state = {shop: this.state.selectedInstance};
-         console.log(instance_state);
        } else if(instanceType === "Location") {
          instance_state = {selectedLocation: this.state.selectedInstance};
        } else {
