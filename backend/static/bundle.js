@@ -7522,15 +7522,14 @@ var CoffeeInstance = function (_Component) {
         fetch('/snapshots_shop/' + this.state.shop.shop_id).then(function (results) {
           return results.json();
         }).then(function (data) {
-          var snapshots = "";
           if (data.length == 0) {
             console.log("No results!");
-            var _snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
-            _this4.setState({ snaps_list: _snapshots });
+            var snapshots = [_react2['default'].createElement('div', null), _this4.returnNoResults()];
+            _this4.setState({ snaps_list: snapshots });
           } else {
             console.log("This is the data");
             console.log(data);
-            var _snapshots2 = data.map(function (snapshot) {
+            var _snapshots = data.map(function (snapshot) {
               return _react2['default'].createElement(
                 'div',
                 { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
@@ -7561,7 +7560,7 @@ var CoffeeInstance = function (_Component) {
                 )
               );
             });
-            _this4.setState({ snaps_list: _snapshots2 });
+            _this4.setState({ snaps_list: _snapshots });
           }
         });
       }
@@ -8586,7 +8585,7 @@ var Location = function (_Component) {
                 'div',
                 { id: 'snap_instance', key: snapshot.snap_name, onClick: function () {
                     function onClick() {
-                      _this4.setState({ navigateSnap: true, navigateToScenic: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
+                      _this4.setState({ navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot });
                     }
 
                     return onClick;
@@ -8651,7 +8650,7 @@ var Location = function (_Component) {
           var instance_state = {};
           instance_state = { snapshot: this.state.selectedSnapshot };
 
-          window.open(this.state.navigateToScenic, "_blank");
+          window.open(this.state.navigateToSnap, "_blank");
           this.setState({ navigateSnap: false });
         }
 
@@ -9829,7 +9828,8 @@ var Search = function (_Component) {
           } else {
             instance_state = { snapshot: this.state.selectedInstance };
           }
-          return _react2['default'].createElement(_reactRouter.Redirect, { to: { pathname: this.state.navigateTo, state: instance_state }, push: true });
+          window.open(this.state.navigateTo, "_blank");
+          this.setState({ navigate: false });
         }
 
         var renderResults = currentResults.map(function (res, index) {

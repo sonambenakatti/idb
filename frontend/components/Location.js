@@ -77,7 +77,7 @@ class Location extends Component {
       else {
         let snapshots = data.map((snapshot) =>{
           return(
-            <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToScenic: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
+            <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateToSnap: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
               <li className="col">
                   <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
                   <span className="picTextInstance"><span><b>{snapshot.snap_name}</b></span></span>
@@ -114,7 +114,7 @@ class Location extends Component {
        var instance_state = {};
        instance_state = {snapshot: this.state.selectedSnapshot};
 
-       window.open(this.state.navigateToScenic, "_blank");
+       window.open(this.state.navigateToSnap, "_blank");
        this.setState({navigateSnap: false})
     }
 

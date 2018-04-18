@@ -77,7 +77,6 @@ returnNoResults() {
     fetch('/snapshots_shop/'+ this.state.shop.shop_id).then(results =>{
     return results.json();
   }).then(data=>{
-    let snapshots= "";
      if(data.length == 0) {
         console.log("No results!");
         let snapshots= [<div></div>, this.returnNoResults()];
