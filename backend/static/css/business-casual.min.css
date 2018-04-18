@@ -16,7 +16,9 @@ ul.img-list li {
   margin-bottom: 70px;
 }
 
-@media only screen and (min-width: 320px) and (max-width: 767px) {
+@media only screen
+  and (min-width: 320px)
+  and (max-width: 767px) {
 
   ul.img-list {
     justify-content: center;
@@ -40,6 +42,24 @@ ul.img-list li {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
   }
 
+}
+
+/* iPad pro */
+@media only screen
+  and (min-width: 786px)
+  and (max-width: 1366px)
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+    ul.img-list {
+      justify-content: center;
+    }
+
+    ul.img-list li {
+      display: inline-block;
+      margin: 20px auto 70px auto;
+      height: 300px;
+      width: 300px;
+      position: relative;
+    }
 }
 
 ul.page-list {
