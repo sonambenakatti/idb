@@ -128,7 +128,7 @@ def search(searchkey):
 
         shops_query += ' shop_name LIKE ' + i_search + '  OR shop_address LIKE ' + i_search + ' OR shop_contact LIKE ' + i_search + ' OR shop_price LIKE ' + i_search + ' OR shop_hours LIKE '+i_search+' OR shop_rating LIKE ' + i_search + ' OR'
         scenic_query += ' scenic_name LIKE ' + i_search + ' OR scenic_address LIKE ' + i_search + ' OR scenic_rating LIKE ' + i_search + ' OR'
-        snapshot_query += ' snap_name LIKE ' + i_search + ' OR snap_photographer LIKE ' + i_search + ' OR snap_username LIKE ' + i_search + ' OR'
+        snapshot_query += ' snap_name LIKE ' + i_search + ' OR snap_photographer LIKE ' + i_search + ' OR'
     shops_query = shops_query[:-3]
     scenic_query = scenic_query[:-3]
     snapshot_query = snapshot_query[:-3]
