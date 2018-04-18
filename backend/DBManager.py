@@ -9,7 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 import os
 
-
 pymysql.install_as_MySQLdb()
 
 # Create the Flask application and the Flask-SQLAlchemy object.
@@ -42,6 +41,7 @@ Cities = Table('Cities', metadata,
   Column('city_name', String(255)),
   Column('city_picture', LargeBinary(length=(2**32)-1)),
 )
+
 Shops = Table('Shops', metadata,
   Column('shop_id', Integer, primary_key=True),
   Column('shop_name', String(255)),
@@ -67,8 +67,6 @@ Scenic = Table('Scenic', metadata,
   Column('scenic_latitude', Float),
   Column('scenic_longitude', Float),
   Column('city_id', Integer, ForeignKey("Cities.city_id")),
-
-
 )
 
 Snapshots = Table('Snapshots', metadata,
@@ -84,15 +82,10 @@ Snapshots = Table('Snapshots', metadata,
   Column('shop_id', Integer, ForeignKey("Shops.shop_id")),
   Column('scenic_id', Integer, ForeignKey("Scenic.scenic_id")),
   Column('city_id', Integer, ForeignKey("Cities.city_id")),
-
 )
-
 
 engine = create_engine(uri)
 metadata.create_all(engine)
 
-
-
 if __name__ == "__main__":
     print("Making the database")
-   

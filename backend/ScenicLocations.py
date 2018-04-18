@@ -7,7 +7,6 @@ import requests
 import sys
 import urllib
 
-
 class ScenicLocations:
 	def __init__(self, name, address, rating, review1, review2, photo, latitude, longitude, city_id) :
 		self.__name = name
@@ -18,12 +17,10 @@ class ScenicLocations:
 		self.__photo = photo
 		self.__latitude = latitude
 		self.__longitude = longitude
-		self.__city_id = city_id		
-
+		self.__city_id = city_id
 
 	def __str__(self):
 		return str(self.__name)
-
 
 	@property
 	def name(self) :
@@ -92,13 +89,3 @@ class ScenicLocations:
 	@property
 	def city_id(self) :
 	    return self.__city_id
-
-	
-	
-
-
-
-
-
-
-
