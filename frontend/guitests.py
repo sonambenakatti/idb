@@ -14,8 +14,7 @@ class TestSuite(unittest.TestCase):
 		chromeOptions.add_argument("--start-maximized")
 		self.driver = webdriver.Chrome()
 		driver = self.driver
-		#driver.url = "http://espressoyoself.me/"
-		driver.url = "http://127.0.0.1:5000/"
+		driver.url = "http://espressoyoself.me/"
 		driver.get(driver.url)
 		self.assertEqual(driver.url, driver.current_url)
 
