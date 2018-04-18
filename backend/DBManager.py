@@ -8,23 +8,32 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import json
 import os
+from configparser import SafeConfigParser
 
 pymysql.install_as_MySQLdb()
 
-# Create the Flask application and the Flask-SQLAlchemy object.
-app = flask.Flask(__name__)
+# read congig file for secrets
+parser = SafeConfigParser()
+parser.read('config.ini')
 
-user = 'TheCoolBeans'
-pwd = 'riley5143'
-host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
-db = 'beansdbdev'
+# wrapper function for parsing config file
+def my_parser(section, option):
+    return str(parser.get(section, option).encode('ascii','ignore').decode('utf-8'))
+
+# get DB creds
+user = my_parser('database', 'user')
+pwd = my_parser('database', 'pwd')
+host = my_parser('database', 'host')
+db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
-#mysql_engine = create_engine('mysql://{0}:{1}@{2}:{3}'.format(user, pwd, host, port))
 
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.echo = False
+
+# Create the Flask application and the Flask-SQLAlchemy object.
+app = flask.Flask(__name__)
 
 # Create your Flask-SQLALchemy models as usual but with the following two
 # (reasonable) restrictions:
