@@ -18,6 +18,8 @@ import About from '../frontend/components/About.js';
 import Navbar from '../frontend/components/Navbar.js';
 import Search from '../frontend/components/Search.js';
 import {Select} from 'react-select';
+import 'babel-register';
+import 'jsdom-global/register';
 
 var ReactTestUtils = require('react-dom/test-utils');
 var sinon = require('sinon');

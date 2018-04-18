@@ -62,7 +62,7 @@ class CoffeeShops extends Component {
       return(
         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/shop/" + shop.shop_id, selectedShop: shop})}}>
           <li className="col">
-              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt={shop.shop_name}/>
+              <img src={shop.shop_picture} style={{width: 300, height: 300}} alt={shop.shop_name.toString()}/>
               <span className="picText">
               <span><b>{shop.shop_name}</b><br /><br />{shop.shop_address}<br />{shop.shop_price}<br />{shop.shop_rating + "/5"}</span></span>
           </li>
@@ -189,8 +189,6 @@ class CoffeeShops extends Component {
 
   // Invoked when user clicks a page number on the bottom.
   handleClick(pageNumber, arr, event) {
-    console.log(event.target.id)
-    console.log(pageNumber)
     if(pageNumber <= 1) {
       document.getElementById("prev").style.visibility="hidden";
     } else {
@@ -201,25 +199,19 @@ class CoffeeShops extends Component {
     } else {
       document.getElementById("next").style.visibility="visible";
     }
-    console.log("set state")
     this.setState({
       currentPage: pageNumber
     });
   }
 
-  render() {
-
-    console.log("INSIDE RENDER")
-
-    const { coffeeshops, currentPage, shopsPerPage } = this.state;
-    console.log(coffeeshops)
-
-    const concat_shops = [];
-    const shops = this.state.coffeeshops.map((coffeeshops, index) => {
-      if (coffeeshops) {
-        concat_shops.push(coffeeshops)
-      }
-    });
+render() {
+  const { coffeeshops, currentPage, shopsPerPage } = this.state;
+  const concat_shops = [];
+  const shops = this.state.coffeeshops.map((coffeeshops, index) => {
+    if (coffeeshops) {
+      concat_shops.push(coffeeshops)
+    }
+  });
 
     // Logic for displaying shops
     const indexOfLastShop = currentPage * shopsPerPage;
@@ -235,7 +227,6 @@ class CoffeeShops extends Component {
     }
 
     if (this.state.navigate) {
-      console.log("REDIRCT" + this.state.selectedShop.shop_name)
       return <Redirect to={{pathname: this.state.navigateTo, state: {shop: this.state.selectedShop}}} push={true} />;
     }
 
@@ -268,8 +259,6 @@ class CoffeeShops extends Component {
     const priceValue = selectedPrice && selectedPrice.value;
     const ratingValue = selectedRating && selectedRating.value;
     const sortValue = selectedSort && selectedSort.value;
-
-    console.log(this.state.selectedCity);
 
     return (
       <div>
