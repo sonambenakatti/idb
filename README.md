@@ -31,3 +31,7 @@
 *make self*     - prints link to self critique
 
 *make other* - prints link to other critique
+
+# Secrets
+
+Add config.ini file into the backend directory for API and DB secrets
