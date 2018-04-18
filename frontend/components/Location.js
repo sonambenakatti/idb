@@ -23,9 +23,9 @@ class Location extends Component {
 
   };
 
+  // Initial load of the data for the individual location instance
   componentDidMount(props) {
     console.log(this.state.id)
-
     fetch('/getsceniclocation/' + this.state.id).then(results =>{
       console.log(results)
       return results.json();
@@ -34,41 +34,52 @@ class Location extends Component {
       console.log(data)
       let views = data.map((scenic) =>{
         this.setState({scenicloc: scenic});
-
       })
     })
-
-
-
   }
 
+  // Get coffeshops nearby to the scenic location
   get_coffeeshops(){
     fetch('/nearby_shops_from_scenic/' + this.state.scenicloc.scenic_id).then(results =>{
-    console.log("Results:" + results)
-    return results.json();
-  }).then(data=>{
-    console.log(data)
-    let shops = data.map((shop) =>{
-      return(
-       <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateToShop: "/shop/" + shop.shop_id, selectedShop: shop})}}>
-          <li className="col">
-              <img src={shop.shop_picture} style={{width: 200, height: 200}} alt="Photo1"
-              />
-              <span className="picTextInstance">
-              <span><b>{shop.shop_name}</b></span></span>
-          </li>
-        </div>
-      )
+      console.log("Results:" + results)
+      return results.json();
+    }).then(data=>{
+      console.log(data)
+      let shops = data.map((shop) =>{
+        return(
+         <div id="shop_instance" key={shop.shop_name} onClick={() =>{this.setState({navigateShop: true, navigateToShop: "/shop/" + shop.shop_id, selectedShop: shop})}}>
+            <li className="col">
+                <img src={shop.shop_picture} style={{width: 200, height: 200}} alt="Photo1"
+                />
+                <span className="picTextInstance">
+                <span><b>{shop.shop_name}</b></span></span>
+            </li>
+          </div>
+        )
+      })
+      this.setState({shops_list: shops});
     })
-    this.setState({shops_list: shops});
-  })
-}
+  }
 
+  // Get snapshots associated with the scenic location
   get_snaps(){
     console.log("IN SNAPS JS")
     fetch('/snapshots_scenic/'+ this.state.scenicloc.scenic_id).then(results =>{
-    return results.json();
-  }).then(data=>{
+      return results.json();
+    }).then(data=>{
+      console.log("This is the data")
+      console.log(data)
+      let snapshots = data.map((snapshot) =>{
+        return(
+
+          <div id="snap_instance" key={snapshot.snap_name} onClick={() =>{this.setState({navigateSnap: true, navigateTo: "/snapshot/" + snapshot.snap_id, selectedSnapshot: snapshot})}}>
+            <li className="col">
+                <img src={snapshot.snap_picture} style={{width: 200, height: 200}} alt="Photo1"/>
+                <span className="picTextInstance"><span><b>{snapshot.snap_name}</b></span></span>
+            </li>
+          </div>
+        );
+      });
       if(data.length == 0) {
         console.log("No results!");
         let snapshots = [<div></div>, this.returnNoResults()];
@@ -86,19 +97,18 @@ class Location extends Component {
           );
         });
       this.setState({snaps_list: snapshots});
-      }
-     
-      });
-    };
+      };
+    });
+  };
 
- returnNoResults() {
+  // If no results are found for coffeeshops nearby or associated snapshots
+  returnNoResults() {
     return (
       <div className="intro-text text-center bg-faded p-5 rounded">
           <span className="section-heading-upper text-center">There are no snaps for this view</span>
       </div>
     )
   }
-
 
   render() {
     if (this.state.navigateShop) {

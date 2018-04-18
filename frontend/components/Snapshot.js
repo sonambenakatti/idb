@@ -13,31 +13,27 @@ class Snapshot extends Component {
       shop:[],
 
     };
-    console.log("This is photo")
-    console.log(this.state.snapshot)
     this.go_to_instance = this.go_to_instance.bind(this);
   };
 
+  // Initial load of the data for individual snapshot instance
   componentDidMount(props) {
-  console.log(this.state.id)
+    console.log(this.state.id)
+    fetch('/getsnapshot/' + this.state.id).then(results =>{
+      console.log(results)
+      return results.json();
+    }).then(data=>{
+      console.log("DATA")
+      console.log(data)
+      let snaps = data.map((snap) =>{
+        this.setState({snapshot: snap});
 
-  fetch('/getsnapshot/' + this.state.id).then(results =>{
-    console.log(results)
-    return results.json();
-  }).then(data=>{
-    console.log("DATA")
-    console.log(data)
-    let snaps = data.map((snap) =>{
-      this.setState({snapshot: snap});
-      
+      })
+      console.log(this.state.snapshot)
     })
-    console.log(this.state.snapshot)
-  })
+  }
 
-}
-
-
-
+  // Go to the coffeeshop or scenic location associated with the snapshot
   go_to_instance(){
     if(this.state.snapshot.shop_id != null){
       fetch("/getcoffeeshop/" + this.state.snapshot.shop_id).then(results =>{
@@ -47,12 +43,9 @@ class Snapshot extends Component {
         console.log(data)
         let shops = data.map((shop) =>{
           this.setState({navigateShop: true, navigateTo: "/shop/" + this.state.snapshot.shop_id, selectedShop: shop})
-
         })
       })
-
     }
-
     else if(this.state.snapshot.scenic_id != null){
       fetch("/getsceniclocation/" + this.state.snapshot.scenic_id).then(results =>{
       console.log("Results:" + results)
@@ -64,11 +57,8 @@ class Snapshot extends Component {
 
         })
       })
-
     }
   }
-
-
 
   render() {
     if (this.state.navigateShop) {
@@ -116,7 +106,6 @@ class Snapshot extends Component {
           <button id="more_snaps" className="btn" type="button" onClick={this.go_to_instance}>LEARN MORE ABOUT THIS PLACE</button>
         </div>
         </div>
-
       );
     }
   }

@@ -27,6 +27,7 @@ class Search extends Component {
 
   }
 
+  // Performs search by sending fetch call to API and rendering results of data
   search() {
     this.setState({searchResults: []});
     this.setState({currentPage: 1});
@@ -54,6 +55,7 @@ class Search extends Component {
     })
   }
 
+  // Returns all coffeshops from results of search
   returnCoffeeShop(result) {
     return(
         <div id="shop_instance" onClick={() =>{this.setState({navigate: true, navigateTo: "/shop/" + result.shop_id, selectedInstance: result, instanceType: "CoffeeInstance"})}}>
@@ -70,6 +72,7 @@ class Search extends Component {
     );
   }
 
+  // Highlights the text searched by
   highlightText(text) {
     console.log(text)
     console.log(this.state.searchValue.split(" "))
@@ -84,6 +87,7 @@ class Search extends Component {
     )
   }
 
+  // Returns scenic locations from results of search
   returnScenicLocation(result) {
     if(result.scenic_picture === "") {
       result.scenic_picture = "/static/img/noLocationImage.png"
@@ -103,6 +107,7 @@ class Search extends Component {
     );
   }
 
+  // Returns snapshots from results of search
   returnSnapshot(result) {
     return(
       <div id="snap_instance" key={result.snap_name} onClick={() =>{this.setState({navigate: true, navigateTo: "/snapshot/" + result.snap_id, selectedInstance: result, instanceType: "Snapshot"})}}>
@@ -118,7 +123,7 @@ class Search extends Component {
     );
   }
 
-
+  // If no data is return from fetch call, print No Results message
   returnNoResults() {
     return (
       <div className="intro-text text-center bg-faded p-5 rounded">
