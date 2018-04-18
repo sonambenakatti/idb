@@ -51,10 +51,6 @@ def main():
             db = create_engine(uri)
             metadata = MetaData()
             metadata.reflect(bind=db)
-            
-            #selecte query execute
-            res = conn.execute(select_st).fetchall()
-            print (res)
 
             for v in views :
                 ins = insert(metadata.tables['Scenic']).values(
