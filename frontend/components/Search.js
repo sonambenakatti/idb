@@ -115,7 +115,7 @@ class Search extends Component {
             <img src={result.snap_picture} style={{width: 300, height: 300}}/>
             <div class="centered">
             <span><b>{this.highlightText(result.snap_name)}</b><br /><br />
-            {/* {this.highlightText(result.snap_tags)}<br /> */}
+            Photographer: {this.highlightText(result.snap_photographer)}<br />
             {this.highlightText(result.snap_favs + " Faves")}</span>
             </div>
         </li>
