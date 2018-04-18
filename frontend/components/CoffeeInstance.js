@@ -97,7 +97,9 @@ componentDidMount(props) {
     if (this.state.navigateScenic) {
        var instance_state = {};
        instance_state = {selectedLocation: this.state.selectedLocation};
-       return <Redirect to={{pathname: this.state.navigateTo, state: instance_state}} push={true} />;
+
+       window.open(this.state.navigateToScenic, "_blank");
+       this.setState({navigateScenic: false})
     }
     if (this.state.navigateSnap) {
        var instance_state = {};
