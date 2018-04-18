@@ -69,6 +69,10 @@ class CoffeeShops extends Component {
         </div>
       )
     })
+    if(data.length == 0) {
+        console.log("No results!");
+        shops = [<div></div>, this.returnNoResults()];
+    }
     this.setState({coffeeshops: shops});
   }
 
@@ -170,10 +174,6 @@ class CoffeeShops extends Component {
       console.log(data.length)
       this.fetchData(data);
       console.log(data.length)
-      if(data.length == 0) {
-          console.log("No results!");
-          shops = [<div></div>, this.returnNoResults()];
-      }
     })
     this.setState({currentPage: 1})
   }
