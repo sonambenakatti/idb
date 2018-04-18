@@ -4,7 +4,7 @@
 *make githubid*
 *make reponame*
 *make sha*
-*make github*   - prints link to github repo
+*make github*   - prints link to github rep
 *make issues*   - prints link to current phase's issues
 *make stories*  - prints link to current phase's stories
 *make uml*      - prints link to uml diagram
