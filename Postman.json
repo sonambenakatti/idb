@@ -768,6 +768,49 @@
 			"response": []
 		},
 		{
+			"name": "Search with multiple keywords",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "008c2ddd-674c-40fe-b849-a59cbaf2778f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Search contains keyword\", function (){",
+							"    pm.expect(pm.response.text()).to.include('coffee');",
+							"})",
+							"",
+							"pm.test(\"Search contains keyword\", function (){",
+							"    pm.expect(pm.response.text()).to.include('shops');",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/search/coffee%20shops",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"search",
+						"coffee%20shops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Filter Sort on coffeeshops all valid params",
 			"event": [
 				{
@@ -1518,6 +1561,28 @@
 						"snapshots_scenic",
 						"-1"
 					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search with multiple invalid keywords",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "api.espressoyoself.me/search/*74y387y109i09u4%20&^%$#@",
+					"host": [
+						"api",
+						"espressoyoself",
+						"me"
+					],
+					"path": [
+						"search",
+						"*74y387y109i09u4%20&^%$"
+					],
+					"hash": "@"
 				}
 			},
 			"response": []
