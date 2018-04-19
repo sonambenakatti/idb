@@ -44,7 +44,6 @@ api_key = my_parser('snapshots', 'api_key')
 api_secret = my_parser('snapshots', 'api_secret')
 
 photo_titles = []
-RADIUS = '30'
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='json')
 
 """
@@ -173,17 +172,8 @@ def insert(photo, shop_id, scenic_id):
 
 def clear_db() :
     user_t = metadata.tables['Snapshots']
-    sel_st = user_t.select()
-    res = conn.execute(sel_st)
-    for _row in res:
-        print(_row)
-        print("\n\n\n")
     del_st = user_t.delete()
     res = conn.execute(del_st)
-
-    sel_st = user_t.select()
-    res = conn.execute(sel_st)
-    for _row in res: print(_row)
 
 def main():
     print("Main")
@@ -200,17 +190,16 @@ def main():
         for shop in coffeeshops :
             shop = dict(shop)
             photos = search_photos_coffee(shop['shop_latitude'], shop['shop_longitude'], shop['shop_name'])
-            print(photos)
-            #for photo in photos:
-                #insert(photo, shop['shop_id'], '')
+            for photo in photos:
+                insert(photo, shop['shop_id'], '')
 
         # snapshots of scenic locations
         locations = db.execute('SELECT * FROM Scenic').fetchall()
         for loc in locations:
             loc = dict(loc)
             photos = search_photos_scenic(loc['scenic_latitude'], loc['scenic_longitude'], loc['scenic_name'])
-            #for photo in photos:
-                #insert(photo,'' , shop['scenic_id'])
+            for photo in photos:
+                insert(photo,'' , shop['scenic_id'])
 
     except HTTPError as error:
         sys.exit(

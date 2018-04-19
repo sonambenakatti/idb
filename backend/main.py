@@ -25,7 +25,7 @@ def my_parser(section, option):
 # get DB creds
 user = my_parser('database', 'user')
 pwd = my_parser('database', 'pwd')
-host = my_parser('database', 'host')	
+host = my_parser('database', 'host')
 db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
@@ -94,7 +94,6 @@ def search(searchkey):
     print(searchkey)
 
     return redirect('//api.espressoyoself.me/search/' + searchkey, code=302)
-
 
 
 #NEARBY SEARCHES

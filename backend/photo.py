@@ -7,6 +7,9 @@ import requests
 import sys
 import urllib
 
+"""
+Snapshot photo class
+"""
 class Photo:
 
     def __init__(self, num_favorites, n, un, lat, lon, title, imgurl, tags, id, secret) :

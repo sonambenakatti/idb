@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
-'''
-TL;DR of overall workings of yelp.py
-query_api() is called first from start(), then query_api() calls the search(), then search() calls request(), and then request() returns a json object.
-the query_api() then sees if businesses are in json oject and prints the first businuss.
-'''
 from __future__ import print_function
-
 import argparse
 import json
 import pprint
@@ -195,12 +189,14 @@ uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
 #1
 def main():
+    '''
+    Requests the coffeeshops by each city and stores them in our mySQL db.
+    '''
     try:
         db = create_engine(uri)
         metadata = MetaData()
         metadata.reflect(bind=db)
         conn = db.connect()
-        print([metadata.tables['Cities']])
         select_st = select([metadata.tables['Cities']])
         res = conn.execute(select_st)
         for _row in res:
