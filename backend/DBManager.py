@@ -27,13 +27,14 @@ host = my_parser('database', 'host')
 db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
+# Create the Flask application and the Flask-SQLAlchemy object.
+app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.echo = False
 
-# Create the Flask application and the Flask-SQLAlchemy object.
-app = flask.Flask(__name__)
+
 
 # Create your Flask-SQLALchemy models as usual but with the following two
 # (reasonable) restrictions:

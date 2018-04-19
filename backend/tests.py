@@ -1,9 +1,9 @@
 from __future__ import print_function
-from main import *
 import requests
 import unittest
 from DBManager import db, Shops, Scenic, Snapshots
 import json
+from main import *
 from main import APP
 from flask import Flask, jsonify
 
@@ -16,7 +16,7 @@ class TestStringMethods(unittest.TestCase):
     def test_site_home(self):
         r = self.APP.get('/')
         self.assertEqual(r.status_code, 200)
-    
+
 
     def test_shops_api_exists(self):
         r = self.APP.get('/getcoffeeshops')
@@ -28,7 +28,7 @@ class TestStringMethods(unittest.TestCase):
         str_data = r.data.decode('utf-8')
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r.location, 'http://api.espressoyoself.me/coffeeshop/1')
-       
+
 
     def test_scenic_api_exists(self):
         r = self.APP.get('/getsceniclocations')
@@ -39,7 +39,7 @@ class TestStringMethods(unittest.TestCase):
         r = self.APP.get('/getsceniclocation/2')
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r.location, 'http://api.espressoyoself.me/sceniclocation/2')
-       
+
 
     def test_snapshots_api_exists(self):
         r = self.APP.get('/getsnapshots')
@@ -79,7 +79,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(r.status_code, 302)
         self.assertEqual(r.location, 'http://api.espressoyoself.me/snapshots_scenic/1')
 
-    
+
 
 
 if __name__ == '__main__':

@@ -1,6 +1,9 @@
 # Espressoyoself website repo
 
-### Make file commands (NOTE: `make frontend` and `make backend` have been changed to `make mocha` and `make unittest` respectively):
+## Requirements/Dependencies
+In order to run the tests, please run `npm install`  in the root directory. You will also need the config.ini file in order to run `make unittest`. Scroll down to the Secrets section for more detail.
+
+### Makefile commands (NOTE: `make frontend` and `make backend` have been changed to `make mocha` and `make unittest` respectively):
 
 *make githubid*
 
@@ -34,4 +37,4 @@
 
 ### Secrets
 
-Add config.ini file into the backend directory for API and DB secrets
+Add config.ini file into the backend directory for API and DB secrets so that `make unittest` will run without errors.
