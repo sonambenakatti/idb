@@ -45,6 +45,10 @@ mocha:
 unittest:
 	@(cd backend; python3 tests.py)
 
+# make postman - runs postman tests
+postman:
+	@(newman run Postman.json)
+
 # make website  - prints link to a website
 website:
 	@echo "http://www.espressoyoself.me"

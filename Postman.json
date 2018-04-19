@@ -712,7 +712,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "api.espressoyoself.me/search/\"  \"",
+					"raw": "api.espressoyoself.me/search/%20",
 					"host": [
 						"api",
 						"espressoyoself",
@@ -720,7 +720,7 @@
 					],
 					"path": [
 						"search",
-						"\"  \""
+						"%20"
 					]
 				},
 				"description": "Searching on an empty string"
@@ -773,7 +773,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "008c2ddd-674c-40fe-b849-a59cbaf2778f",
+						"id": "a0a622da-3037-4864-879a-e0a08489d85f",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -785,7 +785,7 @@
 							"})",
 							"",
 							"pm.test(\"Search contains keyword\", function (){",
-							"    pm.expect(pm.response.text()).to.include('shops');",
+							"    pm.expect(pm.response.text()).to.include('shop');",
 							"})"
 						]
 					}
@@ -796,7 +796,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "api.espressoyoself.me/search/coffee%20shops",
+					"raw": "api.espressoyoself.me/search/coffee%20shop",
 					"host": [
 						"api",
 						"espressoyoself",
@@ -804,7 +804,7 @@
 					],
 					"path": [
 						"search",
-						"coffee%20shops"
+						"coffee%20shop"
 					]
 				}
 			},
