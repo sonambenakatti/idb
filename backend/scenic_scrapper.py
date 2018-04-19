@@ -1,7 +1,5 @@
 from __future__ import print_function
 
-
-
 import argparse
 import json
 import pprint
@@ -11,8 +9,8 @@ import urllib
 import sqlalchemy
 from sqlalchemy import *
 import pymysql
-from GooglePlaces import get_places 
-
+from GooglePlaces import get_places
+from configparser import SafeConfigParser
 import ScenicLocations
 
 pymysql.install_as_MySQLdb()
@@ -30,27 +28,29 @@ except ImportError:
     from urllib import quote
     from urllib import urlencode
 
-user = 'TheCoolBeans'
-pwd = 'riley5143'
-host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
-db = 'beansdbdev'
+# read congig file for secrets
+parser = SafeConfigParser()
+parser.read('config.ini')
+
+# wrapper function for parsing config file
+def my_parser(section, option):
+    return str(parser.get(section, option).encode('ascii','ignore').decode('utf-8'))
+
+# get DB creds
+user = my_parser('database', 'user')
+pwd = my_parser('database', 'pwd')
+host = my_parser('database', 'host')
+db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
-
-
 
 def main():
     try:
-            
+
             views = get_places()
 
             db = create_engine(uri)
             metadata = MetaData()
             metadata.reflect(bind=db)
-
-            #print(metadata.tables['Scenic'])
-            #selecte query execute
-            #res = conn.execute(select_st).fetchall()
-            #print (res)
 
             for v in views :
                 ins = insert(metadata.tables['Scenic']).values(
@@ -80,9 +80,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print("INSERTED DATA")
-    #views = get_places()
-    #for v in views:
-       # print(v.name)
-
-

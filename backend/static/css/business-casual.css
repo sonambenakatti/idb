@@ -1,6 +1,6 @@
 body {
   font-family: 'Lora';
-  background: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("../img/bg.jpg");
+  background-image: linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)), url(../img/bg.jpg);
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -81,7 +81,7 @@ a:hover, a:visited, a:link, a:active {
 }
 
 #mainNav {
-  background-color: rgba(47, 23, 15, 0.9);
+  background-color: rgba(47, 23, 15, 2);
   font-family: 'Raleway';
 }
 
@@ -255,12 +255,12 @@ a:hover, a:visited, a:link, a:active {
   box-shadow: 0px 3px 3px 0px rgba(33, 37, 41, 0.1);
 }
 
-.btn-primary {
+.btn {
   background-color: #e6a756;
   border-color: #e6a756;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+.btn:hover, .btn:focus, .btn:active {
   background-color: #df902a;
   border-color: #df902a;
 }
@@ -344,7 +344,16 @@ input[type=text] {
 }
 
 .search {
-    margin:0 auto;
+    margin: auto;
+}
+
+.search .search-input {
+  font-family: 'Roboto';
+}
+
+.search .btn-lg {
+  font-family: 'Roboto';
+  margin-left: 15px;
 }
 
 .page-section-instance {
@@ -388,4 +397,55 @@ ul.img-list li:hover span.picTextInstance {
 .work {
   margin: auto;
   display: block;
+}
+
+.filter-container-shops {
+  width: 100%;
+  display: inline-flex;;
+  justify-content: center;
+  font-family: 'Roboto';
+  color: white;
+}
+
+.filter-container-shops h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container-shops .filter {
+  margin: 2rem;
+  width: 200px;
+}
+
+.filter-container-locs {
+  width: 100%;
+  display: inline-flex;;
+  justify-content: center;
+  font-family: 'Roboto';
+  color: white;
+}
+
+.filter-container-locs h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container-locs .filter {
+  margin: 2rem;
+  width: 200px;
+}
+
+.filter-container-snaps {
+  width: 100%;
+  display: inline-flex;;
+  justify-content: center;
+  font-family: 'Roboto';
+  color: white;
+}
+
+.filter-container-snaps h6 {
+  font-family: 'Raleway'
+}
+
+.filter-container-snaps .filter {
+  margin: 2rem;
+  width: 200px;
 }

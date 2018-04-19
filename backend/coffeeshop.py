@@ -19,18 +19,6 @@ class CoffeeShop:
         self.__phone = ph
         self.__hours = ""
 
-    # def jsonify(self)  :
-    #     json_dict = {}
-    #     json_dict["name"] = self.__name
-    #     json_dict["id"] = self.__id
-    #     json_dict["location"] = self.__location
-    #     json_dict["price"] = self.__price
-    #     json_dict["rating"] = self.__rating
-    #     json_dict["imageUrl"] = self.__imageUrl
-    #     json_dict["phone"] = self.__phone
-    #     json_dict["hours"] = self.__hours
-    #     return json_dict
-
     def __str__(self) :
          return str(self.__name)
 
@@ -100,8 +88,6 @@ class CoffeeShop:
     @hours.setter
     def hours(self, h) :
         self.__hours = str(h)
-
-
 
     @property
     def longitude(self) :

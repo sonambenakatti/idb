@@ -7,6 +7,11 @@ import urllib
 import sqlalchemy
 from sqlalchemy import *
 import pymysql
+from configparser import SafeConfigParser
+
+# read congig file for secrets
+parser = SafeConfigParser()
+parser.read('config.ini')
 
 pymysql.install_as_MySQLdb()
 
@@ -23,21 +28,22 @@ except ImportError:
     from urllib import quote
     from urllib import urlencode
 
-user = 'TheCoolBeans'
-pwd = 'riley5143'
-host = 'beansdbdev.ch0umvgb0s5r.us-east-1.rds.amazonaws.com'
-db = 'beansdbdev'
+# wrapper function for parsing config file
+def my_parser(section, option):
+    return str(parser.get(section, option).encode('ascii','ignore').decode('utf-8'))
+
+# get DB creds
+user = my_parser('database', 'user')
+pwd = my_parser('database', 'pwd')
+host = my_parser('database', 'host')
+db = my_parser('database', 'db')
 uri = 'mysql://%s:%s@%s/%s' % (user, pwd, host, db)
 
-"""
-secrets used in request
-TODO: hide these
-"""
-api_key = '646861afb9b6bf211e4b286b447ad794'
-api_secret = '1bb508d092416b93'
+# secrets used in request
+api_key = my_parser('snapshots', 'api_key')
+api_secret = my_parser('snapshots', 'api_secret')
 
 photo_titles = []
-RADIUS = '30'
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='json')
 
 """
@@ -157,8 +163,8 @@ def insert(photo, shop_id, scenic_id):
         snap_picture = bytes(photo.imageUrl, 'utf8'),
         snap_latitude = photo.latitude,
         snap_longitude = photo.longitude,
-        snap_photo_id = bytes(photo.id, 'utf8')
-        shop_id = bytes(shop_id, 'utf8')
+        snap_photo_id = bytes(photo.id, 'utf8'),
+        shop_id = bytes(shop_id, 'utf8'),
         scenic_id = bytes(scenic_id, 'utf8')
         )
     conn = db.connect()
@@ -166,19 +172,11 @@ def insert(photo, shop_id, scenic_id):
 
 def clear_db() :
     user_t = metadata.tables['Snapshots']
-    sel_st = user_t.select()
-    res = conn.execute(sel_st)
-    for _row in res:
-        print(_row)
-        print("\n\n\n")
     del_st = user_t.delete()
     res = conn.execute(del_st)
 
-    sel_st = user_t.select()
-    res = conn.execute(sel_st)
-    for _row in res: print(_row)
-
 def main():
+    print("Main")
     try:
         db = create_engine(uri)
         metadata = MetaData()
@@ -193,7 +191,7 @@ def main():
             shop = dict(shop)
             photos = search_photos_coffee(shop['shop_latitude'], shop['shop_longitude'], shop['shop_name'])
             for photo in photos:
-                #insert(photo, shop['shop_id'], '')
+                insert(photo, shop['shop_id'], '')
 
         # snapshots of scenic locations
         locations = db.execute('SELECT * FROM Scenic').fetchall()
@@ -201,7 +199,7 @@ def main():
             loc = dict(loc)
             photos = search_photos_scenic(loc['scenic_latitude'], loc['scenic_longitude'], loc['scenic_name'])
             for photo in photos:
-                #insert(photo,'' , shop['scenic_id'])
+                insert(photo,'' , shop['scenic_id'])
 
     except HTTPError as error:
         sys.exit(

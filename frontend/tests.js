@@ -18,10 +18,13 @@ import About from '../frontend/components/About.js';
 import Navbar from '../frontend/components/Navbar.js';
 import Search from '../frontend/components/Search.js';
 import {Select} from 'react-select';
+import 'babel-register';
+import 'jsdom-global/register';
 
 var ReactTestUtils = require('react-dom/test-utils');
 var sinon = require('sinon');
 
+// Test the Search component, including the "search" functionality and pagination
 describe("Test Search", function() {
 
   before(function() {
@@ -55,8 +58,15 @@ describe("Test Search", function() {
       expect(wrapper.find('#prev').exists()).to.eql(true);
       expect(wrapper.find('#next').exists()).to.eql(true);
   });
+  it('Test Search Set State', function () {
+    const wrapper = mount(<Search />);
+    wrapper.setState({ searchValue: ["test"] });
+    expect(wrapper.state('searchValue')).to.have.length(1);
+  });
+
 });
 
+// Test the clicking of "SCENIC LOCATIONS NEARBY" and "MORE SNAPS"
 describe("Test Nearby Buttons", function() {
 
   before(function() {
@@ -69,14 +79,14 @@ describe("Test Nearby Buttons", function() {
 
   it('Test nearby scenic locations', function () {
         const spy = sinon.spy(CoffeeInstance.prototype, 'get_scenic');
-        const wrapper = shallow(<CoffeeInstance location={{state: {shop: {shop_address: '1234 SWE St'}}}}/>);
+        const wrapper = shallow(<CoffeeInstance location={{state: {shop: {shop_address: '1234 SWE St'}}}} match={{params: {shopid: "1"}}}/>);
 
         wrapper.findWhere(n => n.type() === 'button' && n.contains('SCENIC LOCATIONS NEARBY')).simulate('click');
         expect(spy.calledOnce).to.equal(true);
   });
   it('Test nearby snaps', function () {
         const spy = sinon.spy(CoffeeInstance.prototype, 'get_snaps');
-        const wrapper = shallow(<CoffeeInstance location={{state: {shop: {shop_address: '1234 SWE St'}}}}/>);
+        const wrapper = shallow(<CoffeeInstance location={{state: {shop: {shop_address: '1234 SWE St'}}}} match={{params: {shopid: "1"}}}/>);
 
         wrapper.findWhere(n => n.type() === 'button' && n.contains('MORE SNAPS')).simulate('click');
         expect(spy.calledOnce).to.equal(true);
@@ -84,6 +94,7 @@ describe("Test Nearby Buttons", function() {
 
 });
 
+// Test Navigation Bar
 describe('Test Navigation Bar', () => {
 
     before(function() {
@@ -100,6 +111,7 @@ describe('Test Navigation Bar', () => {
     });
 });
 
+// Test CoffeeShops component, including filter elements
 describe("Test CoffeeShops", function() {
 
   before(function() {
@@ -111,7 +123,7 @@ describe("Test CoffeeShops", function() {
   })
 
   it('Test filter', function () {
-    expect(shallow(<CoffeeShops />).find('.filter')).to.have.length(6);
+    expect(shallow(<CoffeeShops />).find('.filter')).to.have.length(4);
   });
   it("Test for grid", function() {
     expect(shallow(<CoffeeShops />).contains(<div className="row" />)).to.equal(true);
@@ -128,23 +140,7 @@ describe("Test CoffeeShops", function() {
   });
 });
 
-describe("Test CoffeeInstance", function() {
-
-  before(function() {
-    this.jsdom = require('jsdom-global')();
-  })
-
-  after(function() {
-    this.jsdom();
-  })
-
-  it('Test coffee instance', function () {
-    const wrapper = mount(<CoffeeInstance location={{state: {shop: {shop_address: '1234 SWE St'}}}} />);
-    expect(wrapper.state().shop).contains({shop_address: '1234 SWE St'});
-  });
-});
-
-
+// Test Locations component
 describe("Test Locations", function() {
 
   before(function() {
@@ -156,7 +152,7 @@ describe("Test Locations", function() {
   })
 
   it('Test filter', function () {
-    expect(shallow(<Locations />).find('.filter')).to.have.length(4);
+    expect(shallow(<Locations />).find('.filter')).to.have.length(3);
   });
   it("Test for grid", function() {
       expect(shallow(<Locations />).contains(<div className="row" />)).to.equal(true);
@@ -173,6 +169,7 @@ describe("Test Locations", function() {
   });
 });
 
+// Test SnapshotsMain component
 describe("Test SnapshotsMain", function() {
 
   before(function() {
@@ -201,22 +198,7 @@ describe("Test SnapshotsMain", function() {
   });
 });
 
-describe("Test Snapshot", function() {
-
-  before(function() {
-    this.jsdom = require('jsdom-global')();
-  })
-
-  after(function() {
-    this.jsdom();
-  })
-
-  it('Test snapshot instance', function () {
-    const wrapper = mount(<Snapshot location={{state: {snapshot: 'testSnapshot'}}} />);
-    expect(wrapper.state().snapshot).contains('testSnapshot');
-  });
-});
-
+// Test About component
 describe("Test About", function() {
 
   before(function() {

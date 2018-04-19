@@ -7,6 +7,9 @@ import requests
 import sys
 import urllib
 
+"""
+Snapshot photo class
+"""
 class Photo:
 
     def __init__(self, num_favorites, n, un, lat, lon, title, imgurl, tags, id, secret) :
@@ -21,9 +24,6 @@ class Photo:
         self.__id = id
         self.tags = tags
         self.secret = secret
-        # self.shopId = shopId
-        # self.scenicId = scenicId
-
 
     @property
     def id(self) :
@@ -104,19 +104,3 @@ class Photo:
     @imageUrl.setter
     def imageUrl(self, img) :
         self.__imageUrl = img
-
-    # @property
-    # def shopId(self) :
-    #     return self.__shopId
-    #
-    # @shopId.setter
-    # def shopId(self, shopId) :
-    #     self.__shopId = shopId
-    #
-    # @property
-    # def scenicId(self) :
-    #     return self.__scenicId
-    #
-    # @scenicId.setter
-    # def scenicId(self, scenicId) :
-    #     self.__scenicId = scenicId
