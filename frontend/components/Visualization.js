@@ -14,27 +14,11 @@ import {
 
 const wrapperStyles = {
 	width: "100%",
-	maxWidth: 980,
 	margin: "0 auto",
 }
 
 const include = [
-	"ARG", "BOL", "BRA", "CHL", "COL", "ECU",
-	"GUY", "PRY", "PER", "SUR", "URY", "VEN",
-]
-
-const markers = [
-	{ markerOffset: -25, name: "Buenos Aires", coordinates: [-58.3816, -34.6037] },
-	{ markerOffset: -25, name: "La Paz", coordinates: [-68.1193, -16.4897] },
-	{ markerOffset: 35, name: "Brasilia", coordinates: [-47.8825, -15.7942] },
-	{ markerOffset: 35, name: "Santiago", coordinates: [-70.6693, -33.4489] },
-	{ markerOffset: 35, name: "Bogota", coordinates: [-74.0721, 4.7110] },
-	{ markerOffset: 35, name: "Quito", coordinates: [-78.4678, -0.1807] },
-	{ markerOffset: -25, name: "Georgetown", coordinates: [-58.1551, 6.8013] },
-	{ markerOffset: -25, name: "Asuncion", coordinates: [-57.5759, -25.2637] },
-	{ markerOffset: 35, name: "Paramaribo", coordinates: [-55.2038, 5.8520] },
-	{ markerOffset: 35, name: "Montevideo", coordinates: [-56.1645, -34.9011] },
-	{ markerOffset: -25, name: "Caracas", coordinates: [-66.9036, 10.4806] },
+  "USA",
 ]
 
 
@@ -43,39 +27,50 @@ class Visualization extends Component {
 		constructor (props) {
 			super(props)
 
-			// this.state = {
-			//   restaurants_list: []
-			// };
+			this.state = {
+			  parks_list: [],
+				restaurants_list: []
+			};
 
 		}
 
-		// componentDidMount(props) {
-		//   fetch('http://api.roadtripr.fun/restaurant/top?city=Austin&length=30').then(results =>{
-		//     console.log(results)
-		//     return results.json();
-		//   }).then(data => {
-		//     console.log(data)
-		//     let restaurants = Object.values(data)[0].map((restaurant) =>{
-		//       return restaurant.name;
-		//     })
-		//     this.setState({restaurants_list: restaurants});
-		//   })
-		// }
+		componentDidMount(props) {
+		  fetch('http://api.roadtripr.fun/park?page=1&results_per_page=30').then(results =>{
+		    return results.json();
+		  }).then(data => {
+				let parks = Object.values(data)[1].map((park) =>{
+		      return {"name": park.name, "latitude": park.latitude, "longitude": park.longitude};
+		    })
+				console.log(parks)
+		    this.setState({parks_list: parks});
+		  })
 
-		render() {
+			fetch('http://api.roadtripr.fun/restaurant?page=1&results_per_page=30').then(results =>{
+				return results.json();
+			}).then(data => {
+				let restaurants = Object.values(data)[1].map((restaurant) =>{
+					return {"name": restaurant.name, "latitude": restaurant.latitude, "longitude": restaurant.longitude};
+				})
+				console.log(restaurants)
+				this.setState({restaurants_list: restaurants});
+			})
+
+		}
+
+		createMarkers(markers, fillColor) {
 			return (
 				<div style={wrapperStyles}>
 					<ComposableMap
-						projectionConfig={{ scale: 800 }}
-						width={1000}
-						height={1000}
+						projectionConfig={{ scale: 2500 }}
+						width={2000}
+						height={2000}
 						style={{
 							width: "100%",
 							height: "auto",
 						}}
 						>
-						<ZoomableGroup center={[ -60, -25 ]} disablePanning>
-							<Geographies geography="backend/static/world-50m.json">
+						<ZoomableGroup center={[ -95, 30 ]} disablePanning>
+							<Geographies geography="static/world-50m.json">
 								{(geographies, projection) =>
 									geographies.map((geography, i) =>
 										include.indexOf(geography.id) !== -1 && (
@@ -148,29 +143,18 @@ class Visualization extends Component {
 			)
 		}
 
-	//   render() {
-	//     var data = [];
-	//     let restaurants = this.state.restaurants_list;
-	//     var i = 0;
-	//     for (i = 0; i < restaurants.length; i++) {
-	//         data.push({text: restaurants[i], value: Math.floor((Math.random() * 10000) + 1)});
-	//     }
-	//
-	//     console.log(data)
-	//
-	//     const fontSizeMapper = word => Math.log2(word.value) * 5;
-	//     const rotate = word => (word.value % 90) - 45;
-	//
-	//
-	//     return (
-	//       <WordCloud
-	//             data={data}
-	//             fontSizeMapper={fontSizeMapper}
-	//             rotate={rotate}
-	//           />
-	//     );
-	// }
+		render() {
+			const parks = this.state.parks_list;
+			const restaurants = this.state.restaurants_list;
 
+			const park_markers = parks.map((park) => {
+				return {markerOffset: -25, name: park.name, coordinates: [park.longitude, park.latitude]}
+			});
+
+
+			return this.createMarkers(park_markers, "#607D8B");
+
+		}
 }
 
 export default Visualization;
