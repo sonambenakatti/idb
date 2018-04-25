@@ -18298,7 +18298,8 @@ var Visualization = function (_Component) {
 
 		_this.state = {
 			parks_list: [],
-			restaurants_list: []
+			restaurants_list: [],
+			cities_list: []
 		};
 
 		return _this;
@@ -18310,33 +18311,74 @@ var Visualization = function (_Component) {
 			function componentDidMount(props) {
 				var _this2 = this;
 
-				fetch('http://api.roadtripr.fun/park?page=1&results_per_page=30').then(function (results) {
+				fetch('http://api.roadtripr.fun/city?page=1&results_per_page=15').then(function (results) {
 					return results.json();
 				}).then(function (data) {
-					var parks = Object.values(data)[1].map(function (park) {
-						return { "name": park.name, "latitude": park.latitude, "longitude": park.longitude };
+					var cities = Object.values(data)[1].map(function (city) {
+						var result = { "name": city.name, "latitude": city.latitude, "longitude": city.longitude };
+						_this2.fetchRestaurants(result);
+						_this2.fetchParks(result);
+						return result;
 					});
-					console.log(parks);
-					_this2.setState({ parks_list: parks });
-				});
-
-				fetch('http://api.roadtripr.fun/restaurant?page=1&results_per_page=30').then(function (results) {
-					return results.json();
-				}).then(function (data) {
-					var restaurants = Object.values(data)[1].map(function (restaurant) {
-						return { "name": restaurant.name, "latitude": restaurant.latitude, "longitude": restaurant.longitude };
-					});
-					console.log(restaurants);
-					_this2.setState({ restaurants_list: restaurants });
+					// console.log(cities)
+					_this2.setState({ cities_list: cities });
 				});
 			}
 
 			return componentDidMount;
 		}()
 	}, {
-		key: 'createMarkers',
+		key: 'fetchRestaurants',
 		value: function () {
-			function createMarkers(markers, fillColor) {
+			function fetchRestaurants(city) {
+				var _this3 = this;
+
+				console.log(city);
+
+				fetch('http://api.roadtripr.fun/restaurant/nearby/?latitude=' + parseFloat(city.latitude) + '&longitude=' + parseFloat(city.longitude) + '&length=1').then(function (results) {
+					return results.json();
+				}).then(function (data) {
+					// console.log(data);
+
+
+					var restaurants = Object.values(data)[0].map(function (restaurant) {
+						return { "name": restaurant.name, "latitude": restaurant.latitude, "longitude": restaurant.longitude };
+					});
+
+					var new_restaurants = _this3.state.restaurants_list.concat(restaurants);
+					_this3.setState({ restaurants_list: new_restaurants });
+					// console.log(this.state.restaurants_list);
+				});
+			}
+
+			return fetchRestaurants;
+		}()
+	}, {
+		key: 'fetchParks',
+		value: function () {
+			function fetchParks(city) {
+				var _this4 = this;
+
+				fetch('http://api.roadtripr.fun/park/nearby/?latitude=' + parseFloat(city.latitude) + '&longitude=' + parseFloat(city.longitude) + '&length=1').then(function (results) {
+					return results.json();
+				}).then(function (data) {
+					console.log(data);
+
+					var parks = Object.values(data)[0].map(function (park) {
+						return { "name": park.name, "latitude": park.latitude, "longitude": park.longitude };
+					});
+					var new_parks = _this4.state.parks_list.concat(parks);
+					_this4.setState({ parks_list: new_parks });
+					// console.log(this.state.parks_list);
+				});
+			}
+
+			return fetchParks;
+		}()
+	}, {
+		key: 'createMap',
+		value: function () {
+			function createMap(markers) {
 				return _react2['default'].createElement(
 					'div',
 					{ style: wrapperStyles },
@@ -18395,19 +18437,19 @@ var Visualization = function (_Component) {
 										_reactSimpleMaps.Marker,
 										{
 											key: i,
-											marker: marker,
+											marker: marker.mark,
 											style: {
-												'default': { fill: "#FF5722" },
-												hover: { fill: "#FFFFFF" },
-												pressed: { fill: "#FF5722" }
+												'default': { fill: marker.color },
+												hover: { fill: marker.color },
+												pressed: { fill: marker.color }
 											}
 										},
 										_react2['default'].createElement('circle', {
 											cx: 0,
 											cy: 0,
-											r: 10,
+											r: 12,
 											style: {
-												stroke: "#FF5722",
+												stroke: marker.color,
 												strokeWidth: 3,
 												opacity: 0.9
 											}
@@ -18416,13 +18458,13 @@ var Visualization = function (_Component) {
 											'text',
 											{
 												textAnchor: 'middle',
-												y: marker.markerOffset,
+												y: marker.mark.markerOffset,
 												style: {
 													fontFamily: "Roboto, sans-serif",
 													fill: "#607D8B"
 												}
 											},
-											marker.name
+											marker.mark.name
 										)
 									);
 								})
@@ -18432,7 +18474,7 @@ var Visualization = function (_Component) {
 				);
 			}
 
-			return createMarkers;
+			return createMap;
 		}()
 	}, {
 		key: 'render',
@@ -18442,10 +18484,16 @@ var Visualization = function (_Component) {
 				var restaurants = this.state.restaurants_list;
 
 				var park_markers = parks.map(function (park) {
-					return { markerOffset: -25, name: park.name, coordinates: [park.longitude, park.latitude] };
+					return { mark: { markerOffset: -25, name: park.name, coordinates: [park.longitude, park.latitude] }, color: "#FF5722" };
 				});
 
-				return this.createMarkers(park_markers, "#607D8B");
+				var restaurant_markers = restaurants.map(function (restaurant) {
+					return { mark: { markerOffset: 25, name: restaurant.name, coordinates: [restaurant.longitude, restaurant.latitude] }, color: "#339FFF" };
+				});
+
+				var markers = park_markers.concat(restaurant_markers);
+
+				return this.createMap(markers);
 			}
 
 			return render;
