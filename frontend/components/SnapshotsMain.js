@@ -292,13 +292,13 @@ class SnapshotsMain extends Component {
 					id="prev"
 					style = {{visibility: "hidden"}}
 					style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
-					onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_photos)}> &lt;prev
+					onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_photos)}> &lt;
 				</li>
 					{renderPageNumbers}
 					<li
 						id="next"
 						style={this.state.currentPage >= Math.ceil(concat_photos.length / this.state.photosPerPage) ? {visibility:'hidden'} : {}}
-						onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_photos)}> next&gt;
+						onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_photos)}> &gt;
 					</li>
 					<li
 						id=">>"

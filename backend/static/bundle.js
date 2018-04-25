@@ -15846,7 +15846,7 @@ var Home = function (_Component) {
 								_react2["default"].createElement(
 									"h3",
 									null,
-									"Coffee Shop"
+									"Coffee Shops"
 								),
 								_react2["default"].createElement(
 									"p",
@@ -16813,7 +16813,7 @@ var Locations = function (_Component) {
 									id: 'prev',
 									style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
 									onClick: this.handleClick.bind(this, this.state.currentPage - 1, concat_locs) },
-								' <prev'
+								' <'
 							),
 							renderPageNumbers,
 							_react2['default'].createElement(
@@ -16822,7 +16822,7 @@ var Locations = function (_Component) {
 									id: 'next',
 									style: this.state.currentPage >= Math.ceil(concat_locs.length / this.state.locationsPerPage) ? { visibility: 'hidden' } : {},
 									onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_locs) },
-								' next>'
+								' >'
 							),
 							_react2['default'].createElement(
 								'li',
@@ -17477,7 +17477,7 @@ var Search = function (_Component) {
 										id: 'prev',
 										style: this.state.currentPage <= 1 ? { visibility: 'hidden' } : {},
 										onClick: this.handleClick.bind(this, this.state.currentPage - 1) },
-									' <prev'
+									' <'
 								),
 								renderPageNumbers,
 								_react2['default'].createElement(
@@ -17486,7 +17486,7 @@ var Search = function (_Component) {
 										id: 'next',
 										style: this.state.currentPage >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage) ? { visibility: 'hidden' } : {},
 										onClick: this.handleClick.bind(this, this.state.currentPage + 1) },
-									' next>'
+									' >'
 								),
 								_react2['default'].createElement(
 									'li',
@@ -18215,7 +18215,7 @@ var SnapshotsMain = function (_Component) {
 									id: 'prev',
 									style: { visibility: "hidden" }
 								}, _defineProperty(_React$createElement, 'style', this.state.currentPage <= 1 ? { visibility: 'hidden' } : {}), _defineProperty(_React$createElement, 'onClick', this.handleClick.bind(this, this.state.currentPage - 1, concat_photos)), _React$createElement),
-								' <prev'
+								' <'
 							),
 							renderPageNumbers,
 							_react2['default'].createElement(
@@ -18224,7 +18224,7 @@ var SnapshotsMain = function (_Component) {
 									id: 'next',
 									style: this.state.currentPage >= Math.ceil(concat_photos.length / this.state.photosPerPage) ? { visibility: 'hidden' } : {},
 									onClick: this.handleClick.bind(this, this.state.currentPage + 1, concat_photos) },
-								' next>'
+								' >'
 							),
 							_react2['default'].createElement(
 								'li',
