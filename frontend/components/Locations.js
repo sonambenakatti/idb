@@ -302,13 +302,13 @@ class Locations extends Component {
 					<li
 						id="prev"
 						style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
-						onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_locs)}> &lt;prev
+						onClick={this.handleClick.bind(this, this.state.currentPage - 1, concat_locs)}> &lt;
 					</li>
 						{renderPageNumbers}
 						<li
 							id="next"
 							style={this.state.currentPage >= Math.ceil(concat_locs.length / this.state.locationsPerPage) ? {visibility:'hidden'} : {}}
-							onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_locs)}> next&gt;
+							onClick={this.handleClick.bind(this, this.state.currentPage + 1, concat_locs)}> &gt;
 						</li>
 						<li
 							id=">>"
