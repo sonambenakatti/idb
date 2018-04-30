@@ -14,7 +14,7 @@ class Home extends Component {
 						<div className="carousel-item active">
 							<p><a href="/shops"><img className="d-block w-100" src="/static/img/coffee1.jpg" alt="First slide" /></a></p>
 							<div className="carousel-caption d-none d-md-block">
-								<h3>Coffee Shop</h3>
+								<h3>Coffee Shops</h3>
 								<p>Browse through local coffee shops.</p>
 							</div>
 						</div>

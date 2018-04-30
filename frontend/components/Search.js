@@ -227,13 +227,13 @@ class Search extends Component {
 						<li
 							id="prev"
 							style={this.state.currentPage <= 1 ? {visibility:'hidden'} : {}}
-							onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;prev
+							onClick={this.handleClick.bind(this, this.state.currentPage - 1)}> &lt;
 						</li>
 							{renderPageNumbers}
 						<li
 							id="next"
 							style={this.state.currentPage >= Math.ceil(this.state.searchResults.length / this.state.resultsPerPage) ? {visibility:'hidden'} : {}}
-							onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> next&gt;
+							onClick={this.handleClick.bind(this, this.state.currentPage + 1)}> &gt;
 						</li>
 						<li
 							id=">>"
