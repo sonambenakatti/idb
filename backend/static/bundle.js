@@ -14837,6 +14837,15 @@ var About = function (_Component) {
 												{ href: "https://yuml.me/3114f25a.png" },
 												"UML Diagram"
 											)
+										),
+										_react2["default"].createElement(
+											"h3",
+											{ className: "mb-4" },
+											_react2["default"].createElement(
+												"a",
+												{ href: "https://espressoyoself.me/visualization" },
+												"Are We There Yet Visualization"
+											)
 										)
 									)
 								)
