@@ -229,7 +229,7 @@ render() {
 								<h3 className="mb-4"><a href="https://sonambenakatti.gitbooks.io/espresso-yoself/content/">Gitbook</a></h3>
 								<h3 className="mb-4"><a href="https://www.gitbook.com/book/sonambenakatti/api/">API Gitbook</a></h3>
 								<h3 className="mb-4"><a href="https://yuml.me/3114f25a.png">UML Diagram</a></h3>
-								<h3 className="mb-4"><a href="https://espressoyoself.me/visualization">Are We There Yet Visualization</a></h3>
+								<h3 className="mb-4"><a href="http://espressoyoself.me/visualization">Are We There Yet Visualization</a></h3>
 							</div>
 						</div>
 					</div>
