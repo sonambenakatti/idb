@@ -18502,6 +18502,8 @@ var Visualization = function (_Component) {
 
 				var markers = park_markers.concat(restaurant_markers);
 
+				console.log(markers);
+
 				return this.createMap(markers);
 			}
 

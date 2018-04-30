@@ -186,6 +186,8 @@ class Visualization extends Component {
 
 			const markers = park_markers.concat(restaurant_markers);
 
+			console.log(markers)
+
 			return this.createMap(markers);
 		}
 }
