@@ -1,4 +1,5 @@
 # Espressoyoself website repo
+# GitPitch repo: https://github.com/ruchi-shekar/swe-pitch
 
 ## Requirements/Dependencies
 In order to run the tests, please run `npm install`  in the root directory. You will also need the config.ini file in order to run `make unittest`. Scroll down to the Secrets section for more detail.
